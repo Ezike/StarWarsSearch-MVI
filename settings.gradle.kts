@@ -1,4 +1,7 @@
 rootProject.name = "Star wars search"
 include(
-        ":app"
+    ":app",
+    ":libraries:remote",
+    ":libraries:domain",
+    ":libraries:data"
 )
