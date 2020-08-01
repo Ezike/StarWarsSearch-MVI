@@ -10,7 +10,7 @@ class CharacterRemoteModelMapper @Inject constructor() :
     override fun mapFromModel(model: CharacterRemoteModel): CharacterEntity {
         return CharacterEntity(
             model.name,
-            model.birthYear,
+            model.birth_year,
             model.height,
             model.url
         )
