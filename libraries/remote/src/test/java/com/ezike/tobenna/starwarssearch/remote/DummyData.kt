@@ -1,3 +1,13 @@
 package com.ezike.tobenna.starwarssearch.remote
 
-internal object DummyData
+import com.ezike.tobenna.starwarssearch.remote.model.CharacterRemoteModel
+
+internal object DummyData {
+
+    val characterRemoteModel = CharacterRemoteModel(
+        "Luke",
+        "32.BBY",
+        "100",
+        "https:/swapi.dev"
+    )
+}
