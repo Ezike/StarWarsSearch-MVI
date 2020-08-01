@@ -1,4 +1,3 @@
-const val kotlinVersion: String = "1.4.0-rc"
 const val kotlinAndroid: String = "android"
 const val kotlinAndroidExtension: String = "android.extensions"
 const val kotlinKapt: String = "kapt"
@@ -16,7 +15,7 @@ object Config {
     const val isMultiDexEnabled: Boolean = true
 
     object Android {
-        const val applicationId: String = "com.example.eziketobenna.bakingapp"
+        const val applicationId: String = "com.ezike.tobenna.starwarssearch"
         const val testInstrumentationRunner: String = "androidx.test.runner.AndroidJUnitRunner"
     }
 }
@@ -63,9 +62,7 @@ object Dependencies {
             const val fragment: String = "1.2.4"
             const val cardView: String = "1.0.0"
             const val recyclerView: String = "1.1.0"
-            const val exoPlayer: String = "2.10.5"
             const val coil: String = "0.11.0"
-            const val swipeRefreshLayout: String = "1.1.0-rc01"
         }
 
         const val appCompat: String = "androidx.appcompat:appcompat:${Version.appCompat}"
@@ -122,17 +119,21 @@ object Dependencies {
     object DI {
         object Version {
             const val javaxInject: String = "1"
-            const val daggerHiltAndroid: String = "2.28.2-alpha"
+            const val daggerHiltAndroid: String = "2.28.3-alpha"
+            const val hiltViewModel: String = "1.0.0-alpha02"
         }
 
         object AnnotationProcessor {
             const val daggerHiltAndroid: String =
                 "com.google.dagger:hilt-android-compiler:${Version.daggerHiltAndroid}"
+            const val hiltCompiler: String = "androidx.hilt:hilt-compiler:${Version.hiltViewModel}"
         }
 
         const val javaxInject: String = "javax.inject:javax.inject:${Version.javaxInject}"
         const val daggerHiltAndroid: String =
             "com.google.dagger:hilt-android:${Version.daggerHiltAndroid}"
+        const val hiltViewModel: String =
+            "androidx.hilt:hilt-lifecycle-viewmodel:${Version.hiltViewModel}"
     }
 
     object Coroutines : Libraries {
@@ -178,7 +179,9 @@ object Dependencies {
 object ProjectLib {
     const val app: String = ":app"
     const val core: String = ":core"
+    const val presentation: String = ":presentation"
     const val domain: String = ":libraries:domain"
     const val data: String = ":libraries:data"
     const val remote: String = ":libraries:remote"
+    const val characterSearch: String = ":character_search"
 }

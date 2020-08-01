@@ -3,5 +3,8 @@ include(
     ":app",
     ":libraries:remote",
     ":libraries:domain",
-    ":libraries:data"
+    ":libraries:data",
+    ":core",
+    ":presentation",
+    ":character_search"
 )
