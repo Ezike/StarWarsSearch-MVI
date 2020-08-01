@@ -6,8 +6,10 @@ import kotlin.contracts.contract
 /**
  * An exception thrown when a use case parameter is null
  */
-internal class NoParamsException(errorMessage: String = "Your params cannot be null for this use case") :
+internal class NoParamsException(errorMessage: String = noParamMessage) :
     IllegalArgumentException(errorMessage)
+
+const val noParamMessage = "Your params cannot be null for this use case"
 
 @OptIn(ExperimentalContracts::class)
 fun <T : Any> requireParams(value: T?): T {
