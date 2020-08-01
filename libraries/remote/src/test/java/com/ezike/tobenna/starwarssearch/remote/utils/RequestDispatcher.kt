@@ -14,7 +14,7 @@ class RequestDispatcher : Dispatcher() {
                     .setResponseCode(HttpURLConnection.HTTP_OK)
                     .setBody(getJson("response/character_search.json"))
             }
-            "$REQUEST_PATH/?search=$NO_MATCH_SEARCH_QUERY" -> {
+            "$REQUEST_PATH?search=$NO_MATCH_SEARCH_QUERY" -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
                     .setBody(

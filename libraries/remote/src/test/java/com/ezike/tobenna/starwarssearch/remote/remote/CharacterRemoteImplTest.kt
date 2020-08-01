@@ -3,6 +3,7 @@ package com.ezike.tobenna.starwarssearch.remote.remote
 import com.ezike.tobenna.starwarssearch.data.contract.CharacterRemote
 import com.ezike.tobenna.starwarssearch.data.model.CharacterEntity
 import com.ezike.tobenna.starwarssearch.remote.mapper.CharacterRemoteModelMapper
+import com.ezike.tobenna.starwarssearch.remote.utils.NO_MATCH_SEARCH_QUERY
 import com.ezike.tobenna.starwarssearch.remote.utils.REQUEST_PATH
 import com.ezike.tobenna.starwarssearch.remote.utils.RequestDispatcher
 import com.ezike.tobenna.starwarssearch.remote.utils.SEARCH_QUERY
@@ -62,6 +63,14 @@ class CharacterRemoteImplTest {
         assertThat("GET $REQUEST_PATH?search=$SEARCH_QUERY HTTP/1.1")
             .isEqualTo(mockWebServer.takeRequest().requestLine)
     }
+
+    @Test
+    fun `check that searchCharacters returns empty list when no character is found`() =
+        runBlocking {
+            val characters: List<CharacterEntity> =
+                characterRemote.searchCharacters(NO_MATCH_SEARCH_QUERY)
+            assertThat(characters).isEmpty()
+        }
 
     @After
     fun tearDown() {
