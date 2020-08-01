@@ -13,9 +13,6 @@ val PluginDependenciesSpec.androidApplication: PluginDependencySpec
 val PluginDependenciesSpec.androidLibrary: PluginDependencySpec
     get() = id("com.android.library")
 
-val PluginDependenciesSpec.dynamicFeature: PluginDependencySpec
-    get() = id("com.android.dynamic-feature")
-
 val PluginDependenciesSpec.kotlin: PluginDependencySpec
     get() = id("kotlin")
 

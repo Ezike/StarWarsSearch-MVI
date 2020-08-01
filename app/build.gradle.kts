@@ -2,11 +2,11 @@ import Dependencies.AndroidX
 import Dependencies.DI
 import Dependencies.Network
 import Dependencies.View
+import ProjectLib.characterSearch
 
 plugins {
     androidApplication
     kotlin(kotlinAndroid)
-    kotlin(kotlinAndroidExtension)
     kotlin(kotlinKapt)
     safeArgs
     daggerHilt
@@ -22,10 +22,6 @@ android {
         versionName = Config.Version.versionName
         multiDexEnabled = Config.isMultiDexEnabled
         testInstrumentationRunner = Config.Android.testInstrumentationRunner
-    }
-
-    androidExtensions {
-        isExperimental = true
     }
 
     kotlinOptions {
@@ -50,9 +46,12 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
+    implementation(project(characterSearch))
+
     implementAll(View.components)
     implementation(Network.moshi)
     implementation(DI.daggerHiltAndroid)
+    implementation(DI.hiltViewModel)
 
     AndroidX.run {
         implementation(activity)
@@ -63,4 +62,5 @@ dependencies {
     }
 
     kapt(DI.AnnotationProcessor.daggerHiltAndroid)
+    kapt(DI.AnnotationProcessor.hiltCompiler)
 }
