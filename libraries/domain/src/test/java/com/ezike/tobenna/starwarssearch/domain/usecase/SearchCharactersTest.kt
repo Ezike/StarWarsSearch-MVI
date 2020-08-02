@@ -9,6 +9,7 @@ import com.ezike.tobenna.starwarssearch.domain.fakes.FakeCharacterRepository.Com
 import com.ezike.tobenna.starwarssearch.domain.fakes.ResponseType
 import com.ezike.tobenna.starwarssearch.domain.fakes.assertThrows
 import com.ezike.tobenna.starwarssearch.domain.model.Character
+import com.ezike.tobenna.starwarssearch.domain.usecase.search.SearchCharacters
 import com.google.common.truth.Truth.assertThat
 import java.net.SocketTimeoutException
 import kotlinx.coroutines.flow.collect

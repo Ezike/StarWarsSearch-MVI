@@ -8,6 +8,6 @@ internal object DummyData {
         "Luke Skywalker",
         "201BBY",
         "11",
-        "https://swapi.dev"
+        "https://swapi.dev/12/"
     )
 }

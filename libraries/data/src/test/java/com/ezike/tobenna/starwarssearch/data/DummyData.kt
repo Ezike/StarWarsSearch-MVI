@@ -10,13 +10,13 @@ internal object DummyData {
         "Leia organa",
         "21BBA",
         "5'5",
-        "https://swapi.dev/people/11"
+        "https://swapi.dev/people/11/"
     )
 
     val character = Character(
         "Leia organa",
         "21BBA",
         "5'5",
-        "https://swapi.dev/people/11"
+        "https://swapi.dev/people/11/"
     )
 }

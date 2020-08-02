@@ -15,14 +15,9 @@ class SearchHistoryCacheImpl @Inject constructor(
 ) : SearchHistoryCache {
 
     override suspend fun saveSearch(character: CharacterEntity) {
-        try {
-            val characterModel: CharacterCacheModel =
-                characterCacheModelMapper.mapToModel(character)
-            characterModel.timeSent = System.currentTimeMillis()
-            searchHistoryDao.insertSearch(characterModel)
-        } catch (exception: Exception) {
-            exception.printStackTrace()
-        }
+        val characterModel: CharacterCacheModel = characterCacheModelMapper.mapToModel(character)
+        characterModel.timeSent = System.currentTimeMillis()
+        searchHistoryDao.insertSearch(characterModel)
     }
 
     override fun getSearchHistory(): Flow<List<CharacterEntity>> {

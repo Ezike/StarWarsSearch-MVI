@@ -8,14 +8,9 @@ import javax.inject.Inject
 class CharacterCacheModelMapper @Inject constructor() :
     CacheModelMapper<CharacterCacheModel, CharacterEntity> {
 
-    /**
-     * When using this mapper, the operation should be wrapped in a try/catch so that if
-     * [getCharacterId] throws a [NumberFormatException], the operation should be aborted
-     */
     @Throws(NumberFormatException::class)
     override fun mapToModel(entity: CharacterEntity): CharacterCacheModel {
         return CharacterCacheModel(
-            id = getCharacterId(entity.url),
             name = entity.name,
             birthYear = entity.birthYear,
             height = entity.height,
@@ -31,8 +26,4 @@ class CharacterCacheModelMapper @Inject constructor() :
             model.url
         )
     }
-
-    @Throws(NumberFormatException::class)
-    fun getCharacterId(url: String): Int = url.substringBeforeLast("/")
-        .substringAfterLast("/").toInt()
 }
