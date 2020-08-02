@@ -1,6 +1,7 @@
 import Dependencies.Network
 import Dependencies.Test
 import ProjectLib.data
+import ProjectLib.testUtils
 
 plugins {
     kotlinLibrary
@@ -9,10 +10,10 @@ plugins {
 
 dependencies {
     implementation(project(data))
+    testImplementation(project(testUtils))
+
     implementAll(Network.components)
 
-    testImplementation(Test.junit)
-    testImplementation(Test.truth)
     testImplementation(Test.mockWebServer)
 
     kapt(Network.AnnotationProcessor.moshi)

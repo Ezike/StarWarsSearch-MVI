@@ -1,5 +1,5 @@
-import Dependencies.Test
 import ProjectLib.domain
+import ProjectLib.testUtils
 
 plugins {
     kotlinLibrary
@@ -7,7 +7,5 @@ plugins {
 
 dependencies {
     implementation(project(domain))
-    testImplementation(Test.junit)
-    testImplementation(Test.truth)
-    testImplementation(Test.coroutinesTest)
+    testImplementation(project(testUtils))
 }

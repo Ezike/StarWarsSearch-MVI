@@ -62,7 +62,7 @@ object Dependencies {
             const val fragment: String = "1.2.4"
             const val cardView: String = "1.0.0"
             const val recyclerView: String = "1.1.0"
-            const val coil: String = "0.11.0"
+            const val recyclerViewAnimator: String = "3.0.0"
         }
 
         const val appCompat: String = "androidx.appcompat:appcompat:${Version.appCompat}"
@@ -76,10 +76,10 @@ object Dependencies {
             "androidx.constraintlayout:constraintlayout:${Version.constraintLayout}"
         const val recyclerView: String =
             "androidx.recyclerview:recyclerview:${Version.recyclerView}"
-        const val coil: String = "io.coil-kt:coil:${Version.coil}"
+        const val recyclerViewAnimator: String =
+            "jp.wasabeef:recyclerview-animators:${Version.recyclerViewAnimator}"
         override val components: List<String> = listOf(
-            appCompat, fragment, cardView,
-            materialComponent, constraintLayout
+            appCompat, fragment
         )
     }
 
@@ -149,10 +149,22 @@ object Dependencies {
         override val components: List<String> = listOf(core, android)
     }
 
+    object Cache {
+        object Version {
+            const val room: String = "2.2.5"
+        }
+
+        object AnnotationProcessor {
+            const val room: String = "androidx.room:room-compiler:${Version.room}"
+        }
+
+        const val room: String = "androidx.room:room-ktx:${Version.room}"
+    }
+
     object Test {
         object Version {
             const val junit: String = "4.13"
-            const val runner: String = "1.1.0"
+            const val runner: String = "1.2.0"
             const val rules: String = "1.3.0"
             const val testExt: String = "1.1.1"
             const val espresso: String = "3.2.0"
@@ -160,19 +172,23 @@ object Dependencies {
             const val truth: String = "1.0.1"
             const val mockWebServer: String = "4.7.2"
             const val coroutineTest: String = "1.2.1"
+            const val robolectric: String = "4.3.1"
+            const val archCoreTest: String = "1.1.1"
         }
 
         const val junit: String = "junit:junit:${Version.junit}"
         const val runner: String = "androidx.test:runner:${Version.runner}"
         const val fragmentTesting: String = "androidx.fragment:fragment-testing:${Version.fragment}"
-        const val testExt: String = "androidx.test.ext:junit:${Version.testExt}"
+        const val androidXTest: String = "androidx.test.ext:junit:${Version.testExt}"
         const val espresso: String = "androidx.test.espresso:espresso-core:${Version.espresso}"
         const val rules: String = "androidx.test:rules:${Version.rules}"
+        const val archCoreTest: String = "android.arch.core:core-testing:${Version.archCoreTest}"
         const val truth: String = "com.google.truth:truth:${Version.truth}"
         const val mockWebServer: String =
             "com.squareup.okhttp3:mockwebserver:${Version.mockWebServer}"
         const val coroutinesTest: String =
             "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.coroutineTest}"
+        const val robolectric: String = "org.robolectric:robolectric:${Version.robolectric}"
     }
 }
 
@@ -183,5 +199,7 @@ object ProjectLib {
     const val domain: String = ":libraries:domain"
     const val data: String = ":libraries:data"
     const val remote: String = ":libraries:remote"
+    const val cache: String = ":libraries:cache"
+    const val testUtils: String = ":libraries:testUtils"
     const val characterSearch: String = ":character_search"
 }

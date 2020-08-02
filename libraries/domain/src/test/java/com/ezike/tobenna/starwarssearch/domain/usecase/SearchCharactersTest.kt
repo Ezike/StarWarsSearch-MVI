@@ -59,10 +59,11 @@ class SearchCharactersTest {
     }
 
     @Test
-    fun `check that calling searchCharacters without id throws NoParamException`() = runBlockingTest {
-        val exception: NoParamsException = assertThrows {
-            searchCharacters().collect()
+    fun `check that calling searchCharacters without id throws NoParamException`() =
+        runBlockingTest {
+            val exception: NoParamsException = assertThrows {
+                searchCharacters().collect()
+            }
+            assertThat(exception).hasMessageThat().isEqualTo(noParamMessage)
         }
-        assertThat(exception).hasMessageThat().isEqualTo(noParamMessage)
-    }
 }
