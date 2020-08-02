@@ -11,7 +11,6 @@ internal object DummyData {
     )
 
     val characterModel = CharacterCacheModel(
-        71,
         "Harry Granger",
         "34.BBY",
         "111",

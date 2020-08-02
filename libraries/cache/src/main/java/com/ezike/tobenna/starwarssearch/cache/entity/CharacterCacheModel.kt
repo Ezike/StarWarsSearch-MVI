@@ -5,11 +5,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "SEARCH_HISTORY")
 data class CharacterCacheModel(
-    @PrimaryKey
-    val id: Int,
     val name: String,
     val birthYear: String,
     val height: String,
+    @PrimaryKey
     val url: String
 ) {
     var timeSent: Long = 0L

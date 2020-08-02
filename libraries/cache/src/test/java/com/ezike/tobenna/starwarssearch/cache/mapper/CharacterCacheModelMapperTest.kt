@@ -18,7 +18,6 @@ class CharacterCacheModelMapperTest {
         assertThat(entity.birthYear).isEqualTo(model.birthYear)
         assertThat(entity.height).isEqualTo(model.height)
         assertThat(entity.url).isEqualTo(model.url)
-        assertThat(model.id).isEqualTo(12)
     }
 
     @Test
@@ -29,17 +28,5 @@ class CharacterCacheModelMapperTest {
         assertThat(model.birthYear).isEqualTo(entity.birthYear)
         assertThat(model.height).isEqualTo(entity.height)
         assertThat(model.url).isEqualTo(entity.url)
-    }
-
-    @Test
-    fun `check that getCharacterId returns correct Id`() {
-        val entity: CharacterEntity = DummyData.entity
-        val id: Int = characterCacheModelMapper.getCharacterId(entity.url)
-        assertThat(id).isEqualTo(12)
-    }
-
-    @Test(expected = NumberFormatException::class)
-    fun `check that getCharacterId throws exception when wrong url is passed`() {
-        characterCacheModelMapper.getCharacterId("https://swapi.dev/people/1")
     }
 }

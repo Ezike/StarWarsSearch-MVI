@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/character"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_right_24"
+    android:drawablePadding="@dimen/search_bar_drawable_padding"
+    android:padding="@dimen/search_history_padding"
+    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+    android:background="?attr/selectableItemBackground"
+    tools:text="Luke Skywalker" />

@@ -47,7 +47,7 @@ dependencies {
     testImplementation(project(testUtils))
 
     implementation(DI.daggerHiltAndroid)
-    implementation(Cache.room)
+    api(Cache.room)
 
     testImplementation(Test.runner)
     testImplementation(Test.androidXTest)

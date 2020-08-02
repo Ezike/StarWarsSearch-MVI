@@ -5,9 +5,8 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewResult
 
 sealed class SearchViewResult : ViewResult {
     sealed class SearchHistoryResult : SearchViewResult() {
-        object Error : SearchHistoryResult()
         object Empty : SearchHistoryResult()
-        data class Success(val searchHistory: List<String>) : SearchHistoryResult()
+        data class Success(val searchHistory: List<Character>) : SearchHistoryResult()
     }
 
     sealed class SearchCharacterResult : SearchViewResult() {

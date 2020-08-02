@@ -9,7 +9,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object ApiServiceFactory {
 
-    private const val BASE_URL: String = "https://swapi.dev/"
+    private const val BASE_URL: String = "https://swapi.dev/api/"
 
     fun createApiService(isDebug: Boolean, moshi: Moshi): ApiService {
         val okHttpClient: OkHttpClient = makeOkHttpClient(

@@ -4,6 +4,11 @@ import Dependencies.Network
 import Dependencies.View
 import ProjectLib.cache
 import ProjectLib.characterSearch
+import ProjectLib.core
+import ProjectLib.data
+import ProjectLib.domain
+import ProjectLib.presentation
+import ProjectLib.remote
 
 plugins {
     androidApplication
@@ -48,6 +53,11 @@ dependencies {
 
     implementation(project(characterSearch))
     implementation(project(cache))
+    implementation(project(presentation))
+    implementation(project(domain))
+    implementation(project(data))
+    implementation(project(remote))
+    implementation(project(core))
 
     implementAll(View.components)
     implementation(Network.moshi)

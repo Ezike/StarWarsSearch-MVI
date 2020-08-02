@@ -1,6 +1,6 @@
 package com.ezike.tobenna.starwarssearch.core.di
 
-import androidx.viewbinding.BuildConfig
+import com.ezike.tobenna.starwarssearch.core.BuildConfig
 import com.ezike.tobenna.starwarssearch.data.contract.CharacterRemote
 import com.ezike.tobenna.starwarssearch.remote.ApiService
 import com.ezike.tobenna.starwarssearch.remote.ApiServiceFactory

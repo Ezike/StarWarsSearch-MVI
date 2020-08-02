@@ -1,9 +1,10 @@
-package com.ezike.tobenna.starwarssearch.domain.usecase
+package com.ezike.tobenna.starwarssearch.domain.usecase.search
 
 import com.ezike.tobenna.starwarssearch.domain.exception.requireParams
 import com.ezike.tobenna.starwarssearch.domain.executor.PostExecutionThread
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.domain.repository.CharacterRepository
+import com.ezike.tobenna.starwarssearch.domain.usecase.base.FlowUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

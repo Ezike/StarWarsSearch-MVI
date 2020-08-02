@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.domain.usecase
+package com.ezike.tobenna.starwarssearch.domain.usecase.base
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
