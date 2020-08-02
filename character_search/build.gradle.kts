@@ -1,6 +1,7 @@
 import Dependencies.AndroidX
 import Dependencies.Coroutines
 import Dependencies.DI
+import Dependencies.FlowBinding
 import Dependencies.View
 import ProjectLib.core
 import ProjectLib.domain
@@ -57,6 +58,7 @@ dependencies {
         implementation(shimmerLayout)
     }
 
+    implementation(FlowBinding.android)
     implementation(DI.daggerHiltAndroid)
     implementation(DI.hiltViewModel)
     implementAll(AndroidX.components)

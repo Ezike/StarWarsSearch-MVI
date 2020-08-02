@@ -1,5 +1,7 @@
 package com.ezike.tobenna.starwarssearch.presentation.mvi
 
-interface IntentProcessor<in I : ViewIntent, out A : ViewAction> {
-    fun intentToAction(intent: I): A
+import kotlinx.coroutines.flow.Flow
+
+interface IntentProcessor<in I : ViewIntent, out R : ViewResult> {
+    fun intentToResult(viewIntent: I): Flow<R>
 }

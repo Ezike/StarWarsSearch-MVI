@@ -10,7 +10,8 @@
         android:id="@+id/search_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/search_bar_horizontal_margin"
+        android:layout_marginHorizontal="@dimen/search_bar_horizontal_margin"
+        android:layout_marginTop="@dimen/search_bar_margin_top"
         android:background="@drawable/search_bar_bg"
         android:drawableStart="@drawable/ic_baseline_search_24"
         android:drawablePadding="@dimen/search_bar_drawable_padding"
@@ -24,55 +25,109 @@
         android:inputType="text"
         android:autofillHints="@string/search" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_bar"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.ezike.tobenna.starwarssearch.character_search.views.EmptyStateView
+        android:id="@+id/empty_state"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:isButtonVisible="true"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:emptyStateImageSrc="@drawable/ic_error_page_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_bar"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/characters"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/rv_margin_top"
         android:visibility="gone"
+        android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_history"
+    <TextView
+        android:id="@+id/recent_searches_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/rv_margin_top"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/recent_searches"
+        android:layout_marginTop="@dimen/clear_history_top_margin"
+        android:layout_marginHorizontal="@dimen/clear_history_horizontal_margin"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/clear_history"
         app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
     <TextView
         android:id="@+id/clear_history"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:text="@string/clear_search_history"
-        android:layout_marginTop="@dimen/clear_history_top_margin"
         android:layout_marginHorizontal="@dimen/clear_history_horizontal_margin"
-        android:textStyle="bold"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_history" />
+        app:layout_constraintStart_toEndOf="@id/recent_searches_title"
+        app:layout_constraintTop_toTopOf="@+id/recent_searches_title"
+        app:layout_constraintBottom_toBottomOf="@id/recent_searches_title" />
 
     <TextView
         android:id="@+id/search_history_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search_history_empty_text"
+        android:layout_marginTop="@dimen/search_history_prompt_top_margin"
         android:layout_marginHorizontal="@dimen/clear_history_horizontal_margin"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintVertical_bias="0.05"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="@dimen/divider_top_margin"
+        android:background="@color/divider_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recent_searches_title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_history"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/recent_search_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="recent_searches_title, clear_history, search_history" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

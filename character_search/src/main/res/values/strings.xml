@@ -1,5 +1,10 @@
 <resources>
     <string name="search">Search …</string>
-    <string name="clear_search_history">Clear search history</string>
+    <string name="clear_search_history">Clear history</string>
     <string name="search_history_empty_text">Your recent searches will appear here</string>
+    <string name="recent_searches">Recent searches</string>
+    <string name="retry">Retry</string>
+    <string name="empty_state_icon">Empty state icon</string>
+    <string name="an_error_occurred">An error occurred</string>
+    <string name="no_data">No characters found</string>
 </resources>
