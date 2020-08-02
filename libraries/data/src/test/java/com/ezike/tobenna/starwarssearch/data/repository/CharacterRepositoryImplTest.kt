@@ -1,11 +1,11 @@
 package com.ezike.tobenna.starwarssearch.data.repository
 
 import com.ezike.tobenna.starwarssearch.data.DummyData
-import com.ezike.tobenna.starwarssearch.data.assertThrows
 import com.ezike.tobenna.starwarssearch.data.fakes.FakeCharacterRemote
 import com.ezike.tobenna.starwarssearch.data.fakes.FakeErrorCharacterRemote
 import com.ezike.tobenna.starwarssearch.data.mapper.CharacterEntityMapper
 import com.ezike.tobenna.starwarssearch.domain.model.Character
+import com.ezike.tobenna.starwarssearch.testutils.assertThrows
 import com.google.common.truth.Truth.assertThat
 import java.net.UnknownHostException
 import kotlinx.coroutines.flow.first

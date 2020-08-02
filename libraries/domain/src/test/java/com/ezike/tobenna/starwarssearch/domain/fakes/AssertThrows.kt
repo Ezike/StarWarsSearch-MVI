@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.data
+package com.ezike.tobenna.starwarssearch.domain.fakes
 
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async

@@ -2,6 +2,7 @@ import Dependencies.AndroidX
 import Dependencies.DI
 import Dependencies.Network
 import Dependencies.View
+import ProjectLib.cache
 import ProjectLib.characterSearch
 
 plugins {
@@ -28,7 +29,6 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-    @Suppress("UnstableApiUsage")
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -47,6 +47,7 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(project(characterSearch))
+    implementation(project(cache))
 
     implementAll(View.components)
     implementation(Network.moshi)

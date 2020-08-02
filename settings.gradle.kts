@@ -6,5 +6,7 @@ include(
     ":libraries:data",
     ":core",
     ":presentation",
-    ":character_search"
+    ":character_search",
+    ":libraries:cache",
+    ":libraries:testUtils"
 )

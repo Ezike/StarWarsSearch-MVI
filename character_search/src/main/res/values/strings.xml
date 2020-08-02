@@ -1,0 +1,5 @@
+<resources>
+    <string name="search">Search …</string>
+    <string name="clear_search_history">Clear search history</string>
+    <string name="search_history_empty_text">Your recent searches will appear here</string>
+</resources>

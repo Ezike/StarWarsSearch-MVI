@@ -1,16 +1,17 @@
 import Dependencies.AndroidX
 import Dependencies.Coroutines
 import Dependencies.DI
-import Dependencies.Test
 import Dependencies.View
 import ProjectLib.core
 import ProjectLib.domain
 import ProjectLib.presentation
+import ProjectLib.testUtils
 
 plugins {
     androidLibrary
     kotlin(kotlinAndroid)
     kotlin(kotlinKapt)
+    id("kotlin-android")
     daggerHilt
 }
 
@@ -21,7 +22,6 @@ android {
         targetSdkVersion(Config.Version.targetSdkVersion)
     }
 
-    @Suppress("UnstableApiUsage")
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -44,18 +44,23 @@ dependencies {
     implementation(project(presentation))
     implementation(project(domain))
 
-    implementAll(View.components)
-    implementation(View.recyclerView)
-    implementation(View.shimmerLayout)
+    testImplementation(project(testUtils))
+
+    with(View) {
+        implementAll(components)
+        implementation(fragment)
+        implementation(materialComponent)
+        implementation(constraintLayout)
+        implementation(cardView)
+        implementation(recyclerView)
+        implementation(recyclerViewAnimator)
+        implementation(shimmerLayout)
+    }
 
     implementation(DI.daggerHiltAndroid)
     implementation(DI.hiltViewModel)
     implementAll(AndroidX.components)
     implementAll(Coroutines.components)
-
-    testImplementation(Test.junit)
-    testImplementation(Test.truth)
-    testImplementation(Test.coroutinesTest)
 
     kapt(DI.AnnotationProcessor.daggerHiltAndroid)
     kapt(DI.AnnotationProcessor.hiltCompiler)

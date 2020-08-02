@@ -6,14 +6,9 @@ import com.ezike.tobenna.starwarssearch.domain.fakes.FakeCharacterRepository.Com
 import com.ezike.tobenna.starwarssearch.domain.usecase.FlowUseCase
 import java.net.SocketTimeoutException
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.TestCoroutineScope
-import org.junit.Assert
-import org.junit.function.ThrowingRunnable
 
 class ExceptionUseCase(private val postExecutionThread: PostExecutionThread) :
     FlowUseCase<Unit, Unit>() {
@@ -38,15 +33,4 @@ class ParamUseCase(private val postExecutionThread: PostExecutionThread) :
 
     override val dispatcher: CoroutineDispatcher
         get() = postExecutionThread.io
-}
-
-inline fun <reified T : Throwable> TestCoroutineScope.assertThrows(
-    crossinline runnable: suspend () -> Unit
-): T {
-    val throwingRunnable = ThrowingRunnable {
-        val job: Deferred<Unit> = async { runnable() }
-        job.getCompletionExceptionOrNull()?.run { throw this }
-        job.cancel()
-    }
-    return Assert.assertThrows(T::class.java, throwingRunnable)
 }
