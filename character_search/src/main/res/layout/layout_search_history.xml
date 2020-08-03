@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/recent_searches_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/recent_searches"
+        android:layout_marginTop="@dimen/clear_history_top_margin"
+        android:layout_marginHorizontal="@dimen/clear_history_horizontal_margin"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/clear_history"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/clear_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_search_history"
+        android:layout_marginHorizontal="@dimen/clear_history_horizontal_margin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/recent_searches_title"
+        app:layout_constraintTop_toTopOf="@+id/recent_searches_title"
+        app:layout_constraintBottom_toBottomOf="@id/recent_searches_title" />
+
+    <TextView
+        android:id="@+id/search_history_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_history_empty_text"
+        android:layout_marginTop="@dimen/search_history_prompt_top_margin"
+        android:layout_marginHorizontal="@dimen/clear_history_horizontal_margin"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_history"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recent_searches_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:itemCount="4"
+        tools:listitem="@layout/search_history"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/recent_search_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="recent_searches_title, clear_history" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,8 +6,8 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 sealed class SearchViewState : ViewState {
     object Idle : SearchViewState()
     sealed class SearchHistoryViewState : SearchViewState() {
-        data class SearchHistoryLoaded(val history: List<CharacterModel>) : SearchViewState()
-        object SearchHistoryEmpty : SearchViewState()
+        data class SearchHistoryLoaded(val history: List<CharacterModel>) : SearchHistoryViewState()
+        object SearchHistoryEmpty : SearchHistoryViewState()
     }
 
     sealed class SearchCharacterViewState : SearchViewState() {

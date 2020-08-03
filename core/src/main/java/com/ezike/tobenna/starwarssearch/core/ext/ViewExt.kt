@@ -18,10 +18,11 @@ fun ViewGroup.inflate(layout: Int): View {
 }
 
 fun Fragment.getDrawable(@DrawableRes id: Int): Drawable? {
-    return ContextCompat.getDrawable(
-        requireContext(),
-        id
-    )
+    return ContextCompat.getDrawable(requireContext(), id)
+}
+
+fun Context.getImage(@DrawableRes id: Int): Drawable? {
+    return ContextCompat.getDrawable(this, id)
 }
 
 fun Fragment.onBackPress(onBackPressed: OnBackPressedCallback.() -> Unit) {
