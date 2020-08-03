@@ -15,14 +15,13 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.conflate
-import kotlinx.coroutines.flow.debounce
 
 typealias SearchResultClickListener = (CharacterModel) -> Unit
 
 class SearchResultAdapter @Inject constructor() :
     ListAdapter<CharacterModel, SearchResultViewHolder>(diffUtilCallback) {
 
-    var clickListener: SearchResultClickListener? = null
+    private var clickListener: SearchResultClickListener? = null
 
     val clicks: Flow<CharacterModel>
         get() = callbackFlow {
@@ -32,7 +31,7 @@ class SearchResultAdapter @Inject constructor() :
             }
             clickListener = listener
             awaitClose { clickListener = null }
-        }.conflate().debounce(200)
+        }.conflate()
 
     fun reset() {
         submitList(listOf())

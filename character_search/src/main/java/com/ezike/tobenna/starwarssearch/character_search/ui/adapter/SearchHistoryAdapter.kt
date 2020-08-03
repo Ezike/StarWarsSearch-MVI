@@ -25,6 +25,10 @@ class SearchHistoryAdapter @Inject constructor() :
         holder.bind(getItem(position), clickListener)
     }
 
+    fun reset() {
+        submitList(listOf())
+    }
+
     class SearchHistoryViewHolder(private val binding: SearchHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 

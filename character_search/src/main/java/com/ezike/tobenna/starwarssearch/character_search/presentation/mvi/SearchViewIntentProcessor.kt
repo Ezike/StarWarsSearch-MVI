@@ -26,10 +26,12 @@ class SearchViewIntentProcessor @Inject constructor(
 
     override fun intentToResult(viewIntent: SearchViewIntent): Flow<SearchViewResult> {
         return when (viewIntent) {
-            SearchViewIntent.LoadSearchHistory -> loadSearchHistory()
-            is SearchViewIntent.Search -> executeSearch(viewIntent.query)
-            is SearchViewIntent.SaveSearch -> flow { saveSearch(modelMapper.mapToDomain(viewIntent.character)) }
-            SearchViewIntent.ClearSearchHistory -> flow {
+            is SearchCharacterViewIntent.Search -> executeSearch(viewIntent.query)
+            is SearchCharacterViewIntent.SaveSearch -> flow {
+                saveSearch(modelMapper.mapToDomain(viewIntent.character))
+            }
+            SearchHistoryViewIntent.LoadSearchHistory -> loadSearchHistory()
+            SearchHistoryViewIntent.ClearSearchHistory -> flow {
                 clearSearchHistory()
                 emit(SearchHistoryResult.Empty)
             }
