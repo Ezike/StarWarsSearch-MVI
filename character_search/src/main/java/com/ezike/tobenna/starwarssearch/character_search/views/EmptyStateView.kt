@@ -43,21 +43,21 @@ class EmptyStateView : LinearLayout {
         binding = SimpleEmptyStateViewLayoutBinding.inflate(inflater, this, true)
 
         val attributes: TypedArray =
-            context.obtainStyledAttributes(attrs, R.styleable.SimpleEmptyStateView, 0, 0)
+            context.obtainStyledAttributes(attrs, R.styleable.EmptyStateView, 0, 0)
 
         val emptyStateTitle: String? =
-            attributes.getString(R.styleable.SimpleEmptyStateView_emptyStateTitleText)
+            attributes.getString(R.styleable.EmptyStateView_emptyStateTitleText)
         val emptyStateImageSrc: Drawable? =
-            attributes.getDrawable(R.styleable.SimpleEmptyStateView_emptyStateImageSrc)
+            attributes.getDrawable(R.styleable.EmptyStateView_emptyStateImageSrc)
         val emptyStateCaption: String? =
-            attributes.getString(R.styleable.SimpleEmptyStateView_emptyStateCaptionText)
+            attributes.getString(R.styleable.EmptyStateView_emptyStateCaptionText)
         val emptyStateButtonText: String? =
-            attributes.getString(R.styleable.SimpleEmptyStateView_emptyStateButtonText)
+            attributes.getString(R.styleable.EmptyStateView_emptyStateButtonText)
 
         val emptyStateButtonVisible: Boolean =
-            attributes.getBoolean(R.styleable.SimpleEmptyStateView_isButtonVisible, false)
+            attributes.getBoolean(R.styleable.EmptyStateView_isButtonVisible, false)
         val emptyStateTitleVisible: Boolean =
-            attributes.getBoolean(R.styleable.SimpleEmptyStateView_isTitleVisible, true)
+            attributes.getBoolean(R.styleable.EmptyStateView_isTitleVisible, true)
 
         attributes.recycle()
 

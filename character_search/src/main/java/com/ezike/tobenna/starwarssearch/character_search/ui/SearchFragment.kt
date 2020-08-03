@@ -25,11 +25,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 import reactivecircus.flowbinding.android.view.clicks
-import reactivecircus.flowbinding.android.widget.textChanges
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search),
@@ -52,22 +50,16 @@ class SearchFragment : Fragment(R.layout.fragment_search),
         get() = merge(searchIntent, retrySearchIntent, clearHistoryIntent, saveSearchIntent)
 
     private val searchIntent: Flow<SearchViewIntent>
-        get() = binding.searchBar.textChanges(emitImmediately = false)
-            .debounce(DEBOUNCE_PERIOD)
-            .map(CharSequence::toString)
-            .map(SearchViewIntent::Search)
+        get() = binding.searchBar.textChanges.map(SearchViewIntent::Search)
 
     private val retrySearchIntent: Flow<SearchViewIntent>
-        get() = binding.emptyState.clicks
-            .debounce(DEBOUNCE_PERIOD)
-            .map { SearchViewIntent.Search(binding.searchBar.text.toString().trim()) }
+        get() = binding.emptyState.clicks.map { SearchViewIntent.Search(binding.searchBar.texts) }
 
     private val saveSearchIntent: Flow<SearchViewIntent.SaveSearch>
         get() = searchResultAdapter.clicks.map(SearchViewIntent::SaveSearch)
 
     private val clearHistoryIntent: Flow<SearchViewIntent.ClearSearchHistory>
         get() = binding.clearHistory.clicks()
-            .debounce(DEBOUNCE_PERIOD)
             .map { SearchViewIntent.ClearSearchHistory }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -162,9 +154,5 @@ class SearchFragment : Fragment(R.layout.fragment_search),
                 }
             }
         }
-    }
-
-    companion object {
-        const val DEBOUNCE_PERIOD: Long = 300L
     }
 }
