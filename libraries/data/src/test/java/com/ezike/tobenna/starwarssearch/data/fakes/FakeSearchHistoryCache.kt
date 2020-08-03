@@ -2,8 +2,6 @@ package com.ezike.tobenna.starwarssearch.data.fakes
 
 import com.ezike.tobenna.starwarssearch.data.contract.SearchHistoryCache
 import com.ezike.tobenna.starwarssearch.data.model.CharacterEntity
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 
 class FakeSearchHistoryCache : SearchHistoryCache {
 
@@ -13,8 +11,8 @@ class FakeSearchHistoryCache : SearchHistoryCache {
         cache[character.url] = character
     }
 
-    override fun getSearchHistory(): Flow<List<CharacterEntity>> {
-        return flowOf(cache.values.toList().reversed())
+    override suspend fun getSearchHistory(): List<CharacterEntity> {
+        return cache.values.toList().reversed()
     }
 
     override suspend fun clearSearchHistory() {

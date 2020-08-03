@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 
-class ExceptionUseCase(private val postExecutionThread: PostExecutionThread) :
+internal class ExceptionUseCase(private val postExecutionThread: PostExecutionThread) :
     FlowUseCase<Unit, Unit>() {
 
     override fun execute(params: Unit?): Flow<Unit> {
@@ -23,7 +23,7 @@ class ExceptionUseCase(private val postExecutionThread: PostExecutionThread) :
         get() = postExecutionThread.io
 }
 
-class ParamUseCase(private val postExecutionThread: PostExecutionThread) :
+internal class ParamUseCase(private val postExecutionThread: PostExecutionThread) :
     FlowUseCase<String, String>() {
 
     override fun execute(params: String?): Flow<String> {

@@ -6,9 +6,6 @@ import com.ezike.tobenna.starwarssearch.cache.mapper.CharacterCacheModelMapper
 import com.ezike.tobenna.starwarssearch.data.contract.SearchHistoryCache
 import com.ezike.tobenna.starwarssearch.data.model.CharacterEntity
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 
 class SearchHistoryCacheImpl @Inject constructor(
     private val searchHistoryDao: SearchHistoryDao,
@@ -21,10 +18,9 @@ class SearchHistoryCacheImpl @Inject constructor(
         searchHistoryDao.insertSearch(characterModel)
     }
 
-    override fun getSearchHistory(): Flow<List<CharacterEntity>> {
-        val characterModels: Flow<List<CharacterCacheModel>> = searchHistoryDao.recentSearches
-        return characterModels.distinctUntilChanged()
-            .map(characterCacheModelMapper::mapToEntityList)
+    override suspend fun getSearchHistory(): List<CharacterEntity> {
+        val characterModels: List<CharacterCacheModel> = searchHistoryDao.recentSearches
+        return characterModels.map(characterCacheModelMapper::mapToEntity)
     }
 
     override suspend fun clearSearchHistory() {
