@@ -29,7 +29,10 @@ class SearchViewIntentProcessor @Inject constructor(
             SearchViewIntent.LoadSearchHistory -> loadSearchHistory()
             is SearchViewIntent.Search -> executeSearch(viewIntent.query)
             is SearchViewIntent.SaveSearch -> flow { saveSearch(modelMapper.mapToDomain(viewIntent.character)) }
-            SearchViewIntent.ClearSearchHistory -> flow { clearSearchHistory() }
+            SearchViewIntent.ClearSearchHistory -> flow {
+                clearSearchHistory()
+                emit(SearchHistoryResult.Empty)
+            }
         }
     }
 

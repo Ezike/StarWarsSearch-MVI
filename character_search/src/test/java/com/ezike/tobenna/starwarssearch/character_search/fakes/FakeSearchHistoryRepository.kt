@@ -1,11 +1,11 @@
-package com.ezike.tobenna.starwarssearch.domain.fakes
+package com.ezike.tobenna.starwarssearch.character_search.fakes
 
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.domain.repository.SearchHistoryRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-internal class FakeSearchHistoryRepository : SearchHistoryRepository {
+class FakeSearchHistoryRepository : SearchHistoryRepository {
 
     private val cache = LinkedHashMap<String, Character>()
 

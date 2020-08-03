@@ -7,7 +7,7 @@ import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.domain.repository.SearchHistoryRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flow
 
 class SearchHistoryRepositoryImpl @Inject constructor(
     private val searchHistoryCache: SearchHistoryCache,
@@ -20,8 +20,10 @@ class SearchHistoryRepositoryImpl @Inject constructor(
     }
 
     override fun getSearchHistory(): Flow<List<Character>> {
-        val characters: Flow<List<CharacterEntity>> = searchHistoryCache.getSearchHistory()
-        return characters.map(characterEntityMapper::mapFromEntityList)
+        return flow {
+            val searchHistory: List<CharacterEntity> = searchHistoryCache.getSearchHistory()
+            emit(searchHistory.map(characterEntityMapper::mapFromEntity))
+        }
     }
 
     override suspend fun clearSearchHistory() {

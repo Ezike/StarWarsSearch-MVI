@@ -9,7 +9,6 @@ import com.ezike.tobenna.starwarssearch.cache.mapper.CharacterCacheModelMapper
 import com.ezike.tobenna.starwarssearch.data.contract.SearchHistoryCache
 import com.ezike.tobenna.starwarssearch.data.model.CharacterEntity
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
@@ -27,7 +26,8 @@ class SearchHistoryCacheImplTest {
         starWarsDatabase = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
             StarWarsDatabase::class.java
-        ).build()
+        ).allowMainThreadQueries().build()
+
         searchHistoryCache = SearchHistoryCacheImpl(
             starWarsDatabase.searchHistoryDao,
             CharacterCacheModelMapper()
@@ -40,7 +40,7 @@ class SearchHistoryCacheImplTest {
 
         searchHistoryCache.saveSearch(character)
 
-        val result: CharacterEntity = searchHistoryCache.getSearchHistory().first().first()
+        val result: CharacterEntity = searchHistoryCache.getSearchHistory().first()
         assertThat(character.name).isEqualTo(result.name)
         assertThat(character.height).isEqualTo(result.height)
         assertThat(character.birthYear).isEqualTo(result.birthYear)
@@ -57,7 +57,7 @@ class SearchHistoryCacheImplTest {
         searchHistoryCache.saveSearch(character2)
         searchHistoryCache.saveSearch(character3)
 
-        val result: CharacterEntity = searchHistoryCache.getSearchHistory().first().first()
+        val result: CharacterEntity = searchHistoryCache.getSearchHistory().first()
         assertThat(result).isEqualTo(character3)
     }
 
@@ -71,7 +71,7 @@ class SearchHistoryCacheImplTest {
         searchHistoryCache.saveSearch(character1)
 
         val result: CharacterEntity =
-            searchHistoryCache.getSearchHistory().first().first()
+            searchHistoryCache.getSearchHistory().first()
         assertThat(result).isNotEqualTo(character)
         assertThat(result.name).isEqualTo(name)
     }
@@ -87,7 +87,7 @@ class SearchHistoryCacheImplTest {
         searchHistoryCache.saveSearch(character3)
 
         val allItems: List<CharacterEntity> = listOf(character3, character2, character)
-        val result: List<CharacterEntity> = searchHistoryCache.getSearchHistory().first()
+        val result: List<CharacterEntity> = searchHistoryCache.getSearchHistory()
         assertThat(allItems).containsExactlyElementsIn(result).inOrder()
     }
 
@@ -101,7 +101,7 @@ class SearchHistoryCacheImplTest {
 
         searchHistoryCache.clearSearchHistory()
 
-        val result: List<CharacterEntity> = searchHistoryCache.getSearchHistory().first()
+        val result: List<CharacterEntity> = searchHistoryCache.getSearchHistory()
         assertThat(result).isEmpty()
     }
 

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.FragmentSearchBinding
+import com.ezike.tobenna.starwarssearch.character_search.navigation.NavigationDispatcher
 import com.ezike.tobenna.starwarssearch.character_search.presentation.CharacterSearchViewModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.mvi.SearchViewIntent
 import com.ezike.tobenna.starwarssearch.character_search.presentation.mvi.SearchViewState
@@ -17,10 +18,12 @@ import com.ezike.tobenna.starwarssearch.character_search.ui.adapter.SearchHistor
 import com.ezike.tobenna.starwarssearch.character_search.ui.adapter.SearchResultAdapter
 import com.ezike.tobenna.starwarssearch.core.ext.getDrawable
 import com.ezike.tobenna.starwarssearch.core.ext.observe
+import com.ezike.tobenna.starwarssearch.core.ext.onBackPress
 import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.MVIView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import javax.inject.Provider
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.map
@@ -31,6 +34,9 @@ import reactivecircus.flowbinding.android.widget.textChanges
 @AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search),
     MVIView<SearchViewIntent, SearchViewState> {
+
+    @Inject
+    lateinit var navigator: Provider<NavigationDispatcher>
 
     @Inject
     lateinit var searchHistoryAdapter: SearchHistoryAdapter
@@ -71,6 +77,13 @@ class SearchFragment : Fragment(R.layout.fragment_search),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        onBackPress {
+            if (binding.searchBar.text.isNotEmpty()) {
+                binding.searchBar.text.clear()
+            } else {
+                requireActivity().finish()
+            }
+        }
         viewModel.viewState.observe(viewLifecycleOwner, ::render)
         binding.searchHistory.adapter = searchHistoryAdapter
         binding.characters.adapter = searchResultAdapter
