@@ -1,8 +1,10 @@
 package com.ezike.tobenna.starwarssearch.character_search.fakes
 
-import com.ezike.tobenna.starwarssearch.domain.data.DummyData
+import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.domain.repository.CharacterRepository
+import com.ezike.tobenna.starwarssearch.testutils.ERROR_MSG
+import com.ezike.tobenna.starwarssearch.testutils.ResponseType
 import java.net.SocketTimeoutException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -10,11 +12,7 @@ import kotlinx.coroutines.flow.flowOf
 
 internal class FakeCharacterRepository : CharacterRepository {
 
-    companion object {
-        const val ERROR_MSG: String = "No network"
-    }
-
-    private var charactersFlow: Flow<List<Character>> = flowOf(listOf(DummyData.character))
+    private var charactersFlow: Flow<List<Character>> = flowOf(DummyData.characterList)
 
     var responseType: ResponseType = ResponseType.DATA
         set(value) {
@@ -33,10 +31,4 @@ internal class FakeCharacterRepository : CharacterRepository {
     override fun searchCharacters(characterName: String): Flow<List<Character>> {
         return charactersFlow
     }
-}
-
-internal enum class ResponseType {
-    DATA,
-    EMPTY,
-    ERROR
 }

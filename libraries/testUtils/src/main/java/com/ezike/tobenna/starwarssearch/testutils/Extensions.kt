@@ -1,5 +1,6 @@
 package com.ezike.tobenna.starwarssearch.testutils
 
+import com.google.common.truth.IterableSubject
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.test.TestCoroutineScope
@@ -15,4 +16,8 @@ inline fun <reified T : Throwable> TestCoroutineScope.assertThrows(
         job.cancel()
     }
     return Assert.assertThrows(T::class.java, throwingRunnable)
+}
+
+inline fun <reified T> IterableSubject.containsElements(vararg instance: T) {
+    containsExactlyElementsIn(instance).inOrder()
 }
