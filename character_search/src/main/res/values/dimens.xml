@@ -4,7 +4,7 @@
     <dimen name="search_bar_text">16sp</dimen>
     <dimen name="search_bar_drawable_padding">16dp</dimen>
     <dimen name="rv_margin_top">18dp</dimen>
-    <dimen name="clear_history_top_margin">24dp</dimen>
+    <dimen name="clear_history_top_margin">12dp</dimen>
     <dimen name="clear_history_horizontal_margin">16dp</dimen>
     <dimen name="search_bar_horizontal_margin">16dp</dimen>
     <dimen name="search_history_prompt_text_size">18sp</dimen>
@@ -15,7 +15,8 @@
     <dimen name="empty_state_title_margin_top">16dp</dimen>
     <dimen name="empty_state_image_width">180dp</dimen>
     <dimen name="search_history_padding">16dp</dimen>
-    <dimen name="search_bar_margin_top">30dp</dimen>
+    <dimen name="search_bar_margin_top">36dp</dimen>
     <dimen name="divider_height">2dp</dimen>
-    <dimen name="divider_top_margin">12dp</dimen>
+    <dimen name="divider_top_margin">16dp</dimen>
+    <dimen name="recent_search_padding_vertical">16dp</dimen>
 </resources>

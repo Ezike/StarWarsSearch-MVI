@@ -1,9 +1,11 @@
 package com.ezike.tobenna.starwarssearch.core.di
 
 import com.ezike.tobenna.starwarssearch.core.BuildConfig
+import com.ezike.tobenna.starwarssearch.data.contract.CharacterDetailRemote
 import com.ezike.tobenna.starwarssearch.data.contract.CharacterRemote
 import com.ezike.tobenna.starwarssearch.remote.ApiService
 import com.ezike.tobenna.starwarssearch.remote.ApiServiceFactory
+import com.ezike.tobenna.starwarssearch.remote.remote.CharacterDetailRemoteImpl
 import com.ezike.tobenna.starwarssearch.remote.remote.CharacterRemoteImpl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -20,6 +22,9 @@ interface RemoteModule {
 
     @get:[Binds Singleton]
     val CharacterRemoteImpl.bindCharacterRemote: CharacterRemote
+
+    @get:[Binds Singleton]
+    val CharacterDetailRemoteImpl.bindCharacterDetailRemote: CharacterDetailRemote
 
     companion object {
         @get:[Provides Singleton]

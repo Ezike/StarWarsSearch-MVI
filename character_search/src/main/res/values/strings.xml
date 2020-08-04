@@ -7,4 +7,7 @@
     <string name="empty_state_icon">Empty state icon</string>
     <string name="an_error_occurred">An error occurred</string>
     <string name="no_data">No characters found</string>
+    <string name="planet">Planet</string>
+    <string name="species">Species</string>
+    <string name="films">Films</string>
 </resources>

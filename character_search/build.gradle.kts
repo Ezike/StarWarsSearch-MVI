@@ -11,8 +11,9 @@ import ProjectLib.testUtils
 plugins {
     androidLibrary
     kotlin(kotlinAndroid)
+    kotlin(kotlinAndroidExtension)
     kotlin(kotlinKapt)
-    id("kotlin-android")
+    safeArgs
     daggerHilt
 }
 
@@ -54,7 +55,6 @@ dependencies {
         implementation(constraintLayout)
         implementation(cardView)
         implementation(recyclerView)
-        implementation(recyclerViewAnimator)
         implementation(shimmerLayout)
     }
 
