@@ -3,6 +3,7 @@ package com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -12,6 +13,9 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.Cha
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewIntent
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewIntent.LoadCharacterDetail
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewState
+import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.FilmDetailViewState
+import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.PlanetDetailViewState
+import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.SpecieDetailViewState
 import com.ezike.tobenna.starwarssearch.core.ext.observe
 import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.MVIView
@@ -32,8 +36,6 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
         FragmentCharacterDetailBinding::bind
     )
 
-    var response: String = ""
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.processIntent(intents)
@@ -46,8 +48,34 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
 
     override fun render(state: CharacterDetailViewState) {
         Log.d("detailss", "$state")
-        response += state::class.qualifiedName + "\n\n\n"
-        binding.dummy.text = response
+        when (state) {
+            is PlanetDetailViewState -> {
+                binding.detailErrorState.isVisible = false
+                binding.planetView.isVisible = true
+                binding.planetView.render(state)
+            }
+            is SpecieDetailViewState -> {
+                binding.detailErrorState.isVisible = false
+            }
+            is FilmDetailViewState -> {
+                binding.detailErrorState.isVisible = false
+            }
+            CharacterDetailViewState.Idle -> {
+                binding.detailErrorState.isVisible = false
+            }
+            is CharacterDetailViewState.ProfileLoaded -> {
+                binding.profileView.render(state)
+                binding.detailErrorState.isVisible = false
+            }
+            is CharacterDetailViewState.FetchDetailError -> {
+                binding.planetView.hide()
+                binding.detailErrorState.isVisible = true
+                binding.detailErrorState.setCaption(state.message)
+                binding.detailErrorState.setTitle(
+                    getString(R.string.error_fetching_details, args.character.name)
+                )
+            }
+        }
     }
 
     override val intents: Flow<CharacterDetailViewIntent>

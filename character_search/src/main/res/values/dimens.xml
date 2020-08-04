@@ -19,4 +19,7 @@
     <dimen name="divider_height">2dp</dimen>
     <dimen name="divider_top_margin">16dp</dimen>
     <dimen name="recent_search_padding_vertical">16dp</dimen>
+    <dimen name="loading_margin">20dp</dimen>
+    <dimen name="loading_card_radius">8dp</dimen>
+    <dimen name="loading_card_elevation">4dp</dimen>
 </resources>

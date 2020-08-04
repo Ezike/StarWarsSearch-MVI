@@ -9,6 +9,10 @@ class SpecieRemoteMapper @Inject constructor() :
     RemoteModelMapper<SpecieResponse, SpecieEntity> {
 
     override fun mapFromModel(model: SpecieResponse): SpecieEntity {
-        return SpecieEntity(model.name, model.language)
+        return SpecieEntity(
+            model.name,
+            model.language,
+            ""
+        )
     }
 }

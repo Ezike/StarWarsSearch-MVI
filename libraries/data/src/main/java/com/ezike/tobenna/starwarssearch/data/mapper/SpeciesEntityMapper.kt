@@ -10,14 +10,16 @@ class SpeciesEntityMapper @Inject constructor() : EntityMapper<SpecieEntity, Spe
     override fun mapFromEntity(entity: SpecieEntity): Specie {
         return Specie(
             entity.name,
-            entity.language
+            entity.language,
+            entity.homeWorld
         )
     }
 
     override fun mapToEntity(domain: Specie): SpecieEntity {
         return SpecieEntity(
             domain.name,
-            domain.language
+            domain.language,
+            domain.homeWorld
         )
     }
 }

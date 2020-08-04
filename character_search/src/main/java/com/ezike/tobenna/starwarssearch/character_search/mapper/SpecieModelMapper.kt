@@ -8,10 +8,10 @@ import javax.inject.Inject
 class SpecieModelMapper @Inject constructor() : ModelMapper<SpecieModel, Specie> {
 
     override fun mapToModel(domain: Specie): SpecieModel {
-        return SpecieModel(domain.name, domain.language)
+        return SpecieModel(domain.name, domain.language, domain.homeWorld)
     }
 
     override fun mapToDomain(model: SpecieModel): Specie {
-        return Specie(model.name, model.population)
+        return Specie(model.name, model.population, model.homeWorld)
     }
 }

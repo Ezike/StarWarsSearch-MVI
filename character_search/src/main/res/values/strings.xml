@@ -10,4 +10,12 @@
     <string name="planet">Planet</string>
     <string name="species">Species</string>
     <string name="films">Films</string>
+    <string name="character_name">Name: %s</string>
+    <string name="character_birth_year">Birth year: %s</string>
+    <string name="height">Height: %s cm, %s inches</string>
+    <string name="profile_title">%s\'s profile</string>
+    <string name="error_fetching_details">Error fetching %s\'s detail</string>
+    <string name="planet_name">Name: %s</string>
+    <string name="population">Population: %,d</string>
+    <string name="population_not_available">Population: N/A</string>
 </resources>
