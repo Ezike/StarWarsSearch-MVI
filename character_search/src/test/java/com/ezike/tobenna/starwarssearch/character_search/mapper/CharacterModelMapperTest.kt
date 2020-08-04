@@ -16,7 +16,7 @@ class CharacterModelMapperTest {
         val model: CharacterModel = characterModelMapper.mapToModel(character)
         assertThat(character.name).isEqualTo(model.name)
         assertThat(character.birthYear).isEqualTo(model.birthYear)
-        assertThat(character.height).isEqualTo(model.height)
+        assertThat(character.height).isEqualTo(model.heightCm)
         assertThat(character.url).isEqualTo(model.url)
     }
 
@@ -26,7 +26,7 @@ class CharacterModelMapperTest {
         val characterDomain: Character = characterModelMapper.mapToDomain(model)
         assertThat(model.name).isEqualTo(characterDomain.name)
         assertThat(model.birthYear).isEqualTo(characterDomain.birthYear)
-        assertThat(model.height).isEqualTo(characterDomain.height)
+        assertThat(model.heightCm).isEqualTo(characterDomain.height)
         assertThat(model.url).isEqualTo(characterDomain.url)
     }
 }

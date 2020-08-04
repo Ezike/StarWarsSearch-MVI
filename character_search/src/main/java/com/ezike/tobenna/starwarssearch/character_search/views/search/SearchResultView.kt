@@ -88,12 +88,10 @@ class SearchResultView @JvmOverloads constructor(context: Context, attributeSet:
                     characters.isInvisible = true
                     progressBar.isVisible = false
                     emptyState.isVisible = true
-                    if (emptyState.isVisible) {
-                        emptyState.setImage(context.getImage(R.drawable.ic_error_page_2))
-                        emptyState.setCaption(state.message)
-                        emptyState.setTitle(context.getString(R.string.an_error_occurred))
-                        emptyState.isButtonVisible = true
-                    }
+                    emptyState.setImage(context.getImage(R.drawable.ic_error_page_2))
+                    emptyState.setCaption(state.message)
+                    emptyState.setTitle(context.getString(R.string.an_error_occurred))
+                    emptyState.isButtonVisible = true
                 }
             }
         }

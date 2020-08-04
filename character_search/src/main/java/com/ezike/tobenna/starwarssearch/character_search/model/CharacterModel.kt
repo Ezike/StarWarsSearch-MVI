@@ -7,6 +7,9 @@ import kotlinx.android.parcel.Parcelize
 data class CharacterModel(
     val name: String,
     val birthYear: String,
-    val height: String,
+    val heightCm: String,
     val url: String
-) : Parcelable
+) : Parcelable {
+    val heightInches: String
+        get() = heightCm.toInches
+}

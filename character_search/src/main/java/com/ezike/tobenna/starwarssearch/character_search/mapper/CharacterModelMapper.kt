@@ -20,7 +20,7 @@ class CharacterModelMapper @Inject constructor() : ModelMapper<CharacterModel, C
         return Character(
             model.name,
             model.birthYear,
-            model.height,
+            model.heightCm,
             model.url
         )
     }
