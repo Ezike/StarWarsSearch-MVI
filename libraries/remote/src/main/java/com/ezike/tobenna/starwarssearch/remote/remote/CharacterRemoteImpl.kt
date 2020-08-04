@@ -4,7 +4,7 @@ import com.ezike.tobenna.starwarssearch.data.contract.CharacterRemote
 import com.ezike.tobenna.starwarssearch.data.model.CharacterEntity
 import com.ezike.tobenna.starwarssearch.remote.ApiService
 import com.ezike.tobenna.starwarssearch.remote.mapper.CharacterRemoteModelMapper
-import com.ezike.tobenna.starwarssearch.remote.model.CharacterSearchResponse
+import com.ezike.tobenna.starwarssearch.remote.model.response.CharacterSearchResponse
 import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException

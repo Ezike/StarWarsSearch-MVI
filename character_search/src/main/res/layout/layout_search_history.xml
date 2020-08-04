@@ -10,8 +10,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/recent_searches"
-        android:layout_marginTop="@dimen/clear_history_top_margin"
+        android:gravity="start|center"
         android:layout_marginHorizontal="@dimen/clear_history_horizontal_margin"
+        android:paddingVertical="@dimen/recent_search_padding_vertical"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,10 +21,12 @@
 
     <TextView
         android:id="@+id/clear_history"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/selectableItemBackground"
         android:text="@string/clear_search_history"
-        android:layout_marginHorizontal="@dimen/clear_history_horizontal_margin"
+        android:gravity="center|end"
+        android:paddingHorizontal="@dimen/clear_history_horizontal_margin"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/recent_searches_title"
@@ -37,6 +40,7 @@
         android:text="@string/search_history_empty_text"
         android:layout_marginTop="@dimen/search_history_prompt_top_margin"
         android:layout_marginHorizontal="@dimen/clear_history_horizontal_margin"
+        android:gravity="center"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintVertical_bias="0.05"
@@ -44,19 +48,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/history_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recent_searches_title" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_history"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"
         android:scrollbars="vertical"
+        android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recent_searches_title"
+        app:layout_constraintTop_toBottomOf="@+id/history_divider"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:itemCount="4"
-        tools:listitem="@layout/search_history"/>
+        tools:listitem="@layout/search_history" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/recent_search_group"

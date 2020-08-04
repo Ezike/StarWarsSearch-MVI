@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SearchFragment">
+    tools:context=".ui.search.SearchFragment">
 
     <EditText
         android:id="@+id/search_bar"
@@ -35,7 +35,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_bar" />
 
-    <com.ezike.tobenna.starwarssearch.character_search.views.SearchHistoryView
+    <com.ezike.tobenna.starwarssearch.character_search.views.search.SearchHistoryView
         android:id="@+id/recent_search"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -44,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider" />
 
-    <com.ezike.tobenna.starwarssearch.character_search.views.SearchResultView
+    <com.ezike.tobenna.starwarssearch.character_search.views.search.SearchResultView
         android:id="@+id/search_result"
         android:layout_width="0dp"
         android:layout_height="0dp"

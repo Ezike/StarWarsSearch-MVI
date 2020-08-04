@@ -2,11 +2,13 @@ package com.ezike.tobenna.starwarssearch.character_search.presentation.mvi
 
 import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
-import com.ezike.tobenna.starwarssearch.character_search.presentation.mvi.SearchViewResult.SearchCharacterResult
-import com.ezike.tobenna.starwarssearch.character_search.presentation.mvi.SearchViewResult.SearchHistoryResult
-import com.ezike.tobenna.starwarssearch.character_search.presentation.mvi.SearchViewState.Idle
-import com.ezike.tobenna.starwarssearch.character_search.presentation.mvi.SearchViewState.SearchCharacterViewState
-import com.ezike.tobenna.starwarssearch.character_search.presentation.mvi.SearchViewState.SearchHistoryViewState
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewResult.SearchCharacterResult
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewResult.SearchHistoryResult
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewState
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewState.Idle
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewState.SearchCharacterViewState
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewState.SearchHistoryViewState
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewStateReducer
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.testutils.ERROR_MSG
 import com.google.common.truth.Truth.assertThat

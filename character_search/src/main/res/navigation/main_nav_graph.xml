@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph.xml"
+    app:startDestination="@id/searchFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.ezike.tobenna.starwarssearch.character_search.ui.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search" >
+
+        <action
+            android:id="@+id/action_searchFragment_to_characterDetailFragment"
+            app:destination="@id/characterDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/characterDetailFragment"
+        android:name="com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail.CharacterDetailFragment"
+        android:label="CharacterDetailFragment" >
+        <argument
+            android:name="character"
+            app:argType="com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel" />
+    </fragment>
+
+</navigation>

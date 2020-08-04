@@ -62,7 +62,6 @@ object Dependencies {
             const val fragment: String = "1.2.4"
             const val cardView: String = "1.0.0"
             const val recyclerView: String = "1.1.0"
-            const val recyclerViewAnimator: String = "3.0.0"
         }
 
         const val appCompat: String = "androidx.appcompat:appcompat:${Version.appCompat}"
@@ -76,11 +75,7 @@ object Dependencies {
             "androidx.constraintlayout:constraintlayout:${Version.constraintLayout}"
         const val recyclerView: String =
             "androidx.recyclerview:recyclerview:${Version.recyclerView}"
-        const val recyclerViewAnimator: String =
-            "jp.wasabeef:recyclerview-animators:${Version.recyclerViewAnimator}"
-        override val components: List<String> = listOf(
-            appCompat, fragment
-        )
+        override val components: List<String> = listOf(appCompat, fragment)
     }
 
     object FlowBinding {

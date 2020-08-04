@@ -8,6 +8,9 @@ internal object DummyData {
         "Luke",
         "32.BBY",
         "100",
-        "https:/swapi.dev"
+        listOf("https:swapi.dev/film/1"),
+        "https:swapi.dev/planet/1",
+        listOf("https:swapi.dev/film/1"),
+        "https:swapi.dev/people/1"
     )
 }
