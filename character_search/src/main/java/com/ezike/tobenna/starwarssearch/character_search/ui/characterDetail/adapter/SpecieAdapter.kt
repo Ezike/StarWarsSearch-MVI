@@ -31,12 +31,13 @@ class SpecieAdapter @Inject constructor() :
 
         fun bind(specieModel: SpecieModel) {
             val context: Context = binding.root.context
-            binding.specieName.text =
-                context.getString(R.string.specie_name, specieModel.name)
-            binding.specieLanguage.text =
-                context.getString(R.string.specie_language, specieModel.language)
-            binding.specieHomeWorld.text =
-                context.getString(R.string.specie_home, specieModel.homeWorld)
+            with(binding) {
+                specieName.text = context.getString(R.string.specie_name, specieModel.name)
+                specieLanguage.text =
+                    context.getString(R.string.specie_language, specieModel.language)
+                specieHomeWorld.text =
+                    context.getString(R.string.specie_home, specieModel.homeWorld)
+            }
         }
     }
 

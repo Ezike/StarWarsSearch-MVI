@@ -10,7 +10,7 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewState.ProfileLoaded
 import com.ezike.tobenna.starwarssearch.presentation.mvi.MVIView
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.emptyFlow
 
 class ProfileView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet) :
     LinearLayout(context, attributeSet), MVIView<CharacterDetailViewIntent, ProfileLoaded> {
@@ -26,15 +26,29 @@ class ProfileView @JvmOverloads constructor(context: Context, attributeSet: Attr
     }
 
     override fun render(state: ProfileLoaded) {
-        binding.profileTitle.text = context.getString(R.string.profile_title, state.character.name)
-        binding.characterName.text =
-            context.getString(R.string.character_name, state.character.name)
-        binding.characterBirthYear.text =
-            context.getString(R.string.character_birth_year, state.character.birthYear)
-        binding.characterHeight.text =
-            context.getString(R.string.height, state.character.heightCm, state.character.heightInches)
+        with(binding) {
+            profileTitle.text = context.getString(R.string.profile_title, state.character.name)
+            characterName.text =
+                context.getString(R.string.character_name, state.character.name)
+            characterBirthYear.text =
+                context.getString(R.string.character_birth_year, state.character.birthYear)
+            characterHeight.text = getCharacterHeight(state)
+        }
+    }
+
+    private fun getCharacterHeight(state: ProfileLoaded): String {
+        return try {
+            context.getString(
+                R.string.height,
+                state.character.heightCm,
+                state.character.heightInches
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            context.getString(R.string.height_unavailable)
+        }
     }
 
     override val intents: Flow<CharacterDetailViewIntent>
-        get() = flowOf()
+        get() = emptyFlow()
 }

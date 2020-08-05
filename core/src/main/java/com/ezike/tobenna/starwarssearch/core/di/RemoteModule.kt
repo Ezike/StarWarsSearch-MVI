@@ -1,12 +1,12 @@
 package com.ezike.tobenna.starwarssearch.core.di
 
 import com.ezike.tobenna.starwarssearch.core.BuildConfig
-import com.ezike.tobenna.starwarssearch.data.contract.CharacterDetailRemote
-import com.ezike.tobenna.starwarssearch.data.contract.CharacterRemote
+import com.ezike.tobenna.starwarssearch.data.contract.remote.CharacterDetailRemote
+import com.ezike.tobenna.starwarssearch.data.contract.remote.SearchRemote
 import com.ezike.tobenna.starwarssearch.remote.ApiService
 import com.ezike.tobenna.starwarssearch.remote.ApiServiceFactory
 import com.ezike.tobenna.starwarssearch.remote.remote.CharacterDetailRemoteImpl
-import com.ezike.tobenna.starwarssearch.remote.remote.CharacterRemoteImpl
+import com.ezike.tobenna.starwarssearch.remote.remote.SearchRemoteImpl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Binds
@@ -21,7 +21,7 @@ import javax.inject.Singleton
 interface RemoteModule {
 
     @get:[Binds Singleton]
-    val CharacterRemoteImpl.bindCharacterRemote: CharacterRemote
+    val SearchRemoteImpl.bindSearchRemote: SearchRemote
 
     @get:[Binds Singleton]
     val CharacterDetailRemoteImpl.bindCharacterDetailRemote: CharacterDetailRemote

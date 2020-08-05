@@ -69,14 +69,16 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
                 binding.detailErrorState.isVisible = false
             }
             is CharacterDetailViewState.FetchDetailError -> {
-                binding.planetView.hide()
-                binding.specieView.hide()
-                binding.filmView.hide()
-                binding.detailErrorState.isVisible = true
-                binding.detailErrorState.setCaption(state.message)
-                binding.detailErrorState.setTitle(
-                    getString(R.string.error_fetching_details, args.character.name)
-                )
+                binding.run {
+                    planetView.hide()
+                    specieView.hide()
+                    filmView.hide()
+                    detailErrorState.isVisible = true
+                    detailErrorState.setCaption(state.message)
+                    detailErrorState.setTitle(
+                        getString(R.string.error_fetching_details, args.character.name)
+                    )
+                }
             }
         }
     }

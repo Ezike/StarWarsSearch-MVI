@@ -1,8 +1,8 @@
 package com.ezike.tobenna.starwarssearch.character_search.presentation
 
 import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
-import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeCharacterRepository
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchHistoryRepository
+import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchRepository
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.CharacterSearchViewModel
@@ -40,7 +40,7 @@ class CharacterSearchViewModelTest {
     private val stateRecorder: FlowRecorder<SearchViewState> = FlowRecorder(TestCoroutineScope())
 
     private val fakeSearchHistoryRepository = FakeSearchHistoryRepository()
-    private val fakeCharacterRepository = FakeCharacterRepository()
+    private val fakeCharacterRepository = FakeSearchRepository()
     private val testPostExecutionThread = TestPostExecutionThread()
 
     private val viewModel: CharacterSearchViewModel by lazy {
@@ -48,9 +48,10 @@ class CharacterSearchViewModelTest {
             SearchViewStateMachine(
                 SearchViewIntentProcessor(
                     SearchCharacters(fakeCharacterRepository, testPostExecutionThread),
-                    SaveSearch(fakeSearchHistoryRepository),
+                    SaveSearch(fakeSearchHistoryRepository, testPostExecutionThread),
                     GetSearchHistory(fakeSearchHistoryRepository, testPostExecutionThread),
-                    ClearSearchHistory(fakeSearchHistoryRepository), characterModelMapper
+                    ClearSearchHistory(fakeSearchHistoryRepository, testPostExecutionThread),
+                    characterModelMapper
                 ),
                 SearchViewStateReducer(characterModelMapper)
             )

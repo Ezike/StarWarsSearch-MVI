@@ -9,9 +9,6 @@ class CharacterDetailEntityMapper @Inject constructor() : EntityMapper<Character
 
     override fun mapFromEntity(entity: CharacterDetailEntity): CharacterDetail {
         return CharacterDetail(
-            entity.name,
-            entity.birthYear,
-            entity.height,
             entity.filmUrls,
             entity.planetUrl,
             entity.speciesUrls,
@@ -21,9 +18,6 @@ class CharacterDetailEntityMapper @Inject constructor() : EntityMapper<Character
 
     override fun mapToEntity(domain: CharacterDetail): CharacterDetailEntity {
         return CharacterDetailEntity(
-            domain.name,
-            domain.birthYear,
-            domain.height,
             domain.filmUrls,
             domain.planetUrl,
             domain.speciesUrls,

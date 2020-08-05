@@ -1,9 +1,9 @@
 package com.ezike.tobenna.starwarssearch.cache.cacheImpl
 
-import com.ezike.tobenna.starwarssearch.cache.SearchHistoryDao
 import com.ezike.tobenna.starwarssearch.cache.entity.CharacterCacheModel
 import com.ezike.tobenna.starwarssearch.cache.mapper.CharacterCacheModelMapper
-import com.ezike.tobenna.starwarssearch.data.contract.SearchHistoryCache
+import com.ezike.tobenna.starwarssearch.cache.room.SearchHistoryDao
+import com.ezike.tobenna.starwarssearch.data.contract.cache.SearchHistoryCache
 import com.ezike.tobenna.starwarssearch.data.model.CharacterEntity
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class SearchHistoryCacheImpl @Inject constructor(
     }
 
     override suspend fun getSearchHistory(): List<CharacterEntity> {
-        val characterModels: List<CharacterCacheModel> = searchHistoryDao.recentSearches
+        val characterModels: List<CharacterCacheModel> = searchHistoryDao.recentSearches()
         return characterModels.map(characterCacheModelMapper::mapToEntity)
     }
 

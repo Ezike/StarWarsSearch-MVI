@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.cache
+package com.ezike.tobenna.starwarssearch.cache.room
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -12,8 +12,8 @@ interface SearchHistoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSearch(characterCacheModel: CharacterCacheModel)
 
-    @get:Query("SELECT * FROM SEARCH_HISTORY ORDER BY timeSent DESC")
-    val recentSearches: List<CharacterCacheModel>
+    @Query("SELECT * FROM SEARCH_HISTORY ORDER BY timeSent DESC")
+    suspend fun recentSearches(): List<CharacterCacheModel>
 
     @Query("DELETE FROM SEARCH_HISTORY")
     suspend fun clearHistory()

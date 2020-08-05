@@ -1,6 +1,6 @@
 package com.ezike.tobenna.starwarssearch.data.fakes
 
-import com.ezike.tobenna.starwarssearch.data.contract.SearchHistoryCache
+import com.ezike.tobenna.starwarssearch.data.contract.cache.SearchHistoryCache
 import com.ezike.tobenna.starwarssearch.data.model.CharacterEntity
 
 class FakeSearchHistoryCache : SearchHistoryCache {

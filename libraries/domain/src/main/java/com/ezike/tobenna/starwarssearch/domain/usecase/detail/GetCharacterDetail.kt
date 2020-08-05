@@ -9,7 +9,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 
-class FetchCharacterDetail @Inject constructor(
+class GetCharacterDetail @Inject constructor(
     private val characterDetailRepository: CharacterDetailRepository,
     private val postExecutionThread: PostExecutionThread
 ) : FlowUseCase<String, CharacterDetail>() {
@@ -19,6 +19,6 @@ class FetchCharacterDetail @Inject constructor(
 
     override fun execute(params: String?): Flow<CharacterDetail> {
         requireParams(params)
-        return characterDetailRepository.fetchCharacter(params)
+        return characterDetailRepository.getCharacterDetail(params)
     }
 }

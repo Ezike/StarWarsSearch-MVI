@@ -1,6 +1,6 @@
 package com.ezike.tobenna.starwarssearch.remote.remote
 
-import com.ezike.tobenna.starwarssearch.data.contract.CharacterRemote
+import com.ezike.tobenna.starwarssearch.data.contract.remote.SearchRemote
 import com.ezike.tobenna.starwarssearch.data.model.CharacterEntity
 import com.ezike.tobenna.starwarssearch.remote.mapper.CharacterRemoteModelMapper
 import com.ezike.tobenna.starwarssearch.remote.utils.NO_MATCH_SEARCH_QUERY
@@ -18,7 +18,7 @@ import org.junit.Test
 class CharacterRemoteImplTest {
 
     private lateinit var mockWebServer: MockWebServer
-    private lateinit var characterRemote: CharacterRemote
+    private lateinit var searchRemote: SearchRemote
     private val characterRemoteModelMapper = CharacterRemoteModelMapper()
 
     @Before
@@ -26,20 +26,20 @@ class CharacterRemoteImplTest {
         mockWebServer = MockWebServer()
         mockWebServer.dispatcher = RequestDispatcher()
         mockWebServer.start()
-        characterRemote =
-            CharacterRemoteImpl(makeTestApiService(mockWebServer), characterRemoteModelMapper)
+        searchRemote =
+            SearchRemoteImpl(makeTestApiService(mockWebServer), characterRemoteModelMapper)
     }
 
     @Test
     fun `check that searchCharacters returns character list`() = runBlocking {
-        val characters: List<CharacterEntity> = characterRemote.searchCharacters(SEARCH_QUERY)
+        val characters: List<CharacterEntity> = searchRemote.searchCharacters(SEARCH_QUERY)
         assertThat(characters).isNotEmpty()
         assertThat(characters.size).isEqualTo(2)
     }
 
     @Test
     fun `check that searchCharacters returns correct data`() = runBlocking {
-        val characters: List<CharacterEntity> = characterRemote.searchCharacters(SEARCH_QUERY)
+        val characters: List<CharacterEntity> = searchRemote.searchCharacters(SEARCH_QUERY)
         val firstCharacter: CharacterEntity = characters.first()
         val lastCharacter: CharacterEntity = characters.last()
         assertThat(firstCharacter.name).isEqualTo("Anakin Skywalker")
@@ -52,14 +52,14 @@ class CharacterRemoteImplTest {
 
     @Test
     fun `check that calling searchCharacters makes request to correct path`() = runBlocking {
-        characterRemote.searchCharacters(SEARCH_QUERY)
+        searchRemote.searchCharacters(SEARCH_QUERY)
         assertThat("$REQUEST_PATH?search=$SEARCH_QUERY")
             .isEqualTo(mockWebServer.takeRequest().path)
     }
 
     @Test
     fun `check that calling searchCharacters makes a GET request`() = runBlocking {
-        characterRemote.searchCharacters(SEARCH_QUERY)
+        searchRemote.searchCharacters(SEARCH_QUERY)
         assertThat("GET $REQUEST_PATH?search=$SEARCH_QUERY HTTP/1.1")
             .isEqualTo(mockWebServer.takeRequest().requestLine)
     }
@@ -68,7 +68,7 @@ class CharacterRemoteImplTest {
     fun `check that searchCharacters returns empty list when no character is found`() =
         runBlocking {
             val characters: List<CharacterEntity> =
-                characterRemote.searchCharacters(NO_MATCH_SEARCH_QUERY)
+                searchRemote.searchCharacters(NO_MATCH_SEARCH_QUERY)
             assertThat(characters).isEmpty()
         }
 

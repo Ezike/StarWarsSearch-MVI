@@ -3,10 +3,10 @@ package com.ezike.tobenna.starwarssearch.cache.cacheImpl
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.ezike.tobenna.starwarssearch.cache.StarWarsDatabase
 import com.ezike.tobenna.starwarssearch.cache.entity.DummyData
 import com.ezike.tobenna.starwarssearch.cache.mapper.CharacterCacheModelMapper
-import com.ezike.tobenna.starwarssearch.data.contract.SearchHistoryCache
+import com.ezike.tobenna.starwarssearch.cache.room.StarWarsDatabase
+import com.ezike.tobenna.starwarssearch.data.contract.cache.SearchHistoryCache
 import com.ezike.tobenna.starwarssearch.data.model.CharacterEntity
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking

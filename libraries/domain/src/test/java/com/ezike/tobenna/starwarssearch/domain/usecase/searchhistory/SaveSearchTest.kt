@@ -1,6 +1,7 @@
 package com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory
 
 import com.ezike.tobenna.starwarssearch.domain.data.DummyData
+import com.ezike.tobenna.starwarssearch.domain.executor.TestPostExecutionThread
 import com.ezike.tobenna.starwarssearch.domain.fakes.FakeSearchHistoryRepository
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.google.common.truth.Truth.assertThat
@@ -11,7 +12,7 @@ import org.junit.Test
 class SaveSearchTest {
 
     private val searchHistoryRepository = FakeSearchHistoryRepository()
-    private val saveSearch = SaveSearch(searchHistoryRepository)
+    private val saveSearch = SaveSearch(searchHistoryRepository, TestPostExecutionThread())
 
     @Test
     fun `check that saveSearch caches the search`() = runBlockingTest {

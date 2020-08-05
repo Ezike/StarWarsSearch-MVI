@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.data.contract
+package com.ezike.tobenna.starwarssearch.data.contract.cache
 
 import com.ezike.tobenna.starwarssearch.data.model.CharacterEntity
 

@@ -1,6 +1,6 @@
 package com.ezike.tobenna.starwarssearch.remote.remote
 
-import com.ezike.tobenna.starwarssearch.data.contract.CharacterDetailRemote
+import com.ezike.tobenna.starwarssearch.data.contract.remote.CharacterDetailRemote
 import com.ezike.tobenna.starwarssearch.data.model.CharacterDetailEntity
 import com.ezike.tobenna.starwarssearch.data.model.FilmEntity
 import com.ezike.tobenna.starwarssearch.data.model.PlanetEntity
