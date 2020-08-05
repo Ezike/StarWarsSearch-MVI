@@ -14,7 +14,7 @@ data class CharacterModel(
 ) : Parcelable {
     val heightInches: String
         get() = (BigDecimal(heightCm.toDouble() * 0.393701).setScale(
-            3,
+            1,
             RoundingMode.HALF_EVEN
         )).toString()
 }
