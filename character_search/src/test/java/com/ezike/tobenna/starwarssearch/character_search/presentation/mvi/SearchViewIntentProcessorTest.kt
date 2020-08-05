@@ -1,8 +1,8 @@
 package com.ezike.tobenna.starwarssearch.character_search.presentation.mvi
 
 import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
-import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeCharacterRepository
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchHistoryRepository
+import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchRepository
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchCharacterViewIntent
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchHistoryViewIntent
@@ -31,7 +31,7 @@ import org.junit.Test
 
 class SearchViewIntentProcessorTest {
 
-    private val fakeCharacterRepository = FakeCharacterRepository()
+    private val fakeCharacterRepository = FakeSearchRepository()
 
     private val fakeSearchHistoryRepository = FakeSearchHistoryRepository()
 
@@ -42,9 +42,10 @@ class SearchViewIntentProcessorTest {
     private val searchViewIntentProcessor =
         SearchViewIntentProcessor(
             SearchCharacters(fakeCharacterRepository, testPostExecutionThread),
-            SaveSearch(fakeSearchHistoryRepository),
+            SaveSearch(fakeSearchHistoryRepository, testPostExecutionThread),
             GetSearchHistory(fakeSearchHistoryRepository, testPostExecutionThread),
-            ClearSearchHistory(fakeSearchHistoryRepository), characterModelMapper
+            ClearSearchHistory(fakeSearchHistoryRepository, testPostExecutionThread),
+            characterModelMapper
         )
 
     private val resultRecorder: FlowRecorder<SearchViewResult> = FlowRecorder(TestCoroutineScope())

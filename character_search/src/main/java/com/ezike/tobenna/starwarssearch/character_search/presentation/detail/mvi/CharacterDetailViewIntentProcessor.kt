@@ -3,14 +3,13 @@ package com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mv
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.CharacterDetailIntentProcessor
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewIntent.LoadCharacterDetail
 import com.ezike.tobenna.starwarssearch.domain.model.Film
 import com.ezike.tobenna.starwarssearch.domain.model.Planet
 import com.ezike.tobenna.starwarssearch.domain.model.Specie
-import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchCharacterDetail
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchFilms
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchPlanet
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchSpecies
+import com.ezike.tobenna.starwarssearch.domain.usecase.detail.GetCharacterDetail
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -21,17 +20,17 @@ import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onStart
 
 class CharacterDetailViewIntentProcessor @Inject constructor(
-    private val fetchCharacterDetail: FetchCharacterDetail,
     private val fetchPlanet: FetchPlanet,
     private val fetchSpecies: FetchSpecies,
     private val fetchFilms: FetchFilms,
+    private val getCharacterDetail: GetCharacterDetail,
     private val characterModelMapper: CharacterModelMapper
 ) : CharacterDetailIntentProcessor {
 
     override fun intentToResult(viewIntent: CharacterDetailViewIntent): Flow<CharacterDetailViewResult> {
         return when (viewIntent) {
             CharacterDetailViewIntent.Idle -> flowOf(CharacterDetailViewResult.Idle)
-            is LoadCharacterDetail -> getCharacterInfo(viewIntent.character)
+            is CharacterDetailViewIntent.LoadCharacterDetail -> getCharacterInfo(viewIntent.character)
             is CharacterDetailViewIntent.RetryFetchPlanet -> retryFetchPlanet(viewIntent.url)
             is CharacterDetailViewIntent.RetryFetchSpecie -> retryFetchSpecie(viewIntent.url)
             is CharacterDetailViewIntent.RetryFetchFilm -> retryFetchFilm(viewIntent.url)
@@ -41,7 +40,7 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
     }
 
     private fun getCharacterInfo(model: CharacterModel): Flow<CharacterDetailViewResult> {
-        return fetchCharacterDetail(model.url)
+        return getCharacterDetail(model.url)
             .flatMapLatest { character ->
                 merge(
                     getFilms(character.filmUrls),
@@ -96,19 +95,19 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
     }
 
     private fun retryFetchPlanet(url: String): Flow<PlanetDetailViewResult> {
-        return fetchCharacterDetail(url)
+        return getCharacterDetail(url)
             .flatMapLatest { character -> getPlanet(character.planetUrl) }
             .catch { error -> emit(PlanetDetailViewResult.Error(error)) }
     }
 
     private fun retryFetchSpecie(url: String): Flow<SpecieDetailViewResult> {
-        return fetchCharacterDetail(url)
+        return getCharacterDetail(url)
             .flatMapLatest { character -> getSpecies(character.speciesUrls) }
             .catch { error -> emit(SpecieDetailViewResult.Error(error)) }
     }
 
     private fun retryFetchFilm(url: String): Flow<FilmDetailViewResult> {
-        return fetchCharacterDetail(url)
+        return getCharacterDetail(url)
             .flatMapLatest { character -> getFilms(character.filmUrls) }
             .catch { error -> emit(FilmDetailViewResult.Error(error)) }
     }

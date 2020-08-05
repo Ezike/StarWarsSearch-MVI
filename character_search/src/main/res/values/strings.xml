@@ -23,4 +23,8 @@
     <string name="specie_home">Home world: %s</string>
     <string name="species_unavailable">Species information is currently available</string>
     <string name="films_unavailable">Film information is currently available</string>
+    <string name="specie_error_occurred">Unable to fetch species information</string>
+    <string name="planet_error_occurred">Unable to fetch planet information</string>
+    <string name="film_error_occurred">Unable to fetch film information</string>
+    <string name="height_unavailable">Height: N/A</string>
 </resources>

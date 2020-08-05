@@ -1,11 +1,11 @@
 package com.ezike.tobenna.starwarssearch.core.di
 
 import com.ezike.tobenna.starwarssearch.data.repository.CharacterDetailRepositoryImpl
-import com.ezike.tobenna.starwarssearch.data.repository.CharacterRepositoryImpl
 import com.ezike.tobenna.starwarssearch.data.repository.SearchHistoryRepositoryImpl
+import com.ezike.tobenna.starwarssearch.data.repository.SearchRepositoryImpl
 import com.ezike.tobenna.starwarssearch.domain.repository.CharacterDetailRepository
-import com.ezike.tobenna.starwarssearch.domain.repository.CharacterRepository
 import com.ezike.tobenna.starwarssearch.domain.repository.SearchHistoryRepository
+import com.ezike.tobenna.starwarssearch.domain.repository.SearchRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,7 +16,7 @@ import dagger.hilt.components.SingletonComponent
 interface DataModule {
 
     @get:Binds
-    val CharacterRepositoryImpl.characterRepository: CharacterRepository
+    val SearchRepositoryImpl.searchRepository: SearchRepository
 
     @get:Binds
     val CharacterDetailRepositoryImpl.characterDetailRepository: CharacterDetailRepository

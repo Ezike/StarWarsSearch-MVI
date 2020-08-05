@@ -26,7 +26,7 @@ class SearchHistoryAdapter @Inject constructor() :
     }
 
     fun reset() {
-        submitList(listOf())
+        submitList(emptyList())
     }
 
     class SearchHistoryViewHolder(private val binding: SearchHistoryBinding) :

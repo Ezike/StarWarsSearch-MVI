@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface CharacterDetailRepository {
 
-    fun fetchCharacter(characterUrl: String): Flow<CharacterDetail>
+    fun getCharacterDetail(characterUrl: String): Flow<CharacterDetail>
 
     fun fetchPlanet(planetUrl: String): Flow<Planet>
 

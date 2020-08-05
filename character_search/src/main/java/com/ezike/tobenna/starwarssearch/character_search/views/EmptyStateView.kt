@@ -7,7 +7,6 @@ import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
@@ -90,9 +89,10 @@ class EmptyStateView : LinearLayout {
 
     fun setImage(emptyStateImageSrc: Drawable?) {
         if (emptyStateImageSrc != null) {
+            binding.image.isVisible = true
             binding.image.setImageDrawable(emptyStateImageSrc)
         } else {
-            binding.image.visibility = View.INVISIBLE
+            binding.image.isVisible = false
         }
     }
 

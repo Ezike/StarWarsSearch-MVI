@@ -34,7 +34,7 @@ class SearchResultAdapter @Inject constructor() :
         }.conflate()
 
     fun reset() {
-        submitList(listOf())
+        submitList(emptyList())
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultViewHolder {

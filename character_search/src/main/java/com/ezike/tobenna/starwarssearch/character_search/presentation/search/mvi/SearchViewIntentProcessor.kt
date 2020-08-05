@@ -52,7 +52,7 @@ class SearchViewIntentProcessor @Inject constructor(
     }
 
     private fun executeSearch(query: String): Flow<SearchViewResult> {
-        if (query.trim().isBlank()) {
+        if (query.isBlank()) {
             return loadSearchHistory()
         }
         return searchCharacters(query.trim())

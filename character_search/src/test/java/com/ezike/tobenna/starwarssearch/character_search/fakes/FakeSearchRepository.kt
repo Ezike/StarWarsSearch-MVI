@@ -2,7 +2,7 @@ package com.ezike.tobenna.starwarssearch.character_search.fakes
 
 import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
 import com.ezike.tobenna.starwarssearch.domain.model.Character
-import com.ezike.tobenna.starwarssearch.domain.repository.CharacterRepository
+import com.ezike.tobenna.starwarssearch.domain.repository.SearchRepository
 import com.ezike.tobenna.starwarssearch.testutils.ERROR_MSG
 import com.ezike.tobenna.starwarssearch.testutils.ResponseType
 import java.net.SocketTimeoutException
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 
-internal class FakeCharacterRepository : CharacterRepository {
+internal class FakeSearchRepository : SearchRepository {
 
     private var charactersFlow: Flow<List<Character>> = flowOf(DummyData.characterList)
 

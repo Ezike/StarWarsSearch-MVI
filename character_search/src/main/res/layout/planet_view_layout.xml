@@ -31,8 +31,7 @@
         app:isButtonVisible="true"
         android:layout_margin="16dp"
         android:visibility="gone"
-        app:emptyStateTitleText="@string/an_error_occurred"
-        app:emptyStateImageSrc="@drawable/ic_error_page_2" />
+        app:emptyStateTitleText="@string/planet_error_occurred" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/planet_card_view"

@@ -1,6 +1,7 @@
 package com.ezike.tobenna.starwarssearch.data.repository
 
-import com.ezike.tobenna.starwarssearch.data.contract.CharacterDetailRemote
+import com.ezike.tobenna.starwarssearch.data.contract.cache.CharacterDetailCache
+import com.ezike.tobenna.starwarssearch.data.contract.remote.CharacterDetailRemote
 import com.ezike.tobenna.starwarssearch.data.mapper.CharacterDetailEntityMapper
 import com.ezike.tobenna.starwarssearch.data.mapper.FilmEntityMapper
 import com.ezike.tobenna.starwarssearch.data.mapper.PlanetEntityMapper
@@ -20,17 +21,25 @@ import kotlinx.coroutines.flow.flow
 
 class CharacterDetailRepositoryImpl @Inject constructor(
     private val characterDetailRemote: CharacterDetailRemote,
+    private val characterDetailCache: CharacterDetailCache,
     private val characterDetailEntityMapper: CharacterDetailEntityMapper,
     private val planetEntityMapper: PlanetEntityMapper,
     private val filmEntityMapper: FilmEntityMapper,
     private val speciesEntityMapper: SpeciesEntityMapper
 ) : CharacterDetailRepository {
 
-    override fun fetchCharacter(characterUrl: String): Flow<CharacterDetail> {
+    override fun getCharacterDetail(characterUrl: String): Flow<CharacterDetail> {
         return flow {
-            val characterDetail: CharacterDetailEntity =
-                characterDetailRemote.fetchCharacter(characterUrl)
-            emit(characterDetailEntityMapper.mapFromEntity(characterDetail))
+            val cachedCharacter: CharacterDetailEntity? =
+                characterDetailCache.fetchCharacter(characterUrl)
+            if (cachedCharacter != null) {
+                emit(characterDetailEntityMapper.mapFromEntity(cachedCharacter))
+            } else {
+                val characterDetail: CharacterDetailEntity =
+                    characterDetailRemote.fetchCharacter(characterUrl)
+                emit(characterDetailEntityMapper.mapFromEntity(characterDetail))
+                characterDetailCache.saveCharacter(characterDetail)
+            }
         }
     }
 

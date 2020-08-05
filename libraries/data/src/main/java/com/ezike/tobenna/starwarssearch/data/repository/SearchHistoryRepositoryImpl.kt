@@ -1,6 +1,6 @@
 package com.ezike.tobenna.starwarssearch.data.repository
 
-import com.ezike.tobenna.starwarssearch.data.contract.SearchHistoryCache
+import com.ezike.tobenna.starwarssearch.data.contract.cache.SearchHistoryCache
 import com.ezike.tobenna.starwarssearch.data.mapper.CharacterEntityMapper
 import com.ezike.tobenna.starwarssearch.data.model.CharacterEntity
 import com.ezike.tobenna.starwarssearch.domain.model.Character

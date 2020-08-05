@@ -1,5 +1,6 @@
 import Dependencies.Cache
 import Dependencies.DI
+import Dependencies.Network
 import Dependencies.Test
 import ProjectLib.data
 import ProjectLib.testUtils
@@ -22,7 +23,7 @@ android {
                 arguments += Pair("room.incremental", "true")
             }
         }
-        buildConfigField("int", "databaseVersion", 1.toString())
+        buildConfigField("int", "databaseVersion", 3.toString())
     }
 
     compileOptions {
@@ -47,6 +48,7 @@ dependencies {
     testImplementation(project(testUtils))
 
     implementation(DI.daggerHiltAndroid)
+    implementation(Network.moshi)
     api(Cache.room)
 
     testImplementation(Test.runner)

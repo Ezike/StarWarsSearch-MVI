@@ -5,8 +5,8 @@ import com.ezike.tobenna.starwarssearch.domain.data.DummyData
 import com.ezike.tobenna.starwarssearch.domain.exception.NoParamsException
 import com.ezike.tobenna.starwarssearch.domain.exception.noParamMessage
 import com.ezike.tobenna.starwarssearch.domain.executor.TestPostExecutionThread
-import com.ezike.tobenna.starwarssearch.domain.fakes.FakeCharacterRepository
-import com.ezike.tobenna.starwarssearch.domain.fakes.FakeCharacterRepository.Companion.ERROR_MSG
+import com.ezike.tobenna.starwarssearch.domain.fakes.FakeSearchRepository
+import com.ezike.tobenna.starwarssearch.domain.fakes.FakeSearchRepository.Companion.ERROR_MSG
 import com.ezike.tobenna.starwarssearch.domain.fakes.ResponseType
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.domain.usecase.search.SearchCharacters
@@ -19,7 +19,7 @@ import org.junit.Test
 
 class SearchCharactersTest {
 
-    private val fakeCharacterRepository = FakeCharacterRepository()
+    private val fakeCharacterRepository = FakeSearchRepository()
 
     private val searchCharacters =
         SearchCharacters(fakeCharacterRepository, TestPostExecutionThread())

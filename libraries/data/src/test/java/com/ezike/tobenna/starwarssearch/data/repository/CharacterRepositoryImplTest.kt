@@ -1,8 +1,8 @@
 package com.ezike.tobenna.starwarssearch.data.repository
 
 import com.ezike.tobenna.starwarssearch.data.DummyData
-import com.ezike.tobenna.starwarssearch.data.fakes.FakeCharacterRemote
-import com.ezike.tobenna.starwarssearch.data.fakes.FakeErrorCharacterRemote
+import com.ezike.tobenna.starwarssearch.data.fakes.FakeErrorSearchRemote
+import com.ezike.tobenna.starwarssearch.data.fakes.FakeSearchRemote
 import com.ezike.tobenna.starwarssearch.data.mapper.CharacterEntityMapper
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.testutils.assertThrows
@@ -17,7 +17,7 @@ class CharacterRepositoryImplTest {
     private val characterEntityMapper = CharacterEntityMapper()
 
     private val characterRepository =
-        CharacterRepositoryImpl(FakeCharacterRemote(), characterEntityMapper)
+        SearchRepositoryImpl(FakeSearchRemote(), characterEntityMapper)
 
     @Test
     fun `check that searchCharacters returns data`() = runBlockingTest {
@@ -39,7 +39,7 @@ class CharacterRepositoryImplTest {
     @Test(expected = UnknownHostException::class)
     fun `check that searchCharacters throws error if network call fails`() = runBlockingTest {
         val errorRepository =
-            CharacterRepositoryImpl(FakeErrorCharacterRemote(), characterEntityMapper)
+            SearchRepositoryImpl(FakeErrorSearchRemote(), characterEntityMapper)
         errorRepository.searchCharacters(DummyData.name).first()
     }
 
@@ -47,10 +47,10 @@ class CharacterRepositoryImplTest {
     fun `check that searchCharacters returns error message if network call fails`() =
         runBlockingTest {
             val errorRepository =
-                CharacterRepositoryImpl(FakeErrorCharacterRemote(), characterEntityMapper)
+                SearchRepositoryImpl(FakeErrorSearchRemote(), characterEntityMapper)
             val throwable: UnknownHostException = assertThrows {
                 errorRepository.searchCharacters(DummyData.name).first()
             }
-            assertThat(throwable).hasMessageThat().isEqualTo(FakeErrorCharacterRemote.ERROR)
+            assertThat(throwable).hasMessageThat().isEqualTo(FakeErrorSearchRemote.ERROR)
         }
 }

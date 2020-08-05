@@ -4,7 +4,7 @@ import com.ezike.tobenna.starwarssearch.domain.assertThrows
 import com.ezike.tobenna.starwarssearch.domain.exception.NoParamsException
 import com.ezike.tobenna.starwarssearch.domain.executor.TestPostExecutionThread
 import com.ezike.tobenna.starwarssearch.domain.fakes.ExceptionUseCase
-import com.ezike.tobenna.starwarssearch.domain.fakes.FakeCharacterRepository.Companion.ERROR_MSG
+import com.ezike.tobenna.starwarssearch.domain.fakes.FakeSearchRepository.Companion.ERROR_MSG
 import com.ezike.tobenna.starwarssearch.domain.fakes.ParamUseCase
 import com.google.common.truth.Truth.assertThat
 import java.net.SocketTimeoutException

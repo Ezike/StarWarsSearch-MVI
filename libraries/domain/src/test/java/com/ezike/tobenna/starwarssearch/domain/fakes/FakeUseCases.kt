@@ -2,7 +2,7 @@ package com.ezike.tobenna.starwarssearch.domain.fakes
 
 import com.ezike.tobenna.starwarssearch.domain.exception.requireParams
 import com.ezike.tobenna.starwarssearch.domain.executor.PostExecutionThread
-import com.ezike.tobenna.starwarssearch.domain.fakes.FakeCharacterRepository.Companion.ERROR_MSG
+import com.ezike.tobenna.starwarssearch.domain.fakes.FakeSearchRepository.Companion.ERROR_MSG
 import com.ezike.tobenna.starwarssearch.domain.usecase.base.FlowUseCase
 import java.net.SocketTimeoutException
 import kotlinx.coroutines.CoroutineDispatcher

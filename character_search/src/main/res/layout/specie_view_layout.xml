@@ -41,8 +41,7 @@
         app:isButtonVisible="true"
         android:layout_margin="16dp"
         android:visibility="gone"
-        app:emptyStateTitleText="@string/an_error_occurred"
-        app:emptyStateImageSrc="@drawable/ic_error_page_2" />
+        app:emptyStateTitleText="@string/specie_error_occurred" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/specie_list"
