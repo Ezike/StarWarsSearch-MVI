@@ -49,14 +49,16 @@ class CharacterDetailRemoteImpl @Inject constructor(
                     e.printStackTrace()
                 }
             }
-            val species: List<SpecieEntity> = specieDetails.map { specie ->
+            return@supervisorScope specieDetails.map { specie ->
                 if (specieMap.containsKey(specie.homeworld)) {
-                    SpecieEntity(specie.name, specie.language, specieMap[specie.homeworld] ?: "")
+                    SpecieEntity(
+                        specie.name, specie.language,
+                        specieMap[specie.homeworld] ?: ""
+                    )
                 } else {
                     SpecieEntity(specie.name, specie.language, "")
                 }
             }
-            species
         }
     }
 

@@ -79,7 +79,7 @@ object Dependencies {
     }
 
     object FlowBinding {
-        private const val flowBindingVersion: String = "0.12.0"
+        private const val flowBindingVersion: String = "1.0.0-alpha02"
         const val android: String =
             "io.github.reactivecircus.flowbinding:flowbinding-android:$flowBindingVersion"
         const val lifecycle: String =
@@ -133,7 +133,7 @@ object Dependencies {
 
     object Coroutines : Libraries {
         object Version {
-            const val coroutines: String = "1.3.7"
+            const val coroutines: String = "1.3.8"
         }
 
         const val core: String =

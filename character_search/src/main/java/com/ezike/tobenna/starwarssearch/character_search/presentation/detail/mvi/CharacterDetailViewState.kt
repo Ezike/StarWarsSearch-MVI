@@ -19,7 +19,7 @@ sealed class PlanetDetailViewState : CharacterDetailViewState() {
 }
 
 sealed class SpecieDetailViewState : CharacterDetailViewState() {
-    data class Success(val specie: List<SpecieModel>) : SpecieDetailViewState()
+    data class Success(val species: List<SpecieModel>) : SpecieDetailViewState()
     data class Error(val message: String) : SpecieDetailViewState()
     object Loading : SpecieDetailViewState()
 }

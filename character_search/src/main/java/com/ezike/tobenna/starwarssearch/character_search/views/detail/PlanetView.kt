@@ -8,10 +8,12 @@ import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.PlanetViewLayoutBinding
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewIntent
+import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewIntent.RetryFetchPlanet
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.PlanetDetailViewState
 import com.ezike.tobenna.starwarssearch.presentation.mvi.MVIView
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.map
 
 class PlanetView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet) :
     LinearLayout(context, attributeSet), MVIView<CharacterDetailViewIntent, PlanetDetailViewState> {
@@ -31,8 +33,8 @@ class PlanetView @JvmOverloads constructor(context: Context, attributeSet: Attri
         when (state) {
             is PlanetDetailViewState.Success -> {
                 binding.planetCardView.isVisible = true
-                binding.loadingView.root.isVisible = false
-                binding.errorState.isVisible = false
+                binding.planetLoadingView.root.isVisible = false
+                binding.planetErrorState.isVisible = false
                 binding.planetName.text = context.getString(R.string.planet_name, state.planet.name)
                 val population: String = try {
                     context.getString(R.string.population, state.planet.population.toLong())
@@ -43,14 +45,14 @@ class PlanetView @JvmOverloads constructor(context: Context, attributeSet: Attri
             }
             is PlanetDetailViewState.Error -> {
                 binding.planetCardView.isVisible = false
-                binding.loadingView.root.isVisible = false
-                binding.errorState.isVisible = true
-                binding.errorState.setCaption(state.message)
+                binding.planetLoadingView.root.isVisible = false
+                binding.planetErrorState.isVisible = true
+                binding.planetErrorState.setCaption(state.message)
             }
             PlanetDetailViewState.Loading -> {
                 binding.planetCardView.isVisible = false
-                binding.loadingView.root.isVisible = true
-                binding.errorState.isVisible = false
+                binding.planetLoadingView.root.isVisible = true
+                binding.planetErrorState.isVisible = false
             }
         }
     }
@@ -58,6 +60,9 @@ class PlanetView @JvmOverloads constructor(context: Context, attributeSet: Attri
     fun hide() {
         binding.root.isVisible = false
     }
+
+    fun retryIntent(url: String): Flow<RetryFetchPlanet> =
+        binding.planetErrorState.clicks.map { RetryFetchPlanet(url) }
 
     override val intents: Flow<CharacterDetailViewIntent>
         get() = emptyFlow()
