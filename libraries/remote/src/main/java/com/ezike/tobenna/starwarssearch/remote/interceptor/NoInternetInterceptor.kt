@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.remote.utils
+package com.ezike.tobenna.starwarssearch.remote.interceptor
 
 import java.io.IOException
 import java.net.ConnectException
@@ -16,13 +16,13 @@ object NoInternetInterceptor : Interceptor {
         try {
             serverResponse = chain.proceed(chain.request())
         } catch (e: Exception) {
-            throw checkException(e)
+            throw noNetworkException(e)
         }
 
         return serverResponse
     }
 
-    private fun checkException(exception: Throwable): Throwable {
+    private fun noNetworkException(exception: Throwable): Throwable {
         val networkExceptions: List<KClass<out IOException>> =
             listOf(
                 SocketTimeoutException::class,

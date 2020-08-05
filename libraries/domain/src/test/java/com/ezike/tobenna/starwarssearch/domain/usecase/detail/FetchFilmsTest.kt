@@ -53,11 +53,9 @@ class FetchFilmsTest {
     @Test
     fun `check that fetchFilms throws NoParams exception when called without params`() =
         runBlockingTest {
-            runBlockingTest {
-                val exception: NoParamsException = assertThrows {
-                    fetchFilms().collect()
-                }
-                assertThat(exception).hasMessageThat().isEqualTo(noParamMessage)
+            val exception: NoParamsException = assertThrows {
+                fetchFilms().collect()
             }
+            assertThat(exception).hasMessageThat().isEqualTo(noParamMessage)
         }
 }

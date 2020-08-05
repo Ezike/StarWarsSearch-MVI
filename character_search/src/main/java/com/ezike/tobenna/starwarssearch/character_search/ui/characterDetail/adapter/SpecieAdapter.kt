@@ -35,8 +35,15 @@ class SpecieAdapter @Inject constructor() :
                 specieName.text = context.getString(R.string.specie_name, specieModel.name)
                 specieLanguage.text =
                     context.getString(R.string.specie_language, specieModel.language)
-                specieHomeWorld.text =
-                    context.getString(R.string.specie_home, specieModel.homeWorld)
+                specieHomeWorld.text = getHomeWorld(specieModel, context)
+            }
+        }
+
+        private fun getHomeWorld(specieModel: SpecieModel, context: Context): String {
+            return if (specieModel.homeWorld.isNotEmpty()) {
+                context.getString(R.string.specie_home, specieModel.homeWorld)
+            } else {
+                context.getString(R.string.specie_home_unavailable)
             }
         }
     }

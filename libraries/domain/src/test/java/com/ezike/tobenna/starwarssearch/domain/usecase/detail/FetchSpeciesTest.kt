@@ -53,11 +53,9 @@ class FetchSpeciesTest {
     @Test
     fun `check that fetchSpecie throws NoParams exception when called without params`() =
         runBlockingTest {
-            runBlockingTest {
-                val exception: NoParamsException = assertThrows {
-                    fetchSpecie().collect()
-                }
-                assertThat(exception).hasMessageThat().isEqualTo(noParamMessage)
+            val exception: NoParamsException = assertThrows {
+                fetchSpecie().collect()
             }
+            assertThat(exception).hasMessageThat().isEqualTo(noParamMessage)
         }
 }

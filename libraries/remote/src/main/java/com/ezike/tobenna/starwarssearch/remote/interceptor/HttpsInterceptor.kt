@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.remote.utils
+package com.ezike.tobenna.starwarssearch.remote.interceptor
 
 import okhttp3.HttpUrl
 import okhttp3.Interceptor

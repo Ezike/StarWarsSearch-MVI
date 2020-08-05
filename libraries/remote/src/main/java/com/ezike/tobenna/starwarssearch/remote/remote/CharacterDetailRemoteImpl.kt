@@ -14,7 +14,6 @@ import com.ezike.tobenna.starwarssearch.remote.model.response.FilmResponse
 import com.ezike.tobenna.starwarssearch.remote.model.response.PlanetResponse
 import com.ezike.tobenna.starwarssearch.remote.model.response.SpecieResponse
 import javax.inject.Inject
-import kotlinx.coroutines.supervisorScope
 
 class CharacterDetailRemoteImpl @Inject constructor(
     private val apiService: ApiService,
@@ -34,30 +33,28 @@ class CharacterDetailRemoteImpl @Inject constructor(
     }
 
     override suspend fun fetchSpecies(urls: List<String>): List<SpecieEntity> {
-        return supervisorScope {
-            val specieDetails: List<SpecieResponse> = urls.map { url ->
-                apiService.fetchSpecieDetails(url)
+        val specieDetails: List<SpecieResponse> = urls.map { url ->
+            apiService.fetchSpecieDetails(url)
+        }
+        val specieMap: MutableMap<String, String> = mutableMapOf()
+        specieDetails.mapNotNull { specie ->
+            specie.homeworld
+        }.forEach { url ->
+            try {
+                val homeWorld: PlanetResponse = apiService.fetchPlanet(url)
+                specieMap[url] = homeWorld.name
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-            val specieMap: MutableMap<String, String> = mutableMapOf()
-            specieDetails.mapNotNull { specie ->
-                specie.homeworld
-            }.forEach { url ->
-                try {
-                    val homeWorld: PlanetResponse = apiService.fetchPlanet(url)
-                    specieMap[url] = homeWorld.name
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-            return@supervisorScope specieDetails.map { specie ->
-                if (specieMap.containsKey(specie.homeworld)) {
-                    SpecieEntity(
-                        specie.name, specie.language,
-                        specieMap[specie.homeworld] ?: ""
-                    )
-                } else {
-                    SpecieEntity(specie.name, specie.language, "")
-                }
+        }
+        return specieDetails.map { specie ->
+            if (specieMap.containsKey(specie.homeworld)) {
+                SpecieEntity(
+                    specie.name, specie.language,
+                    specieMap[specie.homeworld] ?: ""
+                )
+            } else {
+                SpecieEntity(specie.name, specie.language, "")
             }
         }
     }

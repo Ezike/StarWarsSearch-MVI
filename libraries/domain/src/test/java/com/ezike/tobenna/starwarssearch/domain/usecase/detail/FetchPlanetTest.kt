@@ -44,11 +44,9 @@ class FetchPlanetTest {
     @Test
     fun `check that fetchPlanet throws NoParams exception when called without params`() =
         runBlockingTest {
-            runBlockingTest {
-                val exception: NoParamsException = assertThrows {
-                    fetchPlanet().collect()
-                }
-                assertThat(exception).hasMessageThat().isEqualTo(noParamMessage)
+            val exception: NoParamsException = assertThrows {
+                fetchPlanet().collect()
             }
+            assertThat(exception).hasMessageThat().isEqualTo(noParamMessage)
         }
 }
