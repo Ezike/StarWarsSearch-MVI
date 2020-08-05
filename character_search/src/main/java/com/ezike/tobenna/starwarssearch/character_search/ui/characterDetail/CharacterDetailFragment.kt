@@ -1,7 +1,6 @@
 package com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -12,6 +11,7 @@ import com.ezike.tobenna.starwarssearch.character_search.databinding.FragmentCha
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.CharacterDetailViewModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewIntent
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewIntent.LoadCharacterDetail
+import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewIntent.RetryFetchCharacterDetails
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.FilmDetailViewState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.PlanetDetailViewState
@@ -21,8 +21,9 @@ import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.MVIView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.merge
 
 @AndroidEntryPoint
 class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
@@ -47,8 +48,9 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
     }
 
     override fun render(state: CharacterDetailViewState) {
-        Log.d("detailss", "$state")
         when (state) {
+            CharacterDetailViewState.Idle -> {
+            }
             is PlanetDetailViewState -> {
                 binding.detailErrorState.isVisible = false
                 binding.planetView.isVisible = true
@@ -56,12 +58,11 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
             }
             is SpecieDetailViewState -> {
                 binding.detailErrorState.isVisible = false
+                binding.specieView.render(state)
             }
             is FilmDetailViewState -> {
                 binding.detailErrorState.isVisible = false
-            }
-            CharacterDetailViewState.Idle -> {
-                binding.detailErrorState.isVisible = false
+                binding.filmView.render(state)
             }
             is CharacterDetailViewState.ProfileLoaded -> {
                 binding.profileView.render(state)
@@ -69,6 +70,8 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
             }
             is CharacterDetailViewState.FetchDetailError -> {
                 binding.planetView.hide()
+                binding.specieView.hide()
+                binding.filmView.hide()
                 binding.detailErrorState.isVisible = true
                 binding.detailErrorState.setCaption(state.message)
                 binding.detailErrorState.setTitle(
@@ -78,6 +81,17 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
         }
     }
 
+    private val retryFetchDetailIntent: Flow<RetryFetchCharacterDetails>
+        get() = binding.detailErrorState.clicks.map {
+            RetryFetchCharacterDetails(args.character)
+        }
+
     override val intents: Flow<CharacterDetailViewIntent>
-        get() = flowOf(LoadCharacterDetail(args.character)).distinctUntilChanged()
+        get() = merge(
+            flowOf(LoadCharacterDetail(args.character)),
+            retryFetchDetailIntent,
+            binding.filmView.retryIntent(args.character.url),
+            binding.planetView.retryIntent(args.character.url),
+            binding.specieView.retryIntent(args.character.url)
+        )
 }

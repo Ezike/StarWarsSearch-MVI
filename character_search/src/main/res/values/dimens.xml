@@ -22,4 +22,6 @@
     <dimen name="loading_margin">20dp</dimen>
     <dimen name="loading_card_radius">8dp</dimen>
     <dimen name="loading_card_elevation">4dp</dimen>
+    <dimen name="profile_detail_top_margin">24dp</dimen>
+    <dimen name="detail_views_margin">16dp</dimen>
 </resources>

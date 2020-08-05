@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:animateLayoutChanges="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:animateLayoutChanges="true">
 
     <TextView
         android:id="@+id/profile_title"
@@ -13,16 +13,19 @@
         android:layout_height="wrap_content"
         android:paddingVertical="4dp"
         android:textStyle="bold"
+        android:textSize="36sp"
         android:layout_marginStart="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        tools:text="Character profile"/>
+        tools:text="Character profile" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/profile_card_view"
         style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginHorizontal="8dp"
         app:strokeColor="@color/purple_200"
         app:strokeWidth="2dp"
         app:cardCornerRadius="@dimen/loading_card_radius"
@@ -37,34 +40,40 @@
 
             <TextView
                 android:id="@+id/character_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:gravity="start"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/character_birth_year"
-                tools:text="Darth Vader"/>
+                tools:text="Darth Vader" />
 
             <TextView
                 android:id="@+id/character_birth_year"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:gravity="start"
                 android:layout_marginVertical="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/character_name"
                 app:layout_constraintBottom_toTopOf="@+id/character_height"
-                tools:text="40.11BBY"/>
+                tools:text="40.11BBY" />
 
             <TextView
                 android:id="@+id/character_height"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:gravity="start"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/character_birth_year"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="112 cm"/>
+                tools:text="112 cm" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

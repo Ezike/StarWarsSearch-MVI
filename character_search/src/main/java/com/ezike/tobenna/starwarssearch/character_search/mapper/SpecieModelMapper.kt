@@ -12,6 +12,6 @@ class SpecieModelMapper @Inject constructor() : ModelMapper<SpecieModel, Specie>
     }
 
     override fun mapToDomain(model: SpecieModel): Specie {
-        return Specie(model.name, model.population, model.homeWorld)
+        return Specie(model.name, model.language, model.homeWorld)
     }
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:orientation="vertical">
 
@@ -18,19 +18,20 @@
         android:text="@string/planet" />
 
     <include
-        android:id="@+id/loading_view"
+        android:id="@+id/planet_loading_view"
         layout="@layout/detail_loading_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp" />
 
     <com.ezike.tobenna.starwarssearch.character_search.views.EmptyStateView
-        android:id="@+id/error_state"
+        android:id="@+id/planet_error_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:isButtonVisible="true"
         android:layout_margin="16dp"
         android:visibility="gone"
+        app:emptyStateTitleText="@string/an_error_occurred"
         app:emptyStateImageSrc="@drawable/ic_error_page_2" />
 
     <com.google.android.material.card.MaterialCardView
@@ -54,9 +55,11 @@
 
             <TextView
                 android:id="@+id/planet_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:gravity="start"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/planet_population"
@@ -64,11 +67,13 @@
 
             <TextView
                 android:id="@+id/planet_population"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="16dp"
+                android:gravity="start"
+                android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/planet_name"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="1,000,000" />

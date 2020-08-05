@@ -18,4 +18,9 @@
     <string name="planet_name">Name: %s</string>
     <string name="population">Population: %,d</string>
     <string name="population_not_available">Population: N/A</string>
+    <string name="specie_name">Name: %s</string>
+    <string name="specie_language">Language: %s</string>
+    <string name="specie_home">Home world: %s</string>
+    <string name="species_unavailable">Species information is currently available</string>
+    <string name="films_unavailable">Film information is currently available</string>
 </resources>

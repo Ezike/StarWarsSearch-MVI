@@ -1,6 +1,7 @@
 package com.ezike.tobenna.starwarssearch.remote
 
 import com.ezike.tobenna.starwarssearch.remote.utils.HttpsInterceptor
+import com.ezike.tobenna.starwarssearch.remote.utils.NoInternetInterceptor
 import com.squareup.moshi.Moshi
 import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
@@ -31,6 +32,7 @@ object ApiServiceFactory {
     private fun makeOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(HttpsInterceptor)
+            .addInterceptor(NoInternetInterceptor)
             .addInterceptor(httpLoggingInterceptor)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)

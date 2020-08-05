@@ -11,29 +11,41 @@
     <LinearLayout
         android:id="@+id/detail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.ezike.tobenna.starwarssearch.character_search.views.detail.ProfileView
             android:id="@+id/profile_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/profile_detail_top_margin"
             android:layout_marginHorizontal="16dp" />
 
         <com.ezike.tobenna.starwarssearch.character_search.views.detail.PlanetView
             android:id="@+id/planet_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/detail_views_margin"
             android:layout_marginHorizontal="16dp" />
+
+        <com.ezike.tobenna.starwarssearch.character_search.views.detail.SpecieView
+            android:id="@+id/specie_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detail_views_margin"
+            android:layout_marginHorizontal="@dimen/detail_views_margin" />
+
+        <com.ezike.tobenna.starwarssearch.character_search.views.detail.FilmsView
+            android:id="@+id/film_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detail_views_margin" />
 
         <com.ezike.tobenna.starwarssearch.character_search.views.EmptyStateView
             android:id="@+id/detail_error_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:isButtonVisible="true"
-            android:layout_margin="16dp"
             app:emptyStateTitleText="@string/error_fetching_details"
             app:emptyStateImageSrc="@drawable/ic_error_page_2" />
 
