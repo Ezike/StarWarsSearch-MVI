@@ -62,7 +62,7 @@ class SearchHistoryCacheImplTest {
     }
 
     @Test
-    fun `check that getSearchHistory replaces already saved item`() = runBlocking {
+    fun `check that saveSearch replaces already saved item`() = runBlocking {
         val character: CharacterEntity = DummyData.entity
         val name = "Daniel Lyssi"
         val character1: CharacterEntity = DummyData.entity.copy(name = name)
