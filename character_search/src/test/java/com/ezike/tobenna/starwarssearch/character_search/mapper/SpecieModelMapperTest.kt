@@ -23,6 +23,7 @@ class SpecieModelMapperTest {
     fun mapToModelList() {
         val species: List<Specie> = DummyData.species
         val model: List<SpecieModel> = mapper.mapToModelList(species)
+        assertThat(model).isNotEmpty()
         assertThat(species[0].name).isEqualTo(model[0].name)
         assertThat(species[0].language).isEqualTo(model[0].language)
         assertThat(species[0].homeWorld).isEqualTo(model[0].homeWorld)
@@ -41,6 +42,7 @@ class SpecieModelMapperTest {
     fun mapToDomainList() {
         val species: List<SpecieModel> = listOf(DummyData.specieModel)
         val domain: List<Specie> = mapper.mapToDomainList(species)
+        assertThat(domain).isNotEmpty()
         assertThat(species[0].name).isEqualTo(domain[0].name)
         assertThat(species[0].language).isEqualTo(domain[0].language)
         assertThat(species[0].homeWorld).isEqualTo(domain[0].homeWorld)

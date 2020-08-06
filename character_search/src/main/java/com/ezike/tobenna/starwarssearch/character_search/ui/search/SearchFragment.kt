@@ -12,7 +12,6 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewState.SearchCharacterViewState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewState.SearchHistoryViewState
-import com.ezike.tobenna.starwarssearch.character_search.ui.textChanges
 import com.ezike.tobenna.starwarssearch.core.ext.observe
 import com.ezike.tobenna.starwarssearch.core.ext.onBackPress
 import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
@@ -32,7 +31,7 @@ class SearchFragment : Fragment(R.layout.fragment_search),
 
     override val intents: Flow<SearchViewIntent>
         get() = merge(
-            binding.searchBar.textChanges.map(SearchCharacterViewIntent::Search),
+            binding.searchBar.textChanges.checkDistinct.map(SearchCharacterViewIntent::Search),
             binding.searchResult.intents, binding.recentSearch.intents,
             binding.searchResult.retryIntent(binding.searchBar.textChanges)
         )
