@@ -1,6 +1,6 @@
-package com.ezike.tobenna.starwarssearch.character_search.fakes
+package com.ezike.tobenna.starwarssearch.character_search.di.fakes
 
-import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
+import com.ezike.tobenna.starwarssearch.character_search.ui.DummyData
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.domain.repository.SearchRepository
 import com.ezike.tobenna.starwarssearch.testutils.ERROR_MSG

@@ -15,4 +15,7 @@
         <item name="cornerFamilyBottomRight">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+    <style name="FragmentScenarioEmptyFragmentActivityTheme" parent="android:Theme.WithActionBar">
+        <item name="android:windowIsFloating">false</item>
+    </style>
 </resources>
