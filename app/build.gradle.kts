@@ -73,5 +73,5 @@ dependencies {
     }
 
     kapt(DI.AnnotationProcessor.daggerHiltAndroid)
-    kapt(DI.AnnotationProcessor.hiltCompiler)
+    kapt(DI.AnnotationProcessor.jetpackHiltCompiler)
 }

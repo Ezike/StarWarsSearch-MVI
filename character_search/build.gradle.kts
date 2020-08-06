@@ -2,6 +2,7 @@ import Dependencies.AndroidX
 import Dependencies.Coroutines
 import Dependencies.DI
 import Dependencies.FlowBinding
+import Dependencies.Test
 import Dependencies.View
 import ProjectLib.core
 import ProjectLib.domain
@@ -22,6 +23,7 @@ android {
         compileSdkVersion(Config.Version.compileSdkVersion)
         minSdkVersion(Config.Version.minSdkVersion)
         targetSdkVersion(Config.Version.targetSdkVersion)
+        testInstrumentationRunner = Config.Android.testInstrumentationRunner
     }
 
     compileOptions {
@@ -39,6 +41,19 @@ android {
             versionNameSuffix = BuildTypeDebug.versionNameSuffix
         }
     }
+
+    packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
+        exclude("META-INF/LICENSE")
+        exclude("META-INF/LICENSE.txt")
+        exclude("META-INF/license.txt")
+        exclude("META-INF/NOTICE")
+        exclude("META-INF/NOTICE.txt")
+        exclude("META-INF/notice.txt")
+        exclude("META-INF/AL2.0")
+        exclude("META-INF/LGPL2.1")
+        exclude("META-INF/*.kotlin_module")
+    }
 }
 
 dependencies {
@@ -47,6 +62,7 @@ dependencies {
     implementation(project(domain))
 
     testImplementation(project(testUtils))
+    androidTestImplementation(project(testUtils))
 
     with(View) {
         implementAll(components)
@@ -65,5 +81,18 @@ dependencies {
     implementAll(Coroutines.components)
 
     kapt(DI.AnnotationProcessor.daggerHiltAndroid)
-    kapt(DI.AnnotationProcessor.hiltCompiler)
+    kapt(DI.AnnotationProcessor.jetpackHiltCompiler)
+
+    androidTestImplementation(DI.hiltTesting)
+    androidTestImplementation(Test.espresso)
+    androidTestImplementation(Test.espressoContrib)
+    androidTestImplementation(Test.fragmentTesting)
+    androidTestImplementation(Test.rules)
+    androidTestImplementation(Test.archCoreTest)
+
+    androidTestImplementation(Test.runner)
+    androidTestImplementation(Test.androidXTest)
+
+    kaptAndroidTest(DI.AnnotationProcessor.daggerHiltAndroid)
+    kaptAndroidTest(DI.AnnotationProcessor.jetpackHiltCompiler)
 }

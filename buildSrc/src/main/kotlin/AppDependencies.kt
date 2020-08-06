@@ -1,3 +1,5 @@
+import Dependencies.View.Version.fragment
+
 const val kotlinAndroid: String = "android"
 const val kotlinAndroidExtension: String = "android.extensions"
 const val kotlinKapt: String = "kapt"
@@ -16,7 +18,8 @@ object Config {
 
     object Android {
         const val applicationId: String = "com.ezike.tobenna.starwarssearch"
-        const val testInstrumentationRunner: String = "androidx.test.runner.AndroidJUnitRunner"
+        const val testInstrumentationRunner: String =
+            "com.ezike.tobenna.starwarssearch.character_search.CustomTestRunner"
     }
 }
 
@@ -59,7 +62,7 @@ object Dependencies {
             const val shimmerLayout: String = "0.5.0"
             const val appCompat: String = "1.2.0-rc01"
             const val constraintLayout: String = "2.0.0-beta6"
-            const val fragment: String = "1.2.4"
+            const val fragment: String = "1.2.5"
             const val cardView: String = "1.0.0"
             const val recyclerView: String = "1.1.0"
         }
@@ -121,7 +124,8 @@ object Dependencies {
         object AnnotationProcessor {
             const val daggerHiltAndroid: String =
                 "com.google.dagger:hilt-android-compiler:${Version.daggerHiltAndroid}"
-            const val hiltCompiler: String = "androidx.hilt:hilt-compiler:${Version.hiltViewModel}"
+            const val jetpackHiltCompiler: String =
+                "androidx.hilt:hilt-compiler:${Version.hiltViewModel}"
         }
 
         const val javaxInject: String = "javax.inject:javax.inject:${Version.javaxInject}"
@@ -129,6 +133,8 @@ object Dependencies {
             "com.google.dagger:hilt-android:${Version.daggerHiltAndroid}"
         const val hiltViewModel: String =
             "androidx.hilt:hilt-lifecycle-viewmodel:${Version.hiltViewModel}"
+        const val hiltTesting: String =
+            "com.google.dagger:hilt-android-testing:${Version.daggerHiltAndroid}"
     }
 
     object Coroutines : Libraries {
@@ -160,29 +166,29 @@ object Dependencies {
         object Version {
             const val junit: String = "4.13"
             const val runner: String = "1.2.0"
-            const val rules: String = "1.3.0"
+            const val rules: String = "1.3.0-rc03"
             const val testExt: String = "1.1.1"
-            const val espresso: String = "3.2.0"
-            const val fragment: String = "1.1.0-rc04"
+            const val espresso: String = "3.3.0-rc03"
             const val truth: String = "1.0.1"
             const val mockWebServer: String = "4.7.2"
-            const val coroutineTest: String = "1.2.1"
             const val robolectric: String = "4.3.1"
             const val archCoreTest: String = "1.1.1"
         }
 
         const val junit: String = "junit:junit:${Version.junit}"
         const val runner: String = "androidx.test:runner:${Version.runner}"
-        const val fragmentTesting: String = "androidx.fragment:fragment-testing:${Version.fragment}"
+        const val fragmentTesting: String = "androidx.fragment:fragment-testing:$fragment"
         const val androidXTest: String = "androidx.test.ext:junit:${Version.testExt}"
         const val espresso: String = "androidx.test.espresso:espresso-core:${Version.espresso}"
+        const val espressoContrib: String =
+            "androidx.test.espresso:espresso-contrib:${Version.espresso}"
         const val rules: String = "androidx.test:rules:${Version.rules}"
         const val archCoreTest: String = "android.arch.core:core-testing:${Version.archCoreTest}"
         const val truth: String = "com.google.truth:truth:${Version.truth}"
         const val mockWebServer: String =
             "com.squareup.okhttp3:mockwebserver:${Version.mockWebServer}"
         const val coroutinesTest: String =
-            "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Version.coroutineTest}"
+            "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Coroutines.Version.coroutines}"
         const val robolectric: String = "org.robolectric:robolectric:${Version.robolectric}"
     }
 }

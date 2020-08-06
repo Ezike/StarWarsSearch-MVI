@@ -17,7 +17,6 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.PlanetDetailViewState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.SpecieDetailViewState
 import com.ezike.tobenna.starwarssearch.core.ext.observe
-import com.ezike.tobenna.starwarssearch.core.ext.safeOffer
 import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.MVIView
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +42,7 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
         super.onActivityCreated(savedInstanceState)
         // Making sure this doesn't emit again on config change.
         if (savedInstanceState == null) {
-            loadCharacterDetail.safeOffer(LoadCharacterDetail(args.character))
+            loadCharacterDetail.offer(LoadCharacterDetail(args.character))
         }
         viewModel.processIntent(intents)
     }
