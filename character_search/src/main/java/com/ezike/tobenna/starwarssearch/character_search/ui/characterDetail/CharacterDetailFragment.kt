@@ -50,10 +50,7 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.detailViewState.observe(viewLifecycleOwner, ::render)
-        viewModel.planetViewState.observe(viewLifecycleOwner, ::render)
-        viewModel.filmViewState.observe(viewLifecycleOwner, ::render)
-        viewModel.speciesViewState.observe(viewLifecycleOwner, ::render)
+        viewModel.viewState.observe(viewLifecycleOwner, ::render)
     }
 
     override fun render(state: CharacterDetailViewState) {
@@ -84,6 +81,14 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
                     detailErrorState.setTitle(
                         getString(R.string.error_fetching_details, args.character.name)
                     )
+                }
+            }
+            CharacterDetailViewState.Retrying -> {
+                binding.run {
+                    detailErrorState.isVisible = false
+                    filmView.renderLoading()
+                    specieView.renderLoading()
+                    planetView.renderLoading()
                 }
             }
         }

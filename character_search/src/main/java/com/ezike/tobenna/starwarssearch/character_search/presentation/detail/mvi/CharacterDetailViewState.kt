@@ -10,6 +10,7 @@ sealed class CharacterDetailViewState : ViewState {
     object Idle : CharacterDetailViewState()
     data class ProfileLoaded(val character: CharacterModel) : CharacterDetailViewState()
     data class FetchDetailError(val message: String) : CharacterDetailViewState()
+    object Retrying : CharacterDetailViewState()
 }
 
 sealed class PlanetDetailViewState : CharacterDetailViewState() {

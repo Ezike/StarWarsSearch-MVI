@@ -11,8 +11,8 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.SpecieDetailViewState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 
 class CharacterDetailViewModel @ViewModelInject constructor(
@@ -26,21 +26,25 @@ class CharacterDetailViewModel @ViewModelInject constructor(
      *
      * Comes in handy during config changes
      */
-    private val mutableDetailViewState: MutableStateFlow<CharacterDetailViewState> =
+    private val detailViewState: MutableStateFlow<CharacterDetailViewState> =
         MutableStateFlow(CharacterDetailViewState.Idle)
-    val detailViewState: StateFlow<CharacterDetailViewState> get() = mutableDetailViewState
 
-    private val mutableFilmViewState: MutableStateFlow<FilmDetailViewState> =
+    private val filmViewState: MutableStateFlow<FilmDetailViewState> =
         MutableStateFlow(FilmDetailViewState.Loading)
-    val filmViewState: StateFlow<FilmDetailViewState> get() = mutableFilmViewState
 
-    private val mutableSpeciesViewState: MutableStateFlow<SpecieDetailViewState> =
+    private val speciesViewState: MutableStateFlow<SpecieDetailViewState> =
         MutableStateFlow(SpecieDetailViewState.Loading)
-    val speciesViewState: StateFlow<SpecieDetailViewState> get() = mutableSpeciesViewState
 
-    private val mutablePlanetViewState: MutableStateFlow<PlanetDetailViewState> =
+    private val planetViewState: MutableStateFlow<PlanetDetailViewState> =
         MutableStateFlow(PlanetDetailViewState.Loading)
-    val planetViewState: StateFlow<PlanetDetailViewState> get() = mutablePlanetViewState
+
+    val viewState: Flow<CharacterDetailViewState>
+        get() = merge(
+            detailViewState,
+            planetViewState,
+            speciesViewState,
+            filmViewState
+        )
 
     init {
         characterDetailStateMachine.processor.launchIn(viewModelScope)
@@ -50,12 +54,10 @@ class CharacterDetailViewModel @ViewModelInject constructor(
     private fun makeViewState() {
         characterDetailStateMachine.viewState.onEach { state ->
             when (state) {
-                is PlanetDetailViewState -> mutablePlanetViewState.value = state
-                is SpecieDetailViewState -> mutableSpeciesViewState.value = state
-                is FilmDetailViewState -> mutableFilmViewState.value = state
-                CharacterDetailViewState.Idle -> mutableDetailViewState.value = state
-                is CharacterDetailViewState.ProfileLoaded -> mutableDetailViewState.value = state
-                is CharacterDetailViewState.FetchDetailError -> mutableDetailViewState.value = state
+                is PlanetDetailViewState -> planetViewState.value = state
+                is SpecieDetailViewState -> speciesViewState.value = state
+                is FilmDetailViewState -> filmViewState.value = state
+                else -> detailViewState.value = state
             }
         }.launchIn(viewModelScope)
     }

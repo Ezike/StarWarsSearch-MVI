@@ -31,6 +31,7 @@ class CharacterDetailViewStateReducer @Inject constructor(
             }
             is CharacterDetailViewResult.FetchCharacterDetailError ->
                 CharacterDetailViewState.FetchDetailError(result.error.errorMessage)
+            CharacterDetailViewResult.Retrying -> CharacterDetailViewState.Retrying
         }
     }
 

@@ -15,7 +15,6 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.FilmDetailViewState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.PlanetDetailViewState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.SpecieDetailViewState
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.CharacterSearchViewModel
 import com.ezike.tobenna.starwarssearch.core.ext.errorMessage
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchFilms
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchPlanet
@@ -25,7 +24,6 @@ import com.ezike.tobenna.starwarssearch.testutils.FlowRecorder
 import com.ezike.tobenna.starwarssearch.testutils.MainCoroutineRule
 import com.ezike.tobenna.starwarssearch.testutils.ResponseType
 import com.ezike.tobenna.starwarssearch.testutils.TestPostExecutionThread
-import com.ezike.tobenna.starwarssearch.testutils.containsElements
 import com.ezike.tobenna.starwarssearch.testutils.recordWith
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.flowOf
@@ -70,25 +68,9 @@ class CharacterDetailViewModelTest {
     }
 
     @Test
-    fun `check that idle viewState is first emitted`() {
-        /**
-         * Pause the dispatcher so that coroutines don't run yet.
-         * This allows us capture the initial viewState emitted from [CharacterSearchViewModel.viewState].
-         * That emission usually gets lost before we subscribe to the stream.
-         */
+    fun `check that all viewState is emitted when LoadCharacterDetail intent is called`() {
         mainCoroutineRule.pauseDispatcher()
-        viewModel.detailViewState.recordWith(stateRecorder)
-        // Resume the dispatcher and then run the coroutines
-        mainCoroutineRule.resumeDispatcher()
-
-        assertThat(stateRecorder.takeAll())
-            .containsElements(CharacterDetailViewState.Idle)
-    }
-
-    @Test
-    fun `check that ProfileLoaded viewState is emitted when LoadCharacterDetail intent is called`() {
-        mainCoroutineRule.pauseDispatcher()
-        viewModel.detailViewState.recordWith(stateRecorder)
+        viewModel.viewState.recordWith(stateRecorder)
         mainCoroutineRule.resumeDispatcher()
 
         val character: CharacterModel = DummyData.characterModel
@@ -98,16 +80,56 @@ class CharacterDetailViewModelTest {
         )
 
         assertThat(stateRecorder.takeAll())
-            .containsElements(
-                CharacterDetailViewState.Idle,
-                CharacterDetailViewState.ProfileLoaded(character)
+            .containsExactlyElementsIn(
+                arrayOf(
+                    CharacterDetailViewState.Idle,
+                    PlanetDetailViewState.Loading,
+                    FilmDetailViewState.Loading,
+                    SpecieDetailViewState.Loading,
+                    CharacterDetailViewState.ProfileLoaded(character),
+                    PlanetDetailViewState.Success(DummyData.planetModel),
+                    FilmDetailViewState.Success(listOf(DummyData.filmModel)),
+                    SpecieDetailViewState.Success(listOf(DummyData.specieModel))
+                )
+            )
+    }
+
+    @Test
+    fun `check that Retrying viewState is emitted when RetryFetchCharacterDetails intent is called`() {
+        mainCoroutineRule.pauseDispatcher()
+        viewModel.viewState.recordWith(stateRecorder)
+        mainCoroutineRule.resumeDispatcher()
+
+        val character: CharacterModel = DummyData.characterModel
+
+        repository.run {
+            filmResponseType = ResponseType.ERROR
+            planetResponseType = ResponseType.ERROR
+            specieResponseType = ResponseType.ERROR
+        }
+        viewModel.processIntent(
+            flowOf(CharacterDetailViewIntent.RetryFetchCharacterDetails(character))
+        )
+
+        assertThat(stateRecorder.takeAll())
+            .containsExactlyElementsIn(
+                arrayOf(
+                    CharacterDetailViewState.Idle,
+                    PlanetDetailViewState.Loading,
+                    FilmDetailViewState.Loading,
+                    SpecieDetailViewState.Loading,
+                    CharacterDetailViewState.Retrying,
+                    PlanetDetailViewState.Error(DummyData.exception.errorMessage),
+                    FilmDetailViewState.Error(DummyData.exception.errorMessage),
+                    SpecieDetailViewState.Error(DummyData.exception.errorMessage)
+                )
             )
     }
 
     @Test
     fun `check that FetchCharacterDetailError viewState is emitted when LoadCharacterDetail intent fails`() {
         mainCoroutineRule.pauseDispatcher()
-        viewModel.detailViewState.recordWith(stateRecorder)
+        viewModel.viewState.recordWith(stateRecorder)
         mainCoroutineRule.resumeDispatcher()
 
         repository.characterResponseType = ResponseType.ERROR
@@ -119,53 +141,23 @@ class CharacterDetailViewModelTest {
         )
 
         assertThat(stateRecorder.takeAll())
-            .containsElements(
-                CharacterDetailViewState.Idle,
-                CharacterDetailViewState.ProfileLoaded(character),
-                CharacterDetailViewState.FetchDetailError(DummyData.exception.errorMessage)
-            )
-    }
-
-    @Test
-    fun `check that FilmDetailViewState Success viewState is emitted when LoadCharacterDetail intent is called`() {
-        mainCoroutineRule.pauseDispatcher()
-        viewModel.filmViewState.recordWith(stateRecorder)
-
-        mainCoroutineRule.resumeDispatcher()
-
-        viewModel.processIntent(
-            flowOf(CharacterDetailViewIntent.LoadCharacterDetail(DummyData.characterModel))
-        )
-
-        assertThat(stateRecorder.takeAll())
-            .containsElements(
-                FilmDetailViewState.Loading,
-                FilmDetailViewState.Success(listOf(DummyData.filmModel))
+            .containsExactlyElementsIn(
+                arrayOf(
+                    CharacterDetailViewState.Idle,
+                    PlanetDetailViewState.Loading,
+                    FilmDetailViewState.Loading,
+                    SpecieDetailViewState.Loading,
+                    CharacterDetailViewState.ProfileLoaded(character),
+                    CharacterDetailViewState.FetchDetailError(DummyData.exception.errorMessage)
+                )
             )
     }
 
     @Test
     fun `check that FilmDetailViewState Success viewState is emitted when RetryFetchFilms intent is called`() {
         mainCoroutineRule.pauseDispatcher()
-        viewModel.filmViewState.recordWith(stateRecorder)
+        viewModel.viewState.recordWith(stateRecorder)
 
-        mainCoroutineRule.resumeDispatcher()
-
-        viewModel.processIntent(
-            flowOf(CharacterDetailViewIntent.RetryFetchFilm(DummyData.characterModel.url))
-        )
-
-        assertThat(stateRecorder.takeAll())
-            .containsElements(
-                FilmDetailViewState.Loading,
-                FilmDetailViewState.Success(listOf(DummyData.filmModel))
-            )
-    }
-
-    @Test
-    fun `check that FilmDetailViewState error viewState is emitted when RetryFetchFilms intent fails`() {
-        mainCoroutineRule.pauseDispatcher()
-        viewModel.filmViewState.recordWith(stateRecorder)
         mainCoroutineRule.resumeDispatcher()
 
         repository.filmResponseType = ResponseType.ERROR
@@ -175,50 +167,21 @@ class CharacterDetailViewModelTest {
         )
 
         assertThat(stateRecorder.takeAll())
-            .containsElements(
-                FilmDetailViewState.Loading,
-                FilmDetailViewState.Error(DummyData.exception.errorMessage)
-            )
-    }
-
-    @Test
-    fun `check that PlanetDetailViewState Success viewState is emitted when LoadCharacterDetail intent is called`() {
-        mainCoroutineRule.pauseDispatcher()
-        viewModel.planetViewState.recordWith(stateRecorder)
-        mainCoroutineRule.resumeDispatcher()
-
-        viewModel.processIntent(
-            flowOf(CharacterDetailViewIntent.LoadCharacterDetail(DummyData.characterModel))
-        )
-
-        assertThat(stateRecorder.takeAll())
-            .containsElements(
-                PlanetDetailViewState.Loading,
-                PlanetDetailViewState.Success(DummyData.planetModel)
-            )
-    }
-
-    @Test
-    fun `check that PlanetDetailViewState Success viewState is emitted when RetryFetchPlanet intent is called`() {
-        mainCoroutineRule.pauseDispatcher()
-        viewModel.planetViewState.recordWith(stateRecorder)
-        mainCoroutineRule.resumeDispatcher()
-
-        viewModel.processIntent(
-            flowOf(CharacterDetailViewIntent.RetryFetchPlanet(DummyData.characterModel.url))
-        )
-
-        assertThat(stateRecorder.takeAll())
-            .containsElements(
-                PlanetDetailViewState.Loading,
-                PlanetDetailViewState.Success(DummyData.planetModel)
+            .containsExactlyElementsIn(
+                arrayOf(
+                    CharacterDetailViewState.Idle,
+                    PlanetDetailViewState.Loading,
+                    FilmDetailViewState.Loading,
+                    SpecieDetailViewState.Loading,
+                    FilmDetailViewState.Error(DummyData.exception.errorMessage)
+                )
             )
     }
 
     @Test
     fun `check that PlanetDetailViewState Success viewState is emitted when RetryFetchPlanet intent fails`() {
         mainCoroutineRule.pauseDispatcher()
-        viewModel.planetViewState.recordWith(stateRecorder)
+        viewModel.viewState.recordWith(stateRecorder)
         mainCoroutineRule.resumeDispatcher()
 
         repository.planetResponseType = ResponseType.ERROR
@@ -228,50 +191,21 @@ class CharacterDetailViewModelTest {
         )
 
         assertThat(stateRecorder.takeAll())
-            .containsElements(
-                PlanetDetailViewState.Loading,
-                PlanetDetailViewState.Error(DummyData.exception.errorMessage)
-            )
-    }
-
-    @Test
-    fun `check that SpecieDetailViewState Success viewState is emitted when LoadCharacterDetail intent is called`() {
-        mainCoroutineRule.pauseDispatcher()
-        viewModel.speciesViewState.recordWith(stateRecorder)
-        mainCoroutineRule.resumeDispatcher()
-
-        viewModel.processIntent(
-            flowOf(CharacterDetailViewIntent.LoadCharacterDetail(DummyData.characterModel))
-        )
-
-        assertThat(stateRecorder.takeAll())
-            .containsElements(
-                SpecieDetailViewState.Loading,
-                SpecieDetailViewState.Success(listOf(DummyData.specieModel))
-            )
-    }
-
-    @Test
-    fun `check that SpecieDetailViewState Success viewState is emitted when RetryFetchSpecies intent is called`() {
-        mainCoroutineRule.pauseDispatcher()
-        viewModel.speciesViewState.recordWith(stateRecorder)
-        mainCoroutineRule.resumeDispatcher()
-
-        viewModel.processIntent(
-            flowOf(CharacterDetailViewIntent.RetryFetchSpecie(DummyData.characterModel.url))
-        )
-
-        assertThat(stateRecorder.takeAll())
-            .containsElements(
-                SpecieDetailViewState.Loading,
-                SpecieDetailViewState.Success(listOf(DummyData.specieModel))
+            .containsExactlyElementsIn(
+                arrayOf(
+                    CharacterDetailViewState.Idle,
+                    PlanetDetailViewState.Loading,
+                    FilmDetailViewState.Loading,
+                    SpecieDetailViewState.Loading,
+                    PlanetDetailViewState.Error(DummyData.exception.errorMessage)
+                )
             )
     }
 
     @Test
     fun `check that SpecieDetailViewState Success viewState is emitted when RetryFetchSpecies intent fails`() {
         mainCoroutineRule.pauseDispatcher()
-        viewModel.speciesViewState.recordWith(stateRecorder)
+        viewModel.viewState.recordWith(stateRecorder)
         mainCoroutineRule.resumeDispatcher()
 
         repository.specieResponseType = ResponseType.ERROR
@@ -281,9 +215,14 @@ class CharacterDetailViewModelTest {
         )
 
         assertThat(stateRecorder.takeAll())
-            .containsElements(
-                SpecieDetailViewState.Loading,
-                SpecieDetailViewState.Error(DummyData.exception.errorMessage)
+            .containsExactlyElementsIn(
+                arrayOf(
+                    CharacterDetailViewState.Idle,
+                    PlanetDetailViewState.Loading,
+                    FilmDetailViewState.Loading,
+                    SpecieDetailViewState.Loading,
+                    SpecieDetailViewState.Error(DummyData.exception.errorMessage)
+                )
             )
     }
 }

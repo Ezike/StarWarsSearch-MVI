@@ -35,6 +35,10 @@ class SpecieView @JvmOverloads constructor(context: Context, attributeSet: Attri
         binding.specieList.adapter = specieAdapter
     }
 
+    fun renderLoading() {
+        render(SpecieDetailViewState.Loading)
+    }
+
     override fun render(state: SpecieDetailViewState) {
         binding.root.isVisible = true
         when (state) {

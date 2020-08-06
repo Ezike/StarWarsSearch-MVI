@@ -30,6 +30,7 @@ class SearchHistoryCacheImplTest {
 
         searchHistoryCache = SearchHistoryCacheImpl(
             starWarsDatabase.searchHistoryDao,
+            starWarsDatabase.characterDetailDao,
             CharacterCacheModelMapper()
         )
     }

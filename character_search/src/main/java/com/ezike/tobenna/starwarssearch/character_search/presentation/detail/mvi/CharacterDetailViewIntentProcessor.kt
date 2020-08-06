@@ -1,7 +1,6 @@
 package com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi
 
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
-import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.CharacterDetailIntentProcessor
 import com.ezike.tobenna.starwarssearch.domain.model.Film
 import com.ezike.tobenna.starwarssearch.domain.model.Planet
@@ -30,17 +29,26 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
     override fun intentToResult(viewIntent: CharacterDetailViewIntent): Flow<CharacterDetailViewResult> {
         return when (viewIntent) {
             CharacterDetailViewIntent.Idle -> flowOf(CharacterDetailViewResult.Idle)
-            is CharacterDetailViewIntent.LoadCharacterDetail -> getCharacterInfo(viewIntent.character)
+            is CharacterDetailViewIntent.LoadCharacterDetail -> {
+                getCharacterInfo(
+                    viewIntent.character.url, CharacterDetailViewResult.CharacterDetail(
+                        characterModelMapper.mapToDomain(viewIntent.character)
+                    )
+                )
+            }
             is CharacterDetailViewIntent.RetryFetchPlanet -> retryFetchPlanet(viewIntent.url)
             is CharacterDetailViewIntent.RetryFetchSpecie -> retryFetchSpecie(viewIntent.url)
             is CharacterDetailViewIntent.RetryFetchFilm -> retryFetchFilm(viewIntent.url)
             is CharacterDetailViewIntent.RetryFetchCharacterDetails ->
-                getCharacterInfo(viewIntent.character)
+                getCharacterInfo(viewIntent.character.url, CharacterDetailViewResult.Retrying)
         }
     }
 
-    private fun getCharacterInfo(model: CharacterModel): Flow<CharacterDetailViewResult> {
-        return getCharacterDetail(model.url)
+    private fun getCharacterInfo(
+        url: String,
+        start: CharacterDetailViewResult
+    ): Flow<CharacterDetailViewResult> {
+        return getCharacterDetail(url)
             .flatMapLatest { character ->
                 merge(
                     getFilms(character.filmUrls),
@@ -48,13 +56,7 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
                     getSpecies(character.speciesUrls)
                 )
             }
-            .onStart {
-                emit(
-                    CharacterDetailViewResult.CharacterDetail(
-                        characterModelMapper.mapToDomain(model)
-                    )
-                )
-            }
+            .onStart { emit(start) }
             .catch { error -> emit(CharacterDetailViewResult.FetchCharacterDetailError(error)) }
     }
 

@@ -281,9 +281,8 @@ class CharacterDetailViewIntentProcessorTest {
         ).recordWith(resultRecorder)
 
         assertThat(resultRecorder.takeAll()).containsElements(
-            CharacterDetailViewResult.CharacterDetail(
-                characterModelMapper.mapToDomain(character)
-            ), FilmDetailViewResult.Loading, FilmDetailViewResult.Success(DummyData.films),
+            CharacterDetailViewResult.Retrying,
+            FilmDetailViewResult.Loading, FilmDetailViewResult.Success(DummyData.films),
             PlanetDetailViewResult.Loading, PlanetDetailViewResult.Success(DummyData.planet),
             SpecieDetailViewResult.Loading, SpecieDetailViewResult.Success(DummyData.species)
         )
@@ -300,7 +299,7 @@ class CharacterDetailViewIntentProcessorTest {
 
         assertThat(resultRecorder.takeAll().map { it.javaClass })
             .containsElements(
-                CharacterDetailViewResult.CharacterDetail::class.java,
+                CharacterDetailViewResult.Retrying::class.java,
                 CharacterDetailViewResult.FetchCharacterDetailError::class.java
             )
     }

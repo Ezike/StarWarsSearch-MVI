@@ -10,6 +10,7 @@ sealed class CharacterDetailViewResult : ViewResult {
     object Idle : CharacterDetailViewResult()
     data class CharacterDetail(val character: Character) : CharacterDetailViewResult()
     data class FetchCharacterDetailError(val error: Throwable) : CharacterDetailViewResult()
+    object Retrying : CharacterDetailViewResult()
 }
 
 sealed class PlanetDetailViewResult : CharacterDetailViewResult() {
