@@ -19,6 +19,7 @@ subprojects {
                 "kotlin.Experimental," +
                 "kotlinx.coroutines.ExperimentalCoroutinesApi," +
                 "kotlinx.coroutines.InternalCoroutinesApi," +
+                "kotlinx.coroutines.ObsoleteCoroutinesApi," +
                 "kotlinx.coroutines.FlowPreview"
     }
 }

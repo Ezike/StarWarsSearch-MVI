@@ -28,6 +28,10 @@ class PlanetView @JvmOverloads constructor(context: Context, attributeSet: Attri
         binding = PlanetViewLayoutBinding.inflate(inflater, this, true)
     }
 
+    fun renderLoading() {
+        render(PlanetDetailViewState.Loading)
+    }
+
     override fun render(state: PlanetDetailViewState) {
         binding.root.isVisible = true
         when (state) {

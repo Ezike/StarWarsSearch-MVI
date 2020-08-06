@@ -56,6 +56,18 @@ class CharacterDetailViewStateReducerTest {
     }
 
     @Test
+    fun `check that RetryingViewState is emitted when result is Retrying`() {
+        runBlockingTest {
+            val initialState: CharacterDetailViewState = CharacterDetailViewState.Idle
+
+            val viewState: CharacterDetailViewState =
+                reducer.reduce(initialState, CharacterDetailViewResult.Retrying)
+
+            assertThat(viewState).isEqualTo(CharacterDetailViewState.Retrying)
+        }
+    }
+
+    @Test
     fun `check that FetchDetailErrorViewState is emitted when result is FetchCharacterDetailError`() {
         runBlockingTest {
             val initialState: CharacterDetailViewState = CharacterDetailViewState.Idle

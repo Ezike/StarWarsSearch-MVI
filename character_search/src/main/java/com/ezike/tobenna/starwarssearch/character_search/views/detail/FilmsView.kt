@@ -35,6 +35,10 @@ class FilmsView @JvmOverloads constructor(context: Context, attributeSet: Attrib
         binding.filmList.adapter = filmAdapter
     }
 
+    fun renderLoading() {
+        render(FilmDetailViewState.Loading)
+    }
+
     override fun render(state: FilmDetailViewState) {
         binding.root.isVisible = true
         when (state) {

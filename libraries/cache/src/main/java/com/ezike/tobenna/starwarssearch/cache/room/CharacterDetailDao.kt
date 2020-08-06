@@ -14,4 +14,7 @@ interface CharacterDetailDao {
 
     @Query("SELECT * FROM CHARACTER_DETAIL WHERE url = :characterUrl")
     suspend fun fetchCharacter(characterUrl: String): CharacterDetailCacheModel?
+
+    @Query("DELETE FROM CHARACTER_DETAIL")
+    suspend fun clearData()
 }
