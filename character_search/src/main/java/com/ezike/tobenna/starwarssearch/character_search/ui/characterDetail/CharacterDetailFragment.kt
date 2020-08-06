@@ -17,11 +17,13 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.PlanetDetailViewState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.SpecieDetailViewState
 import com.ezike.tobenna.starwarssearch.core.ext.observe
+import com.ezike.tobenna.starwarssearch.core.ext.safeOffer
 import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.MVIView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 
@@ -39,12 +41,19 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        // Making sure this doesn't emit again on config change.
+        if (savedInstanceState == null) {
+            loadCharacterDetail.safeOffer(LoadCharacterDetail(args.character))
+        }
         viewModel.processIntent(intents)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.viewState.observe(viewLifecycleOwner, ::render)
+        viewModel.detailViewState.observe(viewLifecycleOwner, ::render)
+        viewModel.planetViewState.observe(viewLifecycleOwner, ::render)
+        viewModel.filmViewState.observe(viewLifecycleOwner, ::render)
+        viewModel.speciesViewState.observe(viewLifecycleOwner, ::render)
     }
 
     override fun render(state: CharacterDetailViewState) {
@@ -73,7 +82,8 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
                     detailErrorState.isVisible = true
                     detailErrorState.setCaption(state.message)
                     detailErrorState.setTitle(
-                        getString(R.string.error_fetching_details, args.character.name))
+                        getString(R.string.error_fetching_details, args.character.name)
+                    )
                 }
             }
         }
@@ -84,9 +94,11 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
             RetryFetchCharacterDetails(args.character)
         }
 
+    private val loadCharacterDetail = ConflatedBroadcastChannel<LoadCharacterDetail>()
+
     override val intents: Flow<CharacterDetailViewIntent>
         get() = merge(
-            flowOf(LoadCharacterDetail(args.character)),
+            loadCharacterDetail.asFlow(),
             retryFetchDetailIntent,
             binding.filmView.retryIntent(args.character.url),
             binding.planetView.retryIntent(args.character.url),
