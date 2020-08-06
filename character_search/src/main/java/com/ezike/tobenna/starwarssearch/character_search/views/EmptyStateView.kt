@@ -102,12 +102,6 @@ class EmptyStateView : LinearLayout {
             binding.retryBtn.isVisible = value
         }
 
-    var isTitleVisible: Boolean = false
-        set(value) {
-            field = value
-            binding.title.isVisible = value
-        }
-
     fun setCaption(emptyStateCaption: String?) {
         if (emptyStateCaption != null) {
             binding.caption.text = emptyStateCaption

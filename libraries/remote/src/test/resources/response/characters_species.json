@@ -7,7 +7,7 @@
   "hair_colors": "none",
   "eye_colors": "red, pink",
   "average_lifespan": "unknown",
-  "homeworld": "http://swapi.dev/api/planets/18/",
+  "homeworld": "/api/planets/11/",
   "language": "Neimoidia",
   "people": [
     "http://swapi.dev/api/people/33/"

@@ -52,17 +52,16 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
             CharacterDetailViewState.Idle -> {
             }
             is PlanetDetailViewState -> {
-                binding.detailErrorState.isVisible = false
-                binding.planetView.isVisible = true
                 binding.planetView.render(state)
+                binding.detailErrorState.isVisible = false
             }
             is SpecieDetailViewState -> {
-                binding.detailErrorState.isVisible = false
                 binding.specieView.render(state)
+                binding.detailErrorState.isVisible = false
             }
             is FilmDetailViewState -> {
-                binding.detailErrorState.isVisible = false
                 binding.filmView.render(state)
+                binding.detailErrorState.isVisible = false
             }
             is CharacterDetailViewState.ProfileLoaded -> {
                 binding.profileView.render(state)
@@ -70,14 +69,11 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
             }
             is CharacterDetailViewState.FetchDetailError -> {
                 binding.run {
-                    planetView.hide()
-                    specieView.hide()
-                    filmView.hide()
+                    planetView.hide(); specieView.hide(); filmView.hide()
                     detailErrorState.isVisible = true
                     detailErrorState.setCaption(state.message)
                     detailErrorState.setTitle(
-                        getString(R.string.error_fetching_details, args.character.name)
-                    )
+                        getString(R.string.error_fetching_details, args.character.name))
                 }
             }
         }

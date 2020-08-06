@@ -36,6 +36,11 @@ class RequestDispatcher : Dispatcher() {
                     .setResponseCode(HttpURLConnection.HTTP_OK)
                     .setBody(getJson("response/characters_species.json"))
             }
+            SPECIES_URL_2 -> {
+                MockResponse()
+                    .setResponseCode(HttpURLConnection.HTTP_OK)
+                    .setBody(getJson("response/character_specie_2.json"))
+            }
             FILM_URL -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
@@ -45,6 +50,11 @@ class RequestDispatcher : Dispatcher() {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
                     .setBody(getJson("response/character_planet.json"))
+            }
+            PLANET_URL_2 -> {
+                MockResponse()
+                    .setResponseCode(HttpURLConnection.HTTP_OK)
+                    .setBody(getJson("response/characters_planet_2.json"))
             }
             else -> throw IllegalArgumentException("Unknown Request Path ${request.path}")
         }

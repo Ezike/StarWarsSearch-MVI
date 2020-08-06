@@ -1,7 +1,7 @@
 package com.ezike.tobenna.starwarssearch.remote
 
-import com.ezike.tobenna.starwarssearch.remote.utils.HttpsInterceptor
-import com.ezike.tobenna.starwarssearch.remote.utils.NoInternetInterceptor
+import com.ezike.tobenna.starwarssearch.remote.interceptor.HttpsInterceptor
+import com.ezike.tobenna.starwarssearch.remote.interceptor.NoInternetInterceptor
 import com.squareup.moshi.Moshi
 import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
@@ -17,10 +17,10 @@ object ApiServiceFactory {
         val okHttpClient: OkHttpClient = makeOkHttpClient(
             makeLoggingInterceptor((isDebug))
         )
-        return makeAPiService(okHttpClient, moshi)
+        return makeApiService(okHttpClient, moshi)
     }
 
-    private fun makeAPiService(okHttpClient: OkHttpClient, moshi: Moshi): ApiService {
+    private fun makeApiService(okHttpClient: OkHttpClient, moshi: Moshi): ApiService {
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
