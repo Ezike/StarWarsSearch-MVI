@@ -22,7 +22,7 @@
     <string name="specie_language">Language: %s</string>
     <string name="specie_home">Home world: %s</string>
     <string name="specie_home_unavailable">Home world: N/A</string>
-    <string name="species_unavailable">Species information is currently available</string>
+    <string name="species_unavailable">Species information is currently unavailable</string>
     <string name="films_unavailable">Film information is currently available</string>
     <string name="specie_error_occurred">Unable to fetch species information</string>
     <string name="planet_error_occurred">Unable to fetch planet information</string>
