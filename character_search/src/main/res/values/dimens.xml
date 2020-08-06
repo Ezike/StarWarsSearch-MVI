@@ -13,7 +13,7 @@
     <dimen name="empty_state_caption_margin_top">8dp</dimen>
     <dimen name="empty_state_title_text_size">18sp</dimen>
     <dimen name="empty_state_title_margin_top">16dp</dimen>
-    <dimen name="empty_state_image_width">180dp</dimen>
+    <dimen name="empty_state_image_width">150dp</dimen>
     <dimen name="search_history_padding">16dp</dimen>
     <dimen name="search_bar_margin_top">36dp</dimen>
     <dimen name="divider_height">2dp</dimen>
