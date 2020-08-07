@@ -52,11 +52,13 @@ It also enforces separation of concerns and dependency inversion where higher an
 - Remote 
 - Cache
 
-These modules/layers are Java/Kotlin modules except cache. The catch here is that we want independence from the Android framework. One of the key points of clean architecture is that your low level layers should be platform agnostic. We can plug our Domain, data and presentation layers into a kotlin multiplatform project and it will run just fine because we don't depend on the android framework. The cache and remote layers are implementation details that can be provided in any form (Firebase, GraphQl server, REST, ROOM, SQLDelight, etc) as long as it conforms to the business rules / contracts defined in the data layer which in turn also conforms to contract defined in domain.
+These modules/layers are Java/Kotlin modules except the cache module. The catch here is that these lower level layers need to be independent from the Android framework. One of the key points of clean architecture is that your low level layers should be platform agnostic. We can plug our Domain, data and presentation layers into a kotlin multiplatform project and it will run just fine because we don't depend on the android framework. The cache and remote layers are implementation details that can be provided in any form (Firebase, GraphQl server, REST, ROOM, SQLDelight, etc) as long as it conforms to the business rules / contracts defined in the data layer which in turn also conforms to contract defined in domain.
 The project also has one feature module `character_search` that holds the UI code and presents data to the users. The main app module does nothing more than just tying all the many layers of our app together. 
 
+For dependency injection and asynchronous programming, the project uses Dagger Hilt and Coroutines with Flow. Dagger Hilt is a fine abstraction over vanilla dagger and it was very easy to setup. Coroutines and Flow brings kotlin's expressibility and conciseness to asynchronous programming. It also has a fine suite of operators which make it a robust solution. 
+
 #### Presentation
-As stated earlier, the presentation layer is implemented with MVI architecture. There is a kotlin module called presentation which defines the contract of what our apps presentation should look like. The layer is also platform agnostic, allowing us to switch implementation details like whether to use ViewModel or not at will.
+As stated earlier, the presentation layer is implemented with MVI architecture. There is a kotlin module called presentation which defines the contract that presenters should adhere to. The layer is also platform agnostic, making it easy to change implementation details (ViewModel, etc).
 
 <img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596780277/mvi_image.png" width="20%" vspace="8" hspace="8"><br>   
                                                                                                                                   
@@ -65,24 +67,35 @@ MVI architecture has two main components - The model and the view, everything el
 I have a model class called `State machine` which encapsulates logic of how to process intents and make new view states. It relies on an intent processor that takes intents from the view, liases with a third-party (in this case our domain layer) to process the intent and then returns a result. Our results are taken up by a view state reducer function that uses our previous state and the result from the intent processor to make a new state that will be rendered on the UI. 
 The views (fragments/components) output intents and take state as input. The viewmodel which is our presenter outputs state and takes in intents to process. 
 
-The viewmodel in our architecture is very lean, depending solely on the state machine. Since it survives configuration changes, it ensures our user data persists across screen rotation.  
-MVI is a great architecture when you don't want any surprises in your user experience as state only comes from one source and is immutable. On the other hand it does come with a lot of boilerplate. Thankfully, there are a couple of libraries out there that abstract the implementation details and make it a lot easier to use. I took more of vanilla approach in order to represent the core concepts of MVI.
+The viewmodel in the project's architecture is very lean, depending solely on the state machine. The main advantage for using ViewModel is that it survives configuration changes, and thus ensures our user data persists across screen rotation.  
+MVI is a great architecture when you don't want any surprises in user experience as state only comes from one source and is immutable. On the other hand it does come with a lot of boilerplate. Thankfully, there are a couple of libraries out there that abstract the implementation details and make it a lot easier to use. This is more of a bare bones implementation which was taken in order to represent the core concepts of MVI.
 
 #### State rendering
 For each screen, there is a sealed class of Viewstate, Viewintent and results. It's also possible to want to render multiple view states in one screen. and this led to creation of `view components`. 
 View components are basically compound UI components that extend a viewGroup, which knows how to render it's own view state and also emit intents. In the search screen we have two components - `SearchHistoryView` and `SearchResultView`. The `SearchFragment` then passes state to these components to render on the screen. It also takes intents from the components to process.
 
-The detail screen was a bit more complex. I created a component to render each detail - `PlanetView`, `FilmView`, `SpeciesView`, and `ProfileView`. These encapsulate view logic for rendering success, error and empty states for the corresponding detail. The data for the views are fetch concurrently which allows either of them to render whenever its data is loading. It also allows the user to retry the data fetch for each individual component if it fails. The states for each of them is decoupled from one another and is cached in a Flow persisted in the Fragment's viewModel.
+The detail screen was a bit more complex requiring 4 view components to render each detail - `PlanetView`, `FilmView`, `SpeciesView`, and `ProfileView`. These views encapsulate logic for rendering success, error and empty states for the corresponding detail. The data for the views are fetched concurrently, allowing either of the views to render whenever its data is available. It also allows the user to retry the data fetch for each individual component if it fails. The states for each of view is decoupled from one another and is cached in a Flow persisted in the Fragment's viewModel.
 
 #### Domain
+The domain layer contains the app business logic. It defines contracts for data operations and domain models to be used in the app. All other layers have their own representation of these domain models and Mapper classes (or adapters) are used to transform the domain models to each layer's definition of that data.
+Usecases which represent a single unit of business logic are also defined in the domain layer, and is consumed by the presentation layer.
 
+Writing mappers and models can take a lot of effort and result in boilerplate, but they make the codebase much more maintainable and robust.
 #### Data
+Data implements the contract for providing data defined in domain, and in turn provides a contract that will be used to fetch data from different sources.
+We have two data sources - `Remote` and `Cache`. Remote relies on retrofit to fetch data from the swapi.dev api, while the cache room uses room to persist the search history. 
 
-## Testing
+c## Testing
+Testing is done withy junit 4 and Googl truth for making assertions. Coroutines test library is also used to test the suspending calls and the Flows.
+No mocking library was used. The test uses fake objects for all tests, making it easy to properly verify their interactions with dependencies, and simulate the behavior of the real objects.
+Each layer has it's own tests. The remote layer makes use of Mockwebserver to test the api requests and veriify that mock Json responses provided in the test resource folder are returned. The cache layer includes tests for the Room data access objects (DAO), ensuring that data is saved and retrieved as expected.
+The use cases in domain are also tested to be sure that they are called with the required parameters or throw a NoParams exception, and also return the correct data or complete.
+The presentation layer is extensively tested to ensure that the correct view state is produced when an intent is processed. The intent processors take an intent and produce a result. This behavior is tested to ensure it produces the right results for each intent. The view state reducer test also verifies that the correct view state is produced when the previous state and result are computed. Viewmodel tests verify that each call to processIntent produces the correct view state. It looks trivial since it is similar to the reducer's test but it is still very important.
+
+Espresso tests aren't much. The test dependencies for UI tests are provided by dagger. I also hope to improve the UI test coverage.
 
 ## Tech stack
 
-Libraries used in the whole application are:
 - [Viewmodel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Manage UI related data in a lifecycle conscious way 
   and act as a channel between use cases and ui
 - [Room](https://developer.android.com/training/data-storage/room) - Provides abstraction layer over SQLite
