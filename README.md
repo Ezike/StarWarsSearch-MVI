@@ -20,7 +20,7 @@ Hi 👋🏼👋🏼👋🏼, thanks for checking out/reviewing my project. For t
 - [Design](#Design)
 - [Architecture](#architecture)
 - [Testing](#testing)
-- [Tech stack](#Techstack)
+- [Tech stack](#Tech stack)
 - [Extras](#Extras)
 
 ## Prerequisite
@@ -94,7 +94,7 @@ The presentation layer is extensively tested to ensure that the correct view sta
 
 Espresso tests aren't much. The test dependencies for UI tests are provided by dagger. I also hope to improve the UI test coverage.
 
-## Extra
+## Extras
 
 The gradle setup uses Kotlin Gradle DSL which allows you write gradle scripts in a familiar language, and also bringing Kotlin's rich language features to gradle configuration. The project also uses ktlint and the spotless plugin to enforce proper code style. The CI pipeline defined on Github actions runs ktlint on the projecet and runs the unit tests on push, pull request and merge to master branch. There's also a Ktlint pre-commit and pre-push git hook that verifies the project before committing code or pushing to remote repository. 
 
