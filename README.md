@@ -85,17 +85,17 @@ We have two data sources - `Remote` and `Cache`. Remote relies on Retrofit libra
 The remote layer contains an `OkHttp Interceptor` that modifies api requests and changes their scheme from `http` to the more secure `https` to fix an issue where the swapi.dev api returns non https urls for fetching character detail. It also has another interceptor that modifies internet connectivity error exceptions (SocketTimeout, UnknownHost, etc) to convey an error message the user will understand. 
 
 ## Testing
-Unit testing is done with Junit4 and Google Truth for making assertions. The test uses fake objects for all tests instead of mocks, making it easier to verify their interactions with dependencies, and simulate the behavior of the real objects.
+Testing is done with Junit4 and Google Truth for making assertions. The test uses fake objects for all tests instead of mocks, making it easier to verify their interactions with dependencies, and simulate the behavior of the real objects.
 Each layer has its own tests. The remote layer makes use of Mockwebserver to test the api requests and verify that mock Json responses provided in the test resource folder are returned. 
 The cache layer includes tests for the Room data access object (DAO), ensuring that data is saved and retrieved as expected.
 The use cases in domain are also tested to be sure that they are called with the required parameters or throw a NoParams exception, and also return the correct data.
 The presentation layer is extensively unit-tested to ensure that the correct view state is produced when an intent is processed. The intent processors are tested to ensure they produce the right results for each intent. The view state reducer test also verifies that the correct view state is computed. Viewmodel tests verify that each call to processIntent produces the correct view state. It looks trivial since it is similar to the reducer test but it is still very important.
 
-Espresso tests aren't much, and th The test dependencies for UI tests are provided by dagger. I also hope to improve the UI test coverage.
+The project can do with more UI tests that verify that view state is rendered as expected. However, the extensive unit and integration test coverage ensures that the app works as expected.  
 
 ## Extras
 
-The gradle setup uses Kotlin Gradle DSL which allows you write gradle scripts in a familiar language, and also bringing Kotlin's rich language features to gradle configuration. The project also uses ktlint and the spotless plugin to enforce proper code style. The CI pipeline defined on Github actions runs ktlint on the projecet and runs the unit tests on push, pull request and merge to master branch. There's also a Ktlint pre-commit and pre-push git hook that verifies the project before committing code or pushing to remote repository. 
+The gradle script uses Kotlin Gradle DSL which brings Kotlin's rich language features to gradle configuration. The project also uses ktlint and the spotless plugin to enforce proper code style. Github actions handles continous integration, and runs ktlint and unit tests. There's also a Ktlint pre-commit and pre-push git hook that verifies the project's code style before committing code or pushing to remote repository. 
 
 ## Libraries
 
