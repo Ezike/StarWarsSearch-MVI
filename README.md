@@ -32,7 +32,7 @@ To build this project, you require:
 <h4 align="center">
 <img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_recents.jpg" width="30%" vspace="10" hspace="10">
 <img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_search.png" width="30%" vspace="10" hspace="10">
-<img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_detail.jpg" width="30%" vspace="10" hspace="10""><br>                                                                                                                
+<img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_detail.jpg" width="30%" vspace="10" hspace="10"><br>                                                                                                                
                                                                                                                                   
 ## Design
 Before stepping into any coding and architecture decisions, I first had to come up with a sort of idea of how I wanted the app to look, and the kind of experience I wanted users to have when using the app. This also guided my decisions on what architecture and tools were best suited to bring this user experience to life. In addition to having a search screen and a detail screen, I also added a search history screen where users can revisit any previously searched item without needing to type text into the search bar and wait for results.
@@ -51,13 +51,29 @@ It also enforces separation of concerns and dependency inversion where higher an
 - Data 
 - Remote 
 - Cache
+
 These modules/layers are Java/Kotlin modules except cache. The catch here is that we want independence from the Android framework. One of the key points of clean architecture is that your low level layers should be platform agnostic. We can plug our Domain, data and presentation layers into a kotlin multiplatform project and it will run just fine because we don't depend on the android framework. The cache and remote layers are implementation details that can be provided in any form (Firebase, GraphQl server, REST, ROOM, SQLDelight, etc) as long as it conforms to the business rules / contracts defined in the data layer which in turn also conforms to contract defined in domain.
 The project also has one feature module `character_search` that holds the UI code and presents data to the users. The main app module does nothing more than just tying all the many layers of our app together. 
 
 #### Presentation
 As stated earlier, the presentation layer is implemented with MVI architecture. There is a kotlin module called presentation which defines the contract of what our apps presentation should look like. The layer is also platform agnostic, allowing us to switch implementation details like whether to use ViewModel or not at will.
 
-MVI architecture defines a uni-directional data flow structure for our project.  
+<img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596780277/mvi_image.png" width="20%" vspace="8" hspace="8"><br>   
+                                                                                                                                  
+MVI architecture has two main components - The model and the view, everything else is the data that flows between these two components. The view state comes from the Model and goes into the View for rendering. Intents come from the View and is consumed by the model for processing. This relationship is most times refered to as unidirectional Data Flow.
+
+I have a model class called `State machine` which encapsulates logic of how to process intents and make new view states. It relies on an intent processor that takes intents from the view, liases with a third-party (in this case our domain layer) to process the intent and then returns a result. Our results are taken up by a view state reducer function that uses our previous state and the result from the intent processor to make a new state that will be rendered on the UI. 
+The views (fragments/components) output intents and take state as input. The viewmodel which is our presenter outputs state and takes in intents to process. 
+
+The viewmodel in our architecture is very lean, depending solely on the state machine. Since it survives configuration changes, it ensures our user data persists across screen rotation.  
+MVI is a great architecture when you don't want any surprises in your user experience as state only comes from one source and is immutable. On the other hand it does come with a lot of boilerplate. Thankfully, there are a couple of libraries out there that abstract the implementation details and make it a lot easier to use. I took more of vanilla approach in order to represent the core concepts of MVI.
+
+#### State rendering
+For each screen, there is a sealed class of Viewstate, Viewintent and results. It's also possible to want to render multiple view states in one screen. and this led to creation of `view components`. 
+View components are basically compound UI components that extend a viewGroup, which knows how to render it's own view state and also emit intents. In the search screen we have two components - `SearchHistoryView` and `SearchResultView`. The `SearchFragment` then passes state to these components to render on the screen. It also takes intents from the components to process.
+
+The detail screen was a bit more complex. I created a component to render each detail - `PlanetView`, `FilmView`, `SpeciesView`, and `ProfileView`. These encapsulate view logic for rendering success, error and empty states for the corresponding detail. The data for the views are fetch concurrently which allows either of them to render whenever its data is loading. It also allows the user to retry the data fetch for each individual component if it fails. The states for each of them is decoupled from one another and is cached in a Flow persisted in the Fragment's viewModel.
+
 #### Domain
 
 #### Data
