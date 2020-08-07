@@ -85,7 +85,7 @@ Writing mappers and models can take a lot of effort and result in boilerplate, b
 Data implements the contract for providing data defined in domain, and in turn provides a contract that will be used to fetch data from different sources.
 We have two data sources - `Remote` and `Cache`. Remote relies on retrofit to fetch data from the swapi.dev api, while the cache room uses room to persist the search history. 
 
-c## Testing
+## Testing
 Testing is done withy junit 4 and Googl truth for making assertions. Coroutines test library is also used to test the suspending calls and the Flows.
 No mocking library was used. The test uses fake objects for all tests, making it easy to properly verify their interactions with dependencies, and simulate the behavior of the real objects.
 Each layer has it's own tests. The remote layer makes use of Mockwebserver to test the api requests and veriify that mock Json responses provided in the test resource folder are returned. The cache layer includes tests for the Room data access objects (DAO), ensuring that data is saved and retrieved as expected.
@@ -93,6 +93,10 @@ The use cases in domain are also tested to be sure that they are called with the
 The presentation layer is extensively tested to ensure that the correct view state is produced when an intent is processed. The intent processors take an intent and produce a result. This behavior is tested to ensure it produces the right results for each intent. The view state reducer test also verifies that the correct view state is produced when the previous state and result are computed. Viewmodel tests verify that each call to processIntent produces the correct view state. It looks trivial since it is similar to the reducer's test but it is still very important.
 
 Espresso tests aren't much. The test dependencies for UI tests are provided by dagger. I also hope to improve the UI test coverage.
+
+## Extra
+
+The gradle setup uses Kotlin Gradle DSL which allows you write gradle scripts in a familiar language, and also bringing Kotlin's rich language features to gradle configuration. The project also uses ktlint and the spotless plugin to enforce proper code style. The CI pipeline defined on Github actions runs ktlint on the projecet and runs the unit tests on push, pull request and merge to master branch. There's also a Ktlint pre-commit and pre-push git hook that verifies the project before committing code or pushing to remote repository. 
 
 ## Tech stack
 
