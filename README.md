@@ -5,13 +5,15 @@
 Search for star wars characters from [a Star Wars API](https://swapi.dev/).
 Built on Clean Architecture with MVI (Uni-directional data flow)
 
-Min Api Level : 21 [Supports Over 87% Devices ](https://developer.android.com/about/dashboards)
-
-Build System : [Gradle](https://gradle.org/)
-
+<h2 align="left">Screenshots</h2>
+<h4 align="center">
+<img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_recents.jpg" width="30%" vspace="10" hspace="10">
+<img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_search.png="30%" vspace="10" hspace="10">
+<img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_detail.jpg" width="30%" vspace="10" hspace="10""><br>
+                                                                                                                        
 ## Features
-* Kotlin Coroutines with Flow (State Flow)
 * Clean Architecture with MVI (Uni-directional data flow)
+* Kotlin Coroutines with Flow
 * Dagger Hilt
 * Kotlin Gradle DSL
 
@@ -20,11 +22,11 @@ Build System : [Gradle](https://gradle.org/)
 - [Prerequisite](#prerequisite)
 - [Architecture](#architecture)
 - [Testing](#testing)
-- [Libraries](#libraries)
-- [Contributors](#contributors)
-- [Related Posts](#related-posts)
-- [Demo](#demo)
+- [Tech stack](#Techstack)
 
+## Prerequisite
+- Android Studio 4.2 canary 4 
+- 
 ## Architecture
 
 The Application is split into a three layer architecture:
