@@ -8,7 +8,7 @@ Built on Clean Architecture with MVI (Uni-directional data flow)
 <h2 align="left">Screenshots</h2>
 <h4 align="center">
 <img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_recents.jpg" width="30%" vspace="10" hspace="10">
-<img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_search.png="30%" vspace="10" hspace="10">
+<img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_search.png" width="30%" vspace="10" hspace="10">
 <img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_detail.jpg" width="30%" vspace="10" hspace="10""><br>
                                                                                                                         
 ## Features
