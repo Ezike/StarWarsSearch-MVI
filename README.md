@@ -2,31 +2,40 @@
 
 # Star wars search
 
-Search for star wars characters from [a Star Wars API](https://swapi.dev/).
+Search for star wars characters from [Star Wars API](https://swapi.dev/).
 Built on Clean Architecture with MVI (Uni-directional data flow)
-
-<h2 align="left">Screenshots</h2>
-<h4 align="center">
-<img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_recents.jpg" width="30%" vspace="10" hspace="10">
-<img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_search.png" width="30%" vspace="10" hspace="10">
-<img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_detail.jpg" width="30%" vspace="10" hspace="10""><br>
                                                                                                                         
 ## Features
 * Clean Architecture with MVI (Uni-directional data flow)
 * Kotlin Coroutines with Flow
 * Dagger Hilt
 * Kotlin Gradle DSL
+* GitHub actions for CI
+
+Hi 👋🏼👋🏼👋🏼, thanks for checking out/reviewing my project. For the rest of this document, I will be explaining the reasons for the technical decisions I made for this case study, the problems I faced, and what I learnt from them.
 
 ## Table of Contents
 
 - [Prerequisite](#prerequisite)
+- [Design](#Design)
 - [Architecture](#architecture)
 - [Testing](#testing)
 - [Tech stack](#Techstack)
+- [Extras](#Extras)
 
 ## Prerequisite
-- Android Studio 4.2 canary 4 
-- 
+To build this project, you require:
+- Android Studio 4.2 canary 4 or higher
+- Gradle 6.5 
+
+## Design
+
+<h2 align="left">Screenshots</h2>
+<h4 align="center">
+<img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_recents.jpg" width="30%" vspace="10" hspace="10">
+<img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_search.png" width="30%" vspace="10" hspace="10">
+<img src="https://res.cloudinary.com/diixxqjcx/image/upload/v1596748100/star_wars_detail.jpg" width="30%" vspace="10" hspace="10""><br>                                                                                                                
+                                                                                                                                  
 ## Architecture
 
 The Application is split into a three layer architecture:
@@ -43,7 +52,7 @@ The Application is split into a three layer architecture:
 
 ## Testing
 
-## Libraries
+## Tech stack
 
 Libraries used in the whole application are:
 - [Viewmodel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Manage UI related data in a lifecycle conscious way 
