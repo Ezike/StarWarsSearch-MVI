@@ -20,7 +20,7 @@ Hi 👋🏼👋🏼👋🏼, thanks for checking out/reviewing my project. For t
 - [Design](#Design)
 - [Architecture](#architecture)
 - [Testing](#testing)
-- [Tech stack](#Tech stack)
+- [Tech stack](#Libraries)
 - [Extras](#Extras)
 
 ## Prerequisite
@@ -83,7 +83,7 @@ Usecases which represent a single unit of business logic are also defined in the
 Writing mappers and models can take a lot of effort and result in boilerplate, but they make the codebase much more maintainable and robust.
 #### Data
 Data implements the contract for providing data defined in domain, and in turn provides a contract that will be used to fetch data from different sources.
-We have two data sources - `Remote` and `Cache`. Remote relies on retrofit to fetch data from the swapi.dev api, while the cache room uses room to persist the search history. 
+We have two data sources - `Remote` and `Cache`. Remote relies on retrofit to fetch data from the swapi.dev api, while the cache room uses room to persist the search history. The swapi.dev api returns non https urls for fetching character details. The remote layer, contains an `OkHttp Interceptor` that modifies requests and change their scheme to `https`. It also has another interceptor that modifies error exceptions that deal with poor connectivity (SocketTimeout, UnknownHost) to convey an error message the user will understand. 
 
 ## Testing
 Testing is done withy junit 4 and Googl truth for making assertions. Coroutines test library is also used to test the suspending calls and the Flows.
@@ -98,7 +98,7 @@ Espresso tests aren't much. The test dependencies for UI tests are provided by d
 
 The gradle setup uses Kotlin Gradle DSL which allows you write gradle scripts in a familiar language, and also bringing Kotlin's rich language features to gradle configuration. The project also uses ktlint and the spotless plugin to enforce proper code style. The CI pipeline defined on Github actions runs ktlint on the projecet and runs the unit tests on push, pull request and merge to master branch. There's also a Ktlint pre-commit and pre-push git hook that verifies the project before committing code or pushing to remote repository. 
 
-## Tech stack
+## Libraries
 
 - [Viewmodel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Presenter for persisting view state across config changes
 - [FlowBinding](https://github.com/ReactiveCircus/FlowBinding) - converts traditional view click listeners and call backs to Kotlin flow
