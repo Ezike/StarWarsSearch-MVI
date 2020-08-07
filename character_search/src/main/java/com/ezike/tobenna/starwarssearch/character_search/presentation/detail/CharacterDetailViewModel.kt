@@ -9,6 +9,7 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.FilmDetailViewState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.PlanetDetailViewState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.SpecieDetailViewState
+import com.ezike.tobenna.starwarssearch.presentation.mvi.MVIPresenter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -17,12 +18,12 @@ import kotlinx.coroutines.flow.onEach
 
 class CharacterDetailViewModel @ViewModelInject constructor(
     private val characterDetailStateMachine: CharacterDetailStateMachine
-) : ViewModel() {
+) : ViewModel(), MVIPresenter<CharacterDetailViewState, CharacterDetailViewIntent> {
 
     /**
      * Separating the viewStates into different flows so that the last state for each view
-     * component [PlanetView], [SpecieView], [FilmsView], [ProfileView] is always cached in its
-     * corresponding flow.
+     * component - [PlanetView], [SpecieView], [FilmsView], [ProfileView] is always cached
+     * in its corresponding flow.
      *
      * Comes in handy during config changes
      */
@@ -38,7 +39,7 @@ class CharacterDetailViewModel @ViewModelInject constructor(
     private val planetViewState: MutableStateFlow<PlanetDetailViewState> =
         MutableStateFlow(PlanetDetailViewState.Loading)
 
-    val viewState: Flow<CharacterDetailViewState>
+    override val viewState: Flow<CharacterDetailViewState>
         get() = merge(
             detailViewState,
             planetViewState,
@@ -62,7 +63,7 @@ class CharacterDetailViewModel @ViewModelInject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun processIntent(intents: Flow<CharacterDetailViewIntent>) {
+    override fun processIntent(intents: Flow<CharacterDetailViewIntent>) {
         characterDetailStateMachine
             .processIntents(intents)
             .launchIn(viewModelScope)
