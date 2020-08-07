@@ -100,8 +100,8 @@ The gradle setup uses Kotlin Gradle DSL which allows you write gradle scripts in
 
 ## Tech stack
 
-- [Viewmodel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Manage UI related data in a lifecycle conscious way 
-  and act as a channel between use cases and ui
+- [Viewmodel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Presenter for persisting view state across config changes
+- [FlowBinding](https://github.com/ReactiveCircus/FlowBinding) - converts traditional view click listeners and call backs to Kotlin flow
 - [Room](https://developer.android.com/training/data-storage/room) - Provides abstraction layer over SQLite
 - [Retrofit](https://square.github.io/retrofit/) - type safe http client and supports coroutines out of the box.  
 - [Moshi](https://github.com/square/moshi) - JSON Parser,used to parse requests on the data layer for Entities and understands Kotlin non-nullable and default parameters
@@ -111,5 +111,5 @@ The gradle setup uses Kotlin Gradle DSL which allows you write gradle scripts in
 - [MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver) - web server for testing HTTP clients ,verify requests and responses on the star wars api with the retrofit client.
 - [Robolectric](http://robolectric.org/) - Unit test on android framework.
 - [Espresso](https://developer.android.com/training/testing/espresso) - Test framework to write UI Tests
-- [Dagger Hilt](https://dagger.dev/hilt)
+- [Dagger Hilt](https://dagger.dev/hilt) - handles dependency injection
 - [Kotlin Gradle DSL](https://guides.gradle.org/migrating-build-logic-from-groovy-to-kotlin)
