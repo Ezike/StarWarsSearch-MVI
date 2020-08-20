@@ -34,7 +34,7 @@ To build this project, you require:
                                                                                                                                   
 ## Design
 Before taking any coding and architecture decisions, I first had to come up with an idea of how I wanted the app to look, and the kind of experience I wanted users to have when using the app. This also guided my decisions on what architecture and tools were best suited to bring about a good user experience. In addition to having a search screen and a detail screen, I also added a search history screen where users can revisit any previously viewed character without having to search and wait for results.
-As seen in the images of the app above [Design](#Design), the app launches into the search screen where the user can either see their search history or a prompt that tells them that their recent searches will be displayed there later. There's also a button that allows the user clear their search history.
+As seen in the images of the app [above](#Design), the app launches into the search screen where the user can either see their search history or a prompt that tells them that their recent searches will be displayed there later. There's also a button that allows the user clear their search history.
 
 Typing text into the search bar transitions the user into a `searching state` which leads to either a loaded search results state, empty or error state.
 
