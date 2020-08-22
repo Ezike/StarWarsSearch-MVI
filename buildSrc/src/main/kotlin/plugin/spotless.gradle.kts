@@ -1,5 +1,5 @@
 plugins {
-    id("com.diffplug.gradle.spotless")
+    id("com.diffplug.spotless")
 }
 
 spotless {
