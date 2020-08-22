@@ -1,12 +1,12 @@
 package com.ezike.tobenna.starwarssearch.remote.interceptor
 
+import okhttp3.Interceptor
+import okhttp3.Response
 import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import kotlin.reflect.KClass
-import okhttp3.Interceptor
-import okhttp3.Response
 
 object NoInternetInterceptor : Interceptor {
 

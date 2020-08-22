@@ -3,10 +3,10 @@ package com.ezike.tobenna.starwarssearch.domain.fakes
 import com.ezike.tobenna.starwarssearch.domain.data.DummyData
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.domain.repository.SearchRepository
-import java.net.SocketTimeoutException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import java.net.SocketTimeoutException
 
 internal class FakeSearchRepository : SearchRepository {
 

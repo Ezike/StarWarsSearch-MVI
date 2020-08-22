@@ -22,7 +22,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(R.layout.fragment_search),
+class SearchFragment :
+    Fragment(R.layout.fragment_search),
     MVIView<SearchViewIntent, SearchViewState> {
 
     private val viewModel: CharacterSearchViewModel by viewModels()
@@ -32,7 +33,8 @@ class SearchFragment : Fragment(R.layout.fragment_search),
     override val intents: Flow<SearchViewIntent>
         get() = merge(
             binding.searchBar.textChanges.checkDistinct.map(SearchCharacterViewIntent::Search),
-            binding.searchResult.intents, binding.recentSearch.intents,
+            binding.searchResult.intents,
+            binding.recentSearch.intents,
             binding.searchResult.retryIntent(binding.searchBar.textChanges)
         )
 

@@ -10,11 +10,11 @@ import com.ezike.tobenna.starwarssearch.domain.fakes.FakeSearchRepository
 import com.ezike.tobenna.starwarssearch.domain.fakes.ResponseType
 import com.ezike.tobenna.starwarssearch.domain.model.Specie
 import com.google.common.truth.Truth.assertThat
-import java.net.SocketTimeoutException
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
+import java.net.SocketTimeoutException
 
 class FetchSpeciesTest {
 

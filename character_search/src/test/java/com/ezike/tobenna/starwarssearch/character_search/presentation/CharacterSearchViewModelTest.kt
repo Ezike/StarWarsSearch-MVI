@@ -227,7 +227,8 @@ class CharacterSearchViewModelTest {
                 SearchCharacterViewState.Searching,
                 SearchCharacterViewState.SearchResultLoaded(
                     characterModelMapper.mapToModelList(DummyData.characterList)
-                ), SearchHistoryViewState.SearchHistoryEmpty
+                ),
+                SearchHistoryViewState.SearchHistoryEmpty
             )
     }
 }

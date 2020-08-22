@@ -15,12 +15,12 @@ import com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter.Searc
 import com.ezike.tobenna.starwarssearch.core.ext.getImage
 import com.ezike.tobenna.starwarssearch.presentation.mvi.MVIView
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
-import javax.inject.Provider
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
+import javax.inject.Provider
 
 @AndroidEntryPoint
 class SearchResultView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet) :

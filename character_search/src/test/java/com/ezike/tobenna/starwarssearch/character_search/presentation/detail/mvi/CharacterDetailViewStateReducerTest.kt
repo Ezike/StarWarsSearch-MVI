@@ -11,9 +11,9 @@ import com.ezike.tobenna.starwarssearch.domain.model.Film
 import com.ezike.tobenna.starwarssearch.domain.model.Planet
 import com.ezike.tobenna.starwarssearch.domain.model.Specie
 import com.google.common.truth.Truth.assertThat
-import java.net.SocketTimeoutException
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
+import java.net.SocketTimeoutException
 
 class CharacterDetailViewStateReducerTest {
 

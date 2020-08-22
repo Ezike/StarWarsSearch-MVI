@@ -13,11 +13,11 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi
 import com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter.SearchHistoryAdapter
 import com.ezike.tobenna.starwarssearch.presentation.mvi.MVIView
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
-import javax.inject.Provider
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import reactivecircus.flowbinding.android.view.clicks
+import javax.inject.Inject
+import javax.inject.Provider
 
 @AndroidEntryPoint
 class SearchHistoryView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet) :

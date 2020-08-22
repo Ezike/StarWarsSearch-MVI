@@ -12,10 +12,10 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi
 import com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail.adapter.FilmAdapter
 import com.ezike.tobenna.starwarssearch.presentation.mvi.MVIView
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FilmsView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet) :

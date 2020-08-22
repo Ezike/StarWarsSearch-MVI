@@ -5,9 +5,9 @@ import com.ezike.tobenna.starwarssearch.data.mapper.CharacterEntityMapper
 import com.ezike.tobenna.starwarssearch.data.model.CharacterEntity
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.domain.repository.SearchHistoryRepository
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 class SearchHistoryRepositoryImpl @Inject constructor(
     private val searchHistoryCache: SearchHistoryCache,

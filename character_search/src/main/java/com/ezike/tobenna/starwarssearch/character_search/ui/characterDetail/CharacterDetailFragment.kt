@@ -27,7 +27,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 
 @AndroidEntryPoint
-class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail),
+class CharacterDetailFragment :
+    Fragment(R.layout.fragment_character_detail),
     MVIView<CharacterDetailViewIntent, CharacterDetailViewState> {
 
     private val viewModel: CharacterDetailViewModel by viewModels()

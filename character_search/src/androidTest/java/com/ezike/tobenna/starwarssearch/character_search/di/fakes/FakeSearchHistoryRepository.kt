@@ -2,9 +2,9 @@ package com.ezike.tobenna.starwarssearch.character_search.di.fakes
 
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.domain.repository.SearchHistoryRepository
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import javax.inject.Inject
 
 class FakeSearchHistoryRepository @Inject constructor() : SearchHistoryRepository {
 

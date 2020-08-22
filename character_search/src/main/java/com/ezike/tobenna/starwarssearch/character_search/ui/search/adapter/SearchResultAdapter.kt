@@ -10,11 +10,11 @@ import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter.SearchResultAdapter.SearchResultViewHolder
 import com.ezike.tobenna.starwarssearch.core.ext.inflate
 import com.ezike.tobenna.starwarssearch.core.ext.safeOffer
-import javax.inject.Inject
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.conflate
+import javax.inject.Inject
 
 typealias SearchResultClickListener = (CharacterModel) -> Unit
 

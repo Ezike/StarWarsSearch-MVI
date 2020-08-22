@@ -9,12 +9,12 @@ import com.ezike.tobenna.starwarssearch.domain.usecase.search.SearchCharacters
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.ClearSearchHistory
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.GetSearchHistory
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.SaveSearch
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
+import javax.inject.Inject
 
 class SearchViewIntentProcessor @Inject constructor(
     private val searchCharacters: SearchCharacters,

@@ -15,9 +15,9 @@ import com.ezike.tobenna.starwarssearch.domain.model.Film
 import com.ezike.tobenna.starwarssearch.domain.model.Planet
 import com.ezike.tobenna.starwarssearch.domain.model.Specie
 import com.ezike.tobenna.starwarssearch.domain.repository.CharacterDetailRepository
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 class CharacterDetailRepositoryImpl @Inject constructor(
     private val characterDetailRemote: CharacterDetailRemote,

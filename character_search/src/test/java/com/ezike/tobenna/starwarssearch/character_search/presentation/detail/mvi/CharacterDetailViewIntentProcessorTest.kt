@@ -15,10 +15,10 @@ import com.ezike.tobenna.starwarssearch.testutils.TestPostExecutionThread
 import com.ezike.tobenna.starwarssearch.testutils.containsElements
 import com.ezike.tobenna.starwarssearch.testutils.recordWith
 import com.google.common.truth.Truth.assertThat
-import java.net.SocketTimeoutException
 import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
+import java.net.SocketTimeoutException
 
 class CharacterDetailViewIntentProcessorTest {
 
@@ -56,9 +56,13 @@ class CharacterDetailViewIntentProcessorTest {
         assertThat(resultRecorder.takeAll()).containsElements(
             CharacterDetailViewResult.CharacterDetail(
                 characterModelMapper.mapToDomain(character)
-            ), FilmDetailViewResult.Loading, FilmDetailViewResult.Success(DummyData.films),
-            PlanetDetailViewResult.Loading, PlanetDetailViewResult.Success(DummyData.planet),
-            SpecieDetailViewResult.Loading, SpecieDetailViewResult.Success(DummyData.species)
+            ),
+            FilmDetailViewResult.Loading,
+            FilmDetailViewResult.Success(DummyData.films),
+            PlanetDetailViewResult.Loading,
+            PlanetDetailViewResult.Success(DummyData.planet),
+            SpecieDetailViewResult.Loading,
+            SpecieDetailViewResult.Success(DummyData.species)
         )
     }
 
@@ -282,9 +286,12 @@ class CharacterDetailViewIntentProcessorTest {
 
         assertThat(resultRecorder.takeAll()).containsElements(
             CharacterDetailViewResult.Retrying,
-            FilmDetailViewResult.Loading, FilmDetailViewResult.Success(DummyData.films),
-            PlanetDetailViewResult.Loading, PlanetDetailViewResult.Success(DummyData.planet),
-            SpecieDetailViewResult.Loading, SpecieDetailViewResult.Success(DummyData.species)
+            FilmDetailViewResult.Loading,
+            FilmDetailViewResult.Success(DummyData.films),
+            PlanetDetailViewResult.Loading,
+            PlanetDetailViewResult.Success(DummyData.planet),
+            SpecieDetailViewResult.Loading,
+            SpecieDetailViewResult.Success(DummyData.species)
         )
     }
 

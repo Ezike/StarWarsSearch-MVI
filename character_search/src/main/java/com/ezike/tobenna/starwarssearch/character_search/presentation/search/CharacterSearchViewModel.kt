@@ -27,4 +27,9 @@ class CharacterSearchViewModel @ViewModelInject constructor(
             .processIntents(intents)
             .launchIn(viewModelScope)
     }
+    val a = Some { }
+}
+
+fun interface Some {
+    fun ab()
 }
