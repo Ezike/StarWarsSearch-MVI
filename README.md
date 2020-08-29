@@ -23,7 +23,7 @@ Thanks for checking out my project. For the rest of this document, I will be exp
 
 ## Prerequisite
 To build this project, you require:
-- Android Studio 4.2 canary 4 or higher
+- Android Studio 4.2 canary 7 or higher
 - Gradle 6.5 
 
 <h2 align="left">Screenshots</h2>
