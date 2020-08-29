@@ -1,9 +1,9 @@
 package com.ezike.tobenna.starwarssearch.core.executor
 
 import com.ezike.tobenna.starwarssearch.domain.executor.PostExecutionThread
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
 
 class PostExecutionThreadImpl @Inject constructor() : PostExecutionThread {
     override val main: CoroutineDispatcher = Dispatchers.Main

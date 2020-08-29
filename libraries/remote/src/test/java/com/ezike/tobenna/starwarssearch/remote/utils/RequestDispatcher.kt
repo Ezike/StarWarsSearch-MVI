@@ -1,9 +1,9 @@
 package com.ezike.tobenna.starwarssearch.remote.utils
 
-import java.net.HttpURLConnection
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.RecordedRequest
+import java.net.HttpURLConnection
 
 class RequestDispatcher : Dispatcher() {
 

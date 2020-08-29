@@ -25,7 +25,8 @@ abstract class StarWarsDatabase : RoomDatabase() {
         private const val DATABASE_NAME: String = "star_wars_db"
         fun build(context: Context): StarWarsDatabase = Room.databaseBuilder(
             context.applicationContext,
-            StarWarsDatabase::class.java, DATABASE_NAME
+            StarWarsDatabase::class.java,
+            DATABASE_NAME
         ).fallbackToDestructiveMigration().build()
     }
 }

@@ -23,11 +23,11 @@ import com.ezike.tobenna.starwarssearch.testutils.TestPostExecutionThread
 import com.ezike.tobenna.starwarssearch.testutils.containsElements
 import com.ezike.tobenna.starwarssearch.testutils.recordWith
 import com.google.common.truth.Truth.assertThat
-import java.net.SocketTimeoutException
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
+import java.net.SocketTimeoutException
 
 class SearchViewIntentProcessorTest {
 

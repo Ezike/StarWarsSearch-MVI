@@ -9,7 +9,6 @@ import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchFilms
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchPlanet
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchSpecies
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.GetCharacterDetail
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapLatest
@@ -17,6 +16,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onStart
+import javax.inject.Inject
 
 class CharacterDetailViewIntentProcessor @Inject constructor(
     private val fetchPlanet: FetchPlanet,
@@ -31,7 +31,8 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
             CharacterDetailViewIntent.Idle -> flowOf(CharacterDetailViewResult.Idle)
             is CharacterDetailViewIntent.LoadCharacterDetail -> {
                 getCharacterInfo(
-                    viewIntent.character.url, CharacterDetailViewResult.CharacterDetail(
+                    viewIntent.character.url,
+                    CharacterDetailViewResult.CharacterDetail(
                         characterModelMapper.mapToDomain(viewIntent.character)
                     )
                 )

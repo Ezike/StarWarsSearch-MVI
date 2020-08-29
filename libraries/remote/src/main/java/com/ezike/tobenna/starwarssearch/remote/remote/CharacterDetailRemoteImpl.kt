@@ -50,7 +50,8 @@ class CharacterDetailRemoteImpl @Inject constructor(
         return specieDetails.map { specie ->
             if (specieMap.containsKey(specie.homeworld)) {
                 SpecieEntity(
-                    specie.name, specie.language,
+                    specie.name,
+                    specie.language,
                     specieMap[specie.homeworld] ?: ""
                 )
             } else {

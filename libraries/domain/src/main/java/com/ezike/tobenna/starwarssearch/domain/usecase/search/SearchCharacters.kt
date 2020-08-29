@@ -5,9 +5,9 @@ import com.ezike.tobenna.starwarssearch.domain.executor.PostExecutionThread
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.domain.repository.SearchRepository
 import com.ezike.tobenna.starwarssearch.domain.usecase.base.FlowUseCase
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class SearchCharacters @Inject constructor(
     private val repository: SearchRepository,

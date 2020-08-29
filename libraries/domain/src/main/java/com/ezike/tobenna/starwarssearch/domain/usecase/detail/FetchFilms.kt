@@ -5,9 +5,9 @@ import com.ezike.tobenna.starwarssearch.domain.executor.PostExecutionThread
 import com.ezike.tobenna.starwarssearch.domain.model.Film
 import com.ezike.tobenna.starwarssearch.domain.repository.CharacterDetailRepository
 import com.ezike.tobenna.starwarssearch.domain.usecase.base.FlowUseCase
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class FetchFilms @Inject constructor(
     private val characterDetailRepository: CharacterDetailRepository,

@@ -3,7 +3,7 @@ import Dependencies.View.Version.fragment
 const val kotlinAndroid: String = "android"
 const val kotlinAndroidExtension: String = "android.extensions"
 const val kotlinKapt: String = "kapt"
-const val ktLintVersion: String = "0.36.0"
+const val ktLintVersion: String = "0.38.0"
 
 object Config {
     object Version {
@@ -51,8 +51,13 @@ object Dependencies {
 
         override val components: List<String>
             get() = listOf(
-                coreKtx, navigationFragmentKtx, navigationUiKtx, multiDex, activity,
-                lifeCycleCommon, viewModel
+                coreKtx,
+                navigationFragmentKtx,
+                navigationUiKtx,
+                multiDex,
+                activity,
+                lifeCycleCommon,
+                viewModel
             )
     }
 
@@ -61,7 +66,7 @@ object Dependencies {
             const val materialComponent: String = "1.2.0-alpha04"
             const val shimmerLayout: String = "0.5.0"
             const val appCompat: String = "1.2.0-rc01"
-            const val constraintLayout: String = "2.0.0-beta6"
+            const val constraintLayout: String = "2.0.0"
             const val fragment: String = "1.2.5"
             const val cardView: String = "1.0.0"
             const val recyclerView: String = "1.1.0"
@@ -109,8 +114,11 @@ object Dependencies {
         const val moshi: String = "com.squareup.moshi:moshi-kotlin:${Version.moshi}"
 
         override val components: List<String> = listOf(
-            okhttp, loggingInterceptor, retrofit,
-            retrofitMoshi, moshi
+            okhttp,
+            loggingInterceptor,
+            retrofit,
+            retrofitMoshi,
+            moshi
         )
     }
 
@@ -139,7 +147,7 @@ object Dependencies {
 
     object Coroutines : Libraries {
         object Version {
-            const val coroutines: String = "1.3.8"
+            const val coroutines: String = "1.3.9"
         }
 
         const val core: String =

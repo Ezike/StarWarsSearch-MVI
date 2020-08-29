@@ -7,10 +7,10 @@ import com.ezike.tobenna.starwarssearch.data.mapper.CharacterEntityMapper
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.testutils.assertThrows
 import com.google.common.truth.Truth.assertThat
-import java.net.UnknownHostException
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
+import java.net.UnknownHostException
 
 class CharacterRepositoryImplTest {
 
