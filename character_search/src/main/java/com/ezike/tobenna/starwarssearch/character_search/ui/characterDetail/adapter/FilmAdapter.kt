@@ -8,10 +8,8 @@ import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.ItemFilmBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.FilmModel
 import com.ezike.tobenna.starwarssearch.core.ext.inflate
-import javax.inject.Inject
 
-class FilmAdapter @Inject constructor() :
-    ListAdapter<FilmModel, FilmAdapter.FilmViewHolder>(diffUtilCallback) {
+class FilmAdapter : ListAdapter<FilmModel, FilmAdapter.FilmViewHolder>(diffUtilCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder {
         return FilmViewHolder(ItemFilmBinding.bind(parent.inflate(R.layout.item_film)))
@@ -19,10 +17,6 @@ class FilmAdapter @Inject constructor() :
 
     override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
         holder.bind(getItem(position))
-    }
-
-    fun reset() {
-        submitList(emptyList())
     }
 
     class FilmViewHolder(private val binding: ItemFilmBinding) :

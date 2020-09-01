@@ -36,7 +36,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_bar" />
 
-    <com.ezike.tobenna.starwarssearch.character_search.views.search.SearchHistoryView
+    <include
+        layout="@layout/layout_search_history"
         android:id="@+id/recent_search"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -45,7 +46,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider" />
 
-    <com.ezike.tobenna.starwarssearch.character_search.views.search.SearchResultView
+    <include
+        layout="@layout/layout_search_result"
         android:id="@+id/search_result"
         android:layout_width="0dp"
         android:layout_height="0dp"

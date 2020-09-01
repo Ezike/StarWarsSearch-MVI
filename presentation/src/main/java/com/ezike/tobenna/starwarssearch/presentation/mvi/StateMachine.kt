@@ -12,14 +12,12 @@ import kotlinx.coroutines.flow.scan
 abstract class StateMachine<I : ViewIntent, S : ViewState, out R : ViewResult>(
     private val intentProcessor: IntentProcessor<I, R>,
     private val reducer: ViewStateReducer<S, R>,
-    initialIntent: I,
     initialState: S
 ) {
 
     private val viewStateFlow: MutableStateFlow<S> = MutableStateFlow(initialState)
 
-    private val intentsChannel: ConflatedBroadcastChannel<I> =
-        ConflatedBroadcastChannel(initialIntent)
+    private val intentsChannel: ConflatedBroadcastChannel<I> = ConflatedBroadcastChannel()
 
     fun processIntents(intents: Flow<I>): Flow<I> = intents.onEach { viewIntents ->
         intentsChannel.offer(viewIntents)

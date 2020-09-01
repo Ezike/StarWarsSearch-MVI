@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@id/recent_searches_title" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_history"
+        android:id="@+id/search_history_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"

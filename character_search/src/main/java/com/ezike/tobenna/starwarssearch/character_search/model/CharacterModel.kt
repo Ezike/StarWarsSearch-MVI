@@ -12,11 +12,14 @@ data class CharacterModel(
     val heightCm: String,
     val url: String
 ) : Parcelable {
-    val heightInches: String
-        get() = (
-            BigDecimal(heightCm.toDouble() * 0.393701).setScale(
-                1,
-                RoundingMode.HALF_EVEN
-            )
-            ).toString()
+    val heightInches: String?
+        get() = try {
+            (
+                BigDecimal(heightCm.toDouble() * 0.393701)
+                    .setScale(1, RoundingMode.HALF_EVEN)
+                ).toString()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
 }

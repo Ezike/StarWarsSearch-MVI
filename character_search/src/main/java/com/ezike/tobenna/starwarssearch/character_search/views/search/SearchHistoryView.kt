@@ -1,77 +1,53 @@
 package com.ezike.tobenna.starwarssearch.character_search.views.search
 
-import android.content.Context
-import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.widget.LinearLayout
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.databinding.LayoutSearchHistoryBinding
-import com.ezike.tobenna.starwarssearch.character_search.navigation.NavigationDispatcher
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchHistoryViewIntent
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewState.SearchHistoryViewState
+import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter.SearchHistoryAdapter
-import com.ezike.tobenna.starwarssearch.presentation.mvi.MVIView
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import reactivecircus.flowbinding.android.view.clicks
-import javax.inject.Inject
-import javax.inject.Provider
+import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
-@AndroidEntryPoint
-class SearchHistoryView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet) :
-    LinearLayout(context, attributeSet), MVIView<SearchHistoryViewIntent, SearchHistoryViewState> {
+data class SearchHistoryViewState(
+    val history: List<CharacterModel> = emptyList(),
+    val isVisible: Boolean = false
+) : ViewState {
 
-    @Inject
-    lateinit var searchHistoryAdapter: SearchHistoryAdapter
+    val hide: SearchHistoryViewState
+        get() = SearchHistoryViewState()
 
-    @Inject
-    lateinit var navigator: Provider<NavigationDispatcher>
+    fun success(history: List<CharacterModel>): SearchHistoryViewState =
+        this.copy(history = history, isVisible = true)
+}
 
-    private var binding: LayoutSearchHistoryBinding
+object ClearSearchHistory : ViewIntent
+data class UpdateHistory(val character: CharacterModel) : ViewIntent
+
+class SearchHistoryView(
+    private val binding: LayoutSearchHistoryBinding,
+    dispatch: DispatchIntent,
+    navigationAction: (CharacterModel) -> Unit = {}
+) {
+
+    private val searchHistoryAdapter: SearchHistoryAdapter by lazy(LazyThreadSafetyMode.NONE) {
+        SearchHistoryAdapter { model ->
+            dispatch(UpdateHistory(model))
+            navigationAction(model)
+        }
+    }
 
     init {
-        isSaveEnabled = true
-        val inflater: LayoutInflater = context
-            .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        binding.clearHistory.setOnClickListener { dispatch(ClearSearchHistory) }
+        binding.searchHistoryRv.adapter = searchHistoryAdapter
+    }
 
-        binding = LayoutSearchHistoryBinding.inflate(inflater, this, true)
-        binding.searchHistory.adapter = searchHistoryAdapter.apply {
-            clickListener = navigator.get()::openCharacterDetail
+    fun render(state: SearchHistoryViewState) {
+        searchHistoryAdapter.submitList(state.history)
+        binding.run {
+            searchHistoryPrompt.isVisible = state.isVisible && state.history.isEmpty()
+            recentSearchGroup.isVisible = state.isVisible && state.history.isNotEmpty()
+            searchHistoryRv.isInvisible = !state.isVisible && state.history.isEmpty()
         }
     }
-
-    private val clearHistoryIntent: Flow<SearchHistoryViewIntent>
-        get() = binding.clearHistory.clicks().map { SearchHistoryViewIntent.ClearSearchHistory }
-
-    fun hide() {
-        binding.recentSearchGroup.isVisible = false
-        binding.searchHistoryPrompt.isVisible = false
-        binding.searchHistory.isInvisible = true
-    }
-
-    override fun render(state: SearchHistoryViewState) {
-        when (state) {
-            is SearchHistoryViewState.SearchHistoryLoaded -> {
-                searchHistoryAdapter.submitList(state.history)
-                with(binding) {
-                    searchHistoryPrompt.isVisible = false
-                    recentSearchGroup.isVisible = true
-                    searchHistory.isVisible = true
-                }
-            }
-            SearchHistoryViewState.SearchHistoryEmpty -> {
-                searchHistoryAdapter.reset()
-                with(binding) {
-                    searchHistoryPrompt.isVisible = true
-                    recentSearchGroup.isVisible = false
-                    searchHistory.isInvisible = true
-                }
-            }
-        }
-    }
-
-    override val intents: Flow<SearchHistoryViewIntent>
-        get() = clearHistoryIntent
 }

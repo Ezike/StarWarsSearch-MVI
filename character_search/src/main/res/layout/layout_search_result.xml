@@ -17,21 +17,8 @@
         app:layout_constraintVertical_bias="0.2"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <com.ezike.tobenna.starwarssearch.character_search.views.EmptyStateView
-        android:id="@+id/empty_state"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:isButtonVisible="true"
-        app:emptyStateImageSrc="@drawable/ic_error_page_2"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/characters"
+        android:id="@+id/characters_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingTop="@dimen/rv_margin_top"
@@ -45,5 +32,32 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="4"
         tools:listitem="@layout/search_result" />
+
+    <com.ezike.tobenna.starwarssearch.character_search.views.EmptyStateView
+        android:id="@+id/empty_state"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:emptyStateTitleText="@string/no_data"
+        app:emptyStateImageSrc="@drawable/ic_empty"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.ezike.tobenna.starwarssearch.character_search.views.EmptyStateView
+        android:id="@+id/error_state"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:isButtonVisible="true"
+        app:emptyStateTitleText="@string/an_error_occurred"
+        app:emptyStateImageSrc="@drawable/ic_error_page_2"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

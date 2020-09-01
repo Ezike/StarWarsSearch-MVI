@@ -11,6 +11,5 @@ class SearchViewStateMachine @Inject constructor(
 ) : SearchStateMachine(
     intentProcessor,
     reducer,
-    SearchHistoryViewIntent.LoadSearchHistory,
-    SearchViewState.Idle
+    SearchViewState()
 )

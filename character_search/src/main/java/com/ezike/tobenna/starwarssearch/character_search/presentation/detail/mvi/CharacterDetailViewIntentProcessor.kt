@@ -1,7 +1,13 @@
 package com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi
 
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
+import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.CharacterDetailIntentProcessor
+import com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail.LoadCharacterDetail
+import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchCharacterDetails
+import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchFilm
+import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchPlanet
+import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchSpecie
 import com.ezike.tobenna.starwarssearch.domain.model.Film
 import com.ezike.tobenna.starwarssearch.domain.model.Planet
 import com.ezike.tobenna.starwarssearch.domain.model.Specie
@@ -9,10 +15,10 @@ import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchFilms
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchPlanet
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchSpecies
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.GetCharacterDetail
+import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onStart
@@ -26,30 +32,30 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
     private val characterModelMapper: CharacterModelMapper
 ) : CharacterDetailIntentProcessor {
 
-    override fun intentToResult(viewIntent: CharacterDetailViewIntent): Flow<CharacterDetailViewResult> {
+    override fun intentToResult(viewIntent: ViewIntent): Flow<CharacterDetailViewResult> {
         return when (viewIntent) {
-            CharacterDetailViewIntent.Idle -> flowOf(CharacterDetailViewResult.Idle)
-            is CharacterDetailViewIntent.LoadCharacterDetail -> {
+            is LoadCharacterDetail -> {
                 getCharacterInfo(
-                    viewIntent.character.url,
+                    viewIntent.character,
                     CharacterDetailViewResult.CharacterDetail(
                         characterModelMapper.mapToDomain(viewIntent.character)
                     )
                 )
             }
-            is CharacterDetailViewIntent.RetryFetchPlanet -> retryFetchPlanet(viewIntent.url)
-            is CharacterDetailViewIntent.RetryFetchSpecie -> retryFetchSpecie(viewIntent.url)
-            is CharacterDetailViewIntent.RetryFetchFilm -> retryFetchFilm(viewIntent.url)
-            is CharacterDetailViewIntent.RetryFetchCharacterDetails ->
-                getCharacterInfo(viewIntent.character.url, CharacterDetailViewResult.Retrying)
+            is RetryFetchPlanet -> retryFetchPlanet(viewIntent.url)
+            is RetryFetchSpecie -> retryFetchSpecie(viewIntent.url)
+            is RetryFetchFilm -> retryFetchFilm(viewIntent.url)
+            is RetryFetchCharacterDetails ->
+                getCharacterInfo(viewIntent.character, CharacterDetailViewResult.Retrying)
+            else -> throw IllegalArgumentException("Invalid intent $viewIntent")
         }
     }
 
     private fun getCharacterInfo(
-        url: String,
+        model: CharacterModel,
         start: CharacterDetailViewResult
     ): Flow<CharacterDetailViewResult> {
-        return getCharacterDetail(url)
+        return getCharacterDetail(model.url)
             .flatMapLatest { character ->
                 merge(
                     getFilms(character.filmUrls),
@@ -58,7 +64,11 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
                 )
             }
             .onStart { emit(start) }
-            .catch { error -> emit(CharacterDetailViewResult.FetchCharacterDetailError(error)) }
+            .catch { error ->
+                emit(
+                    CharacterDetailViewResult.FetchCharacterDetailError(model.name, error)
+                )
+            }
     }
 
     private fun getFilms(urls: List<String>): Flow<FilmDetailViewResult> {

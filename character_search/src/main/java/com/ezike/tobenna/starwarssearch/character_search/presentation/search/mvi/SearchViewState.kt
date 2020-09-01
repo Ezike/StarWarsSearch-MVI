@@ -1,20 +1,25 @@
 package com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi
 
-import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
+import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchHistoryViewState
+import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchResultViewState
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
-sealed class SearchViewState : ViewState {
-    object Idle : SearchViewState()
-    sealed class SearchHistoryViewState : SearchViewState() {
-        data class SearchHistoryLoaded(val history: List<CharacterModel>) : SearchHistoryViewState()
-        object SearchHistoryEmpty : SearchHistoryViewState()
+data class SearchViewState(
+    val searchHistoryState: SearchHistoryViewState = SearchHistoryViewState(),
+    val searchResultState: SearchResultViewState = SearchResultViewState()
+) : ViewState {
+
+    fun history(state: SearchHistoryViewState.() -> SearchHistoryViewState): SearchViewState {
+        return this.copy(
+            searchResultState = searchResultState.hide,
+            searchHistoryState = searchHistoryState.state()
+        )
     }
 
-    sealed class SearchCharacterViewState : SearchViewState() {
-        object Searching : SearchCharacterViewState()
-        data class SearchResultLoaded(val characters: List<CharacterModel>) :
-            SearchCharacterViewState()
-
-        data class Error(val message: String) : SearchCharacterViewState()
+    fun searchResult(state: SearchResultViewState.() -> SearchResultViewState): SearchViewState {
+        return this.copy(
+            searchResultState = searchResultState.state(),
+            searchHistoryState = searchHistoryState.hide
+        )
     }
 }

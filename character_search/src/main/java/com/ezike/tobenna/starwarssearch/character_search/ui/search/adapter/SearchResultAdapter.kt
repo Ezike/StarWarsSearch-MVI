@@ -9,49 +9,27 @@ import com.ezike.tobenna.starwarssearch.character_search.databinding.SearchResul
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter.SearchResultAdapter.SearchResultViewHolder
 import com.ezike.tobenna.starwarssearch.core.ext.inflate
-import com.ezike.tobenna.starwarssearch.core.ext.safeOffer
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.conflate
-import javax.inject.Inject
 
 typealias SearchResultClickListener = (CharacterModel) -> Unit
 
-class SearchResultAdapter @Inject constructor() :
+class SearchResultAdapter(private val onClick: SearchResultClickListener) :
     ListAdapter<CharacterModel, SearchResultViewHolder>(diffUtilCallback) {
-
-    private var clickListener: SearchResultClickListener? = null
-
-    val clicks: Flow<CharacterModel>
-        get() = callbackFlow {
-            val listener: SearchResultClickListener = { character: CharacterModel ->
-                safeOffer(character)
-                Unit
-            }
-            clickListener = listener
-            awaitClose { clickListener = null }
-        }.conflate()
-
-    fun reset() {
-        submitList(emptyList())
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultViewHolder {
         return SearchResultViewHolder(SearchResultBinding.bind(parent.inflate(R.layout.search_result)))
     }
 
     override fun onBindViewHolder(holder: SearchResultViewHolder, position: Int) {
-        holder.bind(getItem(position), clickListener)
+        holder.bind(getItem(position), onClick)
     }
 
     class SearchResultViewHolder(private val binding: SearchResultBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(character: CharacterModel, clickListener: SearchResultClickListener?) {
+        fun bind(character: CharacterModel, clickListener: SearchResultClickListener) {
             binding.character.text = character.name
             binding.character.setOnClickListener {
-                clickListener?.invoke(character)
+                clickListener(character)
             }
         }
     }

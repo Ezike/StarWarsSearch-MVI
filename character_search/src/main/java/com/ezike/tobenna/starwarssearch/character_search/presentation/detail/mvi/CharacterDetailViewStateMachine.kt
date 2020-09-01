@@ -12,6 +12,5 @@ class CharacterDetailViewStateMachine @Inject constructor(
 ) : CharacterDetailStateMachine(
     intentProcessor,
     reducer,
-    CharacterDetailViewIntent.Idle,
-    CharacterDetailViewState.Idle
+    CharacterDetailViewState()
 )

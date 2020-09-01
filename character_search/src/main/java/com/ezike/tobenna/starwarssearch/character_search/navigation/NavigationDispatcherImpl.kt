@@ -5,20 +5,21 @@ import androidx.navigation.NavController
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import javax.inject.Inject
+import javax.inject.Provider
 
 class NavigationDispatcherImpl @Inject constructor(
-    private val navController: NavController
+    private val navController: Provider<NavController>
 ) : NavigationDispatcher {
 
     override fun openCharacterDetail(model: CharacterModel) {
-        navController.navigate(
+        navController.get().navigate(
             R.id.characterDetailFragment,
             bundleOf(CHARACTER_ARG to model)
         )
     }
 
     override fun goBack() {
-        navController.navigateUp()
+        navController.get().navigateUp()
     }
 
     companion object {

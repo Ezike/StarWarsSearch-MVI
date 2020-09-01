@@ -12,12 +12,6 @@ import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.SimpleEmptyStateViewLayoutBinding
-import com.ezike.tobenna.starwarssearch.core.ext.safeOffer
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.conflate
-import kotlinx.coroutines.flow.debounce
 
 typealias ActionButtonClickListener = () -> Unit
 
@@ -25,7 +19,7 @@ class EmptyStateView : LinearLayout {
 
     private var binding: SimpleEmptyStateViewLayoutBinding
 
-    var buttonClickListener: ActionButtonClickListener? = null
+    private var buttonClickListener: ActionButtonClickListener? = null
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -108,23 +102,13 @@ class EmptyStateView : LinearLayout {
         }
     }
 
-    fun resetCaption() {
-        binding.caption.text = ""
-    }
-
     fun setTitle(emptyStateTitle: String?) {
         if (emptyStateTitle != null) {
             binding.title.text = emptyStateTitle
         }
     }
 
-    val clicks: Flow<Unit>
-        get() = callbackFlow {
-            val listener: () -> Unit = {
-                safeOffer(Unit)
-                Unit
-            }
-            buttonClickListener = listener
-            awaitClose { buttonClickListener = null }
-        }.conflate().debounce(200)
+    fun onRetry(action: ActionButtonClickListener) {
+        buttonClickListener = action
+    }
 }

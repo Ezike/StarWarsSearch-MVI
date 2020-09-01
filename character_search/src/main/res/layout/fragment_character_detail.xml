@@ -14,28 +14,33 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.ezike.tobenna.starwarssearch.character_search.views.detail.ProfileView
+
+        <include
+            layout="@layout/profile_view_layout"
             android:id="@+id/profile_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/profile_detail_top_margin"
-            android:layout_marginHorizontal="16dp" />
+            android:layout_marginHorizontal="@dimen/detail_views_margin" />
 
-        <com.ezike.tobenna.starwarssearch.character_search.views.detail.PlanetView
+        <include
+            layout="@layout/planet_view_layout"
             android:id="@+id/planet_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/detail_views_margin"
             android:layout_marginHorizontal="16dp" />
 
-        <com.ezike.tobenna.starwarssearch.character_search.views.detail.SpecieView
+        <include
+            layout="@layout/specie_view_layout"
             android:id="@+id/specie_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/detail_views_margin"
             android:layout_marginHorizontal="@dimen/detail_views_margin" />
 
-        <com.ezike.tobenna.starwarssearch.character_search.views.detail.FilmsView
+        <include
+            layout="@layout/film_view_layout"
             android:id="@+id/film_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

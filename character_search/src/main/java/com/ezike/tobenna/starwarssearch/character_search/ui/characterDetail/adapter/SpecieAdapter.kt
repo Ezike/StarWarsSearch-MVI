@@ -9,10 +9,8 @@ import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.ItemSpecieBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.SpecieModel
 import com.ezike.tobenna.starwarssearch.core.ext.inflate
-import javax.inject.Inject
 
-class SpecieAdapter @Inject constructor() :
-    ListAdapter<SpecieModel, SpecieAdapter.SpecieViewHolder>(diffUtilCallback) {
+class SpecieAdapter : ListAdapter<SpecieModel, SpecieAdapter.SpecieViewHolder>(diffUtilCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpecieViewHolder {
         return SpecieViewHolder(ItemSpecieBinding.bind(parent.inflate(R.layout.item_specie)))
@@ -20,10 +18,6 @@ class SpecieAdapter @Inject constructor() :
 
     override fun onBindViewHolder(holder: SpecieViewHolder, position: Int) {
         holder.bind(getItem(position))
-    }
-
-    fun reset() {
-        submitList(emptyList())
     }
 
     class SpecieViewHolder(private val binding: ItemSpecieBinding) :

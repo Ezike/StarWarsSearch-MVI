@@ -19,51 +19,54 @@ class CharacterDetailViewStateReducer @Inject constructor(
         previous: CharacterDetailViewState,
         result: CharacterDetailViewResult
     ): CharacterDetailViewState {
-
         return when (result) {
-            is PlanetDetailViewResult -> planetDetailViewState(result)
-            is SpecieDetailViewResult -> specieDetailViewState(result)
-            is FilmDetailViewResult -> filmDetailViewState(result)
-            CharacterDetailViewResult.Idle -> CharacterDetailViewState.Idle
-            is CharacterDetailViewResult.CharacterDetail -> {
-                CharacterDetailViewState
-                    .ProfileLoaded(characterModelMapper.mapToModel(result.character))
-            }
+            is CharacterDetailViewResult.CharacterDetail ->
+                previous.copy(character = characterModelMapper.mapToModel(result.character))
             is CharacterDetailViewResult.FetchCharacterDetailError ->
-                CharacterDetailViewState.FetchDetailError(result.error.errorMessage)
-            CharacterDetailViewResult.Retrying -> CharacterDetailViewState.Retrying
+                previous.errorState(result.characterName, result.error.errorMessage)
+            CharacterDetailViewResult.Retrying -> previous.retry
+            is PlanetDetailViewResult -> makePlanetState(result, previous)
+            is SpecieDetailViewResult -> makeSpecieState(result, previous)
+            is FilmDetailViewResult -> makeFilmState(result, previous)
         }
     }
 
-    private fun filmDetailViewState(result: FilmDetailViewResult): FilmDetailViewState {
+    private fun makeFilmState(
+        result: FilmDetailViewResult,
+        previous: CharacterDetailViewState
+    ): CharacterDetailViewState {
         return when (result) {
-            is FilmDetailViewResult.Success -> {
-                FilmDetailViewState.Success(filmModelMapper.mapToModelList(result.film))
-            }
-            is FilmDetailViewResult.Error -> FilmDetailViewState.Error(result.error.errorMessage)
-            FilmDetailViewResult.Loading -> FilmDetailViewState.Loading
+            is FilmDetailViewResult.Success ->
+                previous.filmState { success(filmModelMapper.mapToModelList(result.film)) }
+            is FilmDetailViewResult.Error ->
+                previous.filmState { error(result.error.errorMessage) }
+            FilmDetailViewResult.Loading -> previous.filmState { loading }
         }
     }
 
-    private fun specieDetailViewState(result: SpecieDetailViewResult): SpecieDetailViewState {
+    private fun makeSpecieState(
+        result: SpecieDetailViewResult,
+        previous: CharacterDetailViewState
+    ): CharacterDetailViewState {
         return when (result) {
-            is SpecieDetailViewResult.Success -> {
-                SpecieDetailViewState.Success(specieModelMapper.mapToModelList(result.specie))
-            }
+            is SpecieDetailViewResult.Success ->
+                previous.specieState { success(specieModelMapper.mapToModelList(result.specie)) }
             is SpecieDetailViewResult.Error ->
-                SpecieDetailViewState.Error(result.error.errorMessage)
-            SpecieDetailViewResult.Loading -> SpecieDetailViewState.Loading
+                previous.specieState { error(result.error.errorMessage) }
+            SpecieDetailViewResult.Loading -> previous.specieState { loading }
         }
     }
 
-    private fun planetDetailViewState(result: PlanetDetailViewResult): PlanetDetailViewState {
+    private fun makePlanetState(
+        result: PlanetDetailViewResult,
+        previous: CharacterDetailViewState
+    ): CharacterDetailViewState {
         return when (result) {
-            is PlanetDetailViewResult.Success -> {
-                PlanetDetailViewState.Success(planetModelMapper.mapToModel(result.planet))
-            }
+            is PlanetDetailViewResult.Success ->
+                previous.planetState { success(planetModelMapper.mapToModel(result.planet)) }
             is PlanetDetailViewResult.Error ->
-                PlanetDetailViewState.Error(result.error.errorMessage)
-            PlanetDetailViewResult.Loading -> PlanetDetailViewState.Loading
+                previous.planetState { error(result.error.errorMessage) }
+            PlanetDetailViewResult.Loading -> previous.planetState { loading }
         }
     }
 }

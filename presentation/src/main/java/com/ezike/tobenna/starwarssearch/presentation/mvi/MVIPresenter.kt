@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface MVIPresenter<out S : ViewState, in I : ViewIntent> {
     val viewState: Flow<S>
-    fun processIntent(intents: Flow<I>)
+    fun processIntent(intent: I)
 }

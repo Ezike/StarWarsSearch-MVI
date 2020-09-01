@@ -7,9 +7,10 @@ import com.ezike.tobenna.starwarssearch.domain.model.Specie
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewResult
 
 sealed class CharacterDetailViewResult : ViewResult {
-    object Idle : CharacterDetailViewResult()
     data class CharacterDetail(val character: Character) : CharacterDetailViewResult()
-    data class FetchCharacterDetailError(val error: Throwable) : CharacterDetailViewResult()
+    data class FetchCharacterDetailError(val characterName: String, val error: Throwable) :
+        CharacterDetailViewResult()
+
     object Retrying : CharacterDetailViewResult()
 }
 

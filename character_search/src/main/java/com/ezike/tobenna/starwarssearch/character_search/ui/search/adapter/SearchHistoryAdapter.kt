@@ -8,34 +8,27 @@ import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.SearchHistoryBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.core.ext.inflate
-import javax.inject.Inject
 
 typealias RecentSearchClickListener = (CharacterModel) -> Unit
 
-class SearchHistoryAdapter @Inject constructor() :
+class SearchHistoryAdapter(private val onClick: RecentSearchClickListener) :
     ListAdapter<CharacterModel, SearchHistoryAdapter.SearchHistoryViewHolder>(diffUtilCallback) {
-
-    var clickListener: RecentSearchClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchHistoryViewHolder {
         return SearchHistoryViewHolder(SearchHistoryBinding.bind(parent.inflate(R.layout.search_history)))
     }
 
     override fun onBindViewHolder(holder: SearchHistoryViewHolder, position: Int) {
-        holder.bind(getItem(position), clickListener)
-    }
-
-    fun reset() {
-        submitList(emptyList())
+        holder.bind(getItem(position), onClick)
     }
 
     class SearchHistoryViewHolder(private val binding: SearchHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(character: CharacterModel, clickListener: RecentSearchClickListener?) {
+        fun bind(character: CharacterModel, clickListener: RecentSearchClickListener) {
             binding.name.text = character.name
             binding.name.setOnClickListener {
-                clickListener?.invoke(character)
+                clickListener(character)
             }
         }
     }

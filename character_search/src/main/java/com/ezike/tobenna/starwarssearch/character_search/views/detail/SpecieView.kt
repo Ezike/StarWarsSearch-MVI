@@ -1,76 +1,59 @@
 package com.ezike.tobenna.starwarssearch.character_search.views.detail
 
-import android.content.Context
-import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.databinding.SpecieViewLayoutBinding
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewIntent
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewIntent.RetryFetchSpecie
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.SpecieDetailViewState
+import com.ezike.tobenna.starwarssearch.character_search.model.SpecieModel
 import com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail.adapter.SpecieAdapter
-import com.ezike.tobenna.starwarssearch.presentation.mvi.MVIView
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.map
-import javax.inject.Inject
+import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
-@AndroidEntryPoint
-class SpecieView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet) :
-    LinearLayout(context, attributeSet), MVIView<CharacterDetailViewIntent, SpecieDetailViewState> {
+data class SpecieViewState(
+    val species: List<SpecieModel> = emptyList(),
+    val errorMessage: String? = null,
+    val isLoading: Boolean = true,
+    val isVisible: Boolean = true
+) : ViewState {
 
-    @Inject
-    lateinit var specieAdapter: SpecieAdapter
+    val loading: SpecieViewState
+        get() = copy(isLoading = true, isVisible = true, errorMessage = null)
 
-    private var binding: SpecieViewLayoutBinding
+    val hide: SpecieViewState
+        get() = copy(isLoading = false, isVisible = false, errorMessage = null)
+
+    fun error(message: String): SpecieViewState =
+        copy(isLoading = false, isVisible = true, errorMessage = message)
+
+    fun success(species: List<SpecieModel>): SpecieViewState =
+        copy(species = species, isLoading = false, isVisible = true, errorMessage = null)
+}
+
+data class RetryFetchSpecie(val url: String) : ViewIntent
+
+class SpecieView(
+    private val binding: SpecieViewLayoutBinding,
+    private val characterUrl: String,
+    action: DispatchIntent
+) {
+
+    private val specieAdapter: SpecieAdapter by lazy(LazyThreadSafetyMode.NONE) { SpecieAdapter() }
 
     init {
-        isSaveEnabled = true
-        val inflater: LayoutInflater = context
-            .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
-        binding = SpecieViewLayoutBinding.inflate(inflater, this, true)
         binding.specieList.adapter = specieAdapter
+        binding.specieErrorState.onRetry { action(RetryFetchSpecie(characterUrl)) }
     }
 
-    fun renderLoading() {
-        render(SpecieDetailViewState.Loading)
-    }
-
-    override fun render(state: SpecieDetailViewState) {
-        binding.root.isVisible = true
-        when (state) {
-            is SpecieDetailViewState.Success -> {
-                specieAdapter.submitList(state.species)
-                binding.emptyView.isVisible = state.species.isEmpty()
-                binding.specieLoadingView.root.isVisible = false
-                binding.specieErrorState.isVisible = false
-            }
-            is SpecieDetailViewState.Error -> {
-                specieAdapter.reset()
-                binding.emptyView.isVisible = false
-                binding.specieLoadingView.root.isVisible = false
-                binding.specieErrorState.isVisible = true
-                binding.specieErrorState.setCaption(state.message)
-            }
-            SpecieDetailViewState.Loading -> {
-                specieAdapter.reset()
-                binding.emptyView.isVisible = false
-                binding.specieLoadingView.root.isVisible = true
-                binding.specieErrorState.isVisible = false
+    fun render(state: SpecieViewState) {
+        specieAdapter.submitList(state.species)
+        binding.run {
+            root.isVisible = state.isVisible
+            if (state.isVisible) {
+                emptyView.isVisible =
+                    state.species.isEmpty() && !state.isLoading && state.errorMessage == null
+                specieLoadingView.root.isVisible = state.isLoading
+                specieErrorState.isVisible = state.errorMessage != null
+                specieErrorState.setCaption(state.errorMessage)
             }
         }
     }
-
-    fun hide() {
-        binding.root.isVisible = false
-    }
-
-    fun retryIntent(url: String): Flow<RetryFetchSpecie> =
-        binding.specieErrorState.clicks.map { RetryFetchSpecie(url) }
-
-    override val intents: Flow<CharacterDetailViewIntent>
-        get() = emptyFlow()
 }
