@@ -45,9 +45,9 @@ class SearchHistoryView(
     fun render(state: SearchHistoryViewState) {
         searchHistoryAdapter.submitList(state.history)
         binding.run {
-            searchHistoryPrompt.isVisible = state.isVisible && state.history.isEmpty()
             recentSearchGroup.isVisible = state.isVisible && state.history.isNotEmpty()
             searchHistoryRv.isInvisible = !state.isVisible && state.history.isEmpty()
+            searchHistoryPrompt.isVisible = state.isVisible && state.history.isEmpty()
         }
     }
 }

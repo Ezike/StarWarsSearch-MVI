@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.scan
 
@@ -27,7 +27,7 @@ abstract class StateMachine<I : ViewIntent, S : ViewState, out R : ViewResult>(
         get() = viewStateFlow
 
     val processor: Flow<S> = intentsChannel.asFlow()
-        .flatMapMerge { action ->
+        .flatMapLatest { action ->
             intentProcessor.intentToResult(action)
         }.scan(initialState) { previous, result ->
             reducer.reduce(previous, result)
