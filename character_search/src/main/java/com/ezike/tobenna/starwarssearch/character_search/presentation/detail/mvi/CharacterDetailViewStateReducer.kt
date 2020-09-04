@@ -24,7 +24,7 @@ class CharacterDetailViewStateReducer @Inject constructor(
                 previous.copy(character = characterModelMapper.mapToModel(result.character))
             is CharacterDetailViewResult.FetchCharacterDetailError ->
                 previous.errorState(result.characterName, result.error.errorMessage)
-            CharacterDetailViewResult.Retrying -> previous.retry
+            CharacterDetailViewResult.Retrying -> previous.retryState
             is PlanetDetailViewResult -> makePlanetState(result, previous)
             is SpecieDetailViewResult -> makeSpecieState(result, previous)
             is FilmDetailViewResult -> makeFilmState(result, previous)

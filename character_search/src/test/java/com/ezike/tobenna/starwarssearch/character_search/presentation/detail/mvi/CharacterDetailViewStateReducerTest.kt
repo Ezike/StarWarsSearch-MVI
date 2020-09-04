@@ -53,7 +53,7 @@ class CharacterDetailViewStateReducerTest {
             val viewState: CharacterDetailViewState =
                 reducer.reduce(initialState, CharacterDetailViewResult.Retrying)
 
-            assertThat(viewState).isEqualTo(initialState.retry)
+            assertThat(viewState).isEqualTo(initialState.retryState)
         }
     }
 

@@ -1,11 +1,10 @@
-package com.ezike.tobenna.starwarssearch.character_search.presentation
+package com.ezike.tobenna.starwarssearch.character_search.presentation.search
 
 import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchHistoryRepository
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchRepository
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.CharacterSearchViewModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewIntentProcessor
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewStateMachine

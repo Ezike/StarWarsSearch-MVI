@@ -115,22 +115,22 @@ class CharacterDetailViewModelTest {
                     initialState.copy(character)
                         .errorState(character.name, DummyData.exception.errorMessage),
                     initialState.copy(character)
-                        .errorState(character.name, DummyData.exception.errorMessage).retry,
+                        .errorState(character.name, DummyData.exception.errorMessage).retryState,
                     initialState.copy(character)
                         .errorState(
                             character.name,
                             DummyData.exception.errorMessage
-                        ).retry.filmState { success(listOf(DummyData.filmModel)) },
+                        ).retryState.filmState { success(listOf(DummyData.filmModel)) },
                     initialState.copy(character)
                         .errorState(
                             character.name,
                             DummyData.exception.errorMessage
-                        ).retry.filmState { success(listOf(DummyData.filmModel)) }
+                        ).retryState.filmState { success(listOf(DummyData.filmModel)) }
                         .planetState { success(DummyData.planetModel) },
                     initialState.copy(character).errorState(
                         character.name,
                         DummyData.exception.errorMessage
-                    ).retry.filmState { success(listOf(DummyData.filmModel)) }
+                    ).retryState.filmState { success(listOf(DummyData.filmModel)) }
                         .planetState { success(DummyData.planetModel) }
                         .specieState { success(listOf(DummyData.specieModel)) }
                 )

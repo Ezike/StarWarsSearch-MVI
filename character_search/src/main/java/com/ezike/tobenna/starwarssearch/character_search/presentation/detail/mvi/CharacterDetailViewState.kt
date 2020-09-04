@@ -41,7 +41,7 @@ data class CharacterDetailViewState(
             specieViewState = specieViewState.hide
         )
 
-    val retry: CharacterDetailViewState
+    val retryState: CharacterDetailViewState
         get() = copy(
             errorViewState = errorViewState.hide,
             planetViewState = planetViewState.loading,
