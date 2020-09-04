@@ -31,8 +31,8 @@ data class SearchResultViewState(
         this.copy(characters = characters, isVisible = true, error = null, isSearching = false)
 }
 
-data class RetrySearch(val query: String) : ViewIntent
-data class SaveSearch(val character: CharacterModel) : ViewIntent
+data class RetrySearchIntent(val query: String) : ViewIntent
+data class SaveSearchIntent(val character: CharacterModel) : ViewIntent
 
 class SearchResultView(
     private val binding: LayoutSearchResultBinding,
@@ -43,14 +43,14 @@ class SearchResultView(
 
     private val searchResultAdapter: SearchResultAdapter by lazy(LazyThreadSafetyMode.NONE) {
         SearchResultAdapter { model ->
-            dispatch(SaveSearch(model))
+            dispatch(SaveSearchIntent(model))
             navigationAction(model)
         }
     }
 
     init {
         binding.charactersRv.adapter = searchResultAdapter
-        binding.errorState.onRetry { dispatch(RetrySearch(query())) }
+        binding.errorState.onRetry { dispatch(RetrySearchIntent(query())) }
     }
 
     fun render(state: SearchResultViewState) {

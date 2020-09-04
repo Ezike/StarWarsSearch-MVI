@@ -5,9 +5,9 @@ import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchIntentProcessor
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewResult.SearchCharacterResult
 import com.ezike.tobenna.starwarssearch.character_search.ui.search.LoadSearchHistory
-import com.ezike.tobenna.starwarssearch.character_search.views.search.RetrySearch
-import com.ezike.tobenna.starwarssearch.character_search.views.search.Search
-import com.ezike.tobenna.starwarssearch.character_search.views.search.UpdateHistory
+import com.ezike.tobenna.starwarssearch.character_search.views.search.RetrySearchIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.search.UpdateHistoryIntent
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.domain.usecase.search.SearchCharacters
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.ClearSearchHistory
@@ -16,12 +16,13 @@ import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.SaveSearch
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
-import com.ezike.tobenna.starwarssearch.character_search.views.search.ClearSearchHistory as ClearSearchHistoryIntent
-import com.ezike.tobenna.starwarssearch.character_search.views.search.SaveSearch as SaveSearchIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.search.ClearSearchHistoryIntent as ClearSearchHistoryIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.search.SaveSearchIntent as SaveSearchIntent
 
 class SearchViewIntentProcessor @Inject constructor(
     private val searchCharacters: SearchCharacters,
@@ -33,12 +34,12 @@ class SearchViewIntentProcessor @Inject constructor(
 
     override fun intentToResult(viewIntent: ViewIntent): Flow<SearchViewResult> {
         return when (viewIntent) {
-            is Search -> executeSearch(viewIntent.query)
+            is SearchIntent -> executeSearch(viewIntent.query)
             is SaveSearchIntent -> cacheCharacter(viewIntent.character)
-            is UpdateHistory -> cacheCharacter(viewIntent.character)
+            is UpdateHistoryIntent -> updateCache(viewIntent.character)
             LoadSearchHistory -> loadSearchHistory()
             ClearSearchHistoryIntent -> clearCache()
-            is RetrySearch -> executeSearch(viewIntent.query)
+            is RetrySearchIntent -> executeSearch(viewIntent.query)
             else -> throw IllegalArgumentException("Unknown intent $viewIntent")
         }
     }
@@ -47,12 +48,25 @@ class SearchViewIntentProcessor @Inject constructor(
         return flow {
             clearSearchHistory()
             emit(SearchViewResult.LoadedHistory(emptyList()))
+        }.catch { error ->
+            error.printStackTrace()
         }
     }
 
     private fun cacheCharacter(character: CharacterModel): Flow<SearchViewResult> {
+        return flow<SearchViewResult> {
+            saveSearch(modelMapper.mapToDomain(character))
+        }.catch { error ->
+            error.printStackTrace()
+        }
+    }
+
+    private fun updateCache(character: CharacterModel): Flow<SearchViewResult> {
         return flow {
             saveSearch(modelMapper.mapToDomain(character))
+            emitAll(loadSearchHistory())
+        }.catch { error ->
+            error.printStackTrace()
         }
     }
 

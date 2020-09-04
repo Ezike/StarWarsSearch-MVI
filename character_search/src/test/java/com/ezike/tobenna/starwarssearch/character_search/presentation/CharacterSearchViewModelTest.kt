@@ -6,14 +6,14 @@ import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchReposit
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.CharacterSearchViewModel
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchCharacterViewIntent
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchHistoryViewIntent
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewIntentProcessor
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewState
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewState.SearchCharacterViewState
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewState.SearchHistoryViewState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewStateMachine
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewStateReducer
+import com.ezike.tobenna.starwarssearch.character_search.ui.search.LoadSearchHistory
+import com.ezike.tobenna.starwarssearch.character_search.views.search.ClearSearchHistoryIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.search.SaveSearchIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchIntent
 import com.ezike.tobenna.starwarssearch.domain.usecase.search.SearchCharacters
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.ClearSearchHistory
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.GetSearchHistory
@@ -26,7 +26,6 @@ import com.ezike.tobenna.starwarssearch.testutils.TestPostExecutionThread
 import com.ezike.tobenna.starwarssearch.testutils.containsElements
 import com.ezike.tobenna.starwarssearch.testutils.recordWith
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.TestCoroutineScope
 import org.junit.Rule
 import org.junit.Test
@@ -65,12 +64,13 @@ class CharacterSearchViewModelTest {
          * This allows us capture the initial viewState emitted from [CharacterSearchViewModel.viewState].
          * That emission usually gets lost before we subscribe to the stream.
          */
+        val state = SearchViewState()
         mainCoroutineRule.pauseDispatcher()
         viewModel.viewState.recordWith(stateRecorder)
         // Resume the dispatcher and then run the coroutines
         mainCoroutineRule.resumeDispatcher()
         assertThat(stateRecorder.takeAll())
-            .containsElements(SearchViewState.Idle, SearchHistoryViewState.SearchHistoryEmpty)
+            .containsElements(state, state.history { success(emptyList()) })
     }
 
     @Test
@@ -79,15 +79,16 @@ class CharacterSearchViewModelTest {
         viewModel.viewState.recordWith(stateRecorder)
         mainCoroutineRule.resumeDispatcher()
 
+        val state = SearchViewState()
         val character: CharacterModel = DummyData.characterModel
-        viewModel.processIntent(flowOf(SearchCharacterViewIntent.SaveSearch(character)))
-        viewModel.processIntent(flowOf(SearchHistoryViewIntent.LoadSearchHistory))
+        viewModel.processIntent(SaveSearchIntent(character))
+        viewModel.processIntent(LoadSearchHistory)
 
         assertThat(stateRecorder.takeAll())
             .containsElements(
-                SearchViewState.Idle,
-                SearchHistoryViewState.SearchHistoryEmpty,
-                SearchHistoryViewState.SearchHistoryLoaded(listOf(character))
+                state,
+                state.history { success(emptyList()) },
+                state.history { success(listOf(character)) }
             )
     }
 
@@ -97,18 +98,19 @@ class CharacterSearchViewModelTest {
         viewModel.viewState.recordWith(stateRecorder)
         mainCoroutineRule.resumeDispatcher()
 
+        val state = SearchViewState()
         val character: CharacterModel = DummyData.characterModel
 
-        viewModel.processIntent(flowOf(SearchCharacterViewIntent.SaveSearch(character)))
-        viewModel.processIntent(flowOf(SearchHistoryViewIntent.LoadSearchHistory))
-        viewModel.processIntent(flowOf(SearchHistoryViewIntent.ClearSearchHistory))
+        viewModel.processIntent(SaveSearchIntent(character))
+        viewModel.processIntent(LoadSearchHistory)
+        viewModel.processIntent(ClearSearchHistoryIntent)
 
         assertThat(stateRecorder.takeAll())
             .containsElements(
-                SearchViewState.Idle,
-                SearchHistoryViewState.SearchHistoryEmpty,
-                SearchHistoryViewState.SearchHistoryLoaded(listOf(character)),
-                SearchHistoryViewState.SearchHistoryEmpty
+                state,
+                state.history { success(emptyList()) },
+                state.history { success(listOf(character)) },
+                state.history { success(emptyList()) }
             )
     }
 
@@ -118,16 +120,18 @@ class CharacterSearchViewModelTest {
         viewModel.viewState.recordWith(stateRecorder)
         mainCoroutineRule.resumeDispatcher()
 
-        viewModel.processIntent(flowOf(SearchCharacterViewIntent.Search(DummyData.query)))
+        val state = SearchViewState()
+
+        viewModel.processIntent(SearchIntent(DummyData.query))
 
         assertThat(stateRecorder.takeAll())
             .containsElements(
-                SearchViewState.Idle,
-                SearchHistoryViewState.SearchHistoryEmpty,
-                SearchCharacterViewState.Searching,
-                SearchCharacterViewState.SearchResultLoaded(
-                    characterModelMapper.mapToModelList(DummyData.characterList)
-                )
+                state,
+                state.history { success(emptyList()) },
+                state.searchResult { searching },
+                state.searchResult {
+                    success(characterModelMapper.mapToModelList(DummyData.characterList))
+                }
             )
     }
 
@@ -137,16 +141,17 @@ class CharacterSearchViewModelTest {
         viewModel.viewState.recordWith(stateRecorder)
         mainCoroutineRule.resumeDispatcher()
 
+        val state = SearchViewState()
         // set the response to error
         fakeCharacterRepository.responseType = ResponseType.ERROR
-        viewModel.processIntent(flowOf(SearchCharacterViewIntent.Search(DummyData.query)))
+        viewModel.processIntent(SearchIntent(DummyData.query))
 
         assertThat(stateRecorder.takeAll())
             .containsElements(
-                SearchViewState.Idle,
-                SearchHistoryViewState.SearchHistoryEmpty,
-                SearchCharacterViewState.Searching,
-                SearchCharacterViewState.Error(ERROR_MSG)
+                state,
+                state.history { success(emptyList()) },
+                state.searchResult { searching },
+                state.searchResult { error(ERROR_MSG) }
             )
     }
 
@@ -156,22 +161,23 @@ class CharacterSearchViewModelTest {
         viewModel.viewState.recordWith(stateRecorder)
         mainCoroutineRule.resumeDispatcher()
 
+        val state = SearchViewState()
         // set the response to error
         fakeCharacterRepository.responseType = ResponseType.ERROR
-        viewModel.processIntent(flowOf(SearchCharacterViewIntent.Search(DummyData.query)))
+        viewModel.processIntent(SearchIntent(DummyData.query))
         fakeCharacterRepository.responseType = ResponseType.DATA
-        viewModel.processIntent(flowOf(SearchCharacterViewIntent.Search(DummyData.query)))
+        viewModel.processIntent(SearchIntent(DummyData.query))
 
         assertThat(stateRecorder.takeAll())
             .containsElements(
-                SearchViewState.Idle,
-                SearchHistoryViewState.SearchHistoryEmpty,
-                SearchCharacterViewState.Searching,
-                SearchCharacterViewState.Error(ERROR_MSG),
-                SearchCharacterViewState.Searching,
-                SearchCharacterViewState.SearchResultLoaded(
-                    characterModelMapper.mapToModelList(DummyData.characterList)
-                )
+                state,
+                state.history { success(emptyList()) },
+                state.searchResult { searching },
+                state.searchResult { error(ERROR_MSG) },
+                state.searchResult { searching },
+                state.searchResult {
+                    success(characterModelMapper.mapToModelList(DummyData.characterList))
+                }
             )
     }
 
@@ -181,13 +187,14 @@ class CharacterSearchViewModelTest {
         viewModel.viewState.recordWith(stateRecorder)
         mainCoroutineRule.resumeDispatcher()
 
+        val state = SearchViewState()
         // set the response to error
-        viewModel.processIntent(flowOf(SearchCharacterViewIntent.Search("")))
+        viewModel.processIntent(SearchIntent(""))
 
         assertThat(stateRecorder.takeAll())
             .containsElements(
-                SearchViewState.Idle,
-                SearchHistoryViewState.SearchHistoryEmpty
+                state,
+                state.history { success(emptyList()) }
             )
     }
 
@@ -197,16 +204,17 @@ class CharacterSearchViewModelTest {
         viewModel.viewState.recordWith(stateRecorder)
         mainCoroutineRule.resumeDispatcher()
 
+        val state = SearchViewState()
         // set the response to error
         val character: CharacterModel = DummyData.characterModel
-        viewModel.processIntent(flowOf(SearchCharacterViewIntent.SaveSearch(character)))
-        viewModel.processIntent(flowOf(SearchCharacterViewIntent.Search("")))
+        viewModel.processIntent(SaveSearchIntent(character))
+        viewModel.processIntent(SearchIntent(""))
 
         assertThat(stateRecorder.takeAll())
             .containsElements(
-                SearchViewState.Idle,
-                SearchHistoryViewState.SearchHistoryEmpty,
-                SearchHistoryViewState.SearchHistoryLoaded(listOf(character))
+                state,
+                state.history { success(emptyList()) },
+                state.history { success(listOf(character)) }
             )
     }
 
@@ -216,19 +224,20 @@ class CharacterSearchViewModelTest {
         viewModel.viewState.recordWith(stateRecorder)
         mainCoroutineRule.resumeDispatcher()
 
+        val state = SearchViewState()
         // set the response to error
-        viewModel.processIntent(flowOf(SearchCharacterViewIntent.Search(DummyData.query)))
-        viewModel.processIntent(flowOf(SearchCharacterViewIntent.Search("")))
+        viewModel.processIntent(SearchIntent(DummyData.query))
+        viewModel.processIntent(SearchIntent(""))
 
         assertThat(stateRecorder.takeAll())
             .containsElements(
-                SearchViewState.Idle,
-                SearchHistoryViewState.SearchHistoryEmpty,
-                SearchCharacterViewState.Searching,
-                SearchCharacterViewState.SearchResultLoaded(
-                    characterModelMapper.mapToModelList(DummyData.characterList)
-                ),
-                SearchHistoryViewState.SearchHistoryEmpty
+                state,
+                state.history { success(emptyList()) },
+                state.searchResult { searching },
+                state.searchResult {
+                    success(characterModelMapper.mapToModelList(DummyData.characterList))
+                },
+                state.history { success(emptyList()) }
             )
     }
 }

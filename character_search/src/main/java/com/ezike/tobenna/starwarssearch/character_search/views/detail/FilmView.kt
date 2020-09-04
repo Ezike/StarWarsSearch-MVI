@@ -28,7 +28,7 @@ data class FilmViewState(
         copy(films = films, isLoading = false, isVisible = true, errorMessage = null)
 }
 
-data class RetryFetchFilm(val url: String) : ViewIntent
+data class RetryFetchFilmIntent(val url: String) : ViewIntent
 
 class FilmView(
     private val binding: FilmViewLayoutBinding,
@@ -40,7 +40,7 @@ class FilmView(
 
     init {
         binding.filmList.adapter = filmAdapter
-        binding.filmErrorState.onRetry { action(RetryFetchFilm(characterUrl)) }
+        binding.filmErrorState.onRetry { action(RetryFetchFilmIntent(characterUrl)) }
     }
 
     fun render(state: FilmViewState) {

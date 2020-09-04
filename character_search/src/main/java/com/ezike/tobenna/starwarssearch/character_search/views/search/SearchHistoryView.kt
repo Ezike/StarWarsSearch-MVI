@@ -21,8 +21,8 @@ data class SearchHistoryViewState(
         this.copy(history = history, isVisible = true)
 }
 
-object ClearSearchHistory : ViewIntent
-data class UpdateHistory(val character: CharacterModel) : ViewIntent
+object ClearSearchHistoryIntent : ViewIntent
+data class UpdateHistoryIntent(val character: CharacterModel) : ViewIntent
 
 class SearchHistoryView(
     private val binding: LayoutSearchHistoryBinding,
@@ -32,13 +32,13 @@ class SearchHistoryView(
 
     private val searchHistoryAdapter: SearchHistoryAdapter by lazy(LazyThreadSafetyMode.NONE) {
         SearchHistoryAdapter { model ->
-            dispatch(UpdateHistory(model))
+            dispatch(UpdateHistoryIntent(model))
             navigationAction(model)
         }
     }
 
     init {
-        binding.clearHistory.setOnClickListener { dispatch(ClearSearchHistory) }
+        binding.clearHistory.setOnClickListener { dispatch(ClearSearchHistoryIntent) }
         binding.searchHistoryRv.adapter = searchHistoryAdapter
     }
 

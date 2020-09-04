@@ -28,7 +28,7 @@ data class SpecieViewState(
         copy(species = species, isLoading = false, isVisible = true, errorMessage = null)
 }
 
-data class RetryFetchSpecie(val url: String) : ViewIntent
+data class RetryFetchSpecieIntent(val url: String) : ViewIntent
 
 class SpecieView(
     private val binding: SpecieViewLayoutBinding,
@@ -40,7 +40,7 @@ class SpecieView(
 
     init {
         binding.specieList.adapter = specieAdapter
-        binding.specieErrorState.onRetry { action(RetryFetchSpecie(characterUrl)) }
+        binding.specieErrorState.onRetry { action(RetryFetchSpecieIntent(characterUrl)) }
     }
 
     fun render(state: SpecieViewState) {

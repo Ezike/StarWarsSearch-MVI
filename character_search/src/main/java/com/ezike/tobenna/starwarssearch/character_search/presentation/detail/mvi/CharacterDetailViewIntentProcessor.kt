@@ -3,11 +3,11 @@ package com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mv
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.CharacterDetailIntentProcessor
-import com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail.LoadCharacterDetail
-import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchCharacterDetails
-import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchFilm
-import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchPlanet
-import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchSpecie
+import com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail.LoadCharacterDetailIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchCharacterDetailsIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchFilmIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchPlanetIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchSpecieIntent
 import com.ezike.tobenna.starwarssearch.domain.model.Film
 import com.ezike.tobenna.starwarssearch.domain.model.Planet
 import com.ezike.tobenna.starwarssearch.domain.model.Specie
@@ -34,7 +34,7 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
 
     override fun intentToResult(viewIntent: ViewIntent): Flow<CharacterDetailViewResult> {
         return when (viewIntent) {
-            is LoadCharacterDetail -> {
+            is LoadCharacterDetailIntent -> {
                 getCharacterInfo(
                     viewIntent.character,
                     CharacterDetailViewResult.CharacterDetail(
@@ -42,10 +42,10 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
                     )
                 )
             }
-            is RetryFetchPlanet -> retryFetchPlanet(viewIntent.url)
-            is RetryFetchSpecie -> retryFetchSpecie(viewIntent.url)
-            is RetryFetchFilm -> retryFetchFilm(viewIntent.url)
-            is RetryFetchCharacterDetails ->
+            is RetryFetchPlanetIntent -> retryFetchPlanet(viewIntent.url)
+            is RetryFetchSpecieIntent -> retryFetchSpecie(viewIntent.url)
+            is RetryFetchFilmIntent -> retryFetchFilm(viewIntent.url)
+            is RetryFetchCharacterDetailsIntent ->
                 getCharacterInfo(viewIntent.character, CharacterDetailViewResult.Retrying)
             else -> throw IllegalArgumentException("Invalid intent $viewIntent")
         }

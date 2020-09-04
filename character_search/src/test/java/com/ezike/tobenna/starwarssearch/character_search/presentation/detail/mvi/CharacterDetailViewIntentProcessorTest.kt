@@ -4,6 +4,11 @@ import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeCharacterDetailRepository
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
+import com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail.LoadCharacterDetailIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchCharacterDetailsIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchFilmIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchPlanetIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.detail.RetryFetchSpecieIntent
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchFilms
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchPlanet
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchSpecies
@@ -39,18 +44,11 @@ class CharacterDetailViewIntentProcessorTest {
         FlowRecorder(TestCoroutineScope())
 
     @Test
-    fun `check that IdleIntent returns IdleResult`() = runBlockingTest {
-        processor.intentToResult(CharacterDetailViewIntent.Idle).recordWith(resultRecorder)
-        assertThat(resultRecorder.takeAll())
-            .containsElements(CharacterDetailViewResult.Idle)
-    }
-
-    @Test
     fun `check that LoadCharacterDetailIntent returns character details`() = runBlockingTest {
         val character: CharacterModel = DummyData.characterModel
 
         processor.intentToResult(
-            CharacterDetailViewIntent.LoadCharacterDetail(character)
+            LoadCharacterDetailIntent(character)
         ).recordWith(resultRecorder)
 
         assertThat(resultRecorder.takeAll()).containsElements(
@@ -72,8 +70,7 @@ class CharacterDetailViewIntentProcessorTest {
             repository.characterResponseType = ResponseType.ERROR
             val character: CharacterModel = DummyData.characterModel
             processor.intentToResult(
-                CharacterDetailViewIntent
-                    .LoadCharacterDetail(character)
+                LoadCharacterDetailIntent(character)
             ).recordWith(resultRecorder)
 
             val results: List<CharacterDetailViewResult> = resultRecorder.takeAll()
@@ -96,7 +93,7 @@ class CharacterDetailViewIntentProcessorTest {
 
             val character: CharacterModel = DummyData.characterModel
             processor.intentToResult(
-                CharacterDetailViewIntent.LoadCharacterDetail(character)
+                LoadCharacterDetailIntent(character)
             ).recordWith(resultRecorder)
 
             val results: List<CharacterDetailViewResult> = resultRecorder.takeAll()
@@ -119,7 +116,7 @@ class CharacterDetailViewIntentProcessorTest {
 
             val character: CharacterModel = DummyData.characterModel
             processor.intentToResult(
-                CharacterDetailViewIntent.LoadCharacterDetail(character)
+                LoadCharacterDetailIntent(character)
             ).recordWith(resultRecorder)
 
             val results: List<CharacterDetailViewResult> = resultRecorder.takeAll()
@@ -142,7 +139,7 @@ class CharacterDetailViewIntentProcessorTest {
 
             val character: CharacterModel = DummyData.characterModel
             processor.intentToResult(
-                CharacterDetailViewIntent.LoadCharacterDetail(character)
+                LoadCharacterDetailIntent(character)
             ).recordWith(resultRecorder)
 
             val results: List<CharacterDetailViewResult> = resultRecorder.takeAll()
@@ -167,7 +164,7 @@ class CharacterDetailViewIntentProcessorTest {
 
             val character: CharacterModel = DummyData.characterModel
             processor.intentToResult(
-                CharacterDetailViewIntent.LoadCharacterDetail(character)
+                LoadCharacterDetailIntent(character)
             ).recordWith(resultRecorder)
 
             val results: List<CharacterDetailViewResult> = resultRecorder.takeAll()
@@ -188,7 +185,7 @@ class CharacterDetailViewIntentProcessorTest {
         val character: CharacterModel = DummyData.characterModel
 
         processor.intentToResult(
-            CharacterDetailViewIntent.RetryFetchPlanet(character.url)
+            RetryFetchPlanetIntent(character.url)
         ).recordWith(resultRecorder)
 
         assertThat(resultRecorder.takeAll())
@@ -204,7 +201,7 @@ class CharacterDetailViewIntentProcessorTest {
         val character: CharacterModel = DummyData.characterModel
 
         processor.intentToResult(
-            CharacterDetailViewIntent.RetryFetchPlanet(character.url)
+            RetryFetchPlanetIntent(character.url)
         ).recordWith(resultRecorder)
 
         assertThat(resultRecorder.takeAll().map { it.javaClass })
@@ -219,7 +216,7 @@ class CharacterDetailViewIntentProcessorTest {
         val character: CharacterModel = DummyData.characterModel
 
         processor.intentToResult(
-            CharacterDetailViewIntent.RetryFetchSpecie(character.url)
+            RetryFetchSpecieIntent(character.url)
         ).recordWith(resultRecorder)
 
         assertThat(resultRecorder.takeAll())
@@ -235,7 +232,7 @@ class CharacterDetailViewIntentProcessorTest {
         val character: CharacterModel = DummyData.characterModel
 
         processor.intentToResult(
-            CharacterDetailViewIntent.RetryFetchSpecie(character.url)
+            RetryFetchSpecieIntent(character.url)
         ).recordWith(resultRecorder)
 
         assertThat(resultRecorder.takeAll().map { it.javaClass })
@@ -250,7 +247,7 @@ class CharacterDetailViewIntentProcessorTest {
         val character: CharacterModel = DummyData.characterModel
 
         processor.intentToResult(
-            CharacterDetailViewIntent.RetryFetchFilm(character.url)
+            RetryFetchFilmIntent(character.url)
         ).recordWith(resultRecorder)
 
         assertThat(resultRecorder.takeAll())
@@ -266,7 +263,7 @@ class CharacterDetailViewIntentProcessorTest {
         val character: CharacterModel = DummyData.characterModel
 
         processor.intentToResult(
-            CharacterDetailViewIntent.RetryFetchFilm(character.url)
+            RetryFetchFilmIntent(character.url)
         ).recordWith(resultRecorder)
 
         assertThat(resultRecorder.takeAll().map { it.javaClass })
@@ -281,7 +278,7 @@ class CharacterDetailViewIntentProcessorTest {
         val character: CharacterModel = DummyData.characterModel
 
         processor.intentToResult(
-            CharacterDetailViewIntent.RetryFetchCharacterDetails(character)
+            RetryFetchCharacterDetailsIntent(character)
         ).recordWith(resultRecorder)
 
         assertThat(resultRecorder.takeAll()).containsElements(
@@ -301,7 +298,7 @@ class CharacterDetailViewIntentProcessorTest {
         val character: CharacterModel = DummyData.characterModel
 
         processor.intentToResult(
-            CharacterDetailViewIntent.RetryFetchCharacterDetails(character)
+            RetryFetchCharacterDetailsIntent(character)
         ).recordWith(resultRecorder)
 
         assertThat(resultRecorder.takeAll().map { it.javaClass })

@@ -28,7 +28,7 @@ data class PlanetViewState(
         copy(planet = planet, isLoading = false, isVisible = true, errorMessage = null)
 }
 
-data class RetryFetchPlanet(val url: String) : ViewIntent
+data class RetryFetchPlanetIntent(val url: String) : ViewIntent
 
 class PlanetView(
     private val binding: PlanetViewLayoutBinding,
@@ -37,7 +37,7 @@ class PlanetView(
 ) {
 
     init {
-        binding.planetErrorState.onRetry { action(RetryFetchPlanet(characterUrl)) }
+        binding.planetErrorState.onRetry { action(RetryFetchPlanetIntent(characterUrl)) }
     }
 
     fun render(state: PlanetViewState) {

@@ -4,18 +4,20 @@ import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchHistoryRepository
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchRepository
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchCharacterViewIntent
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchHistoryViewIntent
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewIntent
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewIntentProcessor
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewResult
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewResult.SearchCharacterResult
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewResult.SearchHistoryResult
+import com.ezike.tobenna.starwarssearch.character_search.ui.search.LoadSearchHistory
+import com.ezike.tobenna.starwarssearch.character_search.views.search.ClearSearchHistoryIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.search.SaveSearchIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchIntent
+import com.ezike.tobenna.starwarssearch.character_search.views.search.UpdateHistoryIntent
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.domain.usecase.search.SearchCharacters
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.ClearSearchHistory
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.GetSearchHistory
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.SaveSearch
+import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.testutils.ERROR_MSG
 import com.ezike.tobenna.starwarssearch.testutils.FlowRecorder
 import com.ezike.tobenna.starwarssearch.testutils.ResponseType
@@ -54,29 +56,42 @@ class SearchViewIntentProcessorTest {
     fun `check that LoadSearchHistoryIntent returns SuccessResult`() = runBlockingTest {
         val list: List<Character> = DummyData.characterList
         fakeSearchHistoryRepository.saveSearch(list.first())
-        recordSearchHistoryResult(SearchHistoryViewIntent.LoadSearchHistory)
-        assertThat(resultRecorder.takeAll()).containsElements(SearchHistoryResult.Success(list))
+        recordSearchHistoryResult(LoadSearchHistory)
+        assertThat(resultRecorder.takeAll()).containsElements(SearchViewResult.LoadedHistory(list))
     }
 
     @Test
     fun `check that LoadSearchHistoryIntent returns EmptyResult`() = runBlockingTest {
-        recordSearchHistoryResult(SearchHistoryViewIntent.LoadSearchHistory)
+        recordSearchHistoryResult(LoadSearchHistory)
         assertThat(resultRecorder.takeAll())
-            .containsElements(SearchHistoryResult.Empty)
+            .containsElements(SearchViewResult.LoadedHistory(emptyList()))
     }
 
     @Test
     fun `check that ClearSearchHistoryIntent returns EmptyResult`() = runBlockingTest {
         val list: List<Character> = DummyData.characterList
         fakeSearchHistoryRepository.saveSearch(list.first())
-        recordSearchHistoryResult(SearchHistoryViewIntent.ClearSearchHistory)
+        recordSearchHistoryResult(ClearSearchHistoryIntent)
         assertThat(resultRecorder.takeAll())
-            .containsElements(SearchHistoryResult.Empty)
+            .containsElements(SearchViewResult.LoadedHistory(emptyList()))
+    }
+
+    @Test
+    fun `check that UpdateHistoryIntent returns History in order`() = runBlockingTest {
+        val first: Character = DummyData.character
+        val second: Character = DummyData.character.copy(name = "amig")
+        val third: Character = DummyData.character.copy(birthYear = "1997")
+        fakeSearchHistoryRepository.saveSearch(first)
+        fakeSearchHistoryRepository.saveSearch(second)
+        fakeSearchHistoryRepository.saveSearch(third)
+        recordSearchHistoryResult(UpdateHistoryIntent(characterModelMapper.mapToModel(second)))
+        assertThat(resultRecorder.takeAll())
+            .containsElements(SearchViewResult.LoadedHistory(listOf(second)))
     }
 
     @Test
     fun `check that SearchCharacterIntent returns SuccessResult`() {
-        recordSearchResult(SearchCharacterViewIntent.Search(DummyData.query), ResponseType.DATA)
+        recordSearchResult(SearchIntent(DummyData.query), ResponseType.DATA)
         assertThat(resultRecorder.takeAll())
             .containsElements(
                 SearchCharacterResult.Searching,
@@ -86,10 +101,10 @@ class SearchViewIntentProcessorTest {
 
     @Test
     fun `SearchCharacterIntent returns emptySearchHistoryResult when query is empty and no search is saved`() {
-        searchViewIntentProcessor.intentToResult(SearchCharacterViewIntent.Search(""))
+        searchViewIntentProcessor.intentToResult(SearchIntent(""))
             .recordWith(resultRecorder)
         assertThat(resultRecorder.takeAll())
-            .containsElements(SearchHistoryResult.Empty)
+            .containsElements(SearchViewResult.LoadedHistory(emptyList()))
     }
 
     @Test
@@ -97,14 +112,18 @@ class SearchViewIntentProcessorTest {
         runBlockingTest {
             val list: List<Character> = DummyData.characterList
             fakeSearchHistoryRepository.saveSearch(list.first())
-            searchViewIntentProcessor.intentToResult(SearchCharacterViewIntent.Search(""))
+            searchViewIntentProcessor.intentToResult(SearchIntent(""))
                 .recordWith(resultRecorder)
-            assertThat(resultRecorder.takeAll()).containsElements(SearchHistoryResult.Success(list))
+            assertThat(resultRecorder.takeAll()).containsElements(
+                SearchViewResult.LoadedHistory(
+                    list
+                )
+            )
         }
 
     @Test
     fun `check that SearchCharacterIntent returns ErrorResult`() {
-        recordSearchResult(SearchCharacterViewIntent.Search(DummyData.query), ResponseType.ERROR)
+        recordSearchResult(SearchIntent(DummyData.query), ResponseType.ERROR)
         val results: List<SearchViewResult> = resultRecorder.takeAll()
         assertThat(results.map { it.javaClass })
             .containsElements(
@@ -120,18 +139,18 @@ class SearchViewIntentProcessorTest {
     fun `check that SaveSearchIntent saves current character`() = runBlockingTest {
         val list: List<Character> = DummyData.characterList
         searchViewIntentProcessor.intentToResult(
-            SearchCharacterViewIntent.SaveSearch(characterModelMapper.mapToModel(list.first()))
+            SaveSearchIntent(characterModelMapper.mapToModel(list.first()))
         ).collect()
-        recordSearchHistoryResult(SearchHistoryViewIntent.LoadSearchHistory)
-        assertThat(resultRecorder.takeAll()).containsElements(SearchHistoryResult.Success(list))
+        recordSearchHistoryResult(LoadSearchHistory)
+        assertThat(resultRecorder.takeAll()).containsElements(SearchViewResult.LoadedHistory(list))
     }
 
-    private fun recordSearchResult(intent: SearchViewIntent, type: ResponseType) {
+    private fun recordSearchResult(intent: ViewIntent, type: ResponseType) {
         fakeCharacterRepository.responseType = type
         searchViewIntentProcessor.intentToResult(intent).recordWith(resultRecorder)
     }
 
-    private fun recordSearchHistoryResult(intent: SearchViewIntent) {
+    private fun recordSearchHistoryResult(intent: ViewIntent) {
         searchViewIntentProcessor.intentToResult(intent).recordWith(resultRecorder)
     }
 }

@@ -5,7 +5,7 @@ import androidx.core.widget.doOnTextChanged
 import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 
-data class Search(val query: String) : ViewIntent
+data class SearchIntent(val query: String) : ViewIntent
 
 class SearchBarView(searchBar: EditText, dispatch: DispatchIntent) {
 
@@ -13,7 +13,7 @@ class SearchBarView(searchBar: EditText, dispatch: DispatchIntent) {
         searchBar.doOnTextChanged { text: CharSequence?, _, _, _ ->
             val query: String? = text?.trim().toString()
             if (query != null && query != DistinctText.text) {
-                dispatch(Search(query))
+                dispatch(SearchIntent(query))
                 DistinctText.text = query
             }
         }

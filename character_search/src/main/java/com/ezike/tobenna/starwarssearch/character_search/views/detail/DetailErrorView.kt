@@ -18,10 +18,10 @@ data class DetailErrorViewState(
         copy(errorMessage = errorMessage, characterName = characterName, isVisible = true)
 
     val hide: DetailErrorViewState
-        get() = copy(isVisible = false)
+        get() = DetailErrorViewState()
 }
 
-data class RetryFetchCharacterDetails(val character: CharacterModel) : ViewIntent
+data class RetryFetchCharacterDetailsIntent(val character: CharacterModel) : ViewIntent
 
 class DetailErrorView(
     private val view: EmptyStateView,
@@ -30,7 +30,7 @@ class DetailErrorView(
 ) {
 
     init {
-        view.onRetry { action(RetryFetchCharacterDetails(character)) }
+        view.onRetry { action(RetryFetchCharacterDetailsIntent(character)) }
     }
 
     fun render(state: DetailErrorViewState) {

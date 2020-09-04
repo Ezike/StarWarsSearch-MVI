@@ -20,7 +20,7 @@ import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import dagger.hilt.android.AndroidEntryPoint
 
-data class LoadCharacterDetail(val character: CharacterModel) : ViewIntent
+data class LoadCharacterDetailIntent(val character: CharacterModel) : ViewIntent
 
 @AndroidEntryPoint
 class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
@@ -37,7 +37,7 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
         super.onActivityCreated(savedInstanceState)
         // Making sure this doesn't emit again on config change.
         if (savedInstanceState == null) {
-            viewModel.processIntent(LoadCharacterDetail(args.character))
+            viewModel.processIntent(LoadCharacterDetailIntent(args.character))
         }
     }
 
