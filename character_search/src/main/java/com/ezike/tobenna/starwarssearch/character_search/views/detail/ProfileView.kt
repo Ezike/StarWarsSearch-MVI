@@ -3,13 +3,14 @@ package com.ezike.tobenna.starwarssearch.character_search.views.detail
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.ProfileViewLayoutBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
+import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
 data class ProfileViewState(val character: CharacterModel?) : ViewState
 
-class ProfileView(private val binding: ProfileViewLayoutBinding) {
+class ProfileView(private val binding: ProfileViewLayoutBinding) : UIComponent<ProfileViewState>() {
 
-    fun render(state: ProfileViewState) {
+    override fun render(state: ProfileViewState) {
         if (state.character != null) {
             binding.run {
                 profileTitle.text =

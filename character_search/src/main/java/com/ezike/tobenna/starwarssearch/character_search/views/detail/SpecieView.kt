@@ -5,6 +5,7 @@ import com.ezike.tobenna.starwarssearch.character_search.databinding.SpecieViewL
 import com.ezike.tobenna.starwarssearch.character_search.model.SpecieModel
 import com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail.adapter.SpecieAdapter
 import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
@@ -34,7 +35,7 @@ class SpecieView(
     private val binding: SpecieViewLayoutBinding,
     private val characterUrl: String,
     action: DispatchIntent
-) {
+) : UIComponent<SpecieViewState>() {
 
     private val specieAdapter: SpecieAdapter by lazy(LazyThreadSafetyMode.NONE) { SpecieAdapter() }
 
@@ -43,7 +44,7 @@ class SpecieView(
         binding.specieErrorState.onRetry { action(RetryFetchSpecieIntent(characterUrl)) }
     }
 
-    fun render(state: SpecieViewState) {
+    override fun render(state: SpecieViewState) {
         specieAdapter.submitList(state.species)
         binding.run {
             root.isVisible = state.isVisible

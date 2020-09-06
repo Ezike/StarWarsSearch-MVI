@@ -5,6 +5,7 @@ import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.views.EmptyStateView
 import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
@@ -27,13 +28,13 @@ class DetailErrorView(
     private val view: EmptyStateView,
     private val character: CharacterModel,
     action: DispatchIntent
-) {
+) : UIComponent<DetailErrorViewState>() {
 
     init {
         view.onRetry { action(RetryFetchCharacterDetailsIntent(character)) }
     }
 
-    fun render(state: DetailErrorViewState) {
+    override fun render(state: DetailErrorViewState) {
         view.isVisible = state.isVisible
         if (state.isVisible) {
             view.setCaption(state.errorMessage)

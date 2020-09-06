@@ -15,7 +15,6 @@ import com.ezike.tobenna.starwarssearch.character_search.views.detail.PlanetView
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.ProfileView
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.ProfileViewState
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.SpecieView
-import com.ezike.tobenna.starwarssearch.core.ext.observe
 import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,22 +42,22 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val planetView =
-            PlanetView(binding.planetView, args.character.url, viewModel::processIntent)
-        val filmView = FilmView(binding.filmView, args.character.url, viewModel::processIntent)
-        val specieView =
-            SpecieView(binding.specieView, args.character.url, viewModel::processIntent)
-        val profileView = ProfileView(binding.profileView)
-        val errorView =
-            DetailErrorView(binding.detailErrorState, args.character, viewModel::processIntent)
-
-        viewModel.viewState.observe(viewLifecycleOwner) { state ->
-            planetView.render(state.planetViewState)
-            specieView.render(state.specieViewState)
-            filmView.render(state.filmViewState)
-            profileView.render(ProfileViewState(state.character))
-            errorView.render(state.errorViewState)
+        viewModel.run {
+            subscribe(
+                PlanetView(binding.planetView, args.character.url, viewModel::processIntent)
+            ) { screenState -> screenState.planetViewState }
+            subscribe(
+                FilmView(binding.filmView, args.character.url, viewModel::processIntent)
+            ) { screenState -> screenState.filmViewState }
+            subscribe(
+                SpecieView(binding.specieView, args.character.url, viewModel::processIntent)
+            ) { screenState -> screenState.specieViewState }
+            subscribe(
+                DetailErrorView(binding.detailErrorState, args.character, viewModel::processIntent)
+            ) { screenState -> screenState.errorViewState }
+            subscribe(ProfileView(binding.profileView)) { screenState ->
+                ProfileViewState(screenState.character)
+            }
         }
     }
 }

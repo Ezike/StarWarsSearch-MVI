@@ -2,12 +2,12 @@ package com.ezike.tobenna.starwarssearch.character_search.presentation.search.mv
 
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchHistoryViewState
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchResultViewState
-import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
+import com.ezike.tobenna.starwarssearch.presentation.mvi.ScreenState
 
 data class SearchViewState(
     val searchHistoryState: SearchHistoryViewState = SearchHistoryViewState(),
     val searchResultState: SearchResultViewState = SearchResultViewState()
-) : ViewState {
+) : ScreenState {
 
     fun history(state: SearchHistoryViewState.() -> SearchHistoryViewState): SearchViewState {
         return this.copy(

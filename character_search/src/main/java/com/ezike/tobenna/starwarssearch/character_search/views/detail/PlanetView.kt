@@ -1,10 +1,12 @@
 package com.ezike.tobenna.starwarssearch.character_search.views.detail
 
+import androidx.annotation.UiThread
 import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.PlanetViewLayoutBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.PlanetModel
 import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
@@ -34,13 +36,14 @@ class PlanetView(
     private val binding: PlanetViewLayoutBinding,
     private val characterUrl: String,
     action: DispatchIntent
-) {
+) : UIComponent<PlanetViewState>() {
 
     init {
         binding.planetErrorState.onRetry { action(RetryFetchPlanetIntent(characterUrl)) }
     }
 
-    fun render(state: PlanetViewState) {
+    @UiThread
+    override fun render(state: PlanetViewState) {
         binding.run {
             root.isVisible = state.isVisible
             if (state.isVisible) {

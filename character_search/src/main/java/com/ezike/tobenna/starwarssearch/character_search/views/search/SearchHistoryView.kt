@@ -1,11 +1,13 @@
 package com.ezike.tobenna.starwarssearch.character_search.views.search
 
+import androidx.annotation.UiThread
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.databinding.LayoutSearchHistoryBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter.SearchHistoryAdapter
 import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
@@ -28,7 +30,7 @@ class SearchHistoryView(
     private val binding: LayoutSearchHistoryBinding,
     dispatch: DispatchIntent,
     navigationAction: (CharacterModel) -> Unit = {}
-) {
+) : UIComponent<SearchHistoryViewState>() {
 
     private val searchHistoryAdapter: SearchHistoryAdapter by lazy(LazyThreadSafetyMode.NONE) {
         SearchHistoryAdapter { model ->
@@ -42,7 +44,8 @@ class SearchHistoryView(
         binding.searchHistoryRv.adapter = searchHistoryAdapter
     }
 
-    fun render(state: SearchHistoryViewState) {
+    @UiThread
+    override fun render(state: SearchHistoryViewState) {
         searchHistoryAdapter.submitList(state.history)
         binding.run {
             recentSearchGroup.isVisible = state.isVisible && state.history.isNotEmpty()

@@ -3,6 +3,7 @@ package com.ezike.tobenna.starwarssearch.character_search.presentation.search.mv
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchIntentProcessor
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStateMachine
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStateReducer
+import com.ezike.tobenna.starwarssearch.character_search.ui.search.LoadSearchHistory
 import javax.inject.Inject
 
 class SearchViewStateMachine @Inject constructor(
@@ -11,5 +12,6 @@ class SearchViewStateMachine @Inject constructor(
 ) : SearchStateMachine(
     intentProcessor,
     reducer,
-    SearchViewState()
+    SearchViewState(),
+    LoadSearchHistory
 )

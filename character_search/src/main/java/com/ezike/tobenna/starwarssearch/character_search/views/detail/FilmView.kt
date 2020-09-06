@@ -5,6 +5,7 @@ import com.ezike.tobenna.starwarssearch.character_search.databinding.FilmViewLay
 import com.ezike.tobenna.starwarssearch.character_search.model.FilmModel
 import com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail.adapter.FilmAdapter
 import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
@@ -34,7 +35,7 @@ class FilmView(
     private val binding: FilmViewLayoutBinding,
     private val characterUrl: String,
     action: DispatchIntent
-) {
+) : UIComponent<FilmViewState>() {
 
     private val filmAdapter: FilmAdapter by lazy(LazyThreadSafetyMode.NONE) { FilmAdapter() }
 
@@ -43,7 +44,7 @@ class FilmView(
         binding.filmErrorState.onRetry { action(RetryFetchFilmIntent(characterUrl)) }
     }
 
-    fun render(state: FilmViewState) {
+    override fun render(state: FilmViewState) {
         filmAdapter.submitList(state.films)
         binding.run {
             root.isVisible = state.isVisible

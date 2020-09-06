@@ -5,7 +5,7 @@ import com.ezike.tobenna.starwarssearch.character_search.views.detail.DetailErro
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.FilmViewState
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.PlanetViewState
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.SpecieViewState
-import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
+import com.ezike.tobenna.starwarssearch.presentation.mvi.ScreenState
 
 data class CharacterDetailViewState(
     val character: CharacterModel? = null,
@@ -13,7 +13,7 @@ data class CharacterDetailViewState(
     val specieViewState: SpecieViewState = SpecieViewState(),
     val filmViewState: FilmViewState = FilmViewState(),
     val errorViewState: DetailErrorViewState = DetailErrorViewState()
-) : ViewState {
+) : ScreenState {
 
     fun planetState(state: PlanetViewState.() -> PlanetViewState): CharacterDetailViewState =
         copy(

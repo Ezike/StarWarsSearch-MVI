@@ -11,7 +11,6 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.search.Cha
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchBarView
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchHistoryView
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchResultView
-import com.ezike.tobenna.starwarssearch.core.ext.observe
 import com.ezike.tobenna.starwarssearch.core.ext.onBackPress
 import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
@@ -32,28 +31,36 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        handleBackPress()
+
+        SearchBarView(binding.searchBar, viewModel::processIntent)
+        viewModel.run {
+            subscribe(
+                SearchHistoryView(
+                    binding.recentSearch,
+                    viewModel::processIntent,
+                    navigator::openCharacterDetail
+                )
+            ) { screenState -> screenState.searchHistoryState }
+            subscribe(
+                SearchResultView(
+                    binding.searchResult,
+                    viewModel::processIntent,
+                    binding.searchBar.lazyText,
+                    navigator::openCharacterDetail
+                )
+            ) { screenState -> screenState.searchResultState }
+        }
+    }
+
+    private fun handleBackPress() {
         onBackPress {
             if (binding.searchBar.text.isNotEmpty()) {
                 binding.searchBar.text.clear()
             } else {
                 requireActivity().finish()
             }
-        }
-        SearchBarView(binding.searchBar, viewModel::processIntent)
-        val searchHistoryView = SearchHistoryView(
-            binding.recentSearch,
-            viewModel::processIntent,
-            navigator::openCharacterDetail
-        )
-        val searchResultView = SearchResultView(
-            binding.searchResult,
-            viewModel::processIntent,
-            binding.searchBar.lazyText,
-            navigator::openCharacterDetail
-        )
-        viewModel.viewState.observe(viewLifecycleOwner) { state ->
-            searchHistoryView.render(state.searchHistoryState)
-            searchResultView.render(state.searchResultState)
         }
     }
 }
