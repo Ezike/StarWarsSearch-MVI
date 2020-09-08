@@ -1,10 +1,12 @@
-package com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi
+package com.ezike.tobenna.starwarssearch.character_search.presentation.detail
 
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.mapper.FilmModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.mapper.PlanetModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.mapper.SpecieModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.presentation.CharacterDetailStateReducer
+import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.CharacterDetailViewResult.CharacterDetail
+import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.CharacterDetailViewResult.FetchCharacterDetailError
 import com.ezike.tobenna.starwarssearch.core.ext.errorMessage
 import javax.inject.Inject
 
@@ -20,10 +22,12 @@ class CharacterDetailViewStateReducer @Inject constructor(
         result: CharacterDetailViewResult
     ): CharacterDetailViewState {
         return when (result) {
-            is CharacterDetailViewResult.CharacterDetail ->
-                previous.translateTo { profileState(characterModelMapper.mapToModel(result.character)) }
-            is CharacterDetailViewResult.FetchCharacterDetailError ->
-                previous.translateTo { errorState(result.characterName, result.error.errorMessage) }
+            is CharacterDetail -> previous.translateTo {
+                profileState(characterModelMapper.mapToModel(result.character))
+            }
+            is FetchCharacterDetailError -> previous.translateTo {
+                errorState(result.characterName, result.error.errorMessage)
+            }
             CharacterDetailViewResult.Retrying -> previous.translateTo { retryState }
             is PlanetDetailViewResult -> makePlanetState(result, previous)
             is SpecieDetailViewResult -> makeSpecieState(result, previous)

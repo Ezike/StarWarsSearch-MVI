@@ -5,10 +5,6 @@ import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMa
 import com.ezike.tobenna.starwarssearch.character_search.mapper.FilmModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.mapper.PlanetModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.mapper.SpecieModelMapper
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewIntentProcessor
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewState
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewStateMachine
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi.CharacterDetailViewStateReducer
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchFilms
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchPlanet
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchSpecies

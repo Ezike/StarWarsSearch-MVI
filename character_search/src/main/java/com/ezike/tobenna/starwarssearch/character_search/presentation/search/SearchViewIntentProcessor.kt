@@ -1,9 +1,9 @@
-package com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi
+package com.ezike.tobenna.starwarssearch.character_search.presentation.search
 
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchIntentProcessor
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewResult.SearchCharacterResult
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchViewResult.SearchCharacterResult
 import com.ezike.tobenna.starwarssearch.character_search.ui.search.LoadSearchHistory
 import com.ezike.tobenna.starwarssearch.character_search.views.search.RetrySearchIntent
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchIntent

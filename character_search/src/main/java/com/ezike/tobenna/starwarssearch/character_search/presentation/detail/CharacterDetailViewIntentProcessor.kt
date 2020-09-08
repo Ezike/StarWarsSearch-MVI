@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi
+package com.ezike.tobenna.starwarssearch.character_search.presentation.detail
 
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel

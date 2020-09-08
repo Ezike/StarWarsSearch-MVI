@@ -4,7 +4,9 @@ import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchHistoryRepository
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchRepository
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewResult.SearchCharacterResult
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchViewIntentProcessor
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchViewResult
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchViewResult.SearchCharacterResult
 import com.ezike.tobenna.starwarssearch.character_search.ui.search.LoadSearchHistory
 import com.ezike.tobenna.starwarssearch.character_search.views.search.ClearSearchHistoryIntent
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SaveSearchIntent

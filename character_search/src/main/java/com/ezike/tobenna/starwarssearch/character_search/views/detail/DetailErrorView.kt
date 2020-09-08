@@ -26,7 +26,7 @@ data class DetailErrorViewState private constructor(
             get() = DetailErrorViewState()
 
         val hide: DetailErrorViewState
-            get() = state
+            get() = DetailErrorViewState()
 
         operator fun invoke(viewState: DetailErrorViewState): Factory {
             state = viewState

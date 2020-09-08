@@ -1,8 +1,8 @@
-package com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi
+package com.ezike.tobenna.starwarssearch.character_search.presentation.search
 
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStateReducer
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewResult.SearchCharacterResult
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchViewResult.SearchCharacterResult
 import com.ezike.tobenna.starwarssearch.core.ext.errorMessage
 import javax.inject.Inject
 

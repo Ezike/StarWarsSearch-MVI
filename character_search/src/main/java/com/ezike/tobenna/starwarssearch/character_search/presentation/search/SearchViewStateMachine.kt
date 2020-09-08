@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi
+package com.ezike.tobenna.starwarssearch.character_search.presentation.search
 
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchIntentProcessor
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStateMachine

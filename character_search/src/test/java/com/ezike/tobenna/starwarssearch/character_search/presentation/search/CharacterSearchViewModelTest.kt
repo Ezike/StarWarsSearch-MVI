@@ -3,10 +3,6 @@ package com.ezike.tobenna.starwarssearch.character_search.presentation.search
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchHistoryRepository
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchRepository
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewIntentProcessor
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewState
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewStateMachine
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.mvi.SearchViewStateReducer
 import com.ezike.tobenna.starwarssearch.domain.usecase.search.SearchCharacters
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.ClearSearchHistory
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.GetSearchHistory
