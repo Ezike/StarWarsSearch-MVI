@@ -3,6 +3,7 @@ package com.ezike.tobenna.starwarssearch.presentation.mvi
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.scan
@@ -54,7 +55,8 @@ abstract class StateMachine<I : ViewIntent, S : ScreenState, out R : ViewResult>
             intentProcessor.intentToResult(action)
         }.scan(initialState) { previous, result ->
             reducer.reduce(previous, result)
-        }.onEach { newState ->
+        }.distinctUntilChanged()
+        .onEach { newState ->
             oldState = newState
             subscriptions.forEach { subscription ->
                 subscription.updateState(newState)

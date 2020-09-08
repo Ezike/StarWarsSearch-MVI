@@ -7,45 +7,64 @@ import com.ezike.tobenna.starwarssearch.character_search.views.detail.PlanetView
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.SpecieViewState
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ScreenState
 
-data class CharacterDetailViewState(
+data class CharacterDetailViewState private constructor(
     val character: CharacterModel? = null,
-    val planetViewState: PlanetViewState = PlanetViewState(),
-    val specieViewState: SpecieViewState = SpecieViewState(),
-    val filmViewState: FilmViewState = FilmViewState(),
-    val errorViewState: DetailErrorViewState = DetailErrorViewState()
+    val planetViewState: PlanetViewState = PlanetViewState.init,
+    val specieViewState: SpecieViewState = SpecieViewState.init,
+    val filmViewState: FilmViewState = FilmViewState.init,
+    val errorViewState: DetailErrorViewState = DetailErrorViewState.init
 ) : ScreenState {
 
-    fun planetState(state: PlanetViewState.() -> PlanetViewState): CharacterDetailViewState =
-        copy(
-            errorViewState = errorViewState.hide,
-            planetViewState = planetViewState.state()
-        )
+    inline fun translateTo(transform: Factory.() -> CharacterDetailViewState): CharacterDetailViewState =
+        transform(Factory(this))
 
-    fun specieState(state: SpecieViewState.() -> SpecieViewState): CharacterDetailViewState =
-        copy(
-            errorViewState = errorViewState.hide,
-            specieViewState = specieViewState.state()
-        )
+    companion object Factory {
 
-    fun filmState(state: FilmViewState.() -> FilmViewState): CharacterDetailViewState =
-        copy(
-            errorViewState = errorViewState.hide,
-            filmViewState = filmViewState.state()
-        )
+        private lateinit var state: CharacterDetailViewState
 
-    fun errorState(characterName: String, error: String): CharacterDetailViewState =
-        copy(
-            errorViewState = errorViewState.show(error, characterName),
-            planetViewState = planetViewState.hide,
-            filmViewState = filmViewState.hide,
-            specieViewState = specieViewState.hide
-        )
+        operator fun invoke(viewState: CharacterDetailViewState): Factory {
+            state = viewState
+            return this
+        }
 
-    val retryState: CharacterDetailViewState
-        get() = copy(
-            errorViewState = errorViewState.hide,
-            planetViewState = planetViewState.loading,
-            filmViewState = filmViewState.loading,
-            specieViewState = specieViewState.loading
-        )
+        val init: CharacterDetailViewState
+            get() = CharacterDetailViewState()
+
+        fun profileState(character: CharacterModel?): CharacterDetailViewState =
+            state.copy(character = character)
+
+        fun planetState(action: PlanetViewState.Factory.() -> PlanetViewState): CharacterDetailViewState =
+            state.copy(
+                errorViewState = state.errorViewState.state { hide },
+                planetViewState = state.planetViewState.state(action)
+            )
+
+        fun specieState(action: SpecieViewState.Factory.() -> SpecieViewState): CharacterDetailViewState =
+            state.copy(
+                errorViewState = state.errorViewState.state { hide },
+                specieViewState = state.specieViewState.state(action)
+            )
+
+        fun filmState(action: FilmViewState.Factory.() -> FilmViewState): CharacterDetailViewState =
+            state.copy(
+                errorViewState = state.errorViewState.state { hide },
+                filmViewState = state.filmViewState.state(action)
+            )
+
+        fun errorState(characterName: String, error: String): CharacterDetailViewState =
+            state.copy(
+                errorViewState = state.errorViewState.state { show(error, characterName) },
+                planetViewState = state.planetViewState.state { hide },
+                filmViewState = state.filmViewState.state { hide },
+                specieViewState = state.specieViewState.state { hide }
+            )
+
+        val retryState: CharacterDetailViewState
+            get() = state.copy(
+                errorViewState = state.errorViewState.state { hide },
+                planetViewState = state.planetViewState.state { loading },
+                filmViewState = state.filmViewState.state { loading },
+                specieViewState = state.specieViewState.state { loading }
+            )
+    }
 }

@@ -10,24 +10,45 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
-data class PlanetViewState(
+data class PlanetViewState private constructor(
     val planet: PlanetModel? = null,
     val errorMessage: String? = null,
     val isLoading: Boolean = true,
     val isVisible: Boolean = true
 ) : ViewState {
 
-    val loading: PlanetViewState
-        get() = copy(isLoading = true, isVisible = true, errorMessage = null)
+    inline fun state(transform: Factory.() -> PlanetViewState): PlanetViewState =
+        transform(Factory(this))
 
-    val hide: PlanetViewState
-        get() = copy(isLoading = false, isVisible = false, errorMessage = null)
+    companion object Factory {
 
-    fun error(message: String): PlanetViewState =
-        copy(isLoading = false, isVisible = true, errorMessage = message)
+        private lateinit var state: PlanetViewState
 
-    fun success(planet: PlanetModel): PlanetViewState =
-        copy(planet = planet, isLoading = false, isVisible = true, errorMessage = null)
+        operator fun invoke(viewState: PlanetViewState): Factory {
+            state = viewState
+            return this
+        }
+
+        val init: PlanetViewState
+            get() = PlanetViewState()
+
+        val loading: PlanetViewState
+            get() = state.copy(isLoading = true, isVisible = true, errorMessage = null)
+
+        val hide: PlanetViewState
+            get() = state.copy(isLoading = false, isVisible = false, errorMessage = null)
+
+        fun error(message: String): PlanetViewState =
+            state.copy(isLoading = false, isVisible = true, errorMessage = message)
+
+        fun success(planet: PlanetModel): PlanetViewState =
+            state.copy(
+                planet = planet,
+                isLoading = false,
+                isVisible = true,
+                errorMessage = null
+            )
+    }
 }
 
 data class RetryFetchPlanetIntent(val url: String) : ViewIntent

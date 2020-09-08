@@ -17,26 +17,30 @@ class SearchViewStateReducerTest {
     @Test
     fun `check that emptySearchHistoryState is emitted when SearchHistoryResult is Empty`() {
         runBlockingTest {
-            val initialState = SearchViewState()
+            val initialState: SearchViewState = SearchViewState.init
             val viewState: SearchViewState = reducer.reduce(
                 initialState,
-                SearchViewResult.LoadedHistory(
-                    emptyList()
-                )
+                SearchViewResult.LoadedHistory(emptyList())
             )
-            assertThat(viewState).isEqualTo(initialState.history { success(emptyList()) })
+            assertThat(viewState).isEqualTo(
+                initialState.translateTo {
+                    searchHistoryState { success(emptyList()) }
+                }
+            )
         }
     }
 
     @Test
     fun `check that SearchHistoryLoadedState is emitted when SearchHistoryResult is Success`() {
         runBlockingTest {
-            val initialState = SearchViewState()
+            val initialState: SearchViewState = SearchViewState.init
             val list: List<Character> = DummyData.characterList
             val viewState: SearchViewState =
                 reducer.reduce(initialState, SearchViewResult.LoadedHistory(list))
             assertThat(viewState).isEqualTo(
-                initialState.history { success(mapper.mapToModelList(list)) }
+                initialState.translateTo {
+                    searchHistoryState { success(mapper.mapToModelList(list)) }
+                }
             )
         }
     }
@@ -44,22 +48,28 @@ class SearchViewStateReducerTest {
     @Test
     fun `check that SearchingState is emitted when SearchCharacterResult is Searching`() {
         runBlockingTest {
-            val initialState = SearchViewState()
+            val initialState: SearchViewState = SearchViewState.init
             val viewState: SearchViewState =
                 reducer.reduce(initialState, SearchCharacterResult.Searching)
-            assertThat(viewState).isEqualTo(initialState.searchResult { searching })
+            assertThat(viewState).isEqualTo(
+                initialState.translateTo {
+                    searchResultState { searching }
+                }
+            )
         }
     }
 
     @Test
     fun `check that SearchResultLoadedState is emitted when SearchCharacterResult is Success`() {
         runBlockingTest {
-            val initialState = SearchViewState()
+            val initialState: SearchViewState = SearchViewState.init
             val list: List<Character> = DummyData.characterList
             val viewState: SearchViewState =
                 reducer.reduce(initialState, SearchCharacterResult.Success(list))
             assertThat(viewState).isEqualTo(
-                initialState.searchResult { success(mapper.mapToModelList(list)) }
+                initialState.translateTo {
+                    searchResultState { success(mapper.mapToModelList(list)) }
+                }
             )
         }
     }
@@ -67,20 +77,28 @@ class SearchViewStateReducerTest {
     @Test
     fun `check that SearchResultErrorState is emitted when SearchCharacterResult is Error`() {
         runBlockingTest {
-            val initialState = SearchViewState()
+            val initialState: SearchViewState = SearchViewState.init
             val viewState: SearchViewState =
                 reducer.reduce(initialState, SearchCharacterResult.Error(Throwable(ERROR_MSG)))
-            assertThat(viewState).isEqualTo(initialState.searchResult { error(ERROR_MSG) })
+            assertThat(viewState).isEqualTo(
+                initialState.translateTo {
+                    searchResultState { error(ERROR_MSG) }
+                }
+            )
         }
     }
 
     @Test
     fun `check that fall back error message is returned when SearchCharacterResult is Error`() {
         runBlockingTest {
-            val initialState = SearchViewState()
+            val initialState: SearchViewState = SearchViewState.init
             val viewState: SearchViewState =
                 reducer.reduce(initialState, SearchCharacterResult.Error(Throwable()))
-            assertThat(viewState).isEqualTo(initialState.searchResult { error("An error occurred") })
+            assertThat(viewState).isEqualTo(
+                initialState.translateTo {
+                    searchResultState { error("An error occurred") }
+                }
+            )
         }
     }
 }

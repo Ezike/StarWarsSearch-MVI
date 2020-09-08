@@ -12,5 +12,5 @@ class CharacterDetailViewStateMachine @Inject constructor(
 ) : CharacterDetailStateMachine(
     intentProcessor,
     reducer,
-    CharacterDetailViewState()
+    CharacterDetailViewState.init
 )

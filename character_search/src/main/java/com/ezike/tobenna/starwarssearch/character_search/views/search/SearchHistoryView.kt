@@ -1,7 +1,6 @@
 package com.ezike.tobenna.starwarssearch.character_search.views.search
 
 import androidx.annotation.UiThread
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.databinding.LayoutSearchHistoryBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
@@ -11,16 +10,32 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
-data class SearchHistoryViewState(
+data class SearchHistoryViewState private constructor(
     val history: List<CharacterModel> = emptyList(),
     val isVisible: Boolean = false
 ) : ViewState {
 
-    val hide: SearchHistoryViewState
-        get() = SearchHistoryViewState()
+    inline fun state(transform: Factory.() -> SearchHistoryViewState): SearchHistoryViewState =
+        transform(Factory(this))
 
-    fun success(history: List<CharacterModel>): SearchHistoryViewState =
-        this.copy(history = history, isVisible = true)
+    companion object Factory {
+
+        private lateinit var state: SearchHistoryViewState
+
+        operator fun invoke(viewState: SearchHistoryViewState): Factory {
+            state = viewState
+            return this
+        }
+
+        val init: SearchHistoryViewState
+            get() = SearchHistoryViewState()
+
+        val hide: SearchHistoryViewState
+            get() = SearchHistoryViewState()
+
+        fun success(history: List<CharacterModel>): SearchHistoryViewState =
+            state.copy(history = history, isVisible = true)
+    }
 }
 
 object ClearSearchHistoryIntent : ViewIntent
@@ -49,7 +64,7 @@ class SearchHistoryView(
         searchHistoryAdapter.submitList(state.history)
         binding.run {
             recentSearchGroup.isVisible = state.isVisible && state.history.isNotEmpty()
-            searchHistoryRv.isInvisible = !state.isVisible && state.history.isEmpty()
+            searchHistoryRv.isVisible = state.isVisible && state.history.isNotEmpty()
             searchHistoryPrompt.isVisible = state.isVisible && state.history.isEmpty()
         }
     }

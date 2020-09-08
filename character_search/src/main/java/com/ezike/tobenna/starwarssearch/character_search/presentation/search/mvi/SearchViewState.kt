@@ -4,22 +4,38 @@ import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchHist
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchResultViewState
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ScreenState
 
-data class SearchViewState(
-    val searchHistoryState: SearchHistoryViewState = SearchHistoryViewState(),
-    val searchResultState: SearchResultViewState = SearchResultViewState()
+data class SearchViewState private constructor(
+    val searchHistoryState: SearchHistoryViewState = SearchHistoryViewState.init,
+    val searchResultState: SearchResultViewState = SearchResultViewState.init
 ) : ScreenState {
 
-    fun history(state: SearchHistoryViewState.() -> SearchHistoryViewState): SearchViewState {
-        return this.copy(
-            searchResultState = searchResultState.hide,
-            searchHistoryState = searchHistoryState.state()
-        )
-    }
+    inline fun translateTo(transform: Factory.() -> SearchViewState): SearchViewState =
+        transform(Factory(this))
 
-    fun searchResult(state: SearchResultViewState.() -> SearchResultViewState): SearchViewState {
-        return this.copy(
-            searchResultState = searchResultState.state(),
-            searchHistoryState = searchHistoryState.hide
-        )
+    companion object Factory {
+
+        private lateinit var state: SearchViewState
+
+        operator fun invoke(viewState: SearchViewState): Factory {
+            state = viewState
+            return this
+        }
+
+        val init: SearchViewState
+            get() = SearchViewState()
+
+        fun searchHistoryState(transform: SearchHistoryViewState.Factory.() -> SearchHistoryViewState): SearchViewState {
+            return state.copy(
+                searchResultState = state.searchResultState.state { hide },
+                searchHistoryState = state.searchHistoryState.state(transform)
+            )
+        }
+
+        fun searchResultState(transform: SearchResultViewState.Factory.() -> SearchResultViewState): SearchViewState {
+            return state.copy(
+                searchResultState = state.searchResultState.state(transform),
+                searchHistoryState = state.searchHistoryState.state { hide }
+            )
+        }
     }
 }

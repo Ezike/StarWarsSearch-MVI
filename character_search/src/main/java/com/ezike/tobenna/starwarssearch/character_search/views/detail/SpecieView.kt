@@ -9,24 +9,45 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
-data class SpecieViewState(
+data class SpecieViewState private constructor(
     val species: List<SpecieModel> = emptyList(),
     val errorMessage: String? = null,
     val isLoading: Boolean = true,
     val isVisible: Boolean = true
 ) : ViewState {
 
-    val loading: SpecieViewState
-        get() = copy(isLoading = true, isVisible = true, errorMessage = null)
+    inline fun state(transform: Factory.() -> SpecieViewState): SpecieViewState =
+        transform(Factory(this))
 
-    val hide: SpecieViewState
-        get() = copy(isLoading = false, isVisible = false, errorMessage = null)
+    companion object Factory {
 
-    fun error(message: String): SpecieViewState =
-        copy(isLoading = false, isVisible = true, errorMessage = message)
+        private lateinit var state: SpecieViewState
 
-    fun success(species: List<SpecieModel>): SpecieViewState =
-        copy(species = species, isLoading = false, isVisible = true, errorMessage = null)
+        operator fun invoke(viewState: SpecieViewState): Factory {
+            state = viewState
+            return this
+        }
+
+        val init: SpecieViewState
+            get() = SpecieViewState()
+
+        val loading: SpecieViewState
+            get() = state.copy(isLoading = true, isVisible = true, errorMessage = null)
+
+        val hide: SpecieViewState
+            get() = state.copy(isLoading = false, isVisible = false, errorMessage = null)
+
+        fun error(message: String): SpecieViewState =
+            state.copy(isLoading = false, isVisible = true, errorMessage = message)
+
+        fun success(species: List<SpecieModel>): SpecieViewState =
+            state.copy(
+                species = species,
+                isLoading = false,
+                isVisible = true,
+                errorMessage = null
+            )
+    }
 }
 
 data class RetryFetchSpecieIntent(val url: String) : ViewIntent

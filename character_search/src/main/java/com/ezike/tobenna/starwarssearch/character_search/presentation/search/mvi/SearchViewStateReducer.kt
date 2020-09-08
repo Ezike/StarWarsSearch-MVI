@@ -12,13 +12,19 @@ class SearchViewStateReducer @Inject constructor(
 
     override fun reduce(previous: SearchViewState, result: SearchViewResult): SearchViewState {
         return when (result) {
-            is SearchViewResult.LoadedHistory -> previous.history {
-                success(characterModelMapper.mapToModelList(result.searchHistory))
+            is SearchViewResult.LoadedHistory -> previous.translateTo {
+                searchHistoryState {
+                    success(characterModelMapper.mapToModelList(result.searchHistory))
+                }
             }
-            SearchCharacterResult.Searching -> previous.searchResult { searching }
-            is SearchCharacterResult.Error -> previous.searchResult { error(result.throwable.errorMessage) }
-            is SearchCharacterResult.Success -> previous.searchResult {
-                success(characterModelMapper.mapToModelList(result.characters))
+            SearchCharacterResult.Searching -> previous.translateTo {
+                searchResultState { searching }
+            }
+            is SearchCharacterResult.Error -> previous.translateTo {
+                searchResultState { error(result.throwable.errorMessage) }
+            }
+            is SearchCharacterResult.Success -> previous.translateTo {
+                searchResultState { success(characterModelMapper.mapToModelList(result.characters)) }
             }
         }
     }

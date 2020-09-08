@@ -21,10 +21,10 @@ class CharacterDetailViewStateReducer @Inject constructor(
     ): CharacterDetailViewState {
         return when (result) {
             is CharacterDetailViewResult.CharacterDetail ->
-                previous.copy(character = characterModelMapper.mapToModel(result.character))
+                previous.translateTo { profileState(characterModelMapper.mapToModel(result.character)) }
             is CharacterDetailViewResult.FetchCharacterDetailError ->
-                previous.errorState(result.characterName, result.error.errorMessage)
-            CharacterDetailViewResult.Retrying -> previous.retryState
+                previous.translateTo { errorState(result.characterName, result.error.errorMessage) }
+            CharacterDetailViewResult.Retrying -> previous.translateTo { retryState }
             is PlanetDetailViewResult -> makePlanetState(result, previous)
             is SpecieDetailViewResult -> makeSpecieState(result, previous)
             is FilmDetailViewResult -> makeFilmState(result, previous)
@@ -37,10 +37,12 @@ class CharacterDetailViewStateReducer @Inject constructor(
     ): CharacterDetailViewState {
         return when (result) {
             is FilmDetailViewResult.Success ->
-                previous.filmState { success(filmModelMapper.mapToModelList(result.film)) }
+                previous.translateTo {
+                    filmState { success(filmModelMapper.mapToModelList(result.film)) }
+                }
             is FilmDetailViewResult.Error ->
-                previous.filmState { error(result.error.errorMessage) }
-            FilmDetailViewResult.Loading -> previous.filmState { loading }
+                previous.translateTo { filmState { error(result.error.errorMessage) } }
+            FilmDetailViewResult.Loading -> previous.translateTo { filmState { loading } }
         }
     }
 
@@ -50,10 +52,12 @@ class CharacterDetailViewStateReducer @Inject constructor(
     ): CharacterDetailViewState {
         return when (result) {
             is SpecieDetailViewResult.Success ->
-                previous.specieState { success(specieModelMapper.mapToModelList(result.specie)) }
+                previous.translateTo {
+                    specieState { success(specieModelMapper.mapToModelList(result.specie)) }
+                }
             is SpecieDetailViewResult.Error ->
-                previous.specieState { error(result.error.errorMessage) }
-            SpecieDetailViewResult.Loading -> previous.specieState { loading }
+                previous.translateTo { specieState { error(result.error.errorMessage) } }
+            SpecieDetailViewResult.Loading -> previous.translateTo { specieState { loading } }
         }
     }
 
@@ -63,10 +67,12 @@ class CharacterDetailViewStateReducer @Inject constructor(
     ): CharacterDetailViewState {
         return when (result) {
             is PlanetDetailViewResult.Success ->
-                previous.planetState { success(planetModelMapper.mapToModel(result.planet)) }
+                previous.translateTo {
+                    planetState { success(planetModelMapper.mapToModel(result.planet)) }
+                }
             is PlanetDetailViewResult.Error ->
-                previous.planetState { error(result.error.errorMessage) }
-            PlanetDetailViewResult.Loading -> previous.planetState { loading }
+                previous.translateTo { planetState { error(result.error.errorMessage) } }
+            PlanetDetailViewResult.Loading -> previous.translateTo { planetState { loading } }
         }
     }
 }

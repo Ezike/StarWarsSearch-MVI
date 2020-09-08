@@ -9,17 +9,37 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
-data class DetailErrorViewState(
+data class DetailErrorViewState private constructor(
     val errorMessage: String = "",
     val characterName: String = "",
     val isVisible: Boolean = false
 ) : ViewState {
 
-    fun show(errorMessage: String, characterName: String): DetailErrorViewState =
-        copy(errorMessage = errorMessage, characterName = characterName, isVisible = true)
+    inline fun state(transform: Factory.() -> DetailErrorViewState): DetailErrorViewState =
+        transform(Factory(this))
 
-    val hide: DetailErrorViewState
-        get() = DetailErrorViewState()
+    companion object Factory {
+
+        private lateinit var state: DetailErrorViewState
+
+        val init: DetailErrorViewState
+            get() = DetailErrorViewState()
+
+        val hide: DetailErrorViewState
+            get() = state
+
+        operator fun invoke(viewState: DetailErrorViewState): Factory {
+            state = viewState
+            return this
+        }
+
+        fun show(errorMessage: String, characterName: String): DetailErrorViewState =
+            state.copy(
+                errorMessage = errorMessage,
+                characterName = characterName,
+                isVisible = true
+            )
+    }
 }
 
 data class RetryFetchCharacterDetailsIntent(val character: CharacterModel) : ViewIntent

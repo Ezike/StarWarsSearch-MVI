@@ -9,24 +9,40 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
-data class FilmViewState(
+data class FilmViewState private constructor(
     val films: List<FilmModel> = emptyList(),
     val errorMessage: String? = null,
     val isLoading: Boolean = true,
     val isVisible: Boolean = true
 ) : ViewState {
 
-    val loading: FilmViewState
-        get() = copy(isLoading = true, isVisible = true, errorMessage = null)
+    inline fun state(transform: Factory.() -> FilmViewState): FilmViewState =
+        transform(Factory(this))
 
-    val hide: FilmViewState
-        get() = copy(isLoading = false, isVisible = false, errorMessage = null)
+    companion object Factory {
 
-    fun error(message: String): FilmViewState =
-        copy(isLoading = false, isVisible = true, errorMessage = message)
+        private lateinit var state: FilmViewState
 
-    fun success(films: List<FilmModel>): FilmViewState =
-        copy(films = films, isLoading = false, isVisible = true, errorMessage = null)
+        operator fun invoke(viewState: FilmViewState): Factory {
+            state = viewState
+            return this
+        }
+
+        val init: FilmViewState
+            get() = FilmViewState()
+
+        val loading: FilmViewState
+            get() = state.copy(isLoading = true, isVisible = true, errorMessage = null)
+
+        val hide: FilmViewState
+            get() = state.copy(isLoading = false, isVisible = false, errorMessage = null)
+
+        fun error(message: String): FilmViewState =
+            state.copy(isLoading = false, isVisible = true, errorMessage = message)
+
+        fun success(films: List<FilmModel>): FilmViewState =
+            state.copy(films = films, isLoading = false, isVisible = true, errorMessage = null)
+    }
 }
 
 data class RetryFetchFilmIntent(val url: String) : ViewIntent

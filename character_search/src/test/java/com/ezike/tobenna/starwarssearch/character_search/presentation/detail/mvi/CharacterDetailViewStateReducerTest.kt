@@ -33,14 +33,14 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that CharacterDetailViewState is emitted when result is CharacterDetail`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState()
+            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
             val character: Character = DummyData.character
 
             val viewState: CharacterDetailViewState =
                 reducer.reduce(initialState, CharacterDetailViewResult.CharacterDetail(character))
 
             assertThat(viewState).isEqualTo(
-                CharacterDetailViewState(characterModelMapper.mapToModel(character))
+                initialState.translateTo { profileState(characterModelMapper.mapToModel(character)) }
             )
         }
     }
@@ -48,19 +48,19 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that RetryingViewState is emitted when result is Retrying`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState()
+            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
 
             val viewState: CharacterDetailViewState =
                 reducer.reduce(initialState, CharacterDetailViewResult.Retrying)
 
-            assertThat(viewState).isEqualTo(initialState.retryState)
+            assertThat(viewState).isEqualTo(initialState.translateTo { retryState })
         }
     }
 
     @Test
     fun `check that FetchDetailErrorViewState is emitted when result is FetchCharacterDetailError`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState()
+            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
             val model: CharacterModel = DummyData.characterModel
 
             val error: SocketTimeoutException = DummyData.exception
@@ -71,10 +71,7 @@ class CharacterDetailViewStateReducerTest {
                 )
 
             assertThat(viewState).isEqualTo(
-                initialState.errorState(
-                    model.name,
-                    error.errorMessage
-                )
+                initialState.translateTo { errorState(model.name, error.errorMessage) }
             )
         }
     }
@@ -82,7 +79,7 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that PlanetDetailViewStateSuccess is emitted when result is PlanetDetailViewResultSuccess`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState()
+            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
 
             val planet: Planet = DummyData.planet
 
@@ -90,7 +87,9 @@ class CharacterDetailViewStateReducerTest {
                 reducer.reduce(initialState, PlanetDetailViewResult.Success(planet))
 
             assertThat(viewState).isEqualTo(
-                initialState.planetState { success(planetModelMapper.mapToModel(planet)) }
+                initialState.translateTo {
+                    planetState { success(planetModelMapper.mapToModel(planet)) }
+                }
             )
         }
     }
@@ -98,32 +97,32 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that PlanetDetailViewStateLoading is emitted when result is PlanetDetailViewResultLoading`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState()
+            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
 
             val viewState: CharacterDetailViewState =
                 reducer.reduce(initialState, PlanetDetailViewResult.Loading)
 
-            assertThat(viewState).isEqualTo(initialState.planetState { loading })
+            assertThat(viewState).isEqualTo(initialState.translateTo { planetState { loading } })
         }
     }
 
     @Test
     fun `check that PlanetDetailViewStateError is emitted when result is PlanetDetailViewResultError`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState()
+            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
 
             val error: SocketTimeoutException = DummyData.exception
             val viewState: CharacterDetailViewState =
                 reducer.reduce(initialState, PlanetDetailViewResult.Error(error))
 
-            assertThat(viewState).isEqualTo(initialState.planetState { error(error.errorMessage) })
+            assertThat(viewState).isEqualTo(initialState.translateTo { planetState { error(error.errorMessage) } })
         }
     }
 
     @Test
     fun `check that FilmDetailViewStateSuccess is emitted when result is FilmDetailViewResultSuccess`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState()
+            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
 
             val films: List<Film> = DummyData.films
 
@@ -131,7 +130,9 @@ class CharacterDetailViewStateReducerTest {
                 reducer.reduce(initialState, FilmDetailViewResult.Success(films))
 
             assertThat(viewState).isEqualTo(
-                initialState.filmState { success(filmModelMapper.mapToModelList(films)) }
+                initialState.translateTo {
+                    filmState { success(filmModelMapper.mapToModelList(films)) }
+                }
             )
         }
     }
@@ -139,32 +140,36 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that FilmDetailViewStateLoading is emitted when result is FilmDetailViewResultLoading`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState()
+            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
 
             val viewState: CharacterDetailViewState =
                 reducer.reduce(initialState, FilmDetailViewResult.Loading)
 
-            assertThat(viewState).isEqualTo(initialState.filmState { loading })
+            assertThat(viewState).isEqualTo(initialState.translateTo { filmState { loading } })
         }
     }
 
     @Test
     fun `check that FilmDetailViewStateLError is emitted when result is FilmDetailViewResultError`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState()
+            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
 
             val error: SocketTimeoutException = DummyData.exception
             val viewState: CharacterDetailViewState =
                 reducer.reduce(initialState, FilmDetailViewResult.Error(error))
 
-            assertThat(viewState).isEqualTo(initialState.filmState { error(error.errorMessage) })
+            assertThat(viewState).isEqualTo(
+                initialState.translateTo {
+                    filmState { error(error.errorMessage) }
+                }
+            )
         }
     }
 
     @Test
     fun `check that SpecieDetailViewStateSuccess is emitted when result is SpecieDetailViewResultSuccess`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState()
+            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
 
             val species: List<Specie> = DummyData.species
 
@@ -172,7 +177,9 @@ class CharacterDetailViewStateReducerTest {
                 reducer.reduce(initialState, SpecieDetailViewResult.Success(species))
 
             assertThat(viewState).isEqualTo(
-                initialState.specieState { success(specieModelMapper.mapToModelList(species)) }
+                initialState.translateTo {
+                    specieState { success(specieModelMapper.mapToModelList(species)) }
+                }
             )
         }
     }
@@ -180,25 +187,29 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that SpecieDetailViewStateLoading is emitted when result is SpecieDetailViewResultLoading`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState()
+            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
 
             val viewState: CharacterDetailViewState =
                 reducer.reduce(initialState, SpecieDetailViewResult.Loading)
 
-            assertThat(viewState).isEqualTo(initialState.specieState { loading })
+            assertThat(viewState).isEqualTo(initialState.translateTo { specieState { loading } })
         }
     }
 
     @Test
     fun `check that SpecieDetailViewStateError is emitted when result is SpecieDetailViewResultError`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState()
+            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
 
             val error: SocketTimeoutException = DummyData.exception
             val viewState: CharacterDetailViewState =
                 reducer.reduce(initialState, SpecieDetailViewResult.Error(error))
 
-            assertThat(viewState).isEqualTo(initialState.specieState { error(error.errorMessage) })
+            assertThat(viewState).isEqualTo(
+                initialState.translateTo {
+                    specieState { error(error.errorMessage) }
+                }
+            )
         }
     }
 }

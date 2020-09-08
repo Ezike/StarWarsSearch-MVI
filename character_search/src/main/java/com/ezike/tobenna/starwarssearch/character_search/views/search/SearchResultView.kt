@@ -13,24 +13,45 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 
-data class SearchResultViewState(
+data class SearchResultViewState private constructor(
     val characters: List<CharacterModel> = emptyList(),
     val isSearching: Boolean = false,
     val isVisible: Boolean = false,
     val error: String? = null
 ) : ViewState {
 
-    val hide: SearchResultViewState
-        get() = SearchResultViewState()
+    inline fun state(transform: Factory.() -> SearchResultViewState): SearchResultViewState =
+        transform(Factory(this))
 
-    val searching: SearchResultViewState
-        get() = this.copy(isVisible = true, error = null, isSearching = true)
+    companion object Factory {
 
-    fun error(message: String): SearchResultViewState =
-        this.copy(isVisible = true, error = message, isSearching = false, characters = emptyList())
+        private lateinit var state: SearchResultViewState
 
-    fun success(characters: List<CharacterModel>): SearchResultViewState =
-        this.copy(characters = characters, isVisible = true, error = null, isSearching = false)
+        operator fun invoke(viewState: SearchResultViewState): Factory {
+            state = viewState
+            return this
+        }
+
+        val init: SearchResultViewState
+            get() = SearchResultViewState()
+
+        val hide: SearchResultViewState
+            get() = SearchResultViewState()
+
+        val searching: SearchResultViewState
+            get() = state.copy(isVisible = true, error = null, isSearching = true)
+
+        fun error(message: String): SearchResultViewState =
+            state.copy(
+                isVisible = true,
+                error = message,
+                isSearching = false,
+                characters = emptyList()
+            )
+
+        fun success(characters: List<CharacterModel>): SearchResultViewState =
+            state.copy(characters = characters, isVisible = true, error = null, isSearching = false)
+    }
 }
 
 data class RetrySearchIntent(val query: String) : ViewIntent
@@ -66,8 +87,10 @@ class SearchResultView(
             emptyState.isVisible =
                 state.isVisible && !state.isSearching && state.characters.isEmpty() && state.error == null
             errorState.isVisible = state.isVisible && !state.isSearching && state.error != null
-            errorState.setImage(root.context.getImage(R.drawable.ic_error_page_2))
-            errorState.setCaption(state.error)
+            if (state.error != null) {
+                errorState.setImage(root.context.getImage(R.drawable.ic_error_page_2))
+                errorState.setCaption(state.error)
+            }
         }
     }
 }
