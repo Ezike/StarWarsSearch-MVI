@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.character_search.presentation.detail.mvi
+package com.ezike.tobenna.starwarssearch.character_search.presentation.detail
 
 import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
@@ -6,12 +6,6 @@ import com.ezike.tobenna.starwarssearch.character_search.mapper.FilmModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.mapper.PlanetModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.mapper.SpecieModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.CharacterDetailViewResult
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.CharacterDetailViewState
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.CharacterDetailViewStateReducer
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.FilmDetailViewResult
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.PlanetDetailViewResult
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.SpecieDetailViewResult
 import com.ezike.tobenna.starwarssearch.core.ext.errorMessage
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.domain.model.Film
