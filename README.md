@@ -3,6 +3,7 @@
 # Star Wars search
 
 Hey there 👋🏼👋🏼👋🏼
+
 This branch contains an implementation of the idea Componentization as shown by the UI Engineering team at Netflix.
 
 Resources here: [Blog](https://netflixtechblog.com/making-our-android-studio-apps-reactive-with-ui-components-redux-5e37aac3b244), [Repo](https://github.com/julianomoraes/componentizationArch)
