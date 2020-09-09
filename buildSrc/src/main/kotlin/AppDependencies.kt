@@ -205,6 +205,7 @@ object ProjectLib {
     const val app: String = ":app"
     const val core: String = ":core"
     const val presentation: String = ":presentation"
+    const val presentation_android: String = ":presentation-android"
     const val domain: String = ":libraries:domain"
     const val data: String = ":libraries:data"
     const val remote: String = ":libraries:remote"

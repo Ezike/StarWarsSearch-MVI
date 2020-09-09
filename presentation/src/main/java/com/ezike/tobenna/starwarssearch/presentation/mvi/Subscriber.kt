@@ -6,14 +6,3 @@ package com.ezike.tobenna.starwarssearch.presentation.mvi
 interface Subscriber<State> {
     fun onNewState(state: State)
 }
-
-/**
- * Represents a basic UI component that can be part of a screen
- */
-abstract class UIComponent<ComponentState : ViewState> : Subscriber<ComponentState> {
-
-    abstract fun render(state: ComponentState)
-    override fun onNewState(state: ComponentState) {
-        render(state)
-    }
-}

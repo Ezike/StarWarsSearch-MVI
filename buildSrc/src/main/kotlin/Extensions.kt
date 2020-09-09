@@ -13,9 +13,6 @@ val PluginDependenciesSpec.androidApplication: PluginDependencySpec
 val PluginDependenciesSpec.androidLibrary: PluginDependencySpec
     get() = id("com.android.library")
 
-val PluginDependenciesSpec.kotlin: PluginDependencySpec
-    get() = id("kotlin")
-
 val PluginDependenciesSpec.daggerHilt: PluginDependencySpec
     get() = id("dagger.hilt.android.plugin")
 

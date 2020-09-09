@@ -7,6 +7,7 @@ import Dependencies.View
 import ProjectLib.core
 import ProjectLib.domain
 import ProjectLib.presentation
+import ProjectLib.presentation_android
 import ProjectLib.testUtils
 
 plugins {
@@ -59,6 +60,7 @@ android {
 dependencies {
     implementation(project(core))
     implementation(project(presentation))
+    implementation(project(presentation_android))
     implementation(project(domain))
 
     testImplementation(project(testUtils))

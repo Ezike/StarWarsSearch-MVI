@@ -8,5 +8,6 @@ include(
     ":presentation",
     ":character_search",
     ":libraries:cache",
-    ":libraries:testUtils"
+    ":libraries:testUtils",
+    ":presentation-android"
 )

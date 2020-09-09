@@ -7,6 +7,7 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.search.Sea
 import com.ezike.tobenna.starwarssearch.presentation.mvi.IntentProcessor
 import com.ezike.tobenna.starwarssearch.presentation.mvi.StateMachine
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewStateReducer
+import com.ezike.tobenna.starwarssearch.presentation_android.ComponentManager
 
 typealias SearchIntentProcessor =
     @JvmSuppressWildcards IntentProcessor<SearchViewResult>

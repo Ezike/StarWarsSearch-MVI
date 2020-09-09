@@ -13,7 +13,9 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStat
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchBarView
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchHistoryView
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchResultView
+import com.ezike.tobenna.starwarssearch.core.ext.lazyText
 import com.ezike.tobenna.starwarssearch.core.ext.onBackPress
+import com.ezike.tobenna.starwarssearch.core.ext.viewScope
 import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,7 +42,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         handleBackPress()
 
-        SearchBarView(binding.searchBar, componentManager::processIntent)
+        SearchBarView(binding.searchBar, viewScope, componentManager::processIntent)
         componentManager.run {
             subscribe(
                 SearchHistoryView(

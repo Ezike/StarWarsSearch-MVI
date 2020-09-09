@@ -5,9 +5,9 @@ import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.views.EmptyStateView
 import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
-import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
+import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
 
 data class DetailErrorViewState private constructor(
     val errorMessage: String = "",

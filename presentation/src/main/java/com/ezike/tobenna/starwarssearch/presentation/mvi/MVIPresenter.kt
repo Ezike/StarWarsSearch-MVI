@@ -1,10 +1,9 @@
 package com.ezike.tobenna.starwarssearch.presentation.mvi
 
 interface MVIPresenter<SC : ScreenState> {
+    fun processIntent(intent: ViewIntent)
     fun <VS : ViewState> subscribe(
-        component: UIComponent<VS>,
+        component: Subscriber<VS>,
         transform: StateTransform<SC, VS>
     )
-
-    fun processIntent(intent: ViewIntent)
 }

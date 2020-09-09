@@ -21,11 +21,11 @@ import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import dagger.hilt.android.AndroidEntryPoint
 
-data class LoadCharacterDetailIntent(val character: CharacterModel) : ViewIntent
-
 class CharacterDetailComponentManager @ViewModelInject constructor(
     stateMachine: CharacterDetailStateMachine
 ) : DetailComponentManager(stateMachine)
+
+data class LoadCharacterDetailIntent(val character: CharacterModel) : ViewIntent
 
 @AndroidEntryPoint
 class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {

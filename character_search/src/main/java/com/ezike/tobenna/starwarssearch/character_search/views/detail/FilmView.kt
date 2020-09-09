@@ -5,9 +5,39 @@ import com.ezike.tobenna.starwarssearch.character_search.databinding.FilmViewLay
 import com.ezike.tobenna.starwarssearch.character_search.model.FilmModel
 import com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail.adapter.FilmAdapter
 import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
-import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
+import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
+
+data class RetryFetchFilmIntent(val url: String) : ViewIntent
+
+class FilmView(
+    private val binding: FilmViewLayoutBinding,
+    private val characterUrl: String,
+    action: DispatchIntent
+) : UIComponent<FilmViewState>() {
+
+    private val filmAdapter: FilmAdapter by lazy(LazyThreadSafetyMode.NONE) { FilmAdapter() }
+
+    init {
+        binding.filmList.adapter = filmAdapter
+        binding.filmErrorState.onRetry { action(RetryFetchFilmIntent(characterUrl)) }
+    }
+
+    override fun render(state: FilmViewState) {
+        filmAdapter.submitList(state.films)
+        binding.run {
+            root.isVisible = state.isVisible
+            if (state.isVisible) {
+                emptyView.isVisible =
+                    state.films.isEmpty() && !state.isLoading && state.errorMessage == null
+                filmLoadingView.root.isVisible = state.isLoading
+                filmErrorState.isVisible = state.errorMessage != null
+                filmErrorState.setCaption(state.errorMessage)
+            }
+        }
+    }
+}
 
 data class FilmViewState private constructor(
     val films: List<FilmModel> = emptyList(),
@@ -42,35 +72,5 @@ data class FilmViewState private constructor(
 
         fun success(films: List<FilmModel>): FilmViewState =
             state.copy(films = films, isLoading = false, isVisible = true, errorMessage = null)
-    }
-}
-
-data class RetryFetchFilmIntent(val url: String) : ViewIntent
-
-class FilmView(
-    private val binding: FilmViewLayoutBinding,
-    private val characterUrl: String,
-    action: DispatchIntent
-) : UIComponent<FilmViewState>() {
-
-    private val filmAdapter: FilmAdapter by lazy(LazyThreadSafetyMode.NONE) { FilmAdapter() }
-
-    init {
-        binding.filmList.adapter = filmAdapter
-        binding.filmErrorState.onRetry { action(RetryFetchFilmIntent(characterUrl)) }
-    }
-
-    override fun render(state: FilmViewState) {
-        filmAdapter.submitList(state.films)
-        binding.run {
-            root.isVisible = state.isVisible
-            if (state.isVisible) {
-                emptyView.isVisible =
-                    state.films.isEmpty() && !state.isLoading && state.errorMessage == null
-                filmLoadingView.root.isVisible = state.isLoading
-                filmErrorState.isVisible = state.errorMessage != null
-                filmErrorState.setCaption(state.errorMessage)
-            }
-        }
     }
 }

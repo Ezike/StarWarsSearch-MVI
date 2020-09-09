@@ -3,8 +3,8 @@ package com.ezike.tobenna.starwarssearch.character_search.views.detail
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.ProfileViewLayoutBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
-import com.ezike.tobenna.starwarssearch.presentation.mvi.UIComponent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
+import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
 
 data class ProfileViewState(val character: CharacterModel?) : ViewState
 
