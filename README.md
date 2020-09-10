@@ -4,7 +4,7 @@ Hey there 👋🏼👋🏼👋🏼
 
 This project contains an implementation of the Componentization idea as shown by the UI Engineering team at Netflix.
 
-Resources: [blog](https://netflixtechblog.com/making-our-android-studio-apps-reactive-with-ui-components-redux-5e37aac3b244), [repo](https://github.com/julianomoraes/componentizationArch)
+Resources: [blog](https://netflixtechblog.com/making-our-android-studio-apps-reactive-with-ui-components-redux-5e37aac3b244), [repo](https://github.com/julianomoraes/componentizationArch), [talk](https://www.droidcon.com/media-detail?video=362740979)
 
 ## Features
 * Clean Architecture with MVI (Uni-directional data flow)
