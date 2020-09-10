@@ -1,7 +1,5 @@
 ![Android Build](https://github.com/Ezike/StarWarsSearch/workflows/Android%20Build/badge.svg)
 
-# Star Wars search
-
 Hey there 👋🏼👋🏼👋🏼
 
 This branch contains an implementation of the Componentization idea as shown by the UI Engineering team at Netflix.
