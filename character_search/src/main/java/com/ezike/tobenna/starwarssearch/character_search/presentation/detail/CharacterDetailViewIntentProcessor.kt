@@ -15,6 +15,7 @@ import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchFilms
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchPlanet
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.FetchSpecies
 import com.ezike.tobenna.starwarssearch.domain.usecase.detail.GetCharacterDetail
+import com.ezike.tobenna.starwarssearch.presentation.mvi.InvalidViewIntentException
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -47,7 +48,7 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
             is RetryFetchFilmIntent -> retryFetchFilm(viewIntent.url)
             is RetryFetchCharacterDetailsIntent ->
                 getCharacterInfo(viewIntent.character, CharacterDetailViewResult.Retrying)
-            else -> throw IllegalArgumentException("Invalid intent $viewIntent")
+            else -> throw InvalidViewIntentException(viewIntent)
         }
     }
 

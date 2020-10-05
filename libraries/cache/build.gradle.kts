@@ -23,7 +23,7 @@ android {
                 arguments += Pair("room.incremental", "true")
             }
         }
-        buildConfigField("int", "databaseVersion", 3.toString())
+        buildConfigField("int", "databaseVersion", 1.toString())
     }
 
     compileOptions {

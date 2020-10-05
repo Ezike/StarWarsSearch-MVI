@@ -12,7 +12,7 @@ interface SearchHistoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSearch(characterCacheModel: CharacterCacheModel)
 
-    @Query("SELECT * FROM SEARCH_HISTORY ORDER BY timeSent DESC")
+    @Query("SELECT * FROM SEARCH_HISTORY ORDER BY lastUpdated DESC")
     suspend fun recentSearches(): List<CharacterCacheModel>
 
     @Query("DELETE FROM SEARCH_HISTORY")

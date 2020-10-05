@@ -11,5 +11,5 @@ data class CharacterCacheModel(
     @PrimaryKey
     val url: String
 ) {
-    var timeSent: Long = 0L
+    var lastUpdated: Long = 0L
 }

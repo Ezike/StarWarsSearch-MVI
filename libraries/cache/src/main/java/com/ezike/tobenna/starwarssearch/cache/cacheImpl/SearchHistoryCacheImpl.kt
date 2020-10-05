@@ -16,7 +16,7 @@ class SearchHistoryCacheImpl @Inject constructor(
 
     override suspend fun saveSearch(character: CharacterEntity) {
         val characterModel: CharacterCacheModel = characterCacheModelMapper.mapToModel(character)
-        characterModel.timeSent = System.currentTimeMillis()
+        characterModel.lastUpdated = System.currentTimeMillis()
         searchHistoryDao.insertSearch(characterModel)
     }
 

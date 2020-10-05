@@ -13,6 +13,7 @@ import com.ezike.tobenna.starwarssearch.domain.usecase.search.SearchCharacters
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.ClearSearchHistory
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.GetSearchHistory
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.SaveSearch
+import com.ezike.tobenna.starwarssearch.presentation.mvi.InvalidViewIntentException
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -40,7 +41,7 @@ class SearchViewIntentProcessor @Inject constructor(
             LoadSearchHistory -> loadSearchHistory()
             ClearSearchHistoryIntent -> clearCache()
             is RetrySearchIntent -> executeSearch(viewIntent.query)
-            else -> throw IllegalArgumentException("Unknown intent $viewIntent")
+            else -> throw InvalidViewIntentException(viewIntent)
         }
     }
 

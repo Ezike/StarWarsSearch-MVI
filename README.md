@@ -16,7 +16,7 @@ Resources: [blog](https://netflixtechblog.com/making-our-android-studio-apps-rea
 
 ## Prerequisite
 To build this project, you require:
-- Android Studio 4.2 canary 10 or higher
+- Android Studio 4.2 canary 13 or higher
 - Gradle 6.6.1
 
 <h2 align="left">Screenshots</h2>
@@ -39,4 +39,3 @@ To build this project, you require:
 - [Robolectric](http://robolectric.org/) - Unit test on android framework.
 - [Espresso](https://developer.android.com/training/testing/espresso) - Test framework to write UI Tests
 - [Dagger Hilt](https://dagger.dev/hilt) - handles dependency injection
-- [Kotlin Gradle DSL](https://guides.gradle.org/migrating-build-logic-from-groovy-to-kotlin)

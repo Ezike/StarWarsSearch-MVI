@@ -2,23 +2,16 @@ package com.ezike.tobenna.starwarssearch.presentation.mvi
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flatMapMerge
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.scan
+import kotlinx.coroutines.flow.*
 import java.util.concurrent.CopyOnWriteArrayList
 
 abstract class StateMachine<S : ScreenState, R : ViewResult>(
     private val intentProcessor: IntentProcessor<R>,
     private val reducer: ViewStateReducer<S, R>,
-    initialState: S,
+    private val initialState: S,
     initialIntent: ViewIntent? = null
 ) {
 
@@ -37,13 +30,14 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
             }
         }
 
-    private val makeState: () -> Job = {
+    private fun makeState() {
         intentsChannel.asFlow()
             .flatMapMerge { action ->
                 intentProcessor.intentToResult(action)
             }.scan(initialState) { previous, result ->
                 reducer.reduce(previous, result)
             }.distinctUntilChanged()
+            .flowOn(Dispatchers.IO)
             .onEach { newState ->
                 oldState = newState
                 subscriptions.forEach { subscription ->
@@ -56,10 +50,8 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
         makeState()
     }
 
-    fun processIntents(intents: Flow<ViewIntent>) {
-        intents.onEach { viewIntents ->
-            intentsChannel.offer(viewIntents)
-        }.launchIn(mainScope)
+    fun processIntent(intent: ViewIntent) {
+        intentsChannel.offer(intent)
     }
 
     fun <V : ViewState> subscribe(

@@ -23,7 +23,7 @@ abstract class ComponentManager<S : ScreenState, out R : ViewResult>(
     }
 
     override fun processIntent(intent: ViewIntent) {
-        stateMachine.processIntents(flowOf(intent))
+        stateMachine.processIntent(intent)
     }
 
     override fun onCleared() {
