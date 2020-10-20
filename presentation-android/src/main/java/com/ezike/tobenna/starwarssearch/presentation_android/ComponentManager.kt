@@ -26,6 +26,10 @@ abstract class ComponentManager<S : ScreenState, out R : ViewResult>(
         stateMachine.processIntent(intent)
     }
 
+    fun unsubscribeAll() {
+        stateMachine.unSubscribeComponents()
+    }
+
     override fun onCleared() {
         stateMachine.unSubscribe()
     }

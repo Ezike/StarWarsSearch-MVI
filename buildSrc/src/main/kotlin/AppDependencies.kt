@@ -171,6 +171,15 @@ object Dependencies {
         const val room: String = "androidx.room:room-ktx:${Version.room}"
     }
 
+    object Performance {
+        object Version {
+            const val leakCanary: String = "2.5"
+        }
+
+        const val leakCanary: String =
+            "com.squareup.leakcanary:leakcanary-android:${Version.leakCanary}"
+    }
+
     object Test {
         object Version {
             const val junit: String = "4.13"

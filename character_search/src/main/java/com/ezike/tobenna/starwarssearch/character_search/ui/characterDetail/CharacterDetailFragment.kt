@@ -66,4 +66,9 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
             }
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        componentManager.unsubscribeAll()
+    }
 }

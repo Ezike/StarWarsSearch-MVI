@@ -65,11 +65,7 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
         subscriber: Subscriber<V>,
         transform: StateTransform<S, V>
     ) {
-        subscriptions.forEach { subscription ->
-            if (subscription.subscriber == subscriber) {
-                subscriptions.remove(subscriber)
-            }
-        }
+
         val subscription: Subscription<S, V> = Subscription(subscriber, transform)
         subscriptions += subscription as Subscription<S, ViewState>
         subscription.updateState(oldState)
@@ -77,22 +73,37 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
 
     fun unSubscribe() {
         mainScope.cancel()
+        unSubscribeComponents()
+    }
+
+    fun unSubscribeComponents() {
+        subscriptions.forEach { it.dispose() }
         subscriptions.clear()
     }
 }
 
 internal class Subscription<S : ScreenState, V : ViewState>(
-    val subscriber: Subscriber<V>,
+    subscriber: Subscriber<V>,
     private val transform: StateTransform<S, V>
 ) {
+
+    private var _subscriber: Subscriber<V>? = null
+
+    init {
+        _subscriber = subscriber
+    }
 
     private var oldState: V? = null
 
     fun updateState(state: S) {
         val newState: V = transform(state)
         if (oldState == null || oldState != newState) {
-            subscriber.onNewState(newState)
+            _subscriber?.onNewState(newState)
             oldState = newState
         }
+    }
+
+    fun dispose() {
+        _subscriber = null
     }
 }

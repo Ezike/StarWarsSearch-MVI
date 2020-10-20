@@ -43,6 +43,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         handleBackPress()
 
         SearchBarView(binding.searchBar, viewScope, componentManager::processIntent)
+
         componentManager.run {
             subscribe(
                 SearchHistoryView(
@@ -70,5 +71,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 requireActivity().finish()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        componentManager.unsubscribeAll()
     }
 }

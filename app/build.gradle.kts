@@ -1,6 +1,7 @@
 import Dependencies.AndroidX
 import Dependencies.DI
 import Dependencies.Network
+import Dependencies.Performance
 import Dependencies.View
 import ProjectLib.cache
 import ProjectLib.characterSearch
@@ -58,6 +59,8 @@ dependencies {
     implementation(project(data))
     implementation(project(remote))
     implementation(project(core))
+
+    debugImplementation(Performance.leakCanary)
 
     implementAll(View.components)
     implementation(Network.moshi)
