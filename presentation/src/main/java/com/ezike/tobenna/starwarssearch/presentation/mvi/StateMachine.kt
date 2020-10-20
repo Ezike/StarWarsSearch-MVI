@@ -21,6 +21,7 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
     private val subscriptions: CopyOnWriteArrayList<Subscription<S, ViewState>> =
         CopyOnWriteArrayList()
 
+    @Volatile
     private var oldState: S = initialState
 
     private val intentsChannel: ConflatedBroadcastChannel<ViewIntent> =
