@@ -56,5 +56,5 @@ dependencies {
     testImplementation(Test.robolectric)
 
     kapt(Cache.AnnotationProcessor.room)
-    kapt(DI.AnnotationProcessor.daggerHiltAndroid)
+    kapt(DI.AnnotationProcessor.daggerHilt)
 }

@@ -3,7 +3,6 @@ import Dependencies.Coroutines
 import Dependencies.DI
 import Dependencies.Network
 import Dependencies.View
-import ProjectLib.data
 import ProjectLib.domain
 import ProjectLib.remote
 
@@ -40,7 +39,6 @@ android {
 
 dependencies {
     implementation(project(domain))
-    implementation(project(data))
     implementation(project(remote))
 
     implementation(AndroidX.lifeCycleCommon)
@@ -50,5 +48,5 @@ dependencies {
     implementation(Network.moshi)
     implementation(Coroutines.core)
 
-    kapt(DI.AnnotationProcessor.daggerHiltAndroid)
+    kapt(DI.AnnotationProcessor.daggerHilt)
 }

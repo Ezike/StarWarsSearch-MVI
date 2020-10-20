@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.core.di
+package com.ezike.tobenna.starwarssearch.data.di
 
 import com.ezike.tobenna.starwarssearch.data.repository.CharacterDetailRepositoryImpl
 import com.ezike.tobenna.starwarssearch.data.repository.SearchHistoryRepositoryImpl

@@ -9,9 +9,9 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ezike.tobenna.starwarssearch.character_search.R
-import com.ezike.tobenna.starwarssearch.core.di.DataModule
 import com.ezike.tobenna.starwarssearch.core.di.ExecutorModule
-import com.ezike.tobenna.starwarssearch.core.di.RemoteModule
+import com.ezike.tobenna.starwarssearch.data.di.DataModule
+import com.ezike.tobenna.starwarssearch.remote.di.RemoteModule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules

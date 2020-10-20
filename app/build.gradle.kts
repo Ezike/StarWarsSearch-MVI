@@ -72,6 +72,6 @@ dependencies {
         implementation(multiDex)
     }
 
-    kapt(DI.AnnotationProcessor.daggerHiltAndroid)
+    kapt(DI.AnnotationProcessor.daggerHilt)
     kapt(DI.AnnotationProcessor.jetpackHiltCompiler)
 }

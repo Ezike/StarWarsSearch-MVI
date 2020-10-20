@@ -52,4 +52,4 @@ fun DependencyHandler.addPlugins(list: List<String>) {
 }
 
 fun DependencyHandler.kapt(dependencyNotation: String): Dependency? =
-        add("kapt", dependencyNotation)
+    add("kapt", dependencyNotation)

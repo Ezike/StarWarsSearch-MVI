@@ -1,5 +1,4 @@
 import Dependencies.Coroutines
-import Dependencies.DI
 
 plugins {
     id("kotlin")
@@ -12,5 +11,4 @@ java {
 
 dependencies {
     implementation(Coroutines.core)
-    implementation(DI.javaxInject)
 }

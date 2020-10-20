@@ -5,9 +5,11 @@ import Dependencies.FlowBinding
 import Dependencies.Test
 import Dependencies.View
 import ProjectLib.core
+import ProjectLib.data
 import ProjectLib.domain
 import ProjectLib.presentation
 import ProjectLib.presentation_android
+import ProjectLib.remote
 import ProjectLib.testUtils
 
 plugins {
@@ -82,9 +84,11 @@ dependencies {
     implementAll(AndroidX.components)
     implementAll(Coroutines.components)
 
-    kapt(DI.AnnotationProcessor.daggerHiltAndroid)
+    kapt(DI.AnnotationProcessor.daggerHilt)
     kapt(DI.AnnotationProcessor.jetpackHiltCompiler)
 
+    androidTestImplementation(project(data))
+    androidTestImplementation(project(remote))
     androidTestImplementation(DI.hiltTesting)
     androidTestImplementation(Test.espresso)
     androidTestImplementation(Test.espressoContrib)
@@ -95,6 +99,6 @@ dependencies {
     androidTestImplementation(Test.runner)
     androidTestImplementation(Test.androidXTest)
 
-    kaptAndroidTest(DI.AnnotationProcessor.daggerHiltAndroid)
+    kaptAndroidTest(DI.AnnotationProcessor.daggerHilt)
     kaptAndroidTest(DI.AnnotationProcessor.jetpackHiltCompiler)
 }
