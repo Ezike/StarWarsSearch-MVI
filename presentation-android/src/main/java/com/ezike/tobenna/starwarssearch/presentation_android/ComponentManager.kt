@@ -9,7 +9,6 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.Subscriber
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewResult
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
-import kotlinx.coroutines.flow.flowOf
 
 abstract class ComponentManager<S : ScreenState, out R : ViewResult>(
     private val stateMachine: StateMachine<S, R>
