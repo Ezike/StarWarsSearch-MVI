@@ -21,15 +21,13 @@ fun PlanetView(
 
     binding.planetErrorState.onRetry { action(RetryFetchPlanetIntent(characterUrl)) }
 
-    fun getPopulation(population: String): String {
-        return try {
-            binding.root.context.getString(
-                R.string.population,
-                population.toLong()
-            )
-        } catch (e: Exception) {
-            binding.root.context.getString(R.string.population_not_available)
-        }
+    fun getPopulation(population: String): String = try {
+        binding.root.context.getString(
+            R.string.population,
+            population.toLong()
+        )
+    } catch (e: Exception) {
+        binding.root.context.getString(R.string.population_not_available)
     }
 
     return UIRenderer { state: PlanetViewState ->

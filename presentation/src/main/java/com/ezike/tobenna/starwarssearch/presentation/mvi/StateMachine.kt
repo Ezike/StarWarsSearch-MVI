@@ -5,8 +5,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
@@ -18,7 +20,8 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
     private val intentProcessor: IntentProcessor<R>,
     private val reducer: ViewStateReducer<S, R>,
     private val initialState: S,
-    initialIntent: ViewIntent? = null
+    initialIntent: ViewIntent? = null,
+    private val config: Config = NoOpConfig
 ) {
 
     private val mainScope: CoroutineScope =
@@ -39,18 +42,19 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
 
     private fun makeState() {
         intentsChannel.asFlow()
-            .flatMapMerge { action ->
-                intentProcessor.intentToResult(action)
-            }.scan(initialState) { previous, result ->
-                reducer.reduce(previous, result)
-            }.distinctUntilChanged()
+            .mapConfig(config, intentProcessor::intentToResult)
+            .scan(initialState, reducer::reduce)
+            .distinctUntilChanged()
             .flowOn(Dispatchers.IO)
-            .onEach { newState ->
-                oldState = newState
-                subscriptions.forEach { subscription ->
-                    subscription.updateState(newState)
-                }
-            }.launchIn(mainScope)
+            .onEach(::notifySubscribers)
+            .launchIn(mainScope)
+    }
+
+    private fun notifySubscribers(newState: S) {
+        oldState = newState
+        subscriptions.forEach { subscription ->
+            subscription.updateState(newState)
+        }
     }
 
     init {
@@ -65,7 +69,6 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
         subscriber: Subscriber<V>,
         transform: StateTransform<S, V>
     ) {
-
         val subscription: Subscription<S, V> = Subscription(subscriber, transform)
         subscriptions += subscription as Subscription<S, ViewState>
         subscription.updateState(oldState)
@@ -106,4 +109,16 @@ internal class Subscription<S : ScreenState, V : ViewState>(
     fun dispose() {
         _subscriber = null
     }
+}
+
+sealed class Config
+object Latest : Config()
+object NoOpConfig : Config()
+
+internal inline fun <S, T> Flow<T>.mapConfig(
+    config: Config,
+    crossinline transform: suspend (T) -> Flow<S>
+): Flow<S> = when (config) {
+    Latest -> flatMapLatest(transform = transform)
+    NoOpConfig -> flatMapMerge { transform(it) }
 }

@@ -16,8 +16,8 @@ Resources: [blog](https://netflixtechblog.com/making-our-android-studio-apps-rea
 
 ## Prerequisite
 To build this project, you require:
-- Android Studio 4.2 canary 13 or higher
-- Gradle 6.6.1
+- Android Studio 4.2 canary 14 or higher
+- Gradle 6.8
 
 <h2 align="left">Screenshots</h2>
 <h4 align="center">

@@ -22,7 +22,7 @@ object Plugin {
     object Version {
         const val spotless: String = "5.1.2"
         const val kotlin: String = "1.4.10"
-        const val androidGradle: String = "4.2.0-alpha13"
+        const val androidGradle: String = "4.2.0-alpha14"
         const val navigation: String = "2.3.0"
         const val daggerHiltAndroid: String = "2.29.1-alpha"
     }
@@ -31,9 +31,9 @@ object Plugin {
     const val kotlin: String = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}"
     const val androidGradle: String = "com.android.tools.build:gradle:${Version.androidGradle}"
     const val navigationSafeArgs: String =
-            "androidx.navigation:navigation-safe-args-gradle-plugin:${Version.navigation}"
+        "androidx.navigation:navigation-safe-args-gradle-plugin:${Version.navigation}"
     const val daggerHilt: String =
-            "com.google.dagger:hilt-android-gradle-plugin:${Version.daggerHiltAndroid}"
+        "com.google.dagger:hilt-android-gradle-plugin:${Version.daggerHiltAndroid}"
 }
 
 dependencies {

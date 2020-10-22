@@ -45,7 +45,7 @@ class SearchBarView(
             .checkDistinct
 
     companion object {
-        const val DEBOUNCE_PERIOD: Long = 300L
+        const val DEBOUNCE_PERIOD: Long = 150L
     }
 }
 
