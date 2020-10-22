@@ -8,10 +8,30 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
+import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
+
+data class RetryFetchCharacterDetailsIntent(val character: CharacterModel) : ViewIntent
+
+@Suppress("FunctionName")
+fun DetailErrorView(
+    view: EmptyStateView,
+    character: CharacterModel,
+    action: DispatchIntent
+): UIComponent<DetailErrorViewState> {
+
+    view.onRetry { action(RetryFetchCharacterDetailsIntent(character)) }
+
+    return UIRenderer { (errorMessage: String, isVisible: Boolean) ->
+        view.isVisible = isVisible
+        if (isVisible) {
+            view.setCaption(errorMessage)
+            view.setTitle(view.context.getString(R.string.error_fetching_details, character.name))
+        }
+    }
+}
 
 data class DetailErrorViewState private constructor(
     val errorMessage: String = "",
-    val characterName: String = "",
     val isVisible: Boolean = false
 ) : ViewState {
 
@@ -33,32 +53,10 @@ data class DetailErrorViewState private constructor(
             return this
         }
 
-        fun show(errorMessage: String, characterName: String): DetailErrorViewState =
+        fun show(errorMessage: String): DetailErrorViewState =
             state.copy(
                 errorMessage = errorMessage,
-                characterName = characterName,
                 isVisible = true
             )
-    }
-}
-
-data class RetryFetchCharacterDetailsIntent(val character: CharacterModel) : ViewIntent
-
-class DetailErrorView(
-    private val view: EmptyStateView,
-    private val character: CharacterModel,
-    action: DispatchIntent
-) : UIComponent<DetailErrorViewState>() {
-
-    init {
-        view.onRetry { action(RetryFetchCharacterDetailsIntent(character)) }
-    }
-
-    override fun render(state: DetailErrorViewState) {
-        view.isVisible = state.isVisible
-        if (state.isVisible) {
-            view.setCaption(state.errorMessage)
-            view.setTitle(view.context.getString(R.string.error_fetching_details, character.name))
-        }
     }
 }

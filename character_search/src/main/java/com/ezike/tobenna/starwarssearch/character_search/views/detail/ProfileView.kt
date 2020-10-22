@@ -5,31 +5,33 @@ import com.ezike.tobenna.starwarssearch.character_search.databinding.ProfileView
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
+import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
 
 data class ProfileViewState(val character: CharacterModel?) : ViewState
 
-class ProfileView(private val binding: ProfileViewLayoutBinding) : UIComponent<ProfileViewState>() {
+@Suppress("FunctionName")
+fun ProfileView(binding: ProfileViewLayoutBinding): UIComponent<ProfileViewState> {
 
-    override fun render(state: ProfileViewState) {
-        if (state.character != null) {
-            binding.run {
-                profileTitle.text =
-                    root.context.getString(R.string.profile_title, state.character.name)
-                characterName.text =
-                    root.context.getString(R.string.character_name, state.character.name)
-                characterBirthYear.text =
-                    root.context.getString(R.string.character_birth_year, state.character.birthYear)
-                characterHeight.text =
-                    getCharacterHeight(state.character.heightCm, state.character.heightInches)
-            }
-        }
-    }
-
-    private fun getCharacterHeight(heightCm: String, heightInches: String?): String {
+    fun getCharacterHeight(heightCm: String, heightInches: String?): String {
         return if (heightInches != null) {
             binding.root.context.getString(R.string.height, heightCm, heightInches)
         } else {
             binding.root.context.getString(R.string.height_unavailable)
+        }
+    }
+
+    return UIRenderer { (character: CharacterModel?) ->
+        if (character != null) {
+            binding.run {
+                profileTitle.text =
+                    root.context.getString(R.string.profile_title, character.name)
+                characterName.text =
+                    root.context.getString(R.string.character_name, character.name)
+                characterBirthYear.text =
+                    root.context.getString(R.string.character_birth_year, character.birthYear)
+                characterHeight.text =
+                    getCharacterHeight(character.heightCm, character.heightInches)
+            }
         }
     }
 }

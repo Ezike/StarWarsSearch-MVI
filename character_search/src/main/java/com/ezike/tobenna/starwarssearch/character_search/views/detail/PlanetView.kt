@@ -8,20 +8,31 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
+import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
 
 data class RetryFetchPlanetIntent(val url: String) : ViewIntent
 
-class PlanetView(
-    private val binding: PlanetViewLayoutBinding,
-    private val characterUrl: String,
+@Suppress("FunctionName")
+fun PlanetView(
+    binding: PlanetViewLayoutBinding,
+    characterUrl: String,
     action: DispatchIntent
-) : UIComponent<PlanetViewState>() {
+): UIComponent<PlanetViewState> {
 
-    init {
-        binding.planetErrorState.onRetry { action(RetryFetchPlanetIntent(characterUrl)) }
+    binding.planetErrorState.onRetry { action(RetryFetchPlanetIntent(characterUrl)) }
+
+    fun getPopulation(population: String): String {
+        return try {
+            binding.root.context.getString(
+                R.string.population,
+                population.toLong()
+            )
+        } catch (e: Exception) {
+            binding.root.context.getString(R.string.population_not_available)
+        }
     }
 
-    override fun render(state: PlanetViewState) {
+    return UIRenderer { state: PlanetViewState ->
         binding.run {
             root.isVisible = state.isVisible
             if (state.isVisible) {
@@ -35,17 +46,6 @@ class PlanetView(
                     planetPopulation.text = getPopulation(state.planet.population)
                 }
             }
-        }
-    }
-
-    private fun getPopulation(population: String): String {
-        return try {
-            binding.root.context.getString(
-                R.string.population,
-                population.toLong()
-            )
-        } catch (e: Exception) {
-            binding.root.context.getString(R.string.population_not_available)
         }
     }
 }

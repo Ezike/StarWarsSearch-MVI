@@ -10,8 +10,10 @@ import com.ezike.tobenna.starwarssearch.character_search.databinding.FragmentSea
 import com.ezike.tobenna.starwarssearch.character_search.navigation.NavigationDispatcher
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchComponentManager
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStateMachine
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchViewState
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchBarView
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchHistoryView
+import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchHistoryViewState
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchResultView
 import com.ezike.tobenna.starwarssearch.core.ext.lazyText
 import com.ezike.tobenna.starwarssearch.core.ext.onBackPress
@@ -51,7 +53,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     ::processIntent,
                     navigator::openCharacterDetail
                 )
-            ) { screenState -> screenState.searchHistoryState }
+            ) { (searchHistoryState: SearchHistoryViewState) -> searchHistoryState }
             subscribe(
                 SearchResultView(
                     binding.searchResult,
@@ -59,7 +61,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     binding.searchBar.lazyText,
                     navigator::openCharacterDetail
                 )
-            ) { screenState -> screenState.searchResultState }
+            ) { screenState: SearchViewState -> screenState.searchResultState }
         }
     }
 

@@ -5,7 +5,6 @@ import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMa
 import com.ezike.tobenna.starwarssearch.character_search.mapper.FilmModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.mapper.PlanetModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.mapper.SpecieModelMapper
-import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.core.ext.errorMessage
 import com.ezike.tobenna.starwarssearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.domain.model.Film
@@ -61,17 +60,16 @@ class CharacterDetailViewStateReducerTest {
     fun `check that FetchDetailErrorViewState is emitted when result is FetchCharacterDetailError`() {
         runBlockingTest {
             val initialState: CharacterDetailViewState = CharacterDetailViewState.init
-            val model: CharacterModel = DummyData.characterModel
 
             val error: SocketTimeoutException = DummyData.exception
             val viewState: CharacterDetailViewState =
                 reducer.reduce(
                     initialState,
-                    CharacterDetailViewResult.FetchCharacterDetailError(model.name, error)
+                    CharacterDetailViewResult.FetchCharacterDetailError(error)
                 )
 
             assertThat(viewState).isEqualTo(
-                initialState.translateTo { errorState(model.name, error.errorMessage) }
+                initialState.translateTo { errorState(error.errorMessage) }
             )
         }
     }

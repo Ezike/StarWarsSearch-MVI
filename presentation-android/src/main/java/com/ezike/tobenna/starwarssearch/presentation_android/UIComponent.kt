@@ -16,3 +16,11 @@ abstract class UIComponent<ComponentState : ViewState> : Subscriber<ComponentSta
         render(state)
     }
 }
+
+@Suppress("FunctionName")
+inline fun <reified V : ViewState> UIRenderer(crossinline renderer: (V) -> Unit): UIComponent<V> =
+    object : UIComponent<V>() {
+        override fun render(state: V) {
+            renderer(state)
+        }
+    }

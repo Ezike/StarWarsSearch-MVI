@@ -66,9 +66,7 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
             }
             .onStart { emit(start) }
             .catch { error ->
-                emit(
-                    CharacterDetailViewResult.FetchCharacterDetailError(model.name, error)
-                )
+                emit(CharacterDetailViewResult.FetchCharacterDetailError(error))
             }
     }
 

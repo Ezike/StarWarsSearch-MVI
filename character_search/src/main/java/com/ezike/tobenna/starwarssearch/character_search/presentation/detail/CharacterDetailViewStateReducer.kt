@@ -26,7 +26,7 @@ class CharacterDetailViewStateReducer @Inject constructor(
                 profileState(characterModelMapper.mapToModel(result.character))
             }
             is FetchCharacterDetailError -> previous.translateTo {
-                errorState(result.characterName, result.error.errorMessage)
+                errorState(result.error.errorMessage)
             }
             CharacterDetailViewResult.Retrying -> previous.translateTo { retryState }
             is PlanetDetailViewResult -> makePlanetState(result, previous)

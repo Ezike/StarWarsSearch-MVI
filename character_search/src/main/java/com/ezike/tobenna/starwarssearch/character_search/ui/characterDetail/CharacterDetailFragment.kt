@@ -61,9 +61,9 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
             subscribe(
                 DetailErrorView(binding.detailErrorState, args.character, ::processIntent)
             ) { screenState -> screenState.errorViewState }
-            subscribe(ProfileView(binding.profileView)) { screenState ->
-                ProfileViewState(screenState.character)
-            }
+            subscribe(
+                ProfileView(binding.profileView)
+            ) { screenState -> ProfileViewState(screenState.character) }
         }
     }
 

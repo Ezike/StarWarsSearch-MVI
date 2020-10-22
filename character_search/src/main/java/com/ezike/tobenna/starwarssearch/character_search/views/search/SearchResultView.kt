@@ -9,30 +9,30 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
+import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
 
 data class RetrySearchIntent(val query: String) : ViewIntent
 data class SaveSearchIntent(val character: CharacterModel) : ViewIntent
 
-class SearchResultView(
-    private val binding: LayoutSearchResultBinding,
+@Suppress("FunctionName")
+fun SearchResultView(
+    binding: LayoutSearchResultBinding,
     dispatch: DispatchIntent,
     query: () -> String,
     navigationAction: (CharacterModel) -> Unit = {}
-) : UIComponent<SearchResultViewState>() {
+): UIComponent<SearchResultViewState> {
 
-    private val searchResultAdapter: SearchResultAdapter by lazy(LazyThreadSafetyMode.NONE) {
+    val searchResultAdapter: SearchResultAdapter by lazy(LazyThreadSafetyMode.NONE) {
         SearchResultAdapter { model ->
             dispatch(SaveSearchIntent(model))
             navigationAction(model)
         }
     }
 
-    init {
-        binding.charactersRv.adapter = searchResultAdapter
-        binding.errorState.onRetry { dispatch(RetrySearchIntent(query())) }
-    }
+    binding.charactersRv.adapter = searchResultAdapter
+    binding.errorState.onRetry { dispatch(RetrySearchIntent(query())) }
 
-    override fun render(state: SearchResultViewState) {
+    return UIRenderer { state: SearchResultViewState ->
         searchResultAdapter.submitList(state.characters)
         binding.run {
             charactersRv.show = state.showRv

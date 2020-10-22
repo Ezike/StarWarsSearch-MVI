@@ -8,23 +8,23 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
+import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
 
 data class RetryFetchSpecieIntent(val url: String) : ViewIntent
 
-class SpecieView(
-    private val binding: SpecieViewLayoutBinding,
-    private val characterUrl: String,
+@Suppress("FunctionName")
+fun SpecieView(
+    binding: SpecieViewLayoutBinding,
+    characterUrl: String,
     action: DispatchIntent
-) : UIComponent<SpecieViewState>() {
+): UIComponent<SpecieViewState> {
 
-    private val specieAdapter: SpecieAdapter by lazy(LazyThreadSafetyMode.NONE) { SpecieAdapter() }
+    val specieAdapter: SpecieAdapter by lazy(LazyThreadSafetyMode.NONE) { SpecieAdapter() }
 
-    init {
-        binding.specieList.adapter = specieAdapter
-        binding.specieErrorState.onRetry { action(RetryFetchSpecieIntent(characterUrl)) }
-    }
+    binding.specieList.adapter = specieAdapter
+    binding.specieErrorState.onRetry { action(RetryFetchSpecieIntent(characterUrl)) }
 
-    override fun render(state: SpecieViewState) {
+    return UIRenderer { state: SpecieViewState ->
         specieAdapter.submitList(state.species)
         binding.run {
             root.isVisible = state.isVisible

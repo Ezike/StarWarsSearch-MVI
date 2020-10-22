@@ -9,34 +9,34 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
+import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
 
 object ClearSearchHistoryIntent : ViewIntent
 data class UpdateHistoryIntent(val character: CharacterModel) : ViewIntent
 
-class SearchHistoryView(
-    private val binding: LayoutSearchHistoryBinding,
+@Suppress("FunctionName")
+fun SearchHistoryView(
+    binding: LayoutSearchHistoryBinding,
     dispatch: DispatchIntent,
     navigationAction: (CharacterModel) -> Unit = {}
-) : UIComponent<SearchHistoryViewState>() {
+): UIComponent<SearchHistoryViewState> {
 
-    private val searchHistoryAdapter: SearchHistoryAdapter by lazy(LazyThreadSafetyMode.NONE) {
+    val searchHistoryAdapter: SearchHistoryAdapter by lazy(LazyThreadSafetyMode.NONE) {
         SearchHistoryAdapter { model ->
             dispatch(UpdateHistoryIntent(model))
             navigationAction(model)
         }
     }
 
-    init {
-        binding.clearHistory.setOnClickListener { dispatch(ClearSearchHistoryIntent) }
-        binding.searchHistoryRv.adapter = searchHistoryAdapter
-    }
+    binding.clearHistory.setOnClickListener { dispatch(ClearSearchHistoryIntent) }
+    binding.searchHistoryRv.adapter = searchHistoryAdapter
 
-    override fun render(state: SearchHistoryViewState) {
-        searchHistoryAdapter.submitList(state.history)
+    return UIRenderer { (history: List<CharacterModel>, isVisible: Boolean) ->
+        searchHistoryAdapter.submitList(history)
         binding.run {
-            recentSearchGroup.isVisible = state.isVisible && state.history.isNotEmpty()
-            searchHistoryRv.show = state.isVisible && state.history.isNotEmpty()
-            searchHistoryPrompt.isVisible = state.isVisible && state.history.isEmpty()
+            recentSearchGroup.isVisible = isVisible && history.isNotEmpty()
+            searchHistoryRv.show = isVisible && history.isNotEmpty()
+            searchHistoryPrompt.isVisible = isVisible && history.isEmpty()
         }
     }
 }

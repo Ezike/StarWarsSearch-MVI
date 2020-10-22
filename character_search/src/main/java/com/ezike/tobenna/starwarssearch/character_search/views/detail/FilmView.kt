@@ -8,23 +8,23 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
+import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
 
 data class RetryFetchFilmIntent(val url: String) : ViewIntent
 
-class FilmView(
-    private val binding: FilmViewLayoutBinding,
-    private val characterUrl: String,
+@Suppress("FunctionName")
+fun FilmView(
+    binding: FilmViewLayoutBinding,
+    characterUrl: String,
     action: DispatchIntent
-) : UIComponent<FilmViewState>() {
+): UIComponent<FilmViewState> {
 
-    private val filmAdapter: FilmAdapter by lazy(LazyThreadSafetyMode.NONE) { FilmAdapter() }
+    val filmAdapter: FilmAdapter by lazy(LazyThreadSafetyMode.NONE) { FilmAdapter() }
 
-    init {
-        binding.filmList.adapter = filmAdapter
-        binding.filmErrorState.onRetry { action(RetryFetchFilmIntent(characterUrl)) }
-    }
+    binding.filmList.adapter = filmAdapter
+    binding.filmErrorState.onRetry { action(RetryFetchFilmIntent(characterUrl)) }
 
-    override fun render(state: FilmViewState) {
+    return UIRenderer { state: FilmViewState ->
         filmAdapter.submitList(state.films)
         binding.run {
             root.isVisible = state.isVisible

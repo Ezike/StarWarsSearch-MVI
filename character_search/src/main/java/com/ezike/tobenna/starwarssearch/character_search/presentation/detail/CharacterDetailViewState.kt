@@ -51,9 +51,9 @@ data class CharacterDetailViewState private constructor(
                 filmViewState = state.filmViewState.state(action)
             )
 
-        fun errorState(characterName: String, error: String): CharacterDetailViewState =
+        fun errorState(error: String): CharacterDetailViewState =
             state.copy(
-                errorViewState = state.errorViewState.state { show(error, characterName) },
+                errorViewState = state.errorViewState.state { show(error) },
                 planetViewState = state.planetViewState.state { hide },
                 filmViewState = state.filmViewState.state { hide },
                 specieViewState = state.specieViewState.state { hide }
