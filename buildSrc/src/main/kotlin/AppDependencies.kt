@@ -30,11 +30,11 @@ interface Libraries {
 object Dependencies {
     object AndroidX : Libraries {
         object Version {
-            const val coreKtx: String = "1.3.0"
-            const val navigation: String = "2.3.0"
+            const val coreKtx: String = "1.3.2"
+            const val navigation: String = "2.3.1"
             const val multidex: String = "2.0.1"
-            const val lifeCycle: String = "2.3.0-alpha03"
-            const val activity: String = "1.2.0-alpha05"
+            const val lifeCycle: String = "2.3.0-beta01"
+            const val activity: String = "1.2.0-beta01"
         }
 
         const val coreKtx: String = "androidx.core:core-ktx:${Version.coreKtx}"

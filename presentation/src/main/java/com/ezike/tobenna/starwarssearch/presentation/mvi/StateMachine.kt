@@ -1,12 +1,12 @@
 package com.ezike.tobenna.starwarssearch.presentation.mvi
 
+import com.ezike.tobenna.starwarssearch.presentation.mvi.util.Atomic
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flatMapMerge
@@ -27,21 +27,20 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
     private val mainScope: CoroutineScope =
         CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private val subscriptions: CopyOnWriteArrayList<Subscription<S, ViewState>> =
+    private val subscribers: MutableList<Subscription<S, ViewState>> =
         CopyOnWriteArrayList()
 
-    @Volatile
-    private var oldState: S = initialState
+    private val cachedState: Atomic<S> = Atomic(initialState)
 
-    private val intentsChannel: ConflatedBroadcastChannel<ViewIntent> =
-        ConflatedBroadcastChannel<ViewIntent>().apply {
+    private val intents: MutableSharedFlow<ViewIntent> =
+        MutableSharedFlow<ViewIntent>(1).apply {
             if (initialIntent != null) {
-                offer(initialIntent)
+                tryEmit(initialIntent)
             }
         }
 
     private fun makeState() {
-        intentsChannel.asFlow()
+        intents
             .mapConfig(config, intentProcessor::intentToResult)
             .scan(initialState, reducer::reduce)
             .distinctUntilChanged()
@@ -50,10 +49,10 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
             .launchIn(mainScope)
     }
 
-    private fun notifySubscribers(newState: S) {
-        oldState = newState
-        subscriptions.forEach { subscription ->
-            subscription.updateState(newState)
+    private suspend fun notifySubscribers(newState: S) {
+        cachedState.update(newState)
+        subscribers.forEach { subscriber ->
+            subscriber.updateState(newState)
         }
     }
 
@@ -62,7 +61,7 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
     }
 
     fun processIntent(intent: ViewIntent) {
-        intentsChannel.offer(intent)
+        intents.tryEmit(intent)
     }
 
     fun <V : ViewState> subscribe(
@@ -70,8 +69,8 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
         transform: StateTransform<S, V>
     ) {
         val subscription: Subscription<S, V> = Subscription(subscriber, transform)
-        subscriptions += subscription as Subscription<S, ViewState>
-        subscription.updateState(oldState)
+        subscribers += subscription as Subscription<S, ViewState>
+        subscription.updateState(cachedState.value)
     }
 
     fun unSubscribe() {
@@ -80,8 +79,8 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
     }
 
     fun unSubscribeComponents() {
-        subscriptions.forEach { it.dispose() }
-        subscriptions.clear()
+        subscribers.forEach { it.dispose() }
+        subscribers.clear()
     }
 }
 
@@ -102,7 +101,9 @@ internal class Subscription<S : ScreenState, V : ViewState>(
         val newState: V = transform(state)
         if (oldState == null || oldState != newState) {
             _subscriber?.onNewState(newState)
-            oldState = newState
+            synchronized(this) {
+                oldState = newState
+            }
         }
     }
 

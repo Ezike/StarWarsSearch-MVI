@@ -10,17 +10,19 @@ class TypeConverter {
 
     private val moshi: Moshi = Moshi.Builder().build()
 
+    private val adapter: JsonAdapter<List<String>> by lazy {
+        val type: ParameterizedType =
+            Types.newParameterizedType(List::class.java, String::class.java)
+        moshi.adapter(type)
+    }
+
     @TypeConverter
     fun toList(value: String): List<String>? {
-        val type: ParameterizedType = Types.newParameterizedType(List::class.java, String::class.java)
-        val adapter: JsonAdapter<List<String>> = moshi.adapter(type)
         return adapter.fromJson(value)
     }
 
     @TypeConverter
     fun fromList(value: List<String>): String {
-        val type: ParameterizedType = Types.newParameterizedType(List::class.java, String::class.java)
-        val adapter: JsonAdapter<List<String>> = moshi.adapter(type)
         return adapter.toJson(value)
     }
 }

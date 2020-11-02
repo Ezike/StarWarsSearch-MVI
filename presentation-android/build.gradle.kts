@@ -1,5 +1,4 @@
 import Dependencies.AndroidX
-import Dependencies.Coroutines
 import ProjectLib.presentation
 
 plugins {
@@ -34,5 +33,4 @@ android {
 dependencies {
     implementation(project(presentation))
     implementation(AndroidX.viewModel)
-    implementation(Coroutines.core)
 }
