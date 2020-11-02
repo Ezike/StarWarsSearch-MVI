@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.scan
-import java.util.concurrent.CopyOnWriteArrayList
 
 abstract class StateMachine<S : ScreenState, R : ViewResult>(
     private val intentProcessor: IntentProcessor<R>,
@@ -27,8 +26,7 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
     private val mainScope: CoroutineScope =
         CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private val subscribers: MutableList<Subscription<S, ViewState>> =
-        CopyOnWriteArrayList()
+    private val subscribers: MutableList<Subscription<S, ViewState>> = mutableListOf()
 
     private val cachedState: Atomic<S> = Atomic(initialState)
 
