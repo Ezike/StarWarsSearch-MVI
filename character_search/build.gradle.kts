@@ -15,7 +15,7 @@ import ProjectLib.testUtils
 plugins {
     androidLibrary
     kotlin(kotlinAndroid)
-    kotlin(kotlinAndroidExtension)
+    parcelize
     kotlin(kotlinKapt)
     safeArgs
     daggerHilt
