@@ -1,6 +1,7 @@
 import Dependencies.View.Version.fragment
 
 const val kotlinAndroid: String = "android"
+const val kotlinAndroidExtension: String = "android.extensions"
 const val kotlinKapt: String = "kapt"
 const val ktLintVersion: String = "0.38.0"
 
@@ -58,6 +59,22 @@ object Dependencies {
                 lifeCycleCommon,
                 viewModel
             )
+    }
+
+    object Compose : Libraries {
+        object Version {
+            const val navigation: String = "1.0.0-alpha02"
+            const val compose: String = "1.0.0-alpha07"
+            const val kotlin: String = "1.4.10"
+        }
+
+        const val navigation: String =
+            "androidx.navigation:navigation-compose:${Version.navigation}"
+        const val ui: String = "androidx.compose.ui:ui:${Version.compose}"
+        const val material: String = "androidx.compose.material:material:${Version.compose}"
+        const val tooling: String = "androidx.ui:ui-tooling:${Version.compose}"
+        override val components: List<String>
+            get() = listOf(ui, material, tooling, navigation)
     }
 
     object View : Libraries {

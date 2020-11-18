@@ -1,7 +1,7 @@
 package com.ezike.tobenna.starwarssearch.character_search.model
 
 import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import kotlinx.android.parcel.Parcelize
 import java.math.BigDecimal
 import java.math.RoundingMode
 

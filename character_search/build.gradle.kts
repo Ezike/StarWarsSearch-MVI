@@ -1,4 +1,5 @@
 import Dependencies.AndroidX
+import Dependencies.Compose
 import Dependencies.Coroutines
 import Dependencies.DI
 import Dependencies.FlowBinding
@@ -15,7 +16,7 @@ import ProjectLib.testUtils
 plugins {
     androidLibrary
     kotlin(kotlinAndroid)
-    parcelize
+    kotlin(kotlinAndroidExtension)
     kotlin(kotlinKapt)
     safeArgs
     daggerHilt
@@ -36,6 +37,16 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+        useIR = true
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Compose.Version.compose
+        kotlinCompilerVersion = Compose.Version.kotlin
     }
 
     buildTypes {
@@ -65,6 +76,7 @@ dependencies {
     implementation(project(presentation_android))
     implementation(project(domain))
 
+    implementAll(Compose.components)
     testImplementation(project(testUtils))
     androidTestImplementation(project(testUtils))
 
