@@ -21,7 +21,7 @@ import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import dagger.hilt.android.AndroidEntryPoint
 
-class CharacterDetailComponentManager @ViewModelInject constructor(
+class CharacterDetailViewModel @ViewModelInject constructor(
     stateMachine: CharacterDetailStateMachine
 ) : DetailComponentManager(stateMachine)
 
@@ -30,7 +30,7 @@ data class LoadCharacterDetailIntent(val character: CharacterModel) : ViewIntent
 @AndroidEntryPoint
 class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
 
-    private val componentManager: CharacterDetailComponentManager by viewModels()
+    private val viewModel: CharacterDetailViewModel by viewModels()
 
     private val args: CharacterDetailFragmentArgs by navArgs()
 
@@ -42,33 +42,28 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
         super.onActivityCreated(savedInstanceState)
         // Making sure this doesn't emit again on config change.
         if (savedInstanceState == null) {
-            componentManager.processIntent(LoadCharacterDetailIntent(args.character))
+            viewModel.processIntent(LoadCharacterDetailIntent(args.character))
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        componentManager.run {
-            subscribe(
-                PlanetView(binding.planetView, args.character.url, ::processIntent)
-            ) { screenState -> screenState.planetViewState }
-            subscribe(
-                FilmView(binding.filmView, args.character.url, ::processIntent)
-            ) { screenState -> screenState.filmViewState }
-            subscribe(
-                SpecieView(binding.specieView, args.character.url, ::processIntent)
-            ) { screenState -> screenState.specieViewState }
-            subscribe(
-                DetailErrorView(binding.detailErrorState, args.character, ::processIntent)
-            ) { screenState -> screenState.errorViewState }
-            subscribe(
-                ProfileView(binding.profileView)
-            ) { screenState -> ProfileViewState(screenState.character) }
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        componentManager.unsubscribeAll()
+        // componentManager.run {
+        //     subscribe(
+        //         PlanetView(binding.planetView, args.character.url, ::processIntent)
+        //     ) { screenState -> screenState.planetViewState }
+        //     subscribe(
+        //         FilmView(binding.filmView, args.character.url, ::processIntent)
+        //     ) { screenState -> screenState.filmViewState }
+        //     subscribe(
+        //         SpecieView(binding.specieView, args.character.url, ::processIntent)
+        //     ) { screenState -> screenState.specieViewState }
+        //     subscribe(
+        //         DetailErrorView(binding.detailErrorState, args.character, ::processIntent)
+        //     ) { screenState -> screenState.errorViewState }
+        //     subscribe(
+        //         ProfileView(binding.profileView)
+        //     ) { screenState -> ProfileViewState(screenState.character) }
+        // }
     }
 }

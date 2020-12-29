@@ -1,5 +1,6 @@
 package com.ezike.tobenna.starwarssearch.character_search.views.search
 
+import androidx.compose.runtime.Composable
 import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.databinding.LayoutSearchHistoryBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
@@ -13,6 +14,15 @@ import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
 
 object ClearSearchHistoryIntent : ViewIntent
 data class UpdateHistoryIntent(val character: CharacterModel) : ViewIntent
+
+@Composable
+fun SearchHistoryView(
+    state: SearchHistoryViewState,
+    dispatch: DispatchIntent,
+    navigationAction: (CharacterModel) -> Unit = {}
+) {
+
+}
 
 @Suppress("FunctionName")
 fun SearchHistoryView(

@@ -1,5 +1,6 @@
 package com.ezike.tobenna.starwarssearch.character_search.views.search
 
+import androidx.compose.runtime.Composable
 import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.databinding.LayoutSearchResultBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
@@ -13,6 +14,15 @@ import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
 
 data class RetrySearchIntent(val query: String) : ViewIntent
 data class SaveSearchIntent(val character: CharacterModel) : ViewIntent
+
+@Composable
+fun SearchResultView(
+    state: SearchResultViewState,
+    dispatch: DispatchIntent,
+    query: String,
+    navigationAction: (CharacterModel) -> Unit = {}
+) {
+}
 
 @Suppress("FunctionName")
 fun SearchResultView(

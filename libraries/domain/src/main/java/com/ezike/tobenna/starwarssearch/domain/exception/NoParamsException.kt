@@ -9,7 +9,7 @@ import kotlin.contracts.contract
 internal class NoParamsException(errorMessage: String = noParamMessage) :
     IllegalArgumentException(errorMessage)
 
-const val noParamMessage = "Your params cannot be null for this use case"
+const val noParamMessage: String = "Your params cannot be null for this use case"
 
 @OptIn(ExperimentalContracts::class)
 fun <T : Any> requireParams(value: T?): T {

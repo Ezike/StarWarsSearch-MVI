@@ -64,17 +64,38 @@ object Dependencies {
     object Compose : Libraries {
         object Version {
             const val navigation: String = "1.0.0-alpha02"
-            const val compose: String = "1.0.0-alpha07"
-            const val kotlin: String = "1.4.10"
+            const val compose: String = "1.0.0-alpha09"
+            const val kotlin: String = "1.4.21"
         }
 
         const val navigation: String =
             "androidx.navigation:navigation-compose:${Version.navigation}"
         const val ui: String = "androidx.compose.ui:ui:${Version.compose}"
         const val material: String = "androidx.compose.material:material:${Version.compose}"
-        const val tooling: String = "androidx.ui:ui-tooling:${Version.compose}"
+        const val tooling: String = "androidx.compose.ui:ui-tooling:${Version.compose}"
+        const val foundation: String = "androidx.compose.foundation:foundation:${Version.compose}"
+        const val layout: String =
+            "androidx.compose.foundation:foundation-layout:${Version.compose}"
+        const val materialIconsExtended: String =
+            "androidx.compose.material:material-icons-extended:${Version.compose}"
+        const val runtime: String = "androidx.compose.runtime:runtime:${Version.compose}"
+        const val runtimeLivedata: String =
+            "androidx.compose.runtime:runtime-livedata:${Version.compose}"
+        const val animation = "androidx.compose.animation:animation:${Version.compose}"
+
         override val components: List<String>
-            get() = listOf(ui, material, tooling, navigation)
+            get() = listOf(
+                ui,
+                material,
+                tooling,
+                navigation,
+                foundation,
+                layout,
+                materialIconsExtended,
+                runtime,
+                runtimeLivedata,
+                animation
+            )
     }
 
     object View : Libraries {
@@ -164,7 +185,7 @@ object Dependencies {
 
     object Coroutines : Libraries {
         object Version {
-            const val coroutines: String = "1.4.0-M1"
+            const val coroutines: String = "1.4.1"
         }
 
         const val core: String =

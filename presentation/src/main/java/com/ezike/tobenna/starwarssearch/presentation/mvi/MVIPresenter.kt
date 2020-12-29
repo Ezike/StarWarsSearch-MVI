@@ -1,9 +1,8 @@
 package com.ezike.tobenna.starwarssearch.presentation.mvi
 
+import kotlinx.coroutines.flow.StateFlow
+
 interface MVIPresenter<SC : ScreenState> {
     fun processIntent(intent: ViewIntent)
-    fun <VS : ViewState> subscribe(
-        component: Subscriber<VS>,
-        transform: StateTransform<SC, VS>
-    )
+    val viewState: StateFlow<SC>
 }

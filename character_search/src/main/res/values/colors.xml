@@ -9,4 +9,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="search_bar_bg_color">#1F8E8E93</color>
+    <color name="search_color">#8E8E93</color>
 </resources>

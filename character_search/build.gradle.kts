@@ -12,6 +12,7 @@ import ProjectLib.presentation
 import ProjectLib.presentation_android
 import ProjectLib.remote
 import ProjectLib.testUtils
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     androidLibrary
@@ -35,9 +36,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-        useIR = true
+    tasks.withType<KotlinCompile>().configureEach {
+        kotlinOptions.run {
+            jvmTarget = JavaVersion.VERSION_1_8.toString()
+            useIR = true
+            freeCompilerArgs =
+                freeCompilerArgs + arrayOf("-Xallow-jvm-ir-dependencies", "-Xskip-prerelease-check")
+        }
     }
 
     buildFeatures {
@@ -56,18 +61,18 @@ android {
         }
     }
 
-    packagingOptions {
-        exclude("META-INF/DEPENDENCIES")
-        exclude("META-INF/LICENSE")
-        exclude("META-INF/LICENSE.txt")
-        exclude("META-INF/license.txt")
-        exclude("META-INF/NOTICE")
-        exclude("META-INF/NOTICE.txt")
-        exclude("META-INF/notice.txt")
-        exclude("META-INF/AL2.0")
-        exclude("META-INF/LGPL2.1")
-        exclude("META-INF/*.kotlin_module")
-    }
+    // packagingOptions {
+    //     exclude("META-INF/DEPENDENCIES")
+    //     exclude("META-INF/LICENSE")
+    //     exclude("META-INF/LICENSE.txt")
+    //     exclude("META-INF/license.txt")
+    //     exclude("META-INF/NOTICE")
+    //     exclude("META-INF/NOTICE.txt")
+    //     exclude("META-INF/notice.txt")
+    //     exclude("META-INF/AL2.0")
+    //     exclude("META-INF/LGPL2.1")
+    //     exclude("META-INF/*.kotlin_module")
+    // }
 }
 
 dependencies {

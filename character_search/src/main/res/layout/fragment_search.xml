@@ -18,7 +18,7 @@
         android:drawablePadding="@dimen/search_bar_drawable_padding"
         android:hint="@string/search"
         android:padding="@dimen/search_bar_padding"
-        android:textColor="#8E8E93"
+        android:textColor="@color/search_color"
         android:textSize="@dimen/search_bar_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

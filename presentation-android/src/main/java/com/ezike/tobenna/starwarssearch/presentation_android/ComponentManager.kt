@@ -9,24 +9,17 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.Subscriber
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewResult
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
+import kotlinx.coroutines.flow.StateFlow
 
 abstract class ComponentManager<S : ScreenState, out R : ViewResult>(
     private val stateMachine: StateMachine<S, R>
 ) : ViewModel(), MVIPresenter<S> {
 
-    override fun <VS : ViewState> subscribe(
-        component: Subscriber<VS>,
-        transform: StateTransform<S, VS>
-    ) {
-        stateMachine.subscribe(component, transform)
-    }
+    override val viewState: StateFlow<S>
+        get() = stateMachine.viewState
 
     override fun processIntent(intent: ViewIntent) {
         stateMachine.processIntent(intent)
-    }
-
-    fun unsubscribeAll() {
-        stateMachine.unSubscribeComponents()
     }
 
     override fun onCleared() {
