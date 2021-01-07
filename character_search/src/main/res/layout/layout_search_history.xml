@@ -77,7 +77,6 @@
         android:id="@+id/recent_search_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         app:constraint_referenced_ids="recent_searches_title, clear_history" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
