@@ -17,7 +17,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     androidLibrary
     kotlin(kotlinAndroid)
-    kotlin(kotlinAndroidExtension)
+    parcelize
     kotlin(kotlinKapt)
     safeArgs
     daggerHilt
@@ -61,18 +61,18 @@ android {
         }
     }
 
-    // packagingOptions {
-    //     exclude("META-INF/DEPENDENCIES")
-    //     exclude("META-INF/LICENSE")
-    //     exclude("META-INF/LICENSE.txt")
-    //     exclude("META-INF/license.txt")
-    //     exclude("META-INF/NOTICE")
-    //     exclude("META-INF/NOTICE.txt")
-    //     exclude("META-INF/notice.txt")
-    //     exclude("META-INF/AL2.0")
-    //     exclude("META-INF/LGPL2.1")
-    //     exclude("META-INF/*.kotlin_module")
-    // }
+     packagingOptions {
+         exclude("META-INF/DEPENDENCIES")
+         exclude("META-INF/LICENSE")
+         exclude("META-INF/LICENSE.txt")
+         exclude("META-INF/license.txt")
+         exclude("META-INF/NOTICE")
+         exclude("META-INF/NOTICE.txt")
+         exclude("META-INF/notice.txt")
+         exclude("META-INF/AL2.0")
+         exclude("META-INF/LGPL2.1")
+         exclude("META-INF/*.kotlin_module")
+     }
 }
 
 dependencies {

@@ -1,15 +1,14 @@
 import Dependencies.View.Version.fragment
 
 const val kotlinAndroid: String = "android"
-const val kotlinAndroidExtension: String = "android.extensions"
 const val kotlinKapt: String = "kapt"
 const val ktLintVersion: String = "0.38.0"
 
 object Config {
     object Version {
         const val minSdkVersion: Int = 21
-        const val compileSdkVersion: Int = 29
-        const val targetSdkVersion: Int = 29
+        const val compileSdkVersion: Int = 30
+        const val targetSdkVersion: Int = 30
         const val versionName: String = "1.0"
         const val versionCode: Int = 1
     }
