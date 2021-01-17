@@ -21,9 +21,11 @@ import com.ezike.tobenna.starwarssearch.core.ext.viewScope
 import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-class CharacterSearchComponentManager @ViewModelInject constructor(
+@HiltViewModel
+class CharacterSearchComponentManager @Inject constructor(
     searchStateMachine: SearchStateMachine
 ) : SearchComponentManager(searchStateMachine)
 

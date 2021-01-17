@@ -20,8 +20,11 @@ import com.ezike.tobenna.starwarssearch.character_search.views.detail.SpecieView
 import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class CharacterDetailComponentManager @ViewModelInject constructor(
+@HiltViewModel
+class CharacterDetailComponentManager @Inject constructor(
     stateMachine: CharacterDetailStateMachine
 ) : DetailComponentManager(stateMachine)
 

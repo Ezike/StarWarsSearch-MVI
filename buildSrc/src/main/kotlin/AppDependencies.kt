@@ -124,7 +124,7 @@ object Dependencies {
     object DI {
         object Version {
             const val javaxInject: String = "1"
-            const val daggerHilt: String = "2.29.1-alpha"
+            const val daggerHilt: String = "2.31-alpha"
             const val hiltViewModel: String = "1.0.0-alpha02"
         }
 
