@@ -1,3 +1,4 @@
+
 import Dependencies.AndroidX
 import Dependencies.DI
 import Dependencies.Network
@@ -9,6 +10,7 @@ import ProjectLib.core
 import ProjectLib.data
 import ProjectLib.domain
 import ProjectLib.presentation
+import ProjectLib.presentationAndroid
 import ProjectLib.remote
 
 plugins {
@@ -55,6 +57,7 @@ dependencies {
     implementation(project(characterSearch))
     implementation(project(cache))
     implementation(project(presentation))
+    implementation(project(presentationAndroid))
     implementation(project(domain))
     implementation(project(data))
     implementation(project(remote))

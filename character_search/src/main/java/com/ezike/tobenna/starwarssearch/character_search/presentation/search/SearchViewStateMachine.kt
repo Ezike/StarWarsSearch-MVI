@@ -4,7 +4,7 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchInte
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStateMachine
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStateReducer
 import com.ezike.tobenna.starwarssearch.character_search.ui.search.LoadSearchHistory
-import com.ezike.tobenna.starwarssearch.presentation.mvi.Latest
+import com.ezike.tobenna.starwarssearch.presentation.mvi.util.Latest
 import javax.inject.Inject
 
 class SearchViewStateMachine @Inject constructor(

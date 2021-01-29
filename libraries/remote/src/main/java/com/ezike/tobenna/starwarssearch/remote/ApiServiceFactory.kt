@@ -34,8 +34,8 @@ object ApiServiceFactory {
             .addInterceptor(HttpsInterceptor)
             .addInterceptor(NoInternetInterceptor)
             .addInterceptor(httpLoggingInterceptor)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(5, TimeUnit.SECONDS)
             .build()
     }
 

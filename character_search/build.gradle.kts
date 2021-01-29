@@ -8,7 +8,7 @@ import ProjectLib.core
 import ProjectLib.data
 import ProjectLib.domain
 import ProjectLib.presentation
-import ProjectLib.presentation_android
+import ProjectLib.presentationAndroid
 import ProjectLib.remote
 import ProjectLib.testUtils
 
@@ -62,7 +62,7 @@ android {
 dependencies {
     implementation(project(core))
     implementation(project(presentation))
-    implementation(project(presentation_android))
+    implementation(project(presentationAndroid))
     implementation(project(domain))
 
     testImplementation(project(testUtils))

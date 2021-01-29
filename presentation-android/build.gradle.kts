@@ -1,4 +1,5 @@
 import Dependencies.AndroidX
+import Dependencies.View
 import ProjectLib.presentation
 
 plugins {
@@ -33,4 +34,6 @@ android {
 dependencies {
     implementation(project(presentation))
     implementation(AndroidX.viewModel)
+    implementation(AndroidX.lifeCycleCommon)
+    implementation(View.fragment)
 }

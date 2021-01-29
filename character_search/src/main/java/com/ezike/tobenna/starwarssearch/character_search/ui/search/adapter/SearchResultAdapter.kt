@@ -26,10 +26,10 @@ class SearchResultAdapter(private val onClick: SearchResultClickListener) :
     class SearchResultViewHolder(private val binding: SearchResultBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(character: CharacterModel, clickListener: SearchResultClickListener) {
+        fun bind(character: CharacterModel, onClick: SearchResultClickListener) {
             binding.character.text = character.name
             binding.character.setOnClickListener {
-                clickListener(character)
+                onClick(character)
             }
         }
     }

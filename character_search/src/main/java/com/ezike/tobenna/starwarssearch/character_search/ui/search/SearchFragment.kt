@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.hilt.lifecycle.ViewModelInject
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.FragmentSearchBinding
 import com.ezike.tobenna.starwarssearch.character_search.navigation.NavigationDispatcher
@@ -13,12 +12,10 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStat
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchViewState
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchBarView
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchHistoryView
-import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchHistoryViewState
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchResultView
 import com.ezike.tobenna.starwarssearch.core.ext.lazyText
 import com.ezike.tobenna.starwarssearch.core.ext.onBackPress
 import com.ezike.tobenna.starwarssearch.core.ext.viewScope
-import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,14 +34,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     @Inject
     lateinit var navigator: NavigationDispatcher
 
-    private val componentManager: CharacterSearchComponentManager by viewModels()
-
-    private val binding: FragmentSearchBinding by viewBinding(FragmentSearchBinding::bind)
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        handleBackPress()
+        val componentManager: CharacterSearchComponentManager by viewModels()
+
+        val binding = FragmentSearchBinding.bind(view)
+
+        handleBackPress(binding)
 
         SearchBarView(binding.searchBar, viewScope, componentManager::processIntent)
 
@@ -55,7 +52,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     ::processIntent,
                     navigator::openCharacterDetail
                 )
-            ) { (searchHistoryState: SearchHistoryViewState) -> searchHistoryState }
+            ) { screenState: SearchViewState -> screenState.searchHistoryState }
             subscribe(
                 SearchResultView(
                     binding.searchResult,
@@ -64,10 +61,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     navigator::openCharacterDetail
                 )
             ) { screenState: SearchViewState -> screenState.searchResultState }
+
+            disposeAll(viewLifecycleOwner)
         }
     }
 
-    private fun handleBackPress() {
+    private fun handleBackPress(binding: FragmentSearchBinding) {
         onBackPress {
             if (binding.searchBar.text.isNotEmpty()) {
                 binding.searchBar.text.clear()
@@ -75,10 +74,5 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 requireActivity().finish()
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        componentManager.unsubscribeAll()
     }
 }

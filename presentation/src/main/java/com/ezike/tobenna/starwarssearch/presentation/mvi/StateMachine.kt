@@ -1,25 +1,26 @@
 package com.ezike.tobenna.starwarssearch.presentation.mvi
 
 import com.ezike.tobenna.starwarssearch.presentation.mvi.util.Atomic
+import com.ezike.tobenna.starwarssearch.presentation.mvi.util.Config
+import com.ezike.tobenna.starwarssearch.presentation.mvi.util.NoOpConfig
+import com.ezike.tobenna.starwarssearch.presentation.mvi.util.mapConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flatMapMerge
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.scan
 
 abstract class StateMachine<S : ScreenState, R : ViewResult>(
     private val intentProcessor: IntentProcessor<R>,
     private val reducer: ViewStateReducer<S, R>,
     private val initialState: S,
-    initialIntent: ViewIntent? = null,
+    initialIntent: ViewIntent = NoOpIntent,
     private val config: Config = NoOpConfig
 ) {
 
@@ -30,19 +31,16 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
 
     private val cachedState: Atomic<S> = Atomic(initialState)
 
-    private val intents: MutableSharedFlow<ViewIntent> =
-        MutableSharedFlow<ViewIntent>(1).apply {
-            if (initialIntent != null) {
-                tryEmit(initialIntent)
-            }
+    private val intents: Channel<ViewIntent> = Channel<ViewIntent>(1).apply {
+            offer(initialIntent)
         }
 
     private fun makeState() {
-        intents
+        intents.receiveAsFlow()
+            .filter { it !is NoOpIntent }
             .mapConfig(config, intentProcessor::intentToResult)
             .scan(initialState, reducer::reduce)
             .distinctUntilChanged()
-            .flowOn(Dispatchers.IO)
             .onEach(::notifySubscribers)
             .launchIn(mainScope)
     }
@@ -59,7 +57,7 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
     }
 
     fun processIntent(intent: ViewIntent) {
-        intents.tryEmit(intent)
+        intents.offer(intent)
     }
 
     fun <V : ViewState> subscribe(
@@ -82,7 +80,7 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
     }
 }
 
-internal class Subscription<S : ScreenState, V : ViewState>(
+private class Subscription<S : ScreenState, V : ViewState>(
     subscriber: Subscriber<V>,
     private val transform: StateTransform<S, V>
 ) {
@@ -110,14 +108,3 @@ internal class Subscription<S : ScreenState, V : ViewState>(
     }
 }
 
-sealed class Config
-object Latest : Config()
-object NoOpConfig : Config()
-
-internal inline fun <S, T> Flow<T>.mapConfig(
-    config: Config,
-    crossinline transform: suspend (T) -> Flow<S>
-): Flow<S> = when (config) {
-    Latest -> flatMapLatest(transform = transform)
-    NoOpConfig -> flatMapMerge { transform(it) }
-}

@@ -4,53 +4,57 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.navigation.fragment.navArgs
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.FragmentCharacterDetailBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
-import com.ezike.tobenna.starwarssearch.character_search.presentation.CharacterDetailStateMachine
 import com.ezike.tobenna.starwarssearch.character_search.presentation.DetailComponentManager
+import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.CharacterDetailViewStateMachine
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.DetailErrorView
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.FilmView
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.PlanetView
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.ProfileView
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.ProfileViewState
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.SpecieView
-import com.ezike.tobenna.starwarssearch.core.viewBinding.viewBinding
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
+import com.ezike.tobenna.starwarssearch.presentation_android.AssistedCreator
+import com.ezike.tobenna.starwarssearch.presentation_android.assistedFactory
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@HiltViewModel
-class CharacterDetailComponentManager @Inject constructor(
-    stateMachine: CharacterDetailStateMachine
-) : DetailComponentManager(stateMachine)
+
+class CharacterDetailComponentManager @AssistedInject constructor(
+    stateMachine: CharacterDetailViewStateMachine.Factory,
+    @Assisted character: CharacterModel
+) : DetailComponentManager(stateMachine.create(character)) {
+
+    @AssistedFactory
+    interface Creator : AssistedCreator<CharacterModel, CharacterDetailComponentManager>
+
+}
 
 data class LoadCharacterDetailIntent(val character: CharacterModel) : ViewIntent
 
 @AndroidEntryPoint
 class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
 
-    private val componentManager: CharacterDetailComponentManager by viewModels()
-
-    private val args: CharacterDetailFragmentArgs by navArgs()
-
-    private val binding: FragmentCharacterDetailBinding by viewBinding(
-        FragmentCharacterDetailBinding::bind
-    )
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        // Making sure this doesn't emit again on config change.
-        if (savedInstanceState == null) {
-            componentManager.processIntent(LoadCharacterDetailIntent(args.character))
-        }
-    }
+    @Inject
+    lateinit var creator: CharacterDetailComponentManager.Creator
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val args: CharacterDetailFragmentArgs by navArgs()
+
+        val componentManager: CharacterDetailComponentManager by viewModels {
+            assistedFactory(creator, args.character)
+        }
+
+        val binding = FragmentCharacterDetailBinding.bind(view)
+
         componentManager.run {
             subscribe(
                 PlanetView(binding.planetView, args.character.url, ::processIntent)
@@ -67,11 +71,8 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
             subscribe(
                 ProfileView(binding.profileView)
             ) { screenState -> ProfileViewState(screenState.character) }
-        }
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        componentManager.unsubscribeAll()
+            disposeAll(viewLifecycleOwner)
+        }
     }
 }
