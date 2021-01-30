@@ -16,7 +16,7 @@ import com.ezike.tobenna.starwarssearch.character_search.views.detail.PlanetView
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.ProfileView
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.ProfileViewState
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.SpecieView
-import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation_android.AssistedCreator
 import com.ezike.tobenna.starwarssearch.presentation_android.assistedFactory
 import dagger.assisted.Assisted

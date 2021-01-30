@@ -1,9 +1,14 @@
-package com.ezike.tobenna.starwarssearch.presentation.mvi
+package com.ezike.tobenna.starwarssearch.presentation.mvi.stateMachine
 
-import com.ezike.tobenna.starwarssearch.presentation.mvi.util.Atomic
-import com.ezike.tobenna.starwarssearch.presentation.mvi.util.Config
-import com.ezike.tobenna.starwarssearch.presentation.mvi.util.NoOpConfig
-import com.ezike.tobenna.starwarssearch.presentation.mvi.util.mapConfig
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.IntentProcessor
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.NoOpIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ScreenState
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.StateTransform
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.Subscriber
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewResult
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewStateReducer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -27,13 +32,11 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
     private val mainScope: CoroutineScope =
         CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private val subscribers: MutableList<Subscription<S, ViewState>> = mutableListOf()
-
-    private val cachedState: Atomic<S> = Atomic(initialState)
-
     private val intents: Channel<ViewIntent> = Channel<ViewIntent>(1).apply {
         offer(initialIntent)
     }
+
+    private val subscriberDelegate = SubscriptionDelegate(mainScope, initialState)
 
     init {
         intents.receiveAsFlow()
@@ -41,15 +44,8 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
             .mapConfig(config, intentProcessor::intentToResult)
             .scan(initialState, reducer::reduce)
             .distinctUntilChanged()
-            .onEach(::notifySubscribers)
+            .onEach(subscriberDelegate::updateState)
             .launchIn(mainScope)
-    }
-
-    private suspend fun notifySubscribers(newState: S) {
-        cachedState.update(newState)
-        subscribers.forEach { subscriber ->
-            subscriber.updateState(newState)
-        }
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -57,10 +53,11 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
         subscriber: Subscriber<V>,
         transform: StateTransform<S, V>
     ) {
-        val subscription: Subscription<S, V> = Subscription(subscriber, transform)
-        subscribers += subscription as Subscription<S, ViewState>
-        subscription.updateState(cachedState.value)
-        subscription.registerIntents(intents::offer)
+        subscriberDelegate.subscribe(
+            subscriber as Subscriber<ViewState>,
+            transform as StateTransform<ScreenState, ViewState>,
+            intents::offer
+        )
     }
 
     fun unSubscribe() {
@@ -69,9 +66,6 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
     }
 
     fun unSubscribeComponents() {
-        subscribers.forEach { it.dispose() }
-        subscribers.clear()
+        subscriberDelegate.unSubscribe()
     }
 }
-
-

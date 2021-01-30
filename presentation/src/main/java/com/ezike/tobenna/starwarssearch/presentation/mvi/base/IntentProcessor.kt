@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.presentation.mvi
+package com.ezike.tobenna.starwarssearch.presentation.mvi.base
 
 import kotlinx.coroutines.flow.Flow
 

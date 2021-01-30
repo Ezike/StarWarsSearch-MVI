@@ -4,8 +4,8 @@ import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.views.EmptyStateView
-import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
-import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
 
 data class RetryFetchCharacterDetailsIntent(val character: CharacterModel) : ViewIntent

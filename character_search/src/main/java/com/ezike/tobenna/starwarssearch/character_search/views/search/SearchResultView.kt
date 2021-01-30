@@ -6,8 +6,8 @@ import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter.SearchResultAdapter
 import com.ezike.tobenna.starwarssearch.core.ext.init
 import com.ezike.tobenna.starwarssearch.core.ext.show
-import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
-import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
 
 data class RetrySearchIntent(val query: String) : ViewIntent

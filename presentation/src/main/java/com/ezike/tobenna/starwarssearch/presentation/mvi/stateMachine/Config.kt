@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.presentation.mvi.util
+package com.ezike.tobenna.starwarssearch.presentation.mvi.stateMachine
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest

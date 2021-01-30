@@ -3,6 +3,7 @@ import Dependencies.View.Version.fragment
 const val kotlinAndroid: String = "android"
 const val kotlinKapt: String = "kapt"
 const val ktLintVersion: String = "0.38.0"
+const val kotlinVersion = "1.4.30-RC"
 
 object Config {
     object Version {

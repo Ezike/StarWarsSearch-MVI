@@ -4,9 +4,9 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.Cha
 import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.CharacterDetailViewState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchViewResult
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchViewState
-import com.ezike.tobenna.starwarssearch.presentation.mvi.IntentProcessor
-import com.ezike.tobenna.starwarssearch.presentation.mvi.StateMachine
-import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewStateReducer
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.IntentProcessor
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewStateReducer
+import com.ezike.tobenna.starwarssearch.presentation.mvi.stateMachine.StateMachine
 import com.ezike.tobenna.starwarssearch.presentation_android.ComponentManager
 
 typealias SearchIntentProcessor =

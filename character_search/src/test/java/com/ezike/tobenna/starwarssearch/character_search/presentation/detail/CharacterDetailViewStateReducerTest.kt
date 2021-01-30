@@ -62,14 +62,16 @@ class CharacterDetailViewStateReducerTest {
             val initialState: CharacterDetailViewState = CharacterDetailViewState.init
 
             val error: SocketTimeoutException = DummyData.exception
+            val characterName = DummyData.character.name
+
             val viewState: CharacterDetailViewState =
                 reducer.reduce(
                     initialState,
-                    CharacterDetailViewResult.FetchCharacterDetailError(error)
+                    CharacterDetailViewResult.FetchCharacterDetailError(characterName, error)
                 )
 
             assertThat(viewState).isEqualTo(
-                initialState.translateTo { errorState(error.errorMessage) }
+                initialState.translateTo { errorState(characterName, error.errorMessage) }
             )
         }
     }

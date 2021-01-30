@@ -15,7 +15,7 @@ import com.ezike.tobenna.starwarssearch.domain.usecase.search.SearchCharacters
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.ClearSearchHistory
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.GetSearchHistory
 import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.SaveSearch
-import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
 import com.ezike.tobenna.starwarssearch.testutils.ERROR_MSG
 import com.ezike.tobenna.starwarssearch.testutils.FlowRecorder
 import com.ezike.tobenna.starwarssearch.testutils.ResponseType

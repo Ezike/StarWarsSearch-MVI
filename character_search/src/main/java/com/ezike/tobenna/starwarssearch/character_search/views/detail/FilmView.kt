@@ -5,8 +5,8 @@ import com.ezike.tobenna.starwarssearch.character_search.databinding.FilmViewLay
 import com.ezike.tobenna.starwarssearch.character_search.model.FilmModel
 import com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail.adapter.FilmAdapter
 import com.ezike.tobenna.starwarssearch.core.ext.init
-import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
-import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
 
 data class RetryFetchFilmIntent(val url: String) : ViewIntent

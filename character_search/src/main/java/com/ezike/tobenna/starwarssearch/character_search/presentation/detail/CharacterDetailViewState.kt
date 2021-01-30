@@ -5,7 +5,7 @@ import com.ezike.tobenna.starwarssearch.character_search.views.detail.DetailErro
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.FilmViewState
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.PlanetViewState
 import com.ezike.tobenna.starwarssearch.character_search.views.detail.SpecieViewState
-import com.ezike.tobenna.starwarssearch.presentation.mvi.ScreenState
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ScreenState
 
 data class CharacterDetailViewState private constructor(
     val character: CharacterModel? = null,

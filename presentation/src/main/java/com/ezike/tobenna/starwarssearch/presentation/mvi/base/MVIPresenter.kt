@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.presentation.mvi
+package com.ezike.tobenna.starwarssearch.presentation.mvi.base
 
 interface MVIPresenter<SC : ScreenState> {
     fun <VS : ViewState> subscribe(
