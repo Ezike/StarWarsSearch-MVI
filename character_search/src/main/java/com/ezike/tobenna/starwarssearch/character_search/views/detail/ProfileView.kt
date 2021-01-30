@@ -5,14 +5,12 @@ import com.ezike.tobenna.starwarssearch.character_search.databinding.ProfileView
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
-import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
 
 data class ProfileViewState(val character: CharacterModel?) : ViewState
 
-@Suppress("FunctionName")
-fun ProfileView(binding: ProfileViewLayoutBinding): UIComponent<ProfileViewState> {
+class ProfileView(private val binding: ProfileViewLayoutBinding) : UIComponent<ProfileViewState>() {
 
-    fun getCharacterHeight(heightCm: String, heightInches: String?): String {
+    private fun getCharacterHeight(heightCm: String, heightInches: String?): String {
         return if (heightInches != null) {
             binding.root.context.getString(R.string.height, heightCm, heightInches)
         } else {
@@ -20,7 +18,8 @@ fun ProfileView(binding: ProfileViewLayoutBinding): UIComponent<ProfileViewState
         }
     }
 
-    return UIRenderer { (character: CharacterModel?) ->
+    override fun render(state: ProfileViewState) {
+        val (character: CharacterModel?) = state
         if (character != null) {
             binding.run {
                 profileTitle.text =

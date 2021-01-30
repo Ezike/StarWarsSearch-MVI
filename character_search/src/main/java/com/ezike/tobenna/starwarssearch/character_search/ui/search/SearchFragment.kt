@@ -9,7 +9,6 @@ import com.ezike.tobenna.starwarssearch.character_search.databinding.FragmentSea
 import com.ezike.tobenna.starwarssearch.character_search.navigation.NavigationDispatcher
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchComponentManager
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStateMachine
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchViewState
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchBarView
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchHistoryView
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchResultView
@@ -43,24 +42,21 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         handleBackPress(binding)
 
-        SearchBarView(binding.searchBar, viewScope, componentManager::processIntent)
-
         componentManager.run {
+            subscribe(SearchBarView(binding.searchBar, viewScope))
             subscribe(
                 SearchHistoryView(
                     binding.recentSearch,
-                    ::processIntent,
                     navigator::openCharacterDetail
                 )
-            ) { screenState: SearchViewState -> screenState.searchHistoryState }
+            ) { screenState -> screenState.searchHistoryState }
             subscribe(
                 SearchResultView(
                     binding.searchResult,
-                    ::processIntent,
                     binding.searchBar.lazyText,
                     navigator::openCharacterDetail
                 )
-            ) { screenState: SearchViewState -> screenState.searchResultState }
+            ) { screenState -> screenState.searchResultState }
 
             disposeAll(viewLifecycleOwner)
         }

@@ -4,27 +4,27 @@ import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.databinding.FilmViewLayoutBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.FilmModel
 import com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail.adapter.FilmAdapter
-import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
+import com.ezike.tobenna.starwarssearch.core.ext.init
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
-import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
 
 data class RetryFetchFilmIntent(val url: String) : ViewIntent
 
-@Suppress("FunctionName")
-fun FilmView(
-    binding: FilmViewLayoutBinding,
-    characterUrl: String,
-    action: DispatchIntent
-): UIComponent<FilmViewState> {
+class FilmView(
+    private val binding: FilmViewLayoutBinding,
+    characterUrl: String
+) : UIComponent<FilmViewState>() {
 
-    val filmAdapter: FilmAdapter by lazy(LazyThreadSafetyMode.NONE) { FilmAdapter() }
+    private val filmAdapter: FilmAdapter by init { FilmAdapter() }
 
-    binding.filmList.adapter = filmAdapter
-    binding.filmErrorState.onRetry { action(RetryFetchFilmIntent(characterUrl)) }
+    init {
+        binding.filmList.adapter = filmAdapter
+        binding.filmErrorState.onRetry { sendIntent(RetryFetchFilmIntent(characterUrl)) }
+    }
 
-    return UIRenderer { state: FilmViewState ->
+
+    override fun render(state: FilmViewState) {
         filmAdapter.submitList(state.films)
         binding.run {
             root.isVisible = state.isVisible

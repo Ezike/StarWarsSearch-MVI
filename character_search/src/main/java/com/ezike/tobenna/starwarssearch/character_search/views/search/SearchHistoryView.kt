@@ -4,34 +4,35 @@ import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.databinding.LayoutSearchHistoryBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter.SearchHistoryAdapter
+import com.ezike.tobenna.starwarssearch.core.ext.init
 import com.ezike.tobenna.starwarssearch.core.ext.show
-import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
-import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
 
 object ClearSearchHistoryIntent : ViewIntent
 data class UpdateHistoryIntent(val character: CharacterModel) : ViewIntent
 
-@Suppress("FunctionName")
-fun SearchHistoryView(
-    binding: LayoutSearchHistoryBinding,
-    dispatch: DispatchIntent,
-    navigationAction: (CharacterModel) -> Unit = {}
-): UIComponent<SearchHistoryViewState> {
 
-    val searchHistoryAdapter: SearchHistoryAdapter by lazy(LazyThreadSafetyMode.NONE) {
+class SearchHistoryView(
+    private val binding: LayoutSearchHistoryBinding,
+    navigationAction: (CharacterModel) -> Unit
+) : UIComponent<SearchHistoryViewState>() {
+
+    private val searchHistoryAdapter: SearchHistoryAdapter by init {
         SearchHistoryAdapter { model ->
-            dispatch(UpdateHistoryIntent(model))
+            sendIntent(UpdateHistoryIntent(model))
             navigationAction(model)
         }
     }
 
-    binding.clearHistory.setOnClickListener { dispatch(ClearSearchHistoryIntent) }
-    binding.searchHistoryRv.adapter = searchHistoryAdapter
+    init {
+        binding.clearHistory.setOnClickListener { sendIntent(ClearSearchHistoryIntent) }
+        binding.searchHistoryRv.adapter = searchHistoryAdapter
+    }
 
-    return UIRenderer { (history: List<CharacterModel>, isVisible: Boolean) ->
+    override fun render(state: SearchHistoryViewState) {
+        val (history: List<CharacterModel>, isVisible: Boolean) = state
         searchHistoryAdapter.submitList(history)
         binding.run {
             recentSearchGroup.isVisible = isVisible && history.isNotEmpty()

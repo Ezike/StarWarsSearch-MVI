@@ -19,9 +19,9 @@ import kotlinx.coroutines.flow.scan
 abstract class StateMachine<S : ScreenState, R : ViewResult>(
     private val intentProcessor: IntentProcessor<R>,
     private val reducer: ViewStateReducer<S, R>,
-    private val initialState: S,
+    initialState: S,
     initialIntent: ViewIntent = NoOpIntent,
-    private val config: Config = NoOpConfig
+    config: Config = NoOpConfig
 ) {
 
     private val mainScope: CoroutineScope =
@@ -32,10 +32,10 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
     private val cachedState: Atomic<S> = Atomic(initialState)
 
     private val intents: Channel<ViewIntent> = Channel<ViewIntent>(1).apply {
-            offer(initialIntent)
-        }
+        offer(initialIntent)
+    }
 
-    private fun makeState() {
+    init {
         intents.receiveAsFlow()
             .filter { it !is NoOpIntent }
             .mapConfig(config, intentProcessor::intentToResult)
@@ -52,14 +52,7 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
         }
     }
 
-    init {
-        makeState()
-    }
-
-    fun processIntent(intent: ViewIntent) {
-        intents.offer(intent)
-    }
-
+    @Suppress("UNCHECKED_CAST")
     fun <V : ViewState> subscribe(
         subscriber: Subscriber<V>,
         transform: StateTransform<S, V>
@@ -67,6 +60,7 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
         val subscription: Subscription<S, V> = Subscription(subscriber, transform)
         subscribers += subscription as Subscription<S, ViewState>
         subscription.updateState(cachedState.value)
+        subscription.registerIntents(intents::offer)
     }
 
     fun unSubscribe() {
@@ -80,31 +74,4 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
     }
 }
 
-private class Subscription<S : ScreenState, V : ViewState>(
-    subscriber: Subscriber<V>,
-    private val transform: StateTransform<S, V>
-) {
-
-    private var _subscriber: Subscriber<V>? = null
-
-    init {
-        _subscriber = subscriber
-    }
-
-    private var oldState: V? = null
-
-    fun updateState(state: S) {
-        val newState: V = transform(state)
-        if (oldState == null || oldState != newState) {
-            _subscriber?.onNewState(newState)
-            synchronized(this) {
-                oldState = newState
-            }
-        }
-    }
-
-    fun dispose() {
-        _subscriber = null
-    }
-}
 

@@ -4,27 +4,26 @@ import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.databinding.SpecieViewLayoutBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.SpecieModel
 import com.ezike.tobenna.starwarssearch.character_search.ui.characterDetail.adapter.SpecieAdapter
-import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
+import com.ezike.tobenna.starwarssearch.core.ext.init
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
-import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
 
 data class RetryFetchSpecieIntent(val url: String) : ViewIntent
 
-@Suppress("FunctionName")
-fun SpecieView(
-    binding: SpecieViewLayoutBinding,
-    characterUrl: String,
-    action: DispatchIntent
-): UIComponent<SpecieViewState> {
+class SpecieView(
+    private val binding: SpecieViewLayoutBinding,
+    characterUrl: String
+) : UIComponent<SpecieViewState>() {
 
-    val specieAdapter: SpecieAdapter by lazy(LazyThreadSafetyMode.NONE) { SpecieAdapter() }
+    private val specieAdapter: SpecieAdapter by init { SpecieAdapter() }
 
-    binding.specieList.adapter = specieAdapter
-    binding.specieErrorState.onRetry { action(RetryFetchSpecieIntent(characterUrl)) }
+    init {
+        binding.specieList.adapter = specieAdapter
+        binding.specieErrorState.onRetry { sendIntent(RetryFetchSpecieIntent(characterUrl)) }
+    }
 
-    return UIRenderer { state: SpecieViewState ->
+    override fun render(state: SpecieViewState) {
         specieAdapter.submitList(state.species)
         binding.run {
             root.isVisible = state.isVisible
@@ -36,6 +35,7 @@ fun SpecieView(
                 specieErrorState.setCaption(state.errorMessage)
             }
         }
+
     }
 }
 

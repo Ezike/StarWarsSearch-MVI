@@ -5,4 +5,8 @@ package com.ezike.tobenna.starwarssearch.presentation.mvi
  */
 interface Subscriber<State> {
     fun onNewState(state: State)
+    var intentDispatcher: (ViewIntent) -> Unit
 }
+
+val NoOpIntentDispatcher: (ViewIntent) -> Unit
+    get() = {}

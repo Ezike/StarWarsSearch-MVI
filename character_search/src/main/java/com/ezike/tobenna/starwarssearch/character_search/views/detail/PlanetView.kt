@@ -4,24 +4,22 @@ import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.PlanetViewLayoutBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.PlanetModel
-import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
-import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
 
 data class RetryFetchPlanetIntent(val url: String) : ViewIntent
 
-@Suppress("FunctionName")
-fun PlanetView(
-    binding: PlanetViewLayoutBinding,
-    characterUrl: String,
-    action: DispatchIntent
-): UIComponent<PlanetViewState> {
+class PlanetView(
+    private val binding: PlanetViewLayoutBinding,
+    characterUrl: String
+) : UIComponent<PlanetViewState>() {
 
-    binding.planetErrorState.onRetry { action(RetryFetchPlanetIntent(characterUrl)) }
+    init {
+        binding.planetErrorState.onRetry { sendIntent(RetryFetchPlanetIntent(characterUrl)) }
+    }
 
-    fun getPopulation(population: String): String = try {
+    private fun getPopulation(population: String): String = try {
         binding.root.context.getString(
             R.string.population,
             population.toLong()
@@ -30,7 +28,7 @@ fun PlanetView(
         binding.root.context.getString(R.string.population_not_available)
     }
 
-    return UIRenderer { state: PlanetViewState ->
+    override fun render(state: PlanetViewState) {
         binding.run {
             root.isVisible = state.isVisible
             if (state.isVisible) {

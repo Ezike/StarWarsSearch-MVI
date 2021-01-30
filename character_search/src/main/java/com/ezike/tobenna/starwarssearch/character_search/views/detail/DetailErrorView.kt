@@ -4,33 +4,37 @@ import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.views.EmptyStateView
-import com.ezike.tobenna.starwarssearch.presentation.mvi.DispatchIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
-import com.ezike.tobenna.starwarssearch.presentation_android.UIRenderer
 
 data class RetryFetchCharacterDetailsIntent(val character: CharacterModel) : ViewIntent
 
-@Suppress("FunctionName")
-fun DetailErrorView(
-    view: EmptyStateView,
-    character: CharacterModel,
-    action: DispatchIntent
-): UIComponent<DetailErrorViewState> {
+class DetailErrorView(
+    private val view: EmptyStateView,
+    character: CharacterModel
+) : UIComponent<DetailErrorViewState>() {
 
-    view.onRetry { action(RetryFetchCharacterDetailsIntent(character)) }
+    init {
+        view.onRetry { sendIntent(RetryFetchCharacterDetailsIntent(character)) }
+    }
 
-    return UIRenderer { (errorMessage: String, isVisible: Boolean) ->
-        view.isVisible = isVisible
-        if (isVisible) {
-            view.setCaption(errorMessage)
-            view.setTitle(view.context.getString(R.string.error_fetching_details, character.name))
+    override fun render(state: DetailErrorViewState) {
+        view.isVisible = state.isVisible
+        if (state.isVisible) {
+            view.setCaption(state.errorMessage)
+            view.setTitle(
+                view.context.getString(
+                    R.string.error_fetching_details,
+                    state.characterName
+                )
+            )
         }
     }
 }
 
 data class DetailErrorViewState private constructor(
+    val characterName: String = "",
     val errorMessage: String = "",
     val isVisible: Boolean = false
 ) : ViewState {
@@ -53,8 +57,9 @@ data class DetailErrorViewState private constructor(
             return this
         }
 
-        fun show(errorMessage: String): DetailErrorViewState =
+        fun show(characterName: String, errorMessage: String): DetailErrorViewState =
             state.copy(
+                characterName = characterName,
                 errorMessage = errorMessage,
                 isVisible = true
             )

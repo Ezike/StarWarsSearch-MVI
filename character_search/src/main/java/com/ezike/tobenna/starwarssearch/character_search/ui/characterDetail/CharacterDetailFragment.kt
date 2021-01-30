@@ -57,16 +57,16 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
 
         componentManager.run {
             subscribe(
-                PlanetView(binding.planetView, args.character.url, ::processIntent)
+                PlanetView(binding.planetView, args.character.url)
             ) { screenState -> screenState.planetViewState }
             subscribe(
-                FilmView(binding.filmView, args.character.url, ::processIntent)
+                FilmView(binding.filmView, args.character.url)
             ) { screenState -> screenState.filmViewState }
             subscribe(
-                SpecieView(binding.specieView, args.character.url, ::processIntent)
+                SpecieView(binding.specieView, args.character.url)
             ) { screenState -> screenState.specieViewState }
             subscribe(
-                DetailErrorView(binding.detailErrorState, args.character, ::processIntent)
+                DetailErrorView(binding.detailErrorState, args.character)
             ) { screenState -> screenState.errorViewState }
             subscribe(
                 ProfileView(binding.profileView)
