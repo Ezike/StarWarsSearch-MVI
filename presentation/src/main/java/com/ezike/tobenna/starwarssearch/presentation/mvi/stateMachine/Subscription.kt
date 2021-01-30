@@ -14,7 +14,6 @@ internal class Subscription<S : ScreenState, V : ViewState>(
 
     private var _subscriber: Subscriber<V>? = subscriber
 
-
     private var oldState: V? = null
 
     fun updateState(state: S) {

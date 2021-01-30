@@ -1,6 +1,7 @@
 package com.ezike.tobenna.starwarssearch.presentation_android
 
 import androidx.annotation.UiThread
+import com.ezike.tobenna.starwarssearch.presentation.mvi.base.DispatchIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.NoOpIntentDispatcher
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.Subscriber
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
@@ -19,7 +20,7 @@ abstract class UIComponent<ComponentState : ViewState> : Subscriber<ComponentSta
         dispatchIntent.invoke(intent)
     }
 
-    override var dispatchIntent: (ViewIntent) -> Unit = NoOpIntentDispatcher
+    override var dispatchIntent: DispatchIntent = NoOpIntentDispatcher
 
     override fun onNewState(state: ComponentState) {
         render(state)
