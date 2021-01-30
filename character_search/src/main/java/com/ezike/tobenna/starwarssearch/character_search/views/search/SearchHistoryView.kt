@@ -13,7 +13,6 @@ import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
 object ClearSearchHistoryIntent : ViewIntent
 data class UpdateHistoryIntent(val character: CharacterModel) : ViewIntent
 
-
 class SearchHistoryView(
     private val binding: LayoutSearchHistoryBinding,
     navigationAction: (CharacterModel) -> Unit
