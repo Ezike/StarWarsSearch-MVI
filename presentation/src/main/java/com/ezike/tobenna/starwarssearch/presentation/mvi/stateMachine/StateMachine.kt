@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.scan
 
-abstract class StateMachine<S : ScreenState, R : ViewResult>(
+public abstract class StateMachine<S : ScreenState, R : ViewResult>(
     private val intentProcessor: IntentProcessor<R>,
     private val reducer: ViewStateReducer<S, R>,
     initialState: S,
@@ -49,7 +49,7 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <V : ViewState> subscribe(
+    public fun <V : ViewState> subscribe(
         subscriber: Subscriber<V>,
         transform: StateTransform<S, V>
     ) {
@@ -60,12 +60,12 @@ abstract class StateMachine<S : ScreenState, R : ViewResult>(
         )
     }
 
-    fun unSubscribe() {
+    public fun unSubscribe() {
         mainScope.cancel()
         unSubscribeComponents()
     }
 
-    fun unSubscribeComponents() {
+    public fun unSubscribeComponents() {
         subscriberDelegate.unSubscribe()
     }
 }

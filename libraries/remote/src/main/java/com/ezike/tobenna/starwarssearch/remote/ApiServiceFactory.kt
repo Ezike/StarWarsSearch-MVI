@@ -10,9 +10,9 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class ApiServiceFactory @Inject constructor(private val moshi: Moshi) {
+public class ApiServiceFactory @Inject constructor(private val moshi: Moshi) {
 
-    fun createRetrofit(url: String, isDebug: Boolean): Retrofit {
+    public fun createRetrofit(url: String, isDebug: Boolean): Retrofit {
         val okHttpClient: OkHttpClient = makeOkHttpClient(
             makeLoggingInterceptor((isDebug))
         )

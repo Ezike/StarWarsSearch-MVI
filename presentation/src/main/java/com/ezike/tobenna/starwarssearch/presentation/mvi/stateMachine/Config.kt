@@ -4,9 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flatMapMerge
 
-sealed class Config
-object Latest : Config()
-object NoOpConfig : Config()
+public sealed class Config
+public object Latest : Config()
+internal object NoOpConfig : Config()
 
 internal inline fun <S, T> Flow<T>.mapConfig(
     config: Config,

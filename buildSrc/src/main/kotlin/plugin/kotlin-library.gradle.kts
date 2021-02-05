@@ -9,6 +9,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+kotlin {
+    explicitApi()
+}
+
 dependencies {
     implementation(Coroutines.core)
 }

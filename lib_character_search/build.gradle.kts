@@ -22,8 +22,6 @@ android {
         buildConfigField("String", "BASE_URL", "\"https://swapi.dev/api/\"")
     }
 
-//    kotlinOptions.freeCompilerArgs += "-Xexplicit-api = strict"
-
     buildTypes {
         named(BuildType.DEBUG) {
             isMinifyEnabled = BuildTypeDebug.isMinifyEnabled

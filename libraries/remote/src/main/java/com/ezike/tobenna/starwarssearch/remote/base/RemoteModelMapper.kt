@@ -1,10 +1,10 @@
 package com.ezike.tobenna.starwarssearch.remote.base
 
-interface RemoteModelMapper<in M, out E> {
+public interface RemoteModelMapper<in M, out E> {
 
-    fun mapFromModel(model: M): E
+    public fun mapFromModel(model: M): E
 
-    fun mapModelList(models: List<M>): List<E> {
+    public fun mapModelList(models: List<M>): List<E> {
         return models.mapTo(mutableListOf(), ::mapFromModel)
     }
 }

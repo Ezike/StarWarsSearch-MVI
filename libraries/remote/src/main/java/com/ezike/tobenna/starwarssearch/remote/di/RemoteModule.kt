@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-interface RemoteModule {
+internal interface RemoteModule {
     companion object {
         @get:[Provides Singleton]
         val provideMoshi: Moshi
