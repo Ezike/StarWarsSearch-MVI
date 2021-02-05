@@ -10,12 +10,12 @@ import kotlinx.coroutines.flow.onEach
  * https://github.com/ReactiveCircus/streamlined/blob/main/libraries/coroutines-test-ext
  */
 
-fun <T> Flow<T>.recordWith(recorder: FlowRecorder<T>) {
+public fun <T> Flow<T>.recordWith(recorder: FlowRecorder<T>) {
     onEach { recorder += it }.launchIn(recorder.coroutineScope)
 }
 
 @OptIn(ExperimentalStdlibApi::class)
-class FlowRecorder<T>(internal val coroutineScope: CoroutineScope) {
+public class FlowRecorder<T>(internal val coroutineScope: CoroutineScope) {
 
     private val values: MutableList<T> = mutableListOf()
 
@@ -26,7 +26,7 @@ class FlowRecorder<T>(internal val coroutineScope: CoroutineScope) {
     /**
      * Takes the first [numberOfValues] recorded values emitted by the [Flow].
      */
-    fun take(numberOfValues: Int): List<T> {
+    public fun take(numberOfValues: Int): List<T> {
         require(numberOfValues > 0) {
             "Least number of values to take is 1."
         }
@@ -43,7 +43,7 @@ class FlowRecorder<T>(internal val coroutineScope: CoroutineScope) {
     /**
      * Takes all recorded values emitted by the [Flow].
      */
-    fun takeAll(): List<T> {
+    public fun takeAll(): List<T> {
         val drainedValues: List<T> = buildList { addAll(values) }
         values.clear()
         return drainedValues
@@ -52,13 +52,13 @@ class FlowRecorder<T>(internal val coroutineScope: CoroutineScope) {
     /**
      * returns the number of items emitted by the [Flow]
      */
-    val size: Int
+    public val size: Int
         get() = values.size
 
     /**
      * Clears all recorded values emitted by the [Flow].
      */
-    fun reset() {
+    public fun reset() {
         values.clear()
     }
 }

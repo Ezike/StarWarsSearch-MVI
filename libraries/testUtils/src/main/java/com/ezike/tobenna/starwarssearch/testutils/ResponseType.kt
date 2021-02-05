@@ -1,9 +1,9 @@
 package com.ezike.tobenna.starwarssearch.testutils
 
-enum class ResponseType {
+public enum class ResponseType {
     DATA,
     EMPTY,
     ERROR
 }
 
-const val ERROR_MSG: String = "No network"
+public const val ERROR_MSG: String = "No network"

@@ -7,7 +7,7 @@ import kotlinx.coroutines.test.TestCoroutineScope
 import org.junit.Assert
 import org.junit.function.ThrowingRunnable
 
-inline fun <reified T : Throwable> TestCoroutineScope.assertThrows(
+public inline fun <reified T : Throwable> TestCoroutineScope.assertThrows(
     crossinline runnable: suspend () -> Unit
 ): T {
     val throwingRunnable = ThrowingRunnable {
@@ -18,6 +18,6 @@ inline fun <reified T : Throwable> TestCoroutineScope.assertThrows(
     return Assert.assertThrows(T::class.java, throwingRunnable)
 }
 
-inline fun <reified T> IterableSubject.containsElements(vararg instance: T) {
+public inline fun <reified T> IterableSubject.containsElements(vararg instance: T) {
     containsExactlyElementsIn(instance).inOrder()
 }
