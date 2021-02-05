@@ -1,8 +1,8 @@
 package com.ezike.tobenna.starwarssearch.character_search.fakes
 
 import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
-import com.ezike.tobenna.starwarssearch.domain.model.Character
-import com.ezike.tobenna.starwarssearch.domain.repository.SearchRepository
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.repository.SearchRepository
 import com.ezike.tobenna.starwarssearch.testutils.ERROR_MSG
 import com.ezike.tobenna.starwarssearch.testutils.ResponseType
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +12,8 @@ import java.net.SocketTimeoutException
 
 class FakeSearchRepository : SearchRepository {
 
-    private var charactersFlow: Flow<List<Character>> = flowOf(DummyData.characterList)
+    private var charactersFlow: Flow<List<Character>> =
+        flowOf(DummyData.characterList)
 
     var responseType: ResponseType = ResponseType.DATA
         set(value) {

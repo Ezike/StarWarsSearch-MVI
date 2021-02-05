@@ -5,8 +5,7 @@ import Dependencies.FlowBinding
 import Dependencies.Test
 import Dependencies.View
 import ProjectLib.core
-import ProjectLib.data
-import ProjectLib.domain
+import ProjectLib.libCharacterSearch
 import ProjectLib.presentation
 import ProjectLib.presentationAndroid
 import ProjectLib.remote
@@ -34,15 +33,18 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
-
     buildTypes {
         named(BuildType.DEBUG) {
             isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
             versionNameSuffix = BuildTypeDebug.versionNameSuffix
         }
+    }
+
+    sourceSets {
+        val androidTest by getting
+        val test by getting
+        androidTest.java.srcDirs("src/sharedTest/java")
+        test.java.srcDirs("src/sharedTest/java")
     }
 
     packagingOptions {
@@ -63,7 +65,7 @@ dependencies {
     implementation(project(core))
     implementation(project(presentation))
     implementation(project(presentationAndroid))
-    implementation(project(domain))
+    implementation(project(libCharacterSearch))
 
     testImplementation(project(testUtils))
     androidTestImplementation(project(testUtils))
@@ -87,7 +89,6 @@ dependencies {
     kapt(DI.AnnotationProcessor.daggerHilt)
     kapt(DI.AnnotationProcessor.jetpackHiltCompiler)
 
-    androidTestImplementation(project(data))
     androidTestImplementation(project(remote))
     androidTestImplementation(DI.hiltTesting)
     androidTestImplementation(Test.espresso)

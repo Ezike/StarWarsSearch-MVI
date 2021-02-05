@@ -7,6 +7,6 @@ interface IntentProcessor<out R : ViewResult> {
 }
 
 class InvalidViewIntentException(private val viewIntent: ViewIntent) : IllegalArgumentException() {
-    override val message: String?
+    override val message: String
         get() = "Invalid intent $viewIntent"
 }

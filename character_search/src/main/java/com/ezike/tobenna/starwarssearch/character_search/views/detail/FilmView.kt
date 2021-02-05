@@ -23,7 +23,6 @@ class FilmView(
         binding.filmErrorState.onRetry { sendIntent(RetryFetchFilmIntent(characterUrl)) }
     }
 
-
     override fun render(state: FilmViewState) {
         filmAdapter.submitList(state.films)
         binding.run {

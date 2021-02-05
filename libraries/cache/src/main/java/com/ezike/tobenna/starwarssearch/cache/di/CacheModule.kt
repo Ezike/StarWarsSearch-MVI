@@ -1,14 +1,9 @@
 package com.ezike.tobenna.starwarssearch.cache.di
 
 import android.content.Context
-import com.ezike.tobenna.starwarssearch.cache.cacheImpl.CharacterDetailCacheImpl
-import com.ezike.tobenna.starwarssearch.cache.cacheImpl.SearchHistoryCacheImpl
 import com.ezike.tobenna.starwarssearch.cache.room.CharacterDetailDao
 import com.ezike.tobenna.starwarssearch.cache.room.SearchHistoryDao
 import com.ezike.tobenna.starwarssearch.cache.room.StarWarsDatabase
-import com.ezike.tobenna.starwarssearch.data.contract.cache.CharacterDetailCache
-import com.ezike.tobenna.starwarssearch.data.contract.cache.SearchHistoryCache
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,13 +13,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-interface CacheModule {
-
-    @get:Binds
-    val SearchHistoryCacheImpl.searchHistoryCache: SearchHistoryCache
-
-    @get:Binds
-    val CharacterDetailCacheImpl.characterDetailCache: CharacterDetailCache
+internal interface CacheModule {
 
     companion object {
         @[Provides Singleton]

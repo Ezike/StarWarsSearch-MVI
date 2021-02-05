@@ -3,8 +3,7 @@ import Dependencies.Coroutines
 import Dependencies.DI
 import Dependencies.Network
 import Dependencies.View
-import ProjectLib.domain
-import ProjectLib.remote
+import ProjectLib.libCharacterSearch
 
 plugins {
     androidLibrary
@@ -25,10 +24,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
-
     buildTypes {
         named(BuildType.DEBUG) {
             isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
@@ -38,8 +33,8 @@ android {
 }
 
 dependencies {
-    implementation(project(domain))
-    implementation(project(remote))
+
+    implementation(project(libCharacterSearch))
 
     implementation(AndroidX.lifeCycleCommon)
     implementation(View.appCompat)

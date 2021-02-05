@@ -2,7 +2,7 @@ package com.ezike.tobenna.starwarssearch.character_search.views.search
 
 import android.widget.EditText
 import androidx.lifecycle.LifecycleCoroutineScope
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchIntent
 import com.ezike.tobenna.starwarssearch.presentation_android.StatelessUIComponent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate
@@ -13,12 +13,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import reactivecircus.flowbinding.android.widget.textChanges
 
-data class SearchIntent(val query: String) : ViewIntent
-
 class SearchBarView(
     searchBar: EditText,
     viewScope: LifecycleCoroutineScope
-): StatelessUIComponent() {
+) : StatelessUIComponent() {
 
     init {
         searchBar.textChanges

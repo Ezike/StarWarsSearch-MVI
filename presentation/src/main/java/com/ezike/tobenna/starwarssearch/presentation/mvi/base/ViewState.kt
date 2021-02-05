@@ -18,4 +18,4 @@ typealias StateTransform<S, V> = (S) -> V
 
 @Suppress("UNCHECKED_CAST", "FunctionName")
 fun <S : ScreenState, V : ViewState> NoOpTransform(): StateTransform<S, V> =
-     { NoOpViewState as V }
+    { NoOpViewState as V }

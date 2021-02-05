@@ -51,7 +51,9 @@ internal class SubscriptionDelegate(
         scope.launch {
             subscriberActor.send(
                 SubscriberAction.Subscribe(
-                    subscriber, transform, dispatchIntent
+                    subscriber,
+                    transform,
+                    dispatchIntent
                 )
             )
         }

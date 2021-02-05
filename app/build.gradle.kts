@@ -7,8 +7,7 @@ import Dependencies.View
 import ProjectLib.cache
 import ProjectLib.characterSearch
 import ProjectLib.core
-import ProjectLib.data
-import ProjectLib.domain
+import ProjectLib.libCharacterSearch
 import ProjectLib.presentation
 import ProjectLib.presentationAndroid
 import ProjectLib.remote
@@ -33,10 +32,6 @@ android {
         testInstrumentationRunner = Config.Android.testInstrumentationRunner
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -58,10 +53,9 @@ dependencies {
     implementation(project(cache))
     implementation(project(presentation))
     implementation(project(presentationAndroid))
-    implementation(project(domain))
-    implementation(project(data))
     implementation(project(remote))
     implementation(project(core))
+    implementation(project(libCharacterSearch))
 
     debugImplementation(Performance.leakCanary)
 

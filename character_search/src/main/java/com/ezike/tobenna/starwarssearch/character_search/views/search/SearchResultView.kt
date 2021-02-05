@@ -3,15 +3,13 @@ package com.ezike.tobenna.starwarssearch.character_search.views.search
 import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.databinding.LayoutSearchResultBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.RetrySearchIntent
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SaveSearchIntent
 import com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter.SearchResultAdapter
 import com.ezike.tobenna.starwarssearch.core.ext.init
 import com.ezike.tobenna.starwarssearch.core.ext.show
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
-
-data class RetrySearchIntent(val query: String) : ViewIntent
-data class SaveSearchIntent(val character: CharacterModel) : ViewIntent
 
 class SearchResultView(
     private val binding: LayoutSearchResultBinding,

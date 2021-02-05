@@ -1,9 +1,7 @@
 import Dependencies.Cache
 import Dependencies.DI
 import Dependencies.Network
-import Dependencies.Test
-import ProjectLib.data
-import ProjectLib.testUtils
+import ProjectLib.cache
 
 plugins {
     androidLibrary
@@ -31,10 +29,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
-
     buildTypes {
         named(BuildType.DEBUG) {
             isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
@@ -44,16 +38,11 @@ android {
 }
 
 dependencies {
-    implementation(project(data))
-    testImplementation(project(testUtils))
+    testImplementation(project(cache))
 
     implementation(DI.daggerHiltAndroid)
     implementation(Network.moshi)
-    api(Cache.room)
-
-    testImplementation(Test.runner)
-    testImplementation(Test.androidXTest)
-    testImplementation(Test.robolectric)
+    implementation(Cache.room)
 
     kapt(Cache.AnnotationProcessor.room)
     kapt(DI.AnnotationProcessor.daggerHilt)
