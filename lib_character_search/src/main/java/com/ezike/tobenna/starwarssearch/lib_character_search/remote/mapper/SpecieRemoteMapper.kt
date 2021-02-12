@@ -5,7 +5,7 @@ import com.ezike.tobenna.starwarssearch.lib_character_search.remote.model.respon
 import com.ezike.tobenna.starwarssearch.remote.base.RemoteModelMapper
 import javax.inject.Inject
 
-class SpecieRemoteMapper @Inject constructor() :
+internal class SpecieRemoteMapper @Inject constructor() :
     RemoteModelMapper<SpecieResponse, SpecieEntity> {
 
     override fun mapFromModel(model: SpecieResponse): SpecieEntity {

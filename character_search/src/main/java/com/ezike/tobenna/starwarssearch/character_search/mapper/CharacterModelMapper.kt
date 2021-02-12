@@ -5,8 +5,7 @@ import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Charac
 import com.ezike.tobenna.starwarssearch.presentation.mapper.ModelMapper
 import javax.inject.Inject
 
-class CharacterModelMapper @Inject constructor() :
-    ModelMapper<CharacterModel, Character> {
+class CharacterModelMapper @Inject constructor() : ModelMapper<CharacterModel, Character> {
 
     override fun mapToModel(domain: Character): CharacterModel {
         return CharacterModel(

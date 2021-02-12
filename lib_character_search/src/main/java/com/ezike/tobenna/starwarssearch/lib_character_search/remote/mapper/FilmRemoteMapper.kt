@@ -5,7 +5,7 @@ import com.ezike.tobenna.starwarssearch.lib_character_search.remote.model.respon
 import com.ezike.tobenna.starwarssearch.remote.base.RemoteModelMapper
 import javax.inject.Inject
 
-class FilmRemoteMapper @Inject constructor() : RemoteModelMapper<FilmResponse, FilmEntity> {
+internal class FilmRemoteMapper @Inject constructor() : RemoteModelMapper<FilmResponse, FilmEntity> {
 
     override fun mapFromModel(model: FilmResponse): FilmEntity {
         return FilmEntity(model.title, model.opening_crawl)

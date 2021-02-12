@@ -2,6 +2,7 @@ package com.ezike.tobenna.starwarssearch.lib_character_search.remote.model.respo
 
 import com.ezike.tobenna.starwarssearch.lib_character_search.remote.model.CharacterRemoteModel
 
-data class CharacterSearchResponse(
-    val results: List<CharacterRemoteModel>
+internal data class CharacterSearchResponse(
+    val results: List<CharacterRemoteModel>,
+    val next: String?
 )

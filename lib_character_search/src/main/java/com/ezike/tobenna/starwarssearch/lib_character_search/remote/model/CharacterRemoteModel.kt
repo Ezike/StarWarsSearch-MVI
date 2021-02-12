@@ -1,6 +1,6 @@
 package com.ezike.tobenna.starwarssearch.lib_character_search.remote.model
 
-data class CharacterRemoteModel(
+internal data class CharacterRemoteModel(
     val name: String,
     val birth_year: String,
     val height: String,

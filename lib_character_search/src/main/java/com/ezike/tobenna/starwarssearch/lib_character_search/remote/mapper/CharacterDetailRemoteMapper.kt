@@ -5,7 +5,7 @@ import com.ezike.tobenna.starwarssearch.lib_character_search.remote.model.Charac
 import com.ezike.tobenna.starwarssearch.remote.base.RemoteModelMapper
 import javax.inject.Inject
 
-class CharacterDetailRemoteMapper @Inject constructor() :
+internal class CharacterDetailRemoteMapper @Inject constructor() :
     RemoteModelMapper<CharacterRemoteModel, CharacterDetailEntity> {
 
     override fun mapFromModel(model: CharacterRemoteModel): CharacterDetailEntity {

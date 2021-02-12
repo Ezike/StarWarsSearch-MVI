@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.lib_character_search.remote.remote
+package com.ezike.tobenna.starwarssearch.lib_character_search.remote.impl
 
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.contract.remote.CharacterDetailRemote
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.model.CharacterDetailEntity
@@ -15,7 +15,7 @@ import com.ezike.tobenna.starwarssearch.lib_character_search.remote.model.respon
 import com.ezike.tobenna.starwarssearch.lib_character_search.remote.model.response.SpecieResponse
 import javax.inject.Inject
 
-class CharacterDetailRemoteImpl @Inject constructor(
+internal class CharacterDetailRemoteImpl @Inject constructor(
     private val apiService: ApiService,
     private val characterDetailRemoteMapper: CharacterDetailRemoteMapper,
     private val planetRemoteMapper: PlanetRemoteMapper,
@@ -48,15 +48,11 @@ class CharacterDetailRemoteImpl @Inject constructor(
             }
         }
         return specieDetails.map { specie ->
-            if (specieMap.containsKey(specie.homeworld)) {
-                SpecieEntity(
-                    specie.name,
-                    specie.language,
-                    specieMap[specie.homeworld] ?: ""
-                )
-            } else {
-                SpecieEntity(specie.name, specie.language, "")
-            }
+            SpecieEntity(
+                specie.name,
+                specie.language,
+                specieMap[specie.homeworld] ?: ""
+            )
         }
     }
 

@@ -4,8 +4,8 @@ import com.ezike.tobenna.starwarssearch.lib_character_search.BuildConfig
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.contract.remote.CharacterDetailRemote
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.contract.remote.SearchRemote
 import com.ezike.tobenna.starwarssearch.lib_character_search.remote.ApiService
-import com.ezike.tobenna.starwarssearch.lib_character_search.remote.remote.CharacterDetailRemoteImpl
-import com.ezike.tobenna.starwarssearch.lib_character_search.remote.remote.SearchRemoteImpl
+import com.ezike.tobenna.starwarssearch.lib_character_search.remote.impl.CharacterDetailRemoteImpl
+import com.ezike.tobenna.starwarssearch.lib_character_search.remote.impl.SearchRemoteImpl
 import com.ezike.tobenna.starwarssearch.remote.ApiServiceFactory
 import dagger.Binds
 import dagger.Module

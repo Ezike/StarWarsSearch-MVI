@@ -9,10 +9,13 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.Url
 
-interface ApiService {
+internal interface ApiService {
 
     @GET("people/")
     suspend fun searchCharacters(@Query("search") params: String): CharacterSearchResponse
+
+    @GET
+    suspend fun nextSearchPage(@Url url: String): CharacterSearchResponse
 
     @GET
     suspend fun fetchCharacterDetail(@Url url: String): CharacterRemoteModel
