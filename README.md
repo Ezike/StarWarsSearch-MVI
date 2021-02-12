@@ -16,8 +16,14 @@ Resources: [blog](https://netflixtechblog.com/making-our-android-studio-apps-rea
 
 ## Prerequisite
 To build this project, you require:
-- Android Studio artic fox canary 5
-- Gradle 6.8
+- Android Studio artic fox canary 6
+- Gradle 7.0
+
+Run the following command in the root of the project to setup your Android Studio:
+```
+./setup.sh
+```
+This script will configure [ktlint](https://github.com/shyiko/ktlint)
 
 <h2 align="left">Screenshots</h2>
 <h4 align="center">

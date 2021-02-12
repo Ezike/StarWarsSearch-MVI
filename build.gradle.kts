@@ -29,6 +29,7 @@ subprojects {
                 "kotlinx.coroutines.InternalCoroutinesApi," +
                 "kotlinx.coroutines.ObsoleteCoroutinesApi," +
                 "kotlinx.coroutines.FlowPreview"
+            freeCompilerArgs += "-Xopt-in=kotlin.ExperimentalStdlibApi"
         }
     }
 }
