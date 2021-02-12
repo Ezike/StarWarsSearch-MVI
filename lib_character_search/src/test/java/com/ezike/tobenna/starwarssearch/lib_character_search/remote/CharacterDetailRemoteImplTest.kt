@@ -5,10 +5,10 @@ import com.ezike.tobenna.starwarssearch.lib_character_search.data.model.Characte
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.model.FilmEntity
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.model.PlanetEntity
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.model.SpecieEntity
+import com.ezike.tobenna.starwarssearch.lib_character_search.remote.impl.CharacterDetailRemoteImpl
 import com.ezike.tobenna.starwarssearch.lib_character_search.remote.mapper.CharacterDetailRemoteMapper
 import com.ezike.tobenna.starwarssearch.lib_character_search.remote.mapper.FilmRemoteMapper
 import com.ezike.tobenna.starwarssearch.lib_character_search.remote.mapper.PlanetRemoteMapper
-import com.ezike.tobenna.starwarssearch.lib_character_search.remote.remote.CharacterDetailRemoteImpl
 import com.ezike.tobenna.starwarssearch.lib_character_search.remote.utils.CHARACTER_URL
 import com.ezike.tobenna.starwarssearch.lib_character_search.remote.utils.FILM_URL
 import com.ezike.tobenna.starwarssearch.lib_character_search.remote.utils.PLANET_URL

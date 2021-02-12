@@ -7,7 +7,7 @@ import com.ezike.tobenna.starwarssearch.lib_character_search.data.model.FilmEnti
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.model.PlanetEntity
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.model.SpecieEntity
 
-class FakeCharacterDetailRemote : CharacterDetailRemote {
+internal class FakeCharacterDetailRemote : CharacterDetailRemote {
 
     override suspend fun fetchCharacter(characterUrl: String): CharacterDetailEntity {
         return DummyData.characterDetailEntity

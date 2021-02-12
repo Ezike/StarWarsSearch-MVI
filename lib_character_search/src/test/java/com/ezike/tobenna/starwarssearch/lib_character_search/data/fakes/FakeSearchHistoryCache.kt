@@ -3,7 +3,7 @@ package com.ezike.tobenna.starwarssearch.lib_character_search.data.fakes
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.contract.cache.SearchHistoryCache
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.model.CharacterEntity
 
-class FakeSearchHistoryCache : SearchHistoryCache {
+internal class FakeSearchHistoryCache : SearchHistoryCache {
 
     private val cache = LinkedHashMap<String, CharacterEntity>()
 

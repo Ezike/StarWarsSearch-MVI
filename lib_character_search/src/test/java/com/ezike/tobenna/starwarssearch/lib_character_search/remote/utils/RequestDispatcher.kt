@@ -12,49 +12,54 @@ class RequestDispatcher : Dispatcher() {
             "$REQUEST_PATH?search=$SEARCH_QUERY" -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
-                    .setBody(getJson("response/character_search.json"))
+                    .setBody(getJson(SEARCH_RESPONSE_PATH))
+            }
+            "$REQUEST_PATH?search=$SEARCH_QUERY&page=2" -> {
+                MockResponse()
+                    .setResponseCode(HttpURLConnection.HTTP_OK)
+                    .setBody(getJson(SEARCH_RESPONSE_PATH_2))
             }
             "$REQUEST_PATH?search=$NO_MATCH_SEARCH_QUERY" -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
                     .setBody(
-                        getJson("response/character_search_no_match.json")
+                        getJson(NO_MATCH_RESPONSE_PATH)
                     )
             }
             NO_MATCH_CHARACTER_URL -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_NOT_FOUND)
-                    .setBody(getJson("response/not_found.json"))
+                    .setBody(getJson(NOT_FOUND_RESPONSE_PATH))
             }
             CHARACTER_URL -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
-                    .setBody(getJson("response/character_details.json"))
+                    .setBody(getJson(CHAR_DETAIL_RESPONSE_PATH))
             }
             SPECIES_URL -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
-                    .setBody(getJson("response/characters_species.json"))
+                    .setBody(getJson(SPECIES_RESPONSE_PATH))
             }
             SPECIES_URL_2 -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
-                    .setBody(getJson("response/character_specie_2.json"))
+                    .setBody(getJson(SPECIES_2_RESPONSE_PATH_2))
             }
             FILM_URL -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
-                    .setBody(getJson("response/character_films.json"))
+                    .setBody(getJson(FILMS_RESPONSE_PATH))
             }
             PLANET_URL -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
-                    .setBody(getJson("response/character_planet.json"))
+                    .setBody(getJson(PLANET_RESPONSE_PATH))
             }
             PLANET_URL_2 -> {
                 MockResponse()
                     .setResponseCode(HttpURLConnection.HTTP_OK)
-                    .setBody(getJson("response/characters_planet_2.json"))
+                    .setBody(getJson(PLANET_2_RESPONSE_PATH))
             }
             else -> throw IllegalArgumentException("Unknown Request Path ${request.path}")
         }

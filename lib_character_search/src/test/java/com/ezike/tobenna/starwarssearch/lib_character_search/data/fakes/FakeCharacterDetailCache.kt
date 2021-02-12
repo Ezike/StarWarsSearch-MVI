@@ -3,7 +3,7 @@ package com.ezike.tobenna.starwarssearch.lib_character_search.data.fakes
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.contract.cache.CharacterDetailCache
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.model.CharacterDetailEntity
 
-class FakeCharacterDetailCache : CharacterDetailCache {
+internal class FakeCharacterDetailCache : CharacterDetailCache {
 
     private val cache = LinkedHashMap<String, CharacterDetailEntity>()
 
