@@ -6,7 +6,7 @@ import com.ezike.tobenna.starwarssearch.lib_character_search.data.contract.remot
 import com.ezike.tobenna.starwarssearch.lib_character_search.remote.ApiService
 import com.ezike.tobenna.starwarssearch.lib_character_search.remote.impl.CharacterDetailRemoteImpl
 import com.ezike.tobenna.starwarssearch.lib_character_search.remote.impl.SearchRemoteImpl
-import com.ezike.tobenna.starwarssearch.remote.ApiServiceFactory
+import com.ezike.tobenna.starwarssearch.remote.RemoteFactory
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -26,8 +26,8 @@ internal interface RemoteModule {
 
     companion object {
         @[Provides Singleton]
-        fun apiService(apiServiceFactory: ApiServiceFactory): ApiService =
-            apiServiceFactory.createRetrofit(
+        fun apiService(remoteFactory: RemoteFactory): ApiService =
+            remoteFactory.createRetrofit(
                 url = BuildConfig.BASE_URL,
                 isDebug = BuildConfig.DEBUG
             ).create(ApiService::class.java)
