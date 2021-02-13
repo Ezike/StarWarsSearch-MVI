@@ -10,11 +10,9 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-internal interface RemoteModule {
-    companion object {
-        @get:[Provides Singleton]
-        val provideMoshi: Moshi
-            get() = Moshi.Builder()
-                .add(KotlinJsonAdapterFactory()).build()
-    }
+internal object RemoteModule {
+
+    val provideMoshi: Moshi
+        @[Provides Singleton] get() = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory()).build()
 }

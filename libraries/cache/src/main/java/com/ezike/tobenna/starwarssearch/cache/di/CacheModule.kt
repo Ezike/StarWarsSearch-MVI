@@ -13,22 +13,19 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-internal interface CacheModule {
+internal object CacheModule {
+    @[Provides Singleton]
+    fun provideDatabase(@ApplicationContext context: Context): StarWarsDatabase {
+        return StarWarsDatabase.build(context)
+    }
 
-    companion object {
-        @[Provides Singleton]
-        fun provideDatabase(@ApplicationContext context: Context): StarWarsDatabase {
-            return StarWarsDatabase.build(context)
-        }
+    @[Provides Singleton]
+    fun provideSearchHistoryDao(starWarsDatabase: StarWarsDatabase): SearchHistoryDao {
+        return starWarsDatabase.searchHistoryDao
+    }
 
-        @[Provides Singleton]
-        fun provideSearchHistoryDao(starWarsDatabase: StarWarsDatabase): SearchHistoryDao {
-            return starWarsDatabase.searchHistoryDao
-        }
-
-        @[Provides Singleton]
-        fun provideCharacterDetailDao(starWarsDatabase: StarWarsDatabase): CharacterDetailDao {
-            return starWarsDatabase.characterDetailDao
-        }
+    @[Provides Singleton]
+    fun provideCharacterDetailDao(starWarsDatabase: StarWarsDatabase): CharacterDetailDao {
+        return starWarsDatabase.characterDetailDao
     }
 }
