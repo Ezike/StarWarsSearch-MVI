@@ -8,8 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
-@Module
+@[Module InstallIn(SingletonComponent::class)]
 internal object RemoteModule {
 
     val provideMoshi: Moshi

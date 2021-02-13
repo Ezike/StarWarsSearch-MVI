@@ -11,8 +11,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
-@Module
+@[Module InstallIn(SingletonComponent::class)]
 internal object CacheModule {
     @[Provides Singleton]
     fun provideDatabase(@ApplicationContext context: Context): StarWarsDatabase {
