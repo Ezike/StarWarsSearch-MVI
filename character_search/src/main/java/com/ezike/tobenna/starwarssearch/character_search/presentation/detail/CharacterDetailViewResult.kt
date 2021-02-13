@@ -1,9 +1,9 @@
 package com.ezike.tobenna.starwarssearch.character_search.presentation.detail
 
-import com.ezike.tobenna.starwarssearch.domain.model.Character
-import com.ezike.tobenna.starwarssearch.domain.model.Film
-import com.ezike.tobenna.starwarssearch.domain.model.Planet
-import com.ezike.tobenna.starwarssearch.domain.model.Specie
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Film
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Planet
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Specie
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewResult
 
 sealed class CharacterDetailViewResult : ViewResult {

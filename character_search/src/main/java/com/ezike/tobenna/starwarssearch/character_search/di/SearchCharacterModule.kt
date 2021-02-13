@@ -9,7 +9,6 @@ import com.ezike.tobenna.starwarssearch.character_search.presentation.search.Sea
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.components.ViewModelComponent
 
 @InstallIn(ViewModelComponent::class)

@@ -1,6 +1,6 @@
 package com.ezike.tobenna.starwarssearch.presentation.mvi.base
 
-interface ViewIntent
-object NoOpIntent : ViewIntent
+public interface ViewIntent
+internal object NoOpIntent : ViewIntent
 
-typealias DispatchIntent = (ViewIntent) -> Unit
+public typealias DispatchIntent = (ViewIntent) -> Unit

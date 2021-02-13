@@ -6,10 +6,10 @@ import com.ezike.tobenna.starwarssearch.character_search.mapper.FilmModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.mapper.PlanetModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.mapper.SpecieModelMapper
 import com.ezike.tobenna.starwarssearch.core.ext.errorMessage
-import com.ezike.tobenna.starwarssearch.domain.model.Character
-import com.ezike.tobenna.starwarssearch.domain.model.Film
-import com.ezike.tobenna.starwarssearch.domain.model.Planet
-import com.ezike.tobenna.starwarssearch.domain.model.Specie
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Film
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Planet
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Specie
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test

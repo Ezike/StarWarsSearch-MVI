@@ -25,7 +25,6 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
 class CharacterDetailComponentManager @AssistedInject constructor(
     stateMachine: CharacterDetailViewStateMachine.Factory,
     @Assisted character: CharacterModel
@@ -33,7 +32,6 @@ class CharacterDetailComponentManager @AssistedInject constructor(
 
     @AssistedFactory
     interface Creator : AssistedCreator<CharacterModel, CharacterDetailComponentManager>
-
 }
 
 data class LoadCharacterDetailIntent(val character: CharacterModel) : ViewIntent

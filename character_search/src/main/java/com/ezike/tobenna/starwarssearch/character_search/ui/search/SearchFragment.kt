@@ -15,7 +15,6 @@ import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchResu
 import com.ezike.tobenna.starwarssearch.core.ext.lazyText
 import com.ezike.tobenna.starwarssearch.core.ext.onBackPress
 import com.ezike.tobenna.starwarssearch.core.ext.viewScope
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -24,8 +23,6 @@ import javax.inject.Inject
 class CharacterSearchComponentManager @Inject constructor(
     searchStateMachine: SearchStateMachine
 ) : SearchComponentManager(searchStateMachine)
-
-object LoadSearchHistory : ViewIntent
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search) {

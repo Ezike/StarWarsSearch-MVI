@@ -1,6 +1,6 @@
 package com.ezike.tobenna.starwarssearch.core.executor
 
-import com.ezike.tobenna.starwarssearch.domain.executor.PostExecutionThread
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.executor.PostExecutionThread
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject

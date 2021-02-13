@@ -1,11 +1,11 @@
 package com.ezike.tobenna.starwarssearch.presentation.mvi.base
 
-interface MVIPresenter<SC : ScreenState> {
-    fun <VS : ViewState> subscribe(
+public interface MVIPresenter<SC : ScreenState> {
+    public fun <VS : ViewState> subscribe(
         component: Subscriber<VS>,
         transform: StateTransform<SC, VS>
     )
-    fun <VS : ViewState> subscribe(
+    public fun <VS : ViewState> subscribe(
         component: Subscriber<VS>
     )
 }

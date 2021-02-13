@@ -3,7 +3,7 @@ package com.ezike.tobenna.starwarssearch.character_search.presentation.search
 import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchViewResult.SearchCharacterResult
-import com.ezike.tobenna.starwarssearch.domain.model.Character
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
 import com.ezike.tobenna.starwarssearch.testutils.ERROR_MSG
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runBlockingTest

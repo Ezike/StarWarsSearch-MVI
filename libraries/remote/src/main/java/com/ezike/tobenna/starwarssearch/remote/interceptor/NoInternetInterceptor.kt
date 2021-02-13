@@ -8,7 +8,7 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import kotlin.reflect.KClass
 
-object NoInternetInterceptor : Interceptor {
+internal object NoInternetInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
 

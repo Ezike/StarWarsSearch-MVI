@@ -35,7 +35,6 @@ class SpecieView(
                 specieErrorState.setCaption(state.errorMessage)
             }
         }
-
     }
 }
 

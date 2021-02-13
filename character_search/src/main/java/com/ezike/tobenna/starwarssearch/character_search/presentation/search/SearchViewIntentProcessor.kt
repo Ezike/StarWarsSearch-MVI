@@ -4,15 +4,11 @@ import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMa
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchIntentProcessor
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchViewResult.SearchCharacterResult
-import com.ezike.tobenna.starwarssearch.character_search.ui.search.LoadSearchHistory
-import com.ezike.tobenna.starwarssearch.character_search.views.search.RetrySearchIntent
-import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchIntent
-import com.ezike.tobenna.starwarssearch.character_search.views.search.UpdateHistoryIntent
-import com.ezike.tobenna.starwarssearch.domain.model.Character
-import com.ezike.tobenna.starwarssearch.domain.usecase.search.SearchCharacters
-import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.ClearSearchHistory
-import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.GetSearchHistory
-import com.ezike.tobenna.starwarssearch.domain.usecase.searchhistory.SaveSearch
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.search.SearchCharacters
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.searchhistory.ClearSearchHistory
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.searchhistory.GetSearchHistory
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.searchhistory.SaveSearch
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.InvalidViewIntentException
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
 import kotlinx.coroutines.flow.Flow
@@ -22,8 +18,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
-import com.ezike.tobenna.starwarssearch.character_search.views.search.ClearSearchHistoryIntent as ClearSearchHistoryIntent
-import com.ezike.tobenna.starwarssearch.character_search.views.search.SaveSearchIntent as SaveSearchIntent
 
 class SearchViewIntentProcessor @Inject constructor(
     private val searchCharacters: SearchCharacters,

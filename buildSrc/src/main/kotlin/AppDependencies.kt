@@ -3,13 +3,13 @@ import Dependencies.View.Version.fragment
 const val kotlinAndroid: String = "android"
 const val kotlinKapt: String = "kapt"
 const val ktLintVersion: String = "0.38.0"
-const val kotlinVersion = "1.4.30-RC"
+const val kotlinVersion = "1.4.30"
 
 object Config {
     object Version {
         const val minSdkVersion: Int = 21
-        const val compileSdkVersion: Int = 29
-        const val targetSdkVersion: Int = 29
+        const val compileSdkVersion: Int = 30
+        const val targetSdkVersion: Int = 30
         const val versionName: String = "1.0"
         const val versionCode: Int = 1
     }
@@ -108,8 +108,8 @@ object Dependencies {
         private const val okhttp: String = "com.squareup.okhttp3:okhttp:${Version.okhttp}"
         private const val loggingInterceptor: String =
             "com.squareup.okhttp3:logging-interceptor:${Version.okhttp}"
-        private const val retrofit: String = "com.squareup.retrofit2:retrofit:${Version.retrofit}"
-        private const val retrofitMoshi: String =
+        const val retrofit: String = "com.squareup.retrofit2:retrofit:${Version.retrofit}"
+        const val retrofitMoshi: String =
             "com.squareup.retrofit2:converter-moshi:${Version.retrofit}"
         const val moshi: String = "com.squareup.moshi:moshi-kotlin:${Version.moshi}"
 
@@ -125,7 +125,7 @@ object Dependencies {
     object DI {
         object Version {
             const val javaxInject: String = "1"
-            const val daggerHilt: String = "2.31-alpha"
+            const val daggerHilt: String = "2.31.2-alpha"
             const val hiltViewModel: String = "1.0.0-alpha02"
         }
 
@@ -189,7 +189,7 @@ object Dependencies {
             const val espresso: String = "3.3.0-rc03"
             const val truth: String = "1.0.1"
             const val mockWebServer: String = "4.7.2"
-            const val robolectric: String = "4.3.1"
+            const val robolectric: String = "4.5.1"
             const val archCoreTest: String = "1.1.1"
         }
 
@@ -216,10 +216,9 @@ object ProjectLib {
     const val core: String = ":core"
     const val presentation: String = ":presentation"
     const val presentationAndroid: String = ":presentation-android"
-    const val domain: String = ":libraries:domain"
-    const val data: String = ":libraries:data"
     const val remote: String = ":libraries:remote"
     const val cache: String = ":libraries:cache"
     const val testUtils: String = ":libraries:testUtils"
     const val characterSearch: String = ":character_search"
+    const val libCharacterSearch: String = ":lib_character_search"
 }

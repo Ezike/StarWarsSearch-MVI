@@ -1,7 +1,7 @@
 package com.ezike.tobenna.starwarssearch.character_search.mapper
 
 import com.ezike.tobenna.starwarssearch.character_search.model.FilmModel
-import com.ezike.tobenna.starwarssearch.domain.model.Film
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Film
 import com.ezike.tobenna.starwarssearch.presentation.mapper.ModelMapper
 import javax.inject.Inject
 

@@ -6,7 +6,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import java.lang.reflect.ParameterizedType
 
-class TypeConverter {
+internal class TypeConverter {
 
     private val moshi: Moshi = Moshi.Builder().build()
 

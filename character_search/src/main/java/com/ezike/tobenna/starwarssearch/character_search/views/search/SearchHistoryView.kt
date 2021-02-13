@@ -3,15 +3,13 @@ package com.ezike.tobenna.starwarssearch.character_search.views.search
 import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.databinding.LayoutSearchHistoryBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.ClearSearchHistoryIntent
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.UpdateHistoryIntent
 import com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter.SearchHistoryAdapter
 import com.ezike.tobenna.starwarssearch.core.ext.init
 import com.ezike.tobenna.starwarssearch.core.ext.show
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
-
-object ClearSearchHistoryIntent : ViewIntent
-data class UpdateHistoryIntent(val character: CharacterModel) : ViewIntent
 
 class SearchHistoryView(
     private val binding: LayoutSearchHistoryBinding,

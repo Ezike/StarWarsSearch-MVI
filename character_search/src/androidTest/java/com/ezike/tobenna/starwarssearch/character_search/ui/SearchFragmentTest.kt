@@ -10,7 +10,6 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.core.di.ExecutorModule
-import com.ezike.tobenna.starwarssearch.data.di.DataModule
 import com.ezike.tobenna.starwarssearch.remote.di.RemoteModule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -21,7 +20,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @UninstallModules(
-    DataModule::class,
     ExecutorModule::class,
     RemoteModule::class
 )
