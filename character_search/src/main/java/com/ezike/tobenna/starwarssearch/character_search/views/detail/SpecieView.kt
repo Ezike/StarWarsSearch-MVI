@@ -26,14 +26,11 @@ class SpecieView(
     override fun render(state: SpecieViewState) {
         specieAdapter.submitList(state.species)
         binding.run {
-            root.isVisible = state.isVisible
-            if (state.isVisible) {
-                emptyView.isVisible =
-                    state.species.isEmpty() && !state.isLoading && state.errorMessage == null
-                specieLoadingView.root.isVisible = state.isLoading
-                specieErrorState.isVisible = state.errorMessage != null
-                specieErrorState.setCaption(state.errorMessage)
-            }
+            binding.specieList.isVisible = state.showSpecies
+            emptyView.isVisible = state.showEmpty
+            specieLoadingView.root.isVisible = state.isLoading
+            specieErrorState.isVisible = state.showError
+            specieErrorState.setCaption(state.errorMessage)
         }
     }
 }
@@ -41,8 +38,10 @@ class SpecieView(
 data class SpecieViewState private constructor(
     val species: List<SpecieModel> = emptyList(),
     val errorMessage: String? = null,
-    val isLoading: Boolean = true,
-    val isVisible: Boolean = true
+    val isLoading: Boolean = false,
+    val showEmpty: Boolean = false,
+    val showError: Boolean = false,
+    val showSpecies: Boolean = false
 ) : ViewState {
 
     inline fun state(transform: Factory.() -> SpecieViewState): SpecieViewState =
@@ -57,23 +56,37 @@ data class SpecieViewState private constructor(
             return this
         }
 
-        val init: SpecieViewState
+        val Init: SpecieViewState
             get() = SpecieViewState()
 
-        val loading: SpecieViewState
-            get() = state.copy(isLoading = true, isVisible = true, errorMessage = null)
+        val Loading: SpecieViewState
+            get() = state.copy(
+                isLoading = true,
+                showEmpty = false,
+                showError = false,
+                showSpecies = false,
+                errorMessage = null
+            )
 
-        val hide: SpecieViewState
-            get() = state.copy(isLoading = false, isVisible = false, errorMessage = null)
+        val Hide: SpecieViewState
+            get() = SpecieViewState()
 
-        fun error(message: String): SpecieViewState =
-            state.copy(isLoading = false, isVisible = true, errorMessage = message)
+        fun Error(message: String): SpecieViewState =
+            state.copy(
+                isLoading = false,
+                showEmpty = false,
+                showError = true,
+                showSpecies = false,
+                errorMessage = message
+            )
 
-        fun success(species: List<SpecieModel>): SpecieViewState =
+        fun DataLoaded(species: List<SpecieModel>): SpecieViewState =
             state.copy(
                 species = species,
                 isLoading = false,
-                isVisible = true,
+                showEmpty = species.isEmpty(),
+                showSpecies = species.isNotEmpty(),
+                showError = false,
                 errorMessage = null
             )
     }

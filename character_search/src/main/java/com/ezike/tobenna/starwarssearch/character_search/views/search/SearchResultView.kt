@@ -30,10 +30,10 @@ class SearchResultView(
     }
 
     override fun render(state: SearchResultViewState) {
-        searchResultAdapter.submitList(state.characters)
+        searchResultAdapter.submitList(state.searchResult)
         binding.run {
-            charactersRv.show = state.showRv
-            progressBar.isVisible = state.showLoading
+            charactersRv.show = state.showResult
+            progressBar.isVisible = state.showProgress
             emptyState.isVisible = state.showEmpty
             errorState.isVisible = state.showError
             errorState.setCaption(state.error)
@@ -42,26 +42,16 @@ class SearchResultView(
 }
 
 data class SearchResultViewState private constructor(
-    val characters: List<CharacterModel> = emptyList(),
-    val isSearching: Boolean = false,
-    val isVisible: Boolean = false,
+    val searchResult: List<CharacterModel> = emptyList(),
+    val showProgress: Boolean = false,
+    val showEmpty: Boolean = false,
+    val showResult: Boolean = false,
+    val showError: Boolean = false,
     val error: String? = null
 ) : ViewState {
 
     inline fun state(transform: Factory.() -> SearchResultViewState): SearchResultViewState =
         transform(Factory(this))
-
-    val showRv: Boolean
-        get() = isVisible && characters.isNotEmpty()
-
-    val showLoading: Boolean
-        get() = isVisible && characters.isEmpty() && isSearching
-
-    val showEmpty: Boolean
-        get() = isVisible && !isSearching && error == null && characters.isEmpty()
-
-    val showError: Boolean
-        get() = isVisible && !isSearching && error != null
 
     companion object Factory {
 
@@ -72,24 +62,38 @@ data class SearchResultViewState private constructor(
             return this
         }
 
-        val init: SearchResultViewState
+        val Initial: SearchResultViewState
             get() = SearchResultViewState()
 
-        val hide: SearchResultViewState
+        val Hide: SearchResultViewState
             get() = SearchResultViewState()
 
-        val searching: SearchResultViewState
-            get() = state.copy(isVisible = true, error = null, isSearching = true)
-
-        fun error(message: String): SearchResultViewState =
-            state.copy(
-                isVisible = true,
-                error = message,
-                isSearching = false,
-                characters = emptyList()
+        val Searching: SearchResultViewState
+            get() = state.copy(
+                showProgress = state.searchResult.isEmpty(),
+                showEmpty = false,
+                showResult = state.searchResult.isNotEmpty(),
+                showError = false,
+                error = null
             )
 
-        fun success(characters: List<CharacterModel>): SearchResultViewState =
-            state.copy(characters = characters, isVisible = true, error = null, isSearching = false)
+        fun Error(message: String): SearchResultViewState =
+            state.copy(
+                showProgress = false,
+                showEmpty = false,
+                showResult = false,
+                showError = true,
+                error = message
+            )
+
+        fun ResultLoaded(characters: List<CharacterModel>): SearchResultViewState =
+            state.copy(
+                searchResult = characters,
+                showProgress = false,
+                showEmpty = characters.isEmpty(),
+                showResult = characters.isNotEmpty(),
+                showError = false,
+                error = null
+            )
     }
 }

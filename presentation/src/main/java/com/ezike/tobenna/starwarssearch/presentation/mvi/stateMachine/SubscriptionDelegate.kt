@@ -27,7 +27,7 @@ internal class SubscriptionDelegate(
                         Subscription(action.subscriber, action.transform)
                     subscribers += subscription
                     subscription.updateState(cachedState)
-                    subscription.registerIntents(action.dispatchIntent)
+                    subscription.onIntentDispatch(action.onIntent)
                 }
                 is SubscriberAction.UpdateState -> {
                     cachedState = action.state
@@ -75,7 +75,7 @@ internal class SubscriptionDelegate(
         data class Subscribe(
             val subscriber: Subscriber<ViewState>,
             val transform: StateTransform<ScreenState, ViewState>,
-            val dispatchIntent: DispatchIntent
+            val onIntent: DispatchIntent
         ) : SubscriberAction()
 
         data class UpdateState(val state: ScreenState) : SubscriberAction()

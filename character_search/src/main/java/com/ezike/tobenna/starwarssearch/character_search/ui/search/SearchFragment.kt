@@ -2,6 +2,7 @@ package com.ezike.tobenna.starwarssearch.character_search.ui.search
 
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ezike.tobenna.starwarssearch.character_search.R
@@ -37,7 +38,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         val binding = FragmentSearchBinding.bind(view)
 
-        handleBackPress(binding)
+        handleBackPress(binding.searchBar)
 
         componentManager.run {
             subscribe(SearchBarView(binding.searchBar, viewScope))
@@ -59,10 +60,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
-    private fun handleBackPress(binding: FragmentSearchBinding) {
+    private fun handleBackPress(editText: EditText) {
         onBackPress {
-            if (binding.searchBar.text.isNotEmpty()) {
-                binding.searchBar.text.clear()
+            if (editText.text.isNotEmpty()) {
+                editText.text.clear()
             } else {
                 requireActivity().finish()
             }

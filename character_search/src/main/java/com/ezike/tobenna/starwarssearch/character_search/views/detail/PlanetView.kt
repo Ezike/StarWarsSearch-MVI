@@ -30,18 +30,15 @@ class PlanetView(
 
     override fun render(state: PlanetViewState) {
         binding.run {
-            root.isVisible = state.isVisible
-            if (state.isVisible) {
-                planetCardView.isVisible = !state.isLoading && state.errorMessage == null
-                planetLoadingView.root.isVisible = state.isLoading
-                planetErrorState.isVisible = state.errorMessage != null
-                planetErrorState.setCaption(state.errorMessage)
-                if (state.planet != null) {
-                    planetName.text =
-                        root.context.getString(R.string.planet_name, state.planet.name)
-                    planetPopulation.text = getPopulation(state.planet.population)
-                }
+            planetView.isVisible = state.showPlanet
+            if (state.planet != null) {
+                planetName.text =
+                    root.context.getString(R.string.planet_name, state.planet.name)
+                planetPopulation.text = getPopulation(state.planet.population)
             }
+            planetLoadingView.root.isVisible = state.isLoading
+            planetErrorState.isVisible = state.showError
+            planetErrorState.setCaption(state.errorMessage)
         }
     }
 }
@@ -49,8 +46,9 @@ class PlanetView(
 data class PlanetViewState private constructor(
     val planet: PlanetModel? = null,
     val errorMessage: String? = null,
-    val isLoading: Boolean = true,
-    val isVisible: Boolean = true
+    val isLoading: Boolean = false,
+    val showError: Boolean = false,
+    val showPlanet: Boolean = false
 ) : ViewState {
 
     inline fun state(transform: Factory.() -> PlanetViewState): PlanetViewState =
@@ -65,24 +63,37 @@ data class PlanetViewState private constructor(
             return this
         }
 
-        val init: PlanetViewState
+        val Init: PlanetViewState
             get() = PlanetViewState()
 
-        val loading: PlanetViewState
-            get() = state.copy(isLoading = true, isVisible = true, errorMessage = null)
+        val Loading: PlanetViewState
+            get() = state.copy(
+                planet = null,
+                errorMessage = null,
+                isLoading = true,
+                showError = false,
+                showPlanet = false
+            )
 
-        val hide: PlanetViewState
-            get() = state.copy(isLoading = false, isVisible = false, errorMessage = null)
+        val Hide: PlanetViewState
+            get() = PlanetViewState()
 
-        fun error(message: String): PlanetViewState =
-            state.copy(isLoading = false, isVisible = true, errorMessage = message)
+        fun Error(message: String): PlanetViewState =
+            state.copy(
+                planet = null,
+                errorMessage = message,
+                isLoading = false,
+                showError = true,
+                showPlanet = false
+            )
 
-        fun success(planet: PlanetModel): PlanetViewState =
+        fun Success(planet: PlanetModel): PlanetViewState =
             state.copy(
                 planet = planet,
+                errorMessage = null,
                 isLoading = false,
-                isVisible = true,
-                errorMessage = null
+                showError = false,
+                showPlanet = true
             )
     }
 }

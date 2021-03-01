@@ -3,7 +3,7 @@ package com.ezike.tobenna.starwarssearch.character_search.presentation.search
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchIntentProcessor
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchViewResult.SearchCharacterResult
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchScreenResult.SearchCharacterResult
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.search.SearchCharacters
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.searchhistory.ClearSearchHistory
@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
-class SearchViewIntentProcessor @Inject constructor(
+class SearchScreenIntentProcessor @Inject constructor(
     private val searchCharacters: SearchCharacters,
     private val saveSearch: SaveSearch,
     private val getSearchHistory: GetSearchHistory,
@@ -27,7 +27,7 @@ class SearchViewIntentProcessor @Inject constructor(
     private val modelMapper: CharacterModelMapper
 ) : SearchIntentProcessor {
 
-    override fun intentToResult(viewIntent: ViewIntent): Flow<SearchViewResult> {
+    override fun intentToResult(viewIntent: ViewIntent): Flow<SearchScreenResult> {
         return when (viewIntent) {
             is SearchIntent -> executeSearch(viewIntent.query)
             is SaveSearchIntent -> cacheCharacter(viewIntent.character)
@@ -39,24 +39,24 @@ class SearchViewIntentProcessor @Inject constructor(
         }
     }
 
-    private fun clearCache(): Flow<SearchViewResult.LoadedHistory> {
+    private fun clearCache(): Flow<SearchScreenResult.LoadedHistory> {
         return flow {
             clearSearchHistory()
-            emit(SearchViewResult.LoadedHistory(emptyList()))
+            emit(SearchScreenResult.LoadedHistory(emptyList()))
         }.catch { error ->
             error.printStackTrace()
         }
     }
 
-    private fun cacheCharacter(character: CharacterModel): Flow<SearchViewResult> {
-        return flow<SearchViewResult> {
+    private fun cacheCharacter(character: CharacterModel): Flow<SearchScreenResult> {
+        return flow<SearchScreenResult> {
             saveSearch(modelMapper.mapToDomain(character))
         }.catch { error ->
             error.printStackTrace()
         }
     }
 
-    private fun updateCache(character: CharacterModel): Flow<SearchViewResult> {
+    private fun updateCache(character: CharacterModel): Flow<SearchScreenResult> {
         return flow {
             saveSearch(modelMapper.mapToDomain(character))
             emitAll(loadSearchHistory())
@@ -65,16 +65,16 @@ class SearchViewIntentProcessor @Inject constructor(
         }
     }
 
-    private fun loadSearchHistory(): Flow<SearchViewResult> {
+    private fun loadSearchHistory(): Flow<SearchScreenResult> {
         return getSearchHistory()
             .map { characters ->
-                SearchViewResult.LoadedHistory(characters)
+                SearchScreenResult.LoadedHistory(characters)
             }.catch { error ->
                 error.printStackTrace()
             }
     }
 
-    private fun executeSearch(query: String): Flow<SearchViewResult> {
+    private fun executeSearch(query: String): Flow<SearchScreenResult> {
         if (query.isBlank()) {
             return loadSearchHistory()
         }

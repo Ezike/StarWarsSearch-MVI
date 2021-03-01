@@ -26,14 +26,10 @@ class FilmView(
     override fun render(state: FilmViewState) {
         filmAdapter.submitList(state.films)
         binding.run {
-            root.isVisible = state.isVisible
-            if (state.isVisible) {
-                emptyView.isVisible =
-                    state.films.isEmpty() && !state.isLoading && state.errorMessage == null
-                filmLoadingView.root.isVisible = state.isLoading
-                filmErrorState.isVisible = state.errorMessage != null
-                filmErrorState.setCaption(state.errorMessage)
-            }
+            emptyView.isVisible = state.showEmpty
+            filmLoadingView.root.isVisible = state.isLoading
+            filmErrorState.isVisible = state.showError
+            filmErrorState.setCaption(state.errorMessage)
         }
     }
 }
@@ -41,8 +37,10 @@ class FilmView(
 data class FilmViewState private constructor(
     val films: List<FilmModel> = emptyList(),
     val errorMessage: String? = null,
-    val isLoading: Boolean = true,
-    val isVisible: Boolean = true
+    val isLoading: Boolean = false,
+    val showError: Boolean = false,
+    val showFilms: Boolean = false,
+    val showEmpty: Boolean = false
 ) : ViewState {
 
     inline fun state(transform: Factory.() -> FilmViewState): FilmViewState =
@@ -61,15 +59,36 @@ data class FilmViewState private constructor(
             get() = FilmViewState()
 
         val loading: FilmViewState
-            get() = state.copy(isLoading = true, isVisible = true, errorMessage = null)
+            get() = state.copy(
+                films = emptyList(),
+                errorMessage = null,
+                isLoading = true,
+                showError = false,
+                showFilms = false,
+                showEmpty = false
+            )
 
         val hide: FilmViewState
-            get() = state.copy(isLoading = false, isVisible = false, errorMessage = null)
+            get() = FilmViewState()
 
         fun error(message: String): FilmViewState =
-            state.copy(isLoading = false, isVisible = true, errorMessage = message)
+            state.copy(
+                films = emptyList(),
+                errorMessage = message,
+                isLoading = false,
+                showError = true,
+                showFilms = false,
+                showEmpty = false
+            )
 
         fun success(films: List<FilmModel>): FilmViewState =
-            state.copy(films = films, isLoading = false, isVisible = true, errorMessage = null)
+            state.copy(
+                films = films,
+                errorMessage = null,
+                isLoading = false,
+                showError = false,
+                showFilms = films.isNotEmpty(),
+                showEmpty = films.isEmpty()
+            )
     }
 }

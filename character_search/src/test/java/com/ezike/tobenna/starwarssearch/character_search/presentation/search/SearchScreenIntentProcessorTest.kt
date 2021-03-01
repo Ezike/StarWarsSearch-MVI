@@ -5,7 +5,7 @@ import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchHistoryRepository
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchRepository
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchViewResult.SearchCharacterResult
+import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchScreenResult.SearchCharacterResult
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.search.SearchCharacters
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.searchhistory.ClearSearchHistory
@@ -24,7 +24,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 import java.net.SocketTimeoutException
 
-class SearchViewIntentProcessorTest {
+class SearchScreenIntentProcessorTest {
 
     private val fakeCharacterRepository = FakeSearchRepository()
 
@@ -35,7 +35,7 @@ class SearchViewIntentProcessorTest {
     private val testPostExecutionThread = TestPostExecutionThread()
 
     private val searchViewIntentProcessor =
-        SearchViewIntentProcessor(
+        SearchScreenIntentProcessor(
             SearchCharacters(fakeCharacterRepository, testPostExecutionThread),
             SaveSearch(fakeSearchHistoryRepository, testPostExecutionThread),
             GetSearchHistory(fakeSearchHistoryRepository, testPostExecutionThread),
@@ -43,21 +43,21 @@ class SearchViewIntentProcessorTest {
             characterModelMapper
         )
 
-    private val resultRecorder: FlowRecorder<SearchViewResult> = FlowRecorder(TestCoroutineScope())
+    private val resultRecorder: FlowRecorder<SearchScreenResult> = FlowRecorder(TestCoroutineScope())
 
     @Test
     fun `check that LoadSearchHistoryIntent returns SuccessResult`() = runBlockingTest {
         val list: List<Character> = DummyData.characterList
         fakeSearchHistoryRepository.saveSearch(list.first())
         recordSearchHistoryResult(LoadSearchHistory)
-        assertThat(resultRecorder.takeAll()).containsElements(SearchViewResult.LoadedHistory(list))
+        assertThat(resultRecorder.takeAll()).containsElements(SearchScreenResult.LoadedHistory(list))
     }
 
     @Test
     fun `check that LoadSearchHistoryIntent returns EmptyResult`() = runBlockingTest {
         recordSearchHistoryResult(LoadSearchHistory)
         assertThat(resultRecorder.takeAll())
-            .containsElements(SearchViewResult.LoadedHistory(emptyList()))
+            .containsElements(SearchScreenResult.LoadedHistory(emptyList()))
     }
 
     @Test
@@ -66,7 +66,7 @@ class SearchViewIntentProcessorTest {
         fakeSearchHistoryRepository.saveSearch(list.first())
         recordSearchHistoryResult(ClearSearchHistoryIntent)
         assertThat(resultRecorder.takeAll())
-            .containsElements(SearchViewResult.LoadedHistory(emptyList()))
+            .containsElements(SearchScreenResult.LoadedHistory(emptyList()))
     }
 
     @Test
@@ -79,7 +79,7 @@ class SearchViewIntentProcessorTest {
         fakeSearchHistoryRepository.saveSearch(third)
         recordSearchHistoryResult(UpdateHistoryIntent(characterModelMapper.mapToModel(second)))
         assertThat(resultRecorder.takeAll())
-            .containsElements(SearchViewResult.LoadedHistory(listOf(second)))
+            .containsElements(SearchScreenResult.LoadedHistory(listOf(second)))
     }
 
     @Test
@@ -97,7 +97,7 @@ class SearchViewIntentProcessorTest {
         searchViewIntentProcessor.intentToResult(SearchIntent(""))
             .recordWith(resultRecorder)
         assertThat(resultRecorder.takeAll())
-            .containsElements(SearchViewResult.LoadedHistory(emptyList()))
+            .containsElements(SearchScreenResult.LoadedHistory(emptyList()))
     }
 
     @Test
@@ -108,16 +108,14 @@ class SearchViewIntentProcessorTest {
             searchViewIntentProcessor.intentToResult(SearchIntent(""))
                 .recordWith(resultRecorder)
             assertThat(resultRecorder.takeAll()).containsElements(
-                SearchViewResult.LoadedHistory(
-                    list
-                )
+                SearchScreenResult.LoadedHistory(list)
             )
         }
 
     @Test
     fun `check that SearchCharacterIntent returns ErrorResult`() {
         recordSearchResult(SearchIntent(DummyData.query), ResponseType.ERROR)
-        val results: List<SearchViewResult> = resultRecorder.takeAll()
+        val results: List<SearchScreenResult> = resultRecorder.takeAll()
         assertThat(results.map { it.javaClass })
             .containsElements(
                 SearchCharacterResult.Searching::class.java,
@@ -135,7 +133,7 @@ class SearchViewIntentProcessorTest {
             SaveSearchIntent(characterModelMapper.mapToModel(list.first()))
         ).collect()
         recordSearchHistoryResult(LoadSearchHistory)
-        assertThat(resultRecorder.takeAll()).containsElements(SearchViewResult.LoadedHistory(list))
+        assertThat(resultRecorder.takeAll()).containsElements(SearchScreenResult.LoadedHistory(list))
     }
 
     private fun recordSearchResult(intent: ViewIntent, type: ResponseType) {

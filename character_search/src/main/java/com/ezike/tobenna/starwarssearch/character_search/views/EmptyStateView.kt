@@ -81,7 +81,7 @@ class EmptyStateView : LinearLayout {
         actionBtnBounceAnim.start()
     }
 
-    fun setImage(emptyStateImageSrc: Drawable?) {
+    private fun setImage(emptyStateImageSrc: Drawable?) {
         if (emptyStateImageSrc != null) {
             binding.image.isVisible = true
             binding.image.setImageDrawable(emptyStateImageSrc)

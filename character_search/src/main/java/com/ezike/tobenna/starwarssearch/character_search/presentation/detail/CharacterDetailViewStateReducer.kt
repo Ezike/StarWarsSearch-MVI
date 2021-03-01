@@ -18,20 +18,20 @@ class CharacterDetailViewStateReducer @Inject constructor(
 ) : CharacterDetailStateReducer {
 
     override fun reduce(
-        previous: CharacterDetailViewState,
+        oldState: CharacterDetailViewState,
         result: CharacterDetailViewResult
     ): CharacterDetailViewState {
         return when (result) {
-            is CharacterDetail -> previous.translateTo {
+            is CharacterDetail -> oldState.translateTo {
                 profileState(characterModelMapper.mapToModel(result.character))
             }
-            is FetchCharacterDetailError -> previous.translateTo {
+            is FetchCharacterDetailError -> oldState.translateTo {
                 errorState(result.characterName, result.error.errorMessage)
             }
-            CharacterDetailViewResult.Retrying -> previous.translateTo { retryState }
-            is PlanetDetailViewResult -> makePlanetState(result, previous)
-            is SpecieDetailViewResult -> makeSpecieState(result, previous)
-            is FilmDetailViewResult -> makeFilmState(result, previous)
+            CharacterDetailViewResult.Retrying -> oldState.translateTo { retryState }
+            is PlanetDetailViewResult -> makePlanetState(result, oldState)
+            is SpecieDetailViewResult -> makeSpecieState(result, oldState)
+            is FilmDetailViewResult -> makeFilmState(result, oldState)
         }
     }
 
@@ -57,11 +57,11 @@ class CharacterDetailViewStateReducer @Inject constructor(
         return when (result) {
             is SpecieDetailViewResult.Success ->
                 previous.translateTo {
-                    specieState { success(specieModelMapper.mapToModelList(result.specie)) }
+                    specieState { DataLoaded(specieModelMapper.mapToModelList(result.specie)) }
                 }
             is SpecieDetailViewResult.Error ->
-                previous.translateTo { specieState { error(result.error.errorMessage) } }
-            SpecieDetailViewResult.Loading -> previous.translateTo { specieState { loading } }
+                previous.translateTo { specieState { Error(result.error.errorMessage) } }
+            SpecieDetailViewResult.Loading -> previous.translateTo { specieState { Loading } }
         }
     }
 
@@ -72,11 +72,11 @@ class CharacterDetailViewStateReducer @Inject constructor(
         return when (result) {
             is PlanetDetailViewResult.Success ->
                 previous.translateTo {
-                    planetState { success(planetModelMapper.mapToModel(result.planet)) }
+                    planetState { Success(planetModelMapper.mapToModel(result.planet)) }
                 }
             is PlanetDetailViewResult.Error ->
-                previous.translateTo { planetState { error(result.error.errorMessage) } }
-            PlanetDetailViewResult.Loading -> previous.translateTo { planetState { loading } }
+                previous.translateTo { planetState { Error(result.error.errorMessage) } }
+            PlanetDetailViewResult.Loading -> previous.translateTo { planetState { Loading } }
         }
     }
 }

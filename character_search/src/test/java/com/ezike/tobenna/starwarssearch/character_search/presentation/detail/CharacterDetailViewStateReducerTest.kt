@@ -88,7 +88,7 @@ class CharacterDetailViewStateReducerTest {
 
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {
-                    planetState { success(planetModelMapper.mapToModel(planet)) }
+                    planetState { Success(planetModelMapper.mapToModel(planet)) }
                 }
             )
         }
@@ -102,7 +102,7 @@ class CharacterDetailViewStateReducerTest {
             val viewState: CharacterDetailViewState =
                 reducer.reduce(initialState, PlanetDetailViewResult.Loading)
 
-            assertThat(viewState).isEqualTo(initialState.translateTo { planetState { loading } })
+            assertThat(viewState).isEqualTo(initialState.translateTo { planetState { Loading } })
         }
     }
 
@@ -115,7 +115,7 @@ class CharacterDetailViewStateReducerTest {
             val viewState: CharacterDetailViewState =
                 reducer.reduce(initialState, PlanetDetailViewResult.Error(error))
 
-            assertThat(viewState).isEqualTo(initialState.translateTo { planetState { error(error.errorMessage) } })
+            assertThat(viewState).isEqualTo(initialState.translateTo { planetState { Error(error.errorMessage) } })
         }
     }
 
@@ -178,7 +178,7 @@ class CharacterDetailViewStateReducerTest {
 
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {
-                    specieState { success(specieModelMapper.mapToModelList(species)) }
+                    specieState { DataLoaded(specieModelMapper.mapToModelList(species)) }
                 }
             )
         }
@@ -192,7 +192,7 @@ class CharacterDetailViewStateReducerTest {
             val viewState: CharacterDetailViewState =
                 reducer.reduce(initialState, SpecieDetailViewResult.Loading)
 
-            assertThat(viewState).isEqualTo(initialState.translateTo { specieState { loading } })
+            assertThat(viewState).isEqualTo(initialState.translateTo { specieState { Loading } })
         }
     }
 
@@ -207,7 +207,7 @@ class CharacterDetailViewStateReducerTest {
 
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {
-                    specieState { error(error.errorMessage) }
+                    specieState { Error(error.errorMessage) }
                 }
             )
         }

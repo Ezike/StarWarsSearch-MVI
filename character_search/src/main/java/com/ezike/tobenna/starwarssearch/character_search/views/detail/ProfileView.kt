@@ -6,7 +6,9 @@ import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
 
-data class ProfileViewState(val character: CharacterModel?) : ViewState
+data class ProfileViewState(
+    val character: CharacterModel?
+) : ViewState
 
 class ProfileView(private val binding: ProfileViewLayoutBinding) : UIComponent<ProfileViewState>() {
 

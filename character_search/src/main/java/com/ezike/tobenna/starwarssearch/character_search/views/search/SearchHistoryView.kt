@@ -29,19 +29,20 @@ class SearchHistoryView(
     }
 
     override fun render(state: SearchHistoryViewState) {
-        val (history: List<CharacterModel>, isVisible: Boolean) = state
-        searchHistoryAdapter.submitList(history)
+        searchHistoryAdapter.submitList(state.history)
         binding.run {
-            recentSearchGroup.isVisible = isVisible && history.isNotEmpty()
-            searchHistoryRv.show = isVisible && history.isNotEmpty()
-            searchHistoryPrompt.isVisible = isVisible && history.isEmpty()
+            recentSearchGroup.isVisible = state.showRecentSearchGroup
+            searchHistoryRv.show = state.showHistory
+            searchHistoryPrompt.isVisible = state.showHistoryPrompt
         }
     }
 }
 
 data class SearchHistoryViewState private constructor(
     val history: List<CharacterModel> = emptyList(),
-    val isVisible: Boolean = false
+    val showHistory: Boolean = false,
+    val showRecentSearchGroup: Boolean = false,
+    val showHistoryPrompt: Boolean = false
 ) : ViewState {
 
     inline fun state(transform: Factory.() -> SearchHistoryViewState): SearchHistoryViewState =
@@ -56,13 +57,18 @@ data class SearchHistoryViewState private constructor(
             return this
         }
 
-        val init: SearchHistoryViewState
+        val Initial: SearchHistoryViewState
             get() = SearchHistoryViewState()
 
-        val hide: SearchHistoryViewState
+        val Hide: SearchHistoryViewState
             get() = SearchHistoryViewState()
 
-        fun success(history: List<CharacterModel>): SearchHistoryViewState =
-            state.copy(history = history, isVisible = true)
+        fun DataLoaded(history: List<CharacterModel>): SearchHistoryViewState =
+            state.copy(
+                history = history,
+                showHistory = history.isNotEmpty(),
+                showRecentSearchGroup = history.isNotEmpty(),
+                showHistoryPrompt = history.isEmpty()
+            )
     }
 }

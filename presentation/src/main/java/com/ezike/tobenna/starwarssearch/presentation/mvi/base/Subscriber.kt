@@ -8,5 +8,5 @@ public interface Subscriber<State> {
     public var dispatchIntent: DispatchIntent
 }
 
-public val NoOpIntentDispatcher: DispatchIntent
+internal val NoOpIntentDispatcher: DispatchIntent
     get() = {}

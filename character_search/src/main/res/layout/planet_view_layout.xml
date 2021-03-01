@@ -33,7 +33,7 @@
         app:emptyStateTitleText="@string/planet_error_occurred" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/planet_card_view"
+        android:id="@+id/planet_view"
         style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

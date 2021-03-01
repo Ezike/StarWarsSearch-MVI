@@ -24,8 +24,8 @@ fun Fragment.onBackPress(onBackPressed: OnBackPressedCallback.() -> Unit) {
 
 inline var View.show: Boolean
     get() = visibility == View.VISIBLE
-    set(value) {
-        visibility = if (value) View.VISIBLE else View.INVISIBLE
+    set(shouldShow) {
+        visibility = if (shouldShow) View.VISIBLE else View.INVISIBLE
     }
 
 inline val EditText.lazyText: () -> String

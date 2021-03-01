@@ -20,11 +20,11 @@ class DetailErrorView(
     }
 
     override fun render(state: DetailErrorViewState) {
-        view.isVisible = state.isVisible
-        if (state.isVisible) {
-            view.setCaption(state.errorMessage)
-            view.setTitle(
-                view.context.getString(
+        view.run {
+            isVisible = state.showError
+            setCaption(state.errorMessage)
+            setTitle(
+                context.getString(
                     R.string.error_fetching_details,
                     state.characterName
                 )
@@ -36,7 +36,7 @@ class DetailErrorView(
 data class DetailErrorViewState private constructor(
     val characterName: String = "",
     val errorMessage: String = "",
-    val isVisible: Boolean = false
+    val showError: Boolean = false
 ) : ViewState {
 
     inline fun state(transform: Factory.() -> DetailErrorViewState): DetailErrorViewState =
@@ -46,10 +46,10 @@ data class DetailErrorViewState private constructor(
 
         private lateinit var state: DetailErrorViewState
 
-        val init: DetailErrorViewState
+        val Init: DetailErrorViewState
             get() = DetailErrorViewState()
 
-        val hide: DetailErrorViewState
+        val Hide: DetailErrorViewState
             get() = DetailErrorViewState()
 
         operator fun invoke(viewState: DetailErrorViewState): Factory {
@@ -57,11 +57,11 @@ data class DetailErrorViewState private constructor(
             return this
         }
 
-        fun show(characterName: String, errorMessage: String): DetailErrorViewState =
+        fun DisplayError(characterName: String, errorMessage: String): DetailErrorViewState =
             state.copy(
                 characterName = characterName,
                 errorMessage = errorMessage,
-                isVisible = true
+                showError = true
             )
     }
 }

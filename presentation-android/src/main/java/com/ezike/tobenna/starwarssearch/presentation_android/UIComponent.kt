@@ -2,7 +2,6 @@ package com.ezike.tobenna.starwarssearch.presentation_android
 
 import androidx.annotation.UiThread
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.DispatchIntent
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.NoOpIntentDispatcher
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.Subscriber
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
@@ -26,6 +25,9 @@ abstract class UIComponent<ComponentState : ViewState> : Subscriber<ComponentSta
         render(state)
     }
 }
+
+private val NoOpIntentDispatcher: DispatchIntent
+    get() = {}
 
 abstract class StatelessUIComponent : UIComponent<ViewState>() {
     override fun render(state: ViewState) {}
