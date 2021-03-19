@@ -61,8 +61,8 @@ public abstract class StateMachine<S : ScreenState, R : ViewResult>(
     }
 
     public fun unSubscribe() {
-        mainScope.cancel()
         unSubscribeComponents()
+        mainScope.cancel()
     }
 
     public fun unSubscribeComponents() {

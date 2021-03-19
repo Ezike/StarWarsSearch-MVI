@@ -79,6 +79,7 @@ data class SearchResultViewState private constructor(
 
         fun Error(message: String): SearchResultViewState =
             state.copy(
+                searchResult = emptyList(),
                 showProgress = false,
                 showEmpty = false,
                 showResult = false,

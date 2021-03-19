@@ -3,7 +3,10 @@ package com.ezike.tobenna.starwarssearch.presentation_android
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 
-internal inline fun <reified T> T.dispose(owner: LifecycleOwner, crossinline disposeFunction: (T) -> Unit) {
+internal inline fun <reified T> T.dispose(
+    owner: LifecycleOwner,
+    crossinline disposeFunction: (T) -> Unit
+) {
     object : DefaultLifecycleObserver {
         init {
             owner.lifecycle.removeObserver(this)
