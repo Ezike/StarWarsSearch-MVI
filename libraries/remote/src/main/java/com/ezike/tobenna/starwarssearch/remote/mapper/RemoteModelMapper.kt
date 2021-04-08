@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.remote.base
+package com.ezike.tobenna.starwarssearch.remote.mapper
 
 public interface RemoteModelMapper<in M, out E> {
 

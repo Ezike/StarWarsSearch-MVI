@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.actor
 import kotlinx.coroutines.launch
 
-internal class SubscriptionDelegate(
+internal class SubscriptionManager(
     private val scope: CoroutineScope,
     initialState: ScreenState
 ) {

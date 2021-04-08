@@ -1,6 +1,6 @@
 package com.ezike.tobenna.starwarssearch.lib_character_search.cache.impl
 
-import com.ezike.tobenna.starwarssearch.cache.entity.CharacterCacheModel
+import com.ezike.tobenna.starwarssearch.cache.model.CharacterCacheModel
 import com.ezike.tobenna.starwarssearch.cache.room.CharacterDetailDao
 import com.ezike.tobenna.starwarssearch.cache.room.SearchHistoryDao
 import com.ezike.tobenna.starwarssearch.lib_character_search.cache.mapper.CharacterCacheModelMapper

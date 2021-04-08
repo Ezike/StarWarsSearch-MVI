@@ -36,7 +36,7 @@ public abstract class StateMachine<S : ScreenState, R : ViewResult>(
         offer(initialIntent)
     }
 
-    private val subscriberDelegate = SubscriptionDelegate(mainScope, initialState)
+    private val subscriberDelegate = SubscriptionManager(mainScope, initialState)
 
     init {
         intents.receiveAsFlow()

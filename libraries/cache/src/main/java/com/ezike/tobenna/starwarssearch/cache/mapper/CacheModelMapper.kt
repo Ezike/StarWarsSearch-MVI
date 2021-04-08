@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.cache.base
+package com.ezike.tobenna.starwarssearch.cache.mapper
 
 interface CacheModelMapper<M, E> {
 

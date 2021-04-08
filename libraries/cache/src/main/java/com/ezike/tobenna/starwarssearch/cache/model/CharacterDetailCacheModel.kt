@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.cache.entity
+package com.ezike.tobenna.starwarssearch.cache.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

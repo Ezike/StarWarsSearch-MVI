@@ -1,7 +1,7 @@
 package com.ezike.tobenna.starwarssearch.lib_character_search.cache.mapper
 
-import com.ezike.tobenna.starwarssearch.cache.base.CacheModelMapper
-import com.ezike.tobenna.starwarssearch.cache.entity.CharacterCacheModel
+import com.ezike.tobenna.starwarssearch.cache.mapper.CacheModelMapper
+import com.ezike.tobenna.starwarssearch.cache.model.CharacterCacheModel
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.model.CharacterEntity
 import javax.inject.Inject
 

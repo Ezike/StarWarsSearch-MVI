@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.ezike.tobenna.starwarssearch.cache.entity.CharacterDetailCacheModel
+import com.ezike.tobenna.starwarssearch.cache.model.CharacterDetailCacheModel
 
 @Dao
 interface CharacterDetailDao {

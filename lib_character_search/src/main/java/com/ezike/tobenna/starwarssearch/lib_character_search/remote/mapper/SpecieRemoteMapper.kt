@@ -2,7 +2,7 @@ package com.ezike.tobenna.starwarssearch.lib_character_search.remote.mapper
 
 import com.ezike.tobenna.starwarssearch.lib_character_search.data.model.SpecieEntity
 import com.ezike.tobenna.starwarssearch.lib_character_search.remote.model.response.SpecieResponse
-import com.ezike.tobenna.starwarssearch.remote.base.RemoteModelMapper
+import com.ezike.tobenna.starwarssearch.remote.mapper.RemoteModelMapper
 import javax.inject.Inject
 
 internal class SpecieRemoteMapper @Inject constructor() :

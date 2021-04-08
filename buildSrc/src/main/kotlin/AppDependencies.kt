@@ -33,7 +33,7 @@ object Dependencies {
             const val coreKtx: String = "1.3.2"
             const val navigation: String = "2.3.1"
             const val multidex: String = "2.0.1"
-            const val lifeCycle: String = "2.3.0-beta01"
+            const val lifeCycle: String = "2.4.0-alpha01"
             const val activity: String = "1.2.0-beta01"
         }
 
@@ -124,8 +124,7 @@ object Dependencies {
 
     object DI {
         object Version {
-            const val javaxInject: String = "1"
-            const val daggerHilt: String = "2.31.2-alpha"
+            const val daggerHilt: String = "2.34-beta"
             const val hiltViewModel: String = "1.0.0-alpha02"
         }
 
@@ -136,7 +135,6 @@ object Dependencies {
                 "androidx.hilt:hilt-compiler:${Version.hiltViewModel}"
         }
 
-        const val javaxInject: String = "javax.inject:javax.inject:${Version.javaxInject}"
         const val daggerHiltAndroid: String =
             "com.google.dagger:hilt-android:${Version.daggerHilt}"
         const val hiltViewModel: String =

@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.ezike.tobenna.starwarssearch.cache.BuildConfig
-import com.ezike.tobenna.starwarssearch.cache.entity.CharacterCacheModel
-import com.ezike.tobenna.starwarssearch.cache.entity.CharacterDetailCacheModel
+import com.ezike.tobenna.starwarssearch.cache.model.CharacterCacheModel
+import com.ezike.tobenna.starwarssearch.cache.model.CharacterDetailCacheModel
 
 @Database(
     entities = [CharacterCacheModel::class, CharacterDetailCacheModel::class],
