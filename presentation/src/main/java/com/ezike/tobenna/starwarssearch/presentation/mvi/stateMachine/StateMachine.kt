@@ -36,7 +36,7 @@ public abstract class StateMachine<S : ScreenState, R : ViewResult>(
         offer(initialIntent)
     }
 
-    private val subscriberDelegate = SubscriptionManager(mainScope, initialState)
+    private val subscriptionManager = SubscriptionManager(mainScope, initialState)
 
     init {
         intents.receiveAsFlow()
@@ -44,7 +44,7 @@ public abstract class StateMachine<S : ScreenState, R : ViewResult>(
             .mapConfig(config, intentProcessor::intentToResult)
             .scan(initialState, reducer::reduce)
             .distinctUntilChanged()
-            .onEach(subscriberDelegate::updateState)
+            .onEach(subscriptionManager::updateState)
             .launchIn(mainScope)
     }
 
@@ -53,7 +53,7 @@ public abstract class StateMachine<S : ScreenState, R : ViewResult>(
         subscriber: Subscriber<V>,
         transform: StateTransform<S, V>
     ) {
-        subscriberDelegate.subscribe(
+        subscriptionManager.subscribe(
             subscriber as Subscriber<ViewState>,
             transform as StateTransform<ScreenState, ViewState>,
             intents::offer
@@ -66,6 +66,6 @@ public abstract class StateMachine<S : ScreenState, R : ViewResult>(
     }
 
     public fun unSubscribeComponents() {
-        subscriberDelegate.unSubscribe()
+        subscriptionManager.unSubscribe()
     }
 }
