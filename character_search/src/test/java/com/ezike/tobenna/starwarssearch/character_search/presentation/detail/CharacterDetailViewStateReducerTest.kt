@@ -15,6 +15,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 import java.net.SocketTimeoutException
 
+// TODO: redo this test
 class CharacterDetailViewStateReducerTest {
 
     private val planetModelMapper: PlanetModelMapper = PlanetModelMapper()
