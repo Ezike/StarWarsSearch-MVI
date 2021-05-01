@@ -39,7 +39,7 @@ class CharacterDetailViewStateReducerTest {
                 reducer.reduce(initialState, CharacterDetailViewResult.CharacterDetail(character))
 
             assertThat(viewState).isEqualTo(
-                initialState.translateTo { profileState(characterModelMapper.mapToModel(character)) }
+                initialState.translateTo { initialState(characterModelMapper.mapToModel(character)) }
             )
         }
     }

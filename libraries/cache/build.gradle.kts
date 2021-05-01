@@ -11,10 +11,10 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Config.Version.compileSdkVersion)
+    compileSdk = Config.Version.compileSdkVersion
     defaultConfig {
-        minSdkVersion(Config.Version.minSdkVersion)
-        targetSdkVersion(Config.Version.targetSdkVersion)
+        minSdk = Config.Version.minSdkVersion
+        targetSdk = Config.Version.targetSdkVersion
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -32,7 +32,6 @@ android {
     buildTypes {
         named(BuildType.DEBUG) {
             isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
-            versionNameSuffix = BuildTypeDebug.versionNameSuffix
         }
     }
 }

@@ -21,7 +21,7 @@ object Plugin {
     object Version {
         const val spotless: String = "5.1.2"
         const val kotlin: String = "1.4.30"
-        const val androidGradle: String = "7.0.0-alpha13"
+        const val androidGradle: String = "7.0.0-alpha15"
         const val navigation: String = "2.3.2"
         const val daggerHiltAndroid: String = "2.34-beta"
     }

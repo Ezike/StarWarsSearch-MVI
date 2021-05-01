@@ -23,7 +23,7 @@ class CharacterDetailViewStateReducer @Inject constructor(
     ): CharacterDetailViewState {
         return when (result) {
             is CharacterDetail -> oldState.translateTo {
-                profileState(characterModelMapper.mapToModel(result.character))
+                initialState(characterModelMapper.mapToModel(result.character))
             }
             is FetchCharacterDetailError -> oldState.translateTo {
                 errorState(result.characterName, result.error.errorMessage)

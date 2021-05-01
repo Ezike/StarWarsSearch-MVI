@@ -46,8 +46,10 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
             is RetryFetchPlanetIntent -> retryFetchPlanet(viewIntent.url)
             is RetryFetchSpecieIntent -> retryFetchSpecie(viewIntent.url)
             is RetryFetchFilmIntent -> retryFetchFilm(viewIntent.url)
-            is RetryFetchCharacterDetailsIntent ->
-                getCharacterInfo(viewIntent.character, CharacterDetailViewResult.Retrying)
+            is RetryFetchCharacterDetailsIntent -> getCharacterInfo(
+                viewIntent.character,
+                CharacterDetailViewResult.Retrying
+            )
             else -> throw InvalidViewIntentException(viewIntent)
         }
     }
@@ -66,7 +68,11 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
             }
             .onStart { emit(start) }
             .catch { error ->
-                emit(CharacterDetailViewResult.FetchCharacterDetailError(model.name, error))
+                emit(
+                    CharacterDetailViewResult.FetchCharacterDetailError(
+                        model.name, error
+                    )
+                )
             }
     }
 

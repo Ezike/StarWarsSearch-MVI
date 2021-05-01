@@ -31,6 +31,7 @@ class PlanetView(
     override fun render(state: PlanetViewState) {
         binding.run {
             planetView.isVisible = state.showPlanet
+            planetTitle.isVisible = state.showTitle
             if (state.planet != null) {
                 planetName.text =
                     root.context.getString(R.string.planet_name, state.planet.name)
@@ -48,7 +49,8 @@ data class PlanetViewState private constructor(
     val errorMessage: String? = null,
     val isLoading: Boolean = false,
     val showError: Boolean = false,
-    val showPlanet: Boolean = false
+    val showPlanet: Boolean = false,
+    val showTitle: Boolean = false
 ) : ViewState {
 
     inline fun state(transform: Factory.() -> PlanetViewState): PlanetViewState =
@@ -72,7 +74,8 @@ data class PlanetViewState private constructor(
                 errorMessage = null,
                 isLoading = true,
                 showError = false,
-                showPlanet = false
+                showPlanet = false,
+                showTitle = true
             )
 
         val Hide: PlanetViewState
@@ -84,7 +87,8 @@ data class PlanetViewState private constructor(
                 errorMessage = message,
                 isLoading = false,
                 showError = true,
-                showPlanet = false
+                showPlanet = false,
+                showTitle = true
             )
 
         fun Success(planet: PlanetModel): PlanetViewState =
@@ -93,7 +97,8 @@ data class PlanetViewState private constructor(
                 errorMessage = null,
                 isLoading = false,
                 showError = false,
-                showPlanet = true
+                showPlanet = true,
+                showTitle = true
             )
     }
 }

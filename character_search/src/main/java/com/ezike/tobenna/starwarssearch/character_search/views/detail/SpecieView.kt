@@ -26,7 +26,8 @@ class SpecieView(
     override fun render(state: SpecieViewState) {
         specieAdapter.submitList(state.species)
         binding.run {
-            binding.specieList.isVisible = state.showSpecies
+            specieTitle.isVisible = state.showTitle
+            specieList.isVisible = state.showSpecies
             emptyView.isVisible = state.showEmpty
             specieLoadingView.root.isVisible = state.isLoading
             specieErrorState.isVisible = state.showError
@@ -41,6 +42,7 @@ data class SpecieViewState private constructor(
     val isLoading: Boolean = false,
     val showEmpty: Boolean = false,
     val showError: Boolean = false,
+    val showTitle: Boolean = false,
     val showSpecies: Boolean = false
 ) : ViewState {
 
@@ -65,6 +67,7 @@ data class SpecieViewState private constructor(
                 showEmpty = false,
                 showError = false,
                 showSpecies = false,
+                showTitle = true,
                 errorMessage = null
             )
 
@@ -77,6 +80,7 @@ data class SpecieViewState private constructor(
                 showEmpty = false,
                 showError = true,
                 showSpecies = false,
+                showTitle = true,
                 errorMessage = message
             )
 
@@ -84,6 +88,7 @@ data class SpecieViewState private constructor(
             state.copy(
                 species = species,
                 isLoading = false,
+                showTitle = true,
                 showEmpty = species.isEmpty(),
                 showSpecies = species.isNotEmpty(),
                 showError = false,

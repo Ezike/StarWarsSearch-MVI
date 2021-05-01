@@ -51,7 +51,10 @@ internal class CharacterDetailRemoteImpl @Inject constructor(
             SpecieEntity(
                 specie.name,
                 specie.language,
-                specieMap[specie.homeworld] ?: ""
+                specieMap.getOrDefault(
+                    key = specie.homeworld,
+                    defaultValue = ""
+                )
             )
         }
     }

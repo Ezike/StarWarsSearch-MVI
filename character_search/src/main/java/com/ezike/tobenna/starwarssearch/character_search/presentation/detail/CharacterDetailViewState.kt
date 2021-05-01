@@ -30,8 +30,13 @@ data class CharacterDetailViewState private constructor(
         val init: CharacterDetailViewState
             get() = CharacterDetailViewState()
 
-        fun profileState(character: CharacterModel?): CharacterDetailViewState =
-            state.copy(character = character)
+        fun initialState(character: CharacterModel?): CharacterDetailViewState =
+            state.copy(
+                character = character,
+                planetViewState = state.planetViewState.state { Loading },
+                filmViewState = state.filmViewState.state { loading },
+                specieViewState = state.specieViewState.state { Loading }
+            )
 
         fun planetState(action: PlanetViewState.Factory.() -> PlanetViewState): CharacterDetailViewState =
             state.copy(

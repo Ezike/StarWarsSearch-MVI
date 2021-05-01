@@ -22,7 +22,7 @@ android {
     buildTypes {
         named(BuildType.DEBUG) {
             isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
-            versionNameSuffix = BuildTypeDebug.versionNameSuffix
+//            versionNameSuffix = BuildTypeDebug.versionNameSuffix
         }
     }
 }

@@ -11,6 +11,7 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewStateReducer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.Channel
@@ -29,11 +30,12 @@ public abstract class StateMachine<S : ScreenState, R : ViewResult>(
     config: Config = NoOpConfig
 ) {
 
-    private val mainScope: CoroutineScope =
-        CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    private val mainScope = CoroutineScope(
+        SupervisorJob() + Dispatchers.Main.immediate
+    )
 
-    private val intents: Channel<ViewIntent> = Channel<ViewIntent>(1).apply {
-        offer(initialIntent)
+    private val intents = Channel<ViewIntent>(capacity = 1).apply {
+        trySend(initialIntent)
     }
 
     private val subscriptionManager = SubscriptionManager(mainScope, initialState)
@@ -45,7 +47,11 @@ public abstract class StateMachine<S : ScreenState, R : ViewResult>(
             .scan(initialState, reducer::reduce)
             .distinctUntilChanged()
             .onEach(subscriptionManager::updateState)
-            .launchIn(mainScope)
+            .launchIn(
+                CoroutineScope(
+                    mainScope.coroutineContext[Job]!! + Dispatchers.IO
+                )
+            )
     }
 
     @Suppress("UNCHECKED_CAST")

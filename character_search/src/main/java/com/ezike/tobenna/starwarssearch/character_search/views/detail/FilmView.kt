@@ -26,6 +26,7 @@ class FilmView(
     override fun render(state: FilmViewState) {
         filmAdapter.submitList(state.films)
         binding.run {
+            filmTitle.isVisible = state.showTitle
             emptyView.isVisible = state.showEmpty
             filmLoadingView.root.isVisible = state.isLoading
             filmErrorState.isVisible = state.showError
@@ -40,6 +41,7 @@ data class FilmViewState private constructor(
     val isLoading: Boolean = false,
     val showError: Boolean = false,
     val showFilms: Boolean = false,
+    val showTitle: Boolean = false,
     val showEmpty: Boolean = false
 ) : ViewState {
 
@@ -65,7 +67,8 @@ data class FilmViewState private constructor(
                 isLoading = true,
                 showError = false,
                 showFilms = false,
-                showEmpty = false
+                showEmpty = false,
+                showTitle = true
             )
 
         val hide: FilmViewState
@@ -78,7 +81,8 @@ data class FilmViewState private constructor(
                 isLoading = false,
                 showError = true,
                 showFilms = false,
-                showEmpty = false
+                showEmpty = false,
+                showTitle = true
             )
 
         fun success(films: List<FilmModel>): FilmViewState =
@@ -87,6 +91,7 @@ data class FilmViewState private constructor(
                 errorMessage = null,
                 isLoading = false,
                 showError = false,
+                showTitle = true,
                 showFilms = films.isNotEmpty(),
                 showEmpty = films.isEmpty()
             )

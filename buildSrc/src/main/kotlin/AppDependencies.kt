@@ -96,7 +96,7 @@ object Dependencies {
 
     object Network : Libraries {
         object Version {
-            const val okhttp: String = "4.7.2"
+            const val okhttp: String = "5.0.0-alpha.2"
             const val retrofit: String = "2.9.0"
             const val moshi: String = "1.9.2"
         }
@@ -146,7 +146,7 @@ object Dependencies {
 
     object Coroutines : Libraries {
         object Version {
-            const val coroutines: String = "1.4.0-M1"
+            const val coroutines: String = "1.5.0-RC"
         }
 
         const val core: String =
