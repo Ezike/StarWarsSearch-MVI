@@ -30,11 +30,11 @@ interface Libraries {
 object Dependencies {
     object AndroidX : Libraries {
         object Version {
-            const val coreKtx: String = "1.3.2"
-            const val navigation: String = "2.3.1"
+            const val coreKtx: String = "1.5.0"
+            const val navigation: String = "2.3.5"
             const val multidex: String = "2.0.1"
             const val lifeCycle: String = "2.4.0-alpha01"
-            const val activity: String = "1.2.0-beta01"
+            const val activity: String = "1.3.0-alpha08"
         }
 
         const val coreKtx: String = "androidx.core:core-ktx:${Version.coreKtx}"
@@ -65,11 +65,11 @@ object Dependencies {
         object Version {
             const val materialComponent: String = "1.2.0-alpha04"
             const val shimmerLayout: String = "0.5.0"
-            const val appCompat: String = "1.2.0-rc01"
+            const val appCompat: String = "1.4.0-alpha01"
             const val constraintLayout: String = "2.0.0"
-            const val fragment: String = "1.2.5"
+            const val fragment: String = "1.4.0-alpha01"
             const val cardView: String = "1.0.0"
-            const val recyclerView: String = "1.1.0"
+            const val recyclerView: String = "1.2.0"
         }
 
         const val appCompat: String = "androidx.appcompat:appcompat:${Version.appCompat}"
@@ -125,20 +125,20 @@ object Dependencies {
     object DI {
         object Version {
             const val daggerHilt: String = "2.36"
-            const val hiltViewModel: String = "1.0.0-alpha02"
+            const val androidxHilt: String = "1.0.0-alpha02"
         }
 
         object AnnotationProcessor {
             const val daggerHilt: String =
                 "com.google.dagger:hilt-compiler:${Version.daggerHilt}"
-            const val jetpackHiltCompiler: String =
-                "androidx.hilt:hilt-compiler:${Version.hiltViewModel}"
+            const val androidxHiltCompiler: String =
+                "androidx.hilt:hilt-compiler:${Version.androidxHilt}"
         }
 
         const val daggerHiltAndroid: String =
             "com.google.dagger:hilt-android:${Version.daggerHilt}"
         const val hiltViewModel: String =
-            "androidx.hilt:hilt-lifecycle-viewmodel:${Version.hiltViewModel}"
+            "androidx.hilt:hilt-lifecycle-viewmodel:${Version.androidxHilt}"
         const val hiltTesting: String =
             "com.google.dagger:hilt-android-testing:${Version.daggerHilt}"
         const val hiltCore: String = "com.google.dagger:hilt-core:${Version.daggerHilt}"
@@ -146,7 +146,7 @@ object Dependencies {
 
     object Coroutines : Libraries {
         object Version {
-            const val coroutines: String = "1.5.0-RC"
+            const val coroutines: String = "1.5.0"
         }
 
         const val core: String =
@@ -159,7 +159,7 @@ object Dependencies {
 
     object Cache {
         object Version {
-            const val room: String = "2.2.5"
+            const val room: String = "2.3.0"
         }
 
         object AnnotationProcessor {

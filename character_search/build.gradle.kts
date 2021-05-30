@@ -87,7 +87,7 @@ dependencies {
     implementAll(Coroutines.components)
 
     kapt(DI.AnnotationProcessor.daggerHilt)
-    kapt(DI.AnnotationProcessor.jetpackHiltCompiler)
+    kapt(DI.AnnotationProcessor.androidxHiltCompiler)
 
     androidTestImplementation(project(remote))
     androidTestImplementation(DI.hiltTesting)
@@ -101,5 +101,5 @@ dependencies {
     androidTestImplementation(Test.androidXTest)
 
     kaptAndroidTest(DI.AnnotationProcessor.daggerHilt)
-    kaptAndroidTest(DI.AnnotationProcessor.jetpackHiltCompiler)
+    kaptAndroidTest(DI.AnnotationProcessor.androidxHiltCompiler)
 }

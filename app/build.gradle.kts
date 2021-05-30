@@ -37,13 +37,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-//    buildTypes {
-//        named(BuildType.DEBUG) {
-//            isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
-//            applicationIdSuffix = BuildTypeDebug.applicationIdSuffix
-//            versionNameSuffix = BuildTypeDebug.versionNameSuffix
-//        }
-//    }
+    buildTypes {
+        named(BuildType.DEBUG) {
+            isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
+            applicationIdSuffix = BuildTypeDebug.applicationIdSuffix
+            versionNameSuffix = BuildTypeDebug.versionNameSuffix
+        }
+    }
 }
 
 dependencies {
@@ -73,5 +73,5 @@ dependencies {
     }
 
     kapt(DI.AnnotationProcessor.daggerHilt)
-    kapt(DI.AnnotationProcessor.jetpackHiltCompiler)
+    kapt(DI.AnnotationProcessor.androidxHiltCompiler)
 }

@@ -20,7 +20,6 @@ subprojects {
     tasks.withType<KotlinCompile>().configureEach {
         with(kotlinOptions) {
             jvmTarget = JavaVersion.VERSION_1_8.toString()
-            useIR = true
             languageVersion = "1.5"
             apiVersion = "1.5"
             freeCompilerArgs += "-Xuse-experimental=" +
