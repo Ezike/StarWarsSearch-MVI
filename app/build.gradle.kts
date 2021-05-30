@@ -23,9 +23,9 @@ plugins {
 android {
     defaultConfig {
         applicationId = Config.Android.applicationId
-        minSdkVersion(Config.Version.minSdkVersion)
-        compileSdkVersion(Config.Version.compileSdkVersion)
-        targetSdkVersion(Config.Version.targetSdkVersion)
+        minSdk = Config.Version.minSdkVersion
+        compileSdk = Config.Version.compileSdkVersion
+        targetSdk = Config.Version.targetSdkVersion
         versionCode = Config.Version.versionCode
         versionName = Config.Version.versionName
         multiDexEnabled = Config.isMultiDexEnabled
@@ -37,13 +37,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    buildTypes {
-        named(BuildType.DEBUG) {
-            isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
-            applicationIdSuffix = BuildTypeDebug.applicationIdSuffix
-            versionNameSuffix = BuildTypeDebug.versionNameSuffix
-        }
-    }
+//    buildTypes {
+//        named(BuildType.DEBUG) {
+//            isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
+//            applicationIdSuffix = BuildTypeDebug.applicationIdSuffix
+//            versionNameSuffix = BuildTypeDebug.versionNameSuffix
+//        }
+//    }
 }
 
 dependencies {

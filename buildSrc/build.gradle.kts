@@ -19,11 +19,11 @@ compileKotlin.kotlinOptions {
 
 object Plugin {
     object Version {
-        const val spotless: String = "5.1.2"
-        const val kotlin: String = "1.4.30"
-        const val androidGradle: String = "7.0.0-alpha15"
+        const val spotless: String = "5.12.5"
+        const val kotlin: String = "1.5.10"
+        const val androidGradle: String = "7.1.0-alpha01"
         const val navigation: String = "2.3.2"
-        const val daggerHiltAndroid: String = "2.34-beta"
+        const val daggerHiltAndroid: String = "2.36"
     }
 
     const val spotless: String = "com.diffplug.spotless:spotless-plugin-gradle:${Version.spotless}"

@@ -2,8 +2,8 @@ import Dependencies.View.Version.fragment
 
 const val kotlinAndroid: String = "android"
 const val kotlinKapt: String = "kapt"
-const val ktLintVersion: String = "0.38.0"
-const val kotlinVersion = "1.4.30"
+const val ktLintVersion: String = "0.41.0"
+const val kotlinVersion = "1.5.10"
 
 object Config {
     object Version {
@@ -124,7 +124,7 @@ object Dependencies {
 
     object DI {
         object Version {
-            const val daggerHilt: String = "2.34-beta"
+            const val daggerHilt: String = "2.36"
             const val hiltViewModel: String = "1.0.0-alpha02"
         }
 
