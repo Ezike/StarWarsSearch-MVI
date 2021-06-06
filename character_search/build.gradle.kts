@@ -22,9 +22,9 @@ plugins {
 
 android {
     defaultConfig {
-        compileSdkVersion(Config.Version.compileSdkVersion)
-        minSdkVersion(Config.Version.minSdkVersion)
-        targetSdkVersion(Config.Version.targetSdkVersion)
+        compileSdk = Config.Version.compileSdkVersion
+        minSdk = Config.Version.minSdkVersion
+        targetSdk = Config.Version.targetSdkVersion
         testInstrumentationRunner = Config.Android.testInstrumentationRunner
     }
 
