@@ -9,7 +9,7 @@ import dagger.hilt.android.components.FragmentComponent
 
 @InstallIn(FragmentComponent::class)
 @Module
-interface NavigationModule {
+internal interface NavigationModule {
 
     @get:Binds
     val SearchScreenNavigator.searchScreenNavigator: Navigator

@@ -8,7 +8,7 @@ import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
 @ActivityScoped
-class SearchScreenNavigator @Inject constructor(
+internal class SearchScreenNavigator @Inject constructor(
     private val navController: NavController
 ) : Navigator {
 
@@ -19,12 +19,12 @@ class SearchScreenNavigator @Inject constructor(
             )
         )
     }
-
-    private fun CharacterModel.toDetail() =
-        CharacterDetailModel(
-            name = name,
-            birthYear = birthYear,
-            heightCm = heightCm,
-            url = url
-        )
 }
+
+internal fun CharacterModel.toDetail() =
+    CharacterDetailModel(
+        name = name,
+        birthYear = birthYear,
+        heightCm = heightCm,
+        url = url
+    )
