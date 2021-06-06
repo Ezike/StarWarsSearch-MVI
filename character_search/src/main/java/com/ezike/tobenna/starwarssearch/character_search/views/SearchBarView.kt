@@ -2,7 +2,7 @@ package com.ezike.tobenna.starwarssearch.character_search.views.search
 
 import android.widget.EditText
 import androidx.lifecycle.LifecycleCoroutineScope
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchIntent
+import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchIntent
 import com.ezike.tobenna.starwarssearch.presentation_android.StatelessUIComponent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate

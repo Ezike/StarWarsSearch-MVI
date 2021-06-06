@@ -1,9 +1,8 @@
-package com.ezike.tobenna.starwarssearch.character_search.presentation.search
+package com.ezike.tobenna.starwarssearch.character_search.presentation
 
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchIntentProcessor
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchScreenResult.SearchCharacterResult
+import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenResult.SearchCharacterResult
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.search.SearchCharacters
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.searchhistory.ClearSearchHistory

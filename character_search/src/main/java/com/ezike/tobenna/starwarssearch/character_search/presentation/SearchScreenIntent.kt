@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.character_search.presentation.search
+package com.ezike.tobenna.starwarssearch.character_search.presentation
 
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent

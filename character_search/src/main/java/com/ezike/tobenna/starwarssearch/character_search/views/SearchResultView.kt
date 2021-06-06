@@ -3,8 +3,8 @@ package com.ezike.tobenna.starwarssearch.character_search.views.search
 import androidx.core.view.isVisible
 import com.ezike.tobenna.starwarssearch.character_search.databinding.LayoutSearchResultBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.RetrySearchIntent
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SaveSearchIntent
+import com.ezike.tobenna.starwarssearch.character_search.presentation.RetrySearchIntent
+import com.ezike.tobenna.starwarssearch.character_search.presentation.SaveSearchIntent
 import com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter.SearchResultAdapter
 import com.ezike.tobenna.starwarssearch.core.ext.init
 import com.ezike.tobenna.starwarssearch.core.ext.show

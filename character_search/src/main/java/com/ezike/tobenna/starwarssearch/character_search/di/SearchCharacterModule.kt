@@ -1,11 +1,11 @@
 package com.ezike.tobenna.starwarssearch.character_search.di
 
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchIntentProcessor
+import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenIntentProcessor
+import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenStateMachine
+import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenStateReducer
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStateMachine
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStateReducer
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchScreenIntentProcessor
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchScreenStateMachine
-import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchScreenStateReducer
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

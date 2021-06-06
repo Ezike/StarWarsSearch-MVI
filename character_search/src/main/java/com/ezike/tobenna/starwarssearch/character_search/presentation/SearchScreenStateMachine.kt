@@ -1,8 +1,5 @@
-package com.ezike.tobenna.starwarssearch.character_search.presentation.search
+package com.ezike.tobenna.starwarssearch.character_search.presentation
 
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchIntentProcessor
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStateMachine
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStateReducer
 import com.ezike.tobenna.starwarssearch.presentation.mvi.stateMachine.Latest
 import javax.inject.Inject
 

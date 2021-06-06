@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.character_search.presentation.search
+package com.ezike.tobenna.starwarssearch.character_search.presentation
 
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchHistoryViewState
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchResultViewState
