@@ -2,9 +2,6 @@ package com.ezike.tobenna.starwarssearch.character_search.presentation.detail
 
 import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
-import com.ezike.tobenna.starwarssearch.character_search.mapper.FilmModelMapper
-import com.ezike.tobenna.starwarssearch.character_search.mapper.PlanetModelMapper
-import com.ezike.tobenna.starwarssearch.character_search.mapper.SpecieModelMapper
 import com.ezike.tobenna.starwarssearch.core.ext.errorMessage
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Film
@@ -23,21 +20,22 @@ class CharacterDetailViewStateReducerTest {
     private val filmModelMapper: FilmModelMapper = FilmModelMapper()
     private val characterModelMapper: CharacterModelMapper = CharacterModelMapper()
 
-    private val reducer = CharacterDetailViewStateReducer(
-        planetModelMapper,
-        specieModelMapper,
-        filmModelMapper,
-        characterModelMapper
-    )
+    private val reducer =
+        com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewStateReducer(
+            planetModelMapper,
+            specieModelMapper,
+            filmModelMapper,
+            characterModelMapper
+        )
 
     @Test
     fun `check that CharacterDetailViewState is emitted when result is CharacterDetail`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
+            val initialState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState = com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState.init
             val character: Character = DummyData.character
 
-            val viewState: CharacterDetailViewState =
-                reducer.reduce(initialState, CharacterDetailViewResult.CharacterDetail(character))
+            val viewState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState =
+                reducer.reduce(initialState, com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewResult.CharacterDetail(character))
 
             assertThat(viewState).isEqualTo(
                 initialState.translateTo { initialState(characterModelMapper.mapToModel(character)) }
@@ -48,10 +46,10 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that RetryingViewState is emitted when result is Retrying`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
+            val initialState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState = com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState.init
 
-            val viewState: CharacterDetailViewState =
-                reducer.reduce(initialState, CharacterDetailViewResult.Retrying)
+            val viewState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState =
+                reducer.reduce(initialState, com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewResult.Retrying)
 
             assertThat(viewState).isEqualTo(initialState.translateTo { retryState })
         }
@@ -60,15 +58,15 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that FetchDetailErrorViewState is emitted when result is FetchCharacterDetailError`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
+            val initialState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState = com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState.init
 
             val error: SocketTimeoutException = DummyData.exception
             val characterName = DummyData.character.name
 
-            val viewState: CharacterDetailViewState =
+            val viewState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState =
                 reducer.reduce(
                     initialState,
-                    CharacterDetailViewResult.FetchCharacterDetailError(characterName, error)
+                    com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewResult.FetchCharacterDetailError(characterName, error)
                 )
 
             assertThat(viewState).isEqualTo(
@@ -80,12 +78,12 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that PlanetDetailViewStateSuccess is emitted when result is PlanetDetailViewResultSuccess`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
+            val initialState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState = com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState.init
 
             val planet: Planet = DummyData.planet
 
-            val viewState: CharacterDetailViewState =
-                reducer.reduce(initialState, PlanetDetailViewResult.Success(planet))
+            val viewState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState =
+                reducer.reduce(initialState, com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.PlanetDetailViewResult.Success(planet))
 
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {
@@ -98,10 +96,10 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that PlanetDetailViewStateLoading is emitted when result is PlanetDetailViewResultLoading`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
+            val initialState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState = com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState.init
 
-            val viewState: CharacterDetailViewState =
-                reducer.reduce(initialState, PlanetDetailViewResult.Loading)
+            val viewState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState =
+                reducer.reduce(initialState, com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.PlanetDetailViewResult.Loading)
 
             assertThat(viewState).isEqualTo(initialState.translateTo { planetState { Loading } })
         }
@@ -110,11 +108,11 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that PlanetDetailViewStateError is emitted when result is PlanetDetailViewResultError`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
+            val initialState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState = com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState.init
 
             val error: SocketTimeoutException = DummyData.exception
-            val viewState: CharacterDetailViewState =
-                reducer.reduce(initialState, PlanetDetailViewResult.Error(error))
+            val viewState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState =
+                reducer.reduce(initialState, com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.PlanetDetailViewResult.Error(error))
 
             assertThat(viewState).isEqualTo(initialState.translateTo { planetState { Error(error.errorMessage) } })
         }
@@ -123,12 +121,12 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that FilmDetailViewStateSuccess is emitted when result is FilmDetailViewResultSuccess`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
+            val initialState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState = com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState.init
 
             val films: List<Film> = DummyData.films
 
-            val viewState: CharacterDetailViewState =
-                reducer.reduce(initialState, FilmDetailViewResult.Success(films))
+            val viewState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState =
+                reducer.reduce(initialState, com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.FilmDetailViewResult.Success(films))
 
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {
@@ -141,10 +139,10 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that FilmDetailViewStateLoading is emitted when result is FilmDetailViewResultLoading`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
+            val initialState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState = com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState.init
 
-            val viewState: CharacterDetailViewState =
-                reducer.reduce(initialState, FilmDetailViewResult.Loading)
+            val viewState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState =
+                reducer.reduce(initialState, com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.FilmDetailViewResult.Loading)
 
             assertThat(viewState).isEqualTo(initialState.translateTo { filmState { loading } })
         }
@@ -153,11 +151,11 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that FilmDetailViewStateLError is emitted when result is FilmDetailViewResultError`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
+            val initialState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState = com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState.init
 
             val error: SocketTimeoutException = DummyData.exception
-            val viewState: CharacterDetailViewState =
-                reducer.reduce(initialState, FilmDetailViewResult.Error(error))
+            val viewState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState =
+                reducer.reduce(initialState, com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.FilmDetailViewResult.Error(error))
 
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {
@@ -170,12 +168,12 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that SpecieDetailViewStateSuccess is emitted when result is SpecieDetailViewResultSuccess`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
+            val initialState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState = com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState.init
 
             val species: List<Specie> = DummyData.species
 
-            val viewState: CharacterDetailViewState =
-                reducer.reduce(initialState, SpecieDetailViewResult.Success(species))
+            val viewState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState =
+                reducer.reduce(initialState, com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.SpecieDetailViewResult.Success(species))
 
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {
@@ -188,10 +186,10 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that SpecieDetailViewStateLoading is emitted when result is SpecieDetailViewResultLoading`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
+            val initialState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState = com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState.init
 
-            val viewState: CharacterDetailViewState =
-                reducer.reduce(initialState, SpecieDetailViewResult.Loading)
+            val viewState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState =
+                reducer.reduce(initialState, com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.SpecieDetailViewResult.Loading)
 
             assertThat(viewState).isEqualTo(initialState.translateTo { specieState { Loading } })
         }
@@ -200,11 +198,11 @@ class CharacterDetailViewStateReducerTest {
     @Test
     fun `check that SpecieDetailViewStateError is emitted when result is SpecieDetailViewResultError`() {
         runBlockingTest {
-            val initialState: CharacterDetailViewState = CharacterDetailViewState.init
+            val initialState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState = com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState.init
 
             val error: SocketTimeoutException = DummyData.exception
-            val viewState: CharacterDetailViewState =
-                reducer.reduce(initialState, SpecieDetailViewResult.Error(error))
+            val viewState: com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.CharacterDetailViewState =
+                reducer.reduce(initialState, com.ezike.tobenna.starwarssearch.character_detail.characterDetail.detail.SpecieDetailViewResult.Error(error))
 
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {

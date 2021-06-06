@@ -212,6 +212,8 @@ object Dependencies {
 object ProjectLib {
     const val app: String = ":app"
     const val core: String = ":core"
+    const val characterDetail: String = ":character_detail"
+    const val navigation: String = ":navigation"
     const val presentation: String = ":presentation"
     const val presentationAndroid: String = ":presentation-android"
     const val remote: String = ":libraries:remote"

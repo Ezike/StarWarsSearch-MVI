@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainHostFragment"
+    android:name="androidx.navigation.fragment.NavHostFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:defaultNavHost="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:navGraph="@navigation/navigation_root" />

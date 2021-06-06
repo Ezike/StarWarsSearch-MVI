@@ -7,25 +7,4 @@
     <string name="empty_state_icon">Empty state icon</string>
     <string name="an_error_occurred">An error occurred</string>
     <string name="no_data">No characters found</string>
-    <string name="planet">Planet</string>
-    <string name="species">Species</string>
-    <string name="films">Films</string>
-    <string name="character_name">Name: %s</string>
-    <string name="character_birth_year">Birth year: %s</string>
-    <string name="height">Height: %s cm, %s inches</string>
-    <string name="profile_title">%s\'s profile</string>
-    <string name="error_fetching_details">Error fetching %s\'s detail</string>
-    <string name="planet_name">Name: %s</string>
-    <string name="population">Population: %,d</string>
-    <string name="population_not_available">Population: N/A</string>
-    <string name="specie_name">Name: %s</string>
-    <string name="specie_language">Language: %s</string>
-    <string name="specie_home">Home world: %s</string>
-    <string name="specie_home_unavailable">Home world: N/A</string>
-    <string name="species_unavailable">Species information is currently unavailable</string>
-    <string name="films_unavailable">Film information is currently available</string>
-    <string name="specie_error_occurred">Unable to fetch species information</string>
-    <string name="planet_error_occurred">Unable to fetch planet information</string>
-    <string name="film_error_occurred">Unable to fetch film information</string>
-    <string name="height_unavailable">Height: N/A</string>
 </resources>

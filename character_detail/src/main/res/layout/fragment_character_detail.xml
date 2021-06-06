@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:fillViewport="true"
+    tools:context=".ui.CharacterDetailFragment">
+
+    <LinearLayout
+        android:id="@+id/detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <include
+            android:id="@+id/profile_view"
+            layout="@layout/profile_view_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/detail_views_margin"
+            android:layout_marginTop="@dimen/profile_detail_top_margin" />
+
+        <include
+            android:id="@+id/planet_view"
+            layout="@layout/planet_view_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="@dimen/detail_views_margin" />
+
+        <include
+            android:id="@+id/specie_view"
+            layout="@layout/specie_view_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/detail_views_margin"
+            android:layout_marginTop="@dimen/detail_views_margin" />
+
+        <include
+            android:id="@+id/film_view"
+            layout="@layout/film_view_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/detail_views_margin" />
+
+        <com.ezike.tobenna.starwarssearch.core.EmptyStateView
+            android:id="@+id/detail_error_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:emptyStateImageSrc="@drawable/ic_error_page_2"
+            app:emptyStateTitleText="@string/error_fetching_details"
+            app:isButtonVisible="true" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

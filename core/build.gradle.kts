@@ -38,6 +38,7 @@ dependencies {
 
     implementation(AndroidX.lifeCycleCommon)
     implementation(View.appCompat)
+    implementation(View.materialComponent)
     implementation(View.fragment)
     implementation(DI.daggerHiltAndroid)
     implementation(Network.moshi)

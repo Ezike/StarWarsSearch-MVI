@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/film_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="26dp"
+        android:paddingVertical="4dp"
+        android:text="@string/films"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="26dp"
+        android:paddingVertical="4dp"
+        android:text="@string/films_unavailable"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/film_loading_view"
+        layout="@layout/detail_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="26dp" />
+
+    <com.ezike.tobenna.starwarssearch.core.EmptyStateView
+        android:id="@+id/film_error_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:visibility="gone"
+        app:emptyStateTitleText="@string/film_error_occurred"
+        app:isButtonVisible="true" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/film_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:nestedScrollingEnabled="true"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="24dp"
+        android:scrollbars="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/history_divider"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_film" />
+
+</LinearLayout>

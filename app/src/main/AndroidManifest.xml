@@ -15,7 +15,7 @@
         android:name=".ApplicationClass">
 
         <activity
-            android:name=".character_search.ui.MainActivity"
+            android:name=".MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

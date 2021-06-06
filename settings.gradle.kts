@@ -8,5 +8,7 @@ include(
     ":libraries:cache",
     ":libraries:testUtils",
     ":presentation-android",
-    ":lib_character_search"
+    ":lib_character_search",
+    ":character_detail",
+    ":navigation"
 )

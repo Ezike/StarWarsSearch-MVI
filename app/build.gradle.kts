@@ -5,9 +5,11 @@ import Dependencies.Network
 import Dependencies.Performance
 import Dependencies.View
 import ProjectLib.cache
+import ProjectLib.characterDetail
 import ProjectLib.characterSearch
 import ProjectLib.core
 import ProjectLib.libCharacterSearch
+import ProjectLib.navigation
 import ProjectLib.presentation
 import ProjectLib.presentationAndroid
 import ProjectLib.remote
@@ -50,12 +52,14 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(project(characterSearch))
+    implementation(project(characterDetail))
     implementation(project(cache))
     implementation(project(presentation))
     implementation(project(presentationAndroid))
     implementation(project(remote))
     implementation(project(core))
     implementation(project(libCharacterSearch))
+    implementation(project(navigation))
 
     debugImplementation(Performance.leakCanary)
 
@@ -63,6 +67,7 @@ dependencies {
     implementation(Network.moshi)
     implementation(DI.daggerHiltAndroid)
     implementation(DI.hiltViewModel)
+    implementation(View.fragment)
 
     AndroidX.run {
         implementation(activity)

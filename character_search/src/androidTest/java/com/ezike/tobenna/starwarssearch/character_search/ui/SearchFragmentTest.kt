@@ -30,8 +30,8 @@ class SearchFragmentTest {
     val hiltRule = HiltAndroidRule(this)
 
     @get:Rule(order = 1)
-    val activityRule: ActivityScenarioRule<MainActivity> =
-        ActivityScenarioRule(MainActivity::class.java)
+    val activityRule: ActivityScenarioRule<com.ezike.tobenna.starwarssearch.MainActivity> =
+        ActivityScenarioRule(com.ezike.tobenna.starwarssearch.MainActivity::class.java)
 
     @Test
     fun should_show_initial_state() {

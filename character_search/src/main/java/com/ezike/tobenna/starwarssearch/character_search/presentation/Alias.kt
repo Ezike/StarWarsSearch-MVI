@@ -1,7 +1,5 @@
 package com.ezike.tobenna.starwarssearch.character_search.presentation
 
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.CharacterDetailViewResult
-import com.ezike.tobenna.starwarssearch.character_search.presentation.detail.CharacterDetailViewState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchScreenResult
 import com.ezike.tobenna.starwarssearch.character_search.presentation.search.SearchScreenState
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.IntentProcessor
@@ -20,15 +18,3 @@ typealias SearchStateMachine =
 
 typealias SearchComponentManager =
     @JvmSuppressWildcards ComponentManager<SearchScreenState, SearchScreenResult>
-
-typealias CharacterDetailIntentProcessor =
-    @JvmSuppressWildcards IntentProcessor<CharacterDetailViewResult>
-
-typealias CharacterDetailStateReducer =
-    @JvmSuppressWildcards ViewStateReducer<CharacterDetailViewState, CharacterDetailViewResult>
-
-typealias CharacterDetailStateMachine =
-    @JvmSuppressWildcards StateMachine<CharacterDetailViewState, CharacterDetailViewResult>
-
-typealias DetailComponentManager =
-    @JvmSuppressWildcards ComponentManager<CharacterDetailViewState, CharacterDetailViewResult>

@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:animateLayoutChanges="true"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintVertical_bias="0.2" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/characters_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingTop="@dimen/rv_margin_top"
         android:clipToPadding="false"
+        android:paddingTop="@dimen/rv_margin_top"
         android:scrollbars="vertical"
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -33,31 +33,31 @@
         tools:itemCount="4"
         tools:listitem="@layout/search_result" />
 
-    <com.ezike.tobenna.starwarssearch.character_search.views.EmptyStateView
+    <com.ezike.tobenna.starwarssearch.core.EmptyStateView
         android:id="@+id/empty_state"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:emptyStateTitleText="@string/no_data"
-        app:emptyStateImageSrc="@drawable/ic_empty"
         android:visibility="gone"
+        app:emptyStateImageSrc="@drawable/ic_empty"
+        app:emptyStateTitleText="@string/no_data"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintVertical_bias="0.05" />
 
-    <com.ezike.tobenna.starwarssearch.character_search.views.EmptyStateView
+    <com.ezike.tobenna.starwarssearch.core.EmptyStateView
         android:id="@+id/error_state"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:isButtonVisible="true"
-        app:emptyStateTitleText="@string/an_error_occurred"
-        app:emptyStateImageSrc="@drawable/ic_error_page_2"
         android:visibility="gone"
+        app:emptyStateImageSrc="@drawable/ic_error_page_2"
+        app:emptyStateTitleText="@string/an_error_occurred"
+        app:isButtonVisible="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintVertical_bias="0.05" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

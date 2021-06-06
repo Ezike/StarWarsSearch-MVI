@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="rv_margin_top">18dp</dimen>
+    <dimen name="empty_state_caption_margin_horizontal">50dp</dimen>
+    <dimen name="empty_state_caption_margin_top">8dp</dimen>
+    <dimen name="empty_state_title_text_size">18sp</dimen>
+    <dimen name="empty_state_title_margin_top">16dp</dimen>
+    <dimen name="empty_state_image_width">150dp</dimen>
+    <dimen name="divider_height">2dp</dimen>
+    <dimen name="divider_top_margin">16dp</dimen>
+    <dimen name="recent_search_padding_vertical">16dp</dimen>
+    <dimen name="loading_margin">20dp</dimen>
+    <dimen name="loading_card_radius">8dp</dimen>
+    <dimen name="loading_card_elevation">4dp</dimen>
+    <dimen name="profile_detail_top_margin">24dp</dimen>
+    <dimen name="detail_views_margin">16dp</dimen>
+</resources>
