@@ -10,7 +10,14 @@ data class ProfileViewState(
     val character: CharacterDetailModel?
 ) : ViewState
 
-class ProfileView(private val binding: ProfileViewLayoutBinding) : UIComponent<ProfileViewState>() {
+class ProfileView(
+    private val binding: ProfileViewLayoutBinding,
+    navigateUp: () -> Unit
+) : UIComponent<ProfileViewState>() {
+
+    init {
+        binding.backBtn.setOnClickListener { navigateUp() }
+    }
 
     private fun getCharacterHeight(heightCm: String, heightInches: String?): String {
         return if (heightInches != null) {

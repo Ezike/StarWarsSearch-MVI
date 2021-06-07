@@ -14,7 +14,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <include
             android:id="@+id/profile_view"
             layout="@layout/profile_view_layout"

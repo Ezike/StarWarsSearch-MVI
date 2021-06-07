@@ -16,6 +16,7 @@ import com.ezike.tobenna.starwarssearch.character_detail.views.PlanetView
 import com.ezike.tobenna.starwarssearch.character_detail.views.ProfileView
 import com.ezike.tobenna.starwarssearch.character_detail.views.ProfileViewState
 import com.ezike.tobenna.starwarssearch.character_detail.views.SpecieView
+import com.ezike.tobenna.starwarssearch.core.ext.NavigateBack
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
 import com.ezike.tobenna.starwarssearch.presentation_android.AssistedCreator
 import com.ezike.tobenna.starwarssearch.presentation_android.assistedFactory
@@ -38,6 +39,9 @@ data class LoadCharacterDetailIntent(val character: CharacterDetailModel) : View
 
 @AndroidEntryPoint
 class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
+
+    @Inject
+    lateinit var goBack: NavigateBack
 
     @Inject
     lateinit var creator: CharacterDetailComponentManager.Creator
@@ -67,7 +71,7 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
                 DetailErrorView(binding.detailErrorState, args.character)
             ) { screenState -> screenState.errorViewState }
             subscribe(
-                ProfileView(binding.profileView)
+                ProfileView(binding.profileView, goBack)
             ) { screenState -> ProfileViewState(screenState.character) }
 
             disposeAll(viewLifecycleOwner)
