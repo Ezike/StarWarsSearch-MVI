@@ -1,6 +1,6 @@
 package com.ezike.tobenna.starwarssearch.character_detail.presentation
 
-import com.ezike.tobenna.starwarssearch.character_detail.mapper.CharacterModelMapper
+import com.ezike.tobenna.starwarssearch.character_detail.mapper.CharacterDetailModelMapper
 import com.ezike.tobenna.starwarssearch.character_detail.mapper.FilmModelMapper
 import com.ezike.tobenna.starwarssearch.character_detail.mapper.PlanetModelMapper
 import com.ezike.tobenna.starwarssearch.character_detail.mapper.SpecieModelMapper
@@ -13,7 +13,7 @@ class CharacterDetailViewStateReducer @Inject constructor(
     private val planetModelMapper: PlanetModelMapper,
     private val specieModelMapper: SpecieModelMapper,
     private val filmModelMapper: FilmModelMapper,
-    private val characterModelMapper: CharacterModelMapper
+    private val characterModelMapper: CharacterDetailModelMapper
 ) : CharacterDetailStateReducer {
 
     override fun reduce(

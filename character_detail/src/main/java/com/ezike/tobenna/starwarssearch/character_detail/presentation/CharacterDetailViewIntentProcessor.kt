@@ -1,6 +1,6 @@
 package com.ezike.tobenna.starwarssearch.character_detail.presentation
 
-import com.ezike.tobenna.starwarssearch.character_detail.mapper.CharacterModelMapper
+import com.ezike.tobenna.starwarssearch.character_detail.mapper.CharacterDetailModelMapper
 import com.ezike.tobenna.starwarssearch.character_detail.model.CharacterDetailModel
 import com.ezike.tobenna.starwarssearch.character_detail.ui.LoadCharacterDetailIntent
 import com.ezike.tobenna.starwarssearch.character_detail.views.RetryFetchCharacterDetailsIntent
@@ -29,7 +29,7 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
     private val fetchSpecies: FetchSpecies,
     private val fetchFilms: FetchFilms,
     private val getCharacterDetail: GetCharacterDetail,
-    private val characterModelMapper: CharacterModelMapper
+    private val characterModelMapper: CharacterDetailModelMapper
 ) : CharacterDetailIntentProcessor {
 
     override fun intentToResult(viewIntent: ViewIntent): Flow<CharacterDetailViewResult> {

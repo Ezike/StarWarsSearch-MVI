@@ -4,10 +4,8 @@ import androidx.navigation.NavController
 import com.ezike.tobenna.starwarssearch.character_detail.model.CharacterDetailModel
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.navigation.Navigator
-import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
-@ActivityScoped
 internal class SearchScreenNavigator @Inject constructor(
     private val navController: NavController
 ) : Navigator {
