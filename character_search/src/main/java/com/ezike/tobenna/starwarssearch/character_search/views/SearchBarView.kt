@@ -15,13 +15,13 @@ import reactivecircus.flowbinding.android.widget.textChanges
 
 class SearchBarView(
     searchBar: EditText,
-    viewScope: LifecycleCoroutineScope
+    coroutineScope: LifecycleCoroutineScope
 ) : StatelessUIComponent() {
 
     init {
         searchBar.textChanges
             .onEach { query -> sendIntent(SearchIntent(query)) }
-            .launchIn(viewScope)
+            .launchIn(coroutineScope)
     }
 
     private val Flow<String>.checkDistinct: Flow<String>

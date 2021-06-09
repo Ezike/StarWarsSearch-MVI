@@ -11,26 +11,26 @@ data class ProfileViewState(
 ) : ViewState
 
 class ProfileView(
-    private val binding: ProfileViewLayoutBinding,
+    private val view: ProfileViewLayoutBinding,
     navigateUp: () -> Unit
 ) : UIComponent<ProfileViewState>() {
 
     init {
-        binding.backBtn.setOnClickListener { navigateUp() }
+        view.backBtn.setOnClickListener { navigateUp() }
     }
 
     private fun getCharacterHeight(heightCm: String, heightInches: String?): String {
         return if (heightInches != null) {
-            binding.root.context.getString(R.string.height, heightCm, heightInches)
+            view.root.context.getString(R.string.height, heightCm, heightInches)
         } else {
-            binding.root.context.getString(R.string.height_unavailable)
+            view.root.context.getString(R.string.height_unavailable)
         }
     }
 
     override fun render(state: ProfileViewState) {
         val (character: CharacterDetailModel?) = state
         if (character != null) {
-            binding.run {
+            view.run {
                 profileTitle.text =
                     root.context.getString(R.string.profile_title, character.name)
                 characterName.text =

@@ -12,7 +12,7 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
 
 class SearchResultView(
-    private val binding: LayoutSearchResultBinding,
+    private val view: LayoutSearchResultBinding,
     query: () -> String,
     navigationAction: (CharacterModel) -> Unit
 ) : UIComponent<SearchResultViewState>() {
@@ -25,13 +25,13 @@ class SearchResultView(
     }
 
     init {
-        binding.charactersRv.adapter = searchResultAdapter
-        binding.errorState.onRetry { sendIntent(RetrySearchIntent(query())) }
+        view.charactersRv.adapter = searchResultAdapter
+        view.errorState.onRetry { sendIntent(RetrySearchIntent(query())) }
     }
 
     override fun render(state: SearchResultViewState) {
         searchResultAdapter.submitList(state.searchResult)
-        binding.run {
+        view.run {
             charactersRv.show = state.showResult
             progressBar.isVisible = state.showProgress
             emptyState.isVisible = state.showEmpty

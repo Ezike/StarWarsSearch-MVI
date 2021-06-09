@@ -11,25 +11,25 @@ import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
 data class RetryFetchPlanetIntent(val url: String) : ViewIntent
 
 class PlanetView(
-    private val binding: PlanetViewLayoutBinding,
+    private val view: PlanetViewLayoutBinding,
     characterUrl: String
 ) : UIComponent<PlanetViewState>() {
 
     init {
-        binding.planetErrorState.onRetry { sendIntent(RetryFetchPlanetIntent(characterUrl)) }
+        view.planetErrorState.onRetry { sendIntent(RetryFetchPlanetIntent(characterUrl)) }
     }
 
     private fun getPopulation(population: String): String = try {
-        binding.root.context.getString(
+        view.root.context.getString(
             R.string.population,
             population.toLong()
         )
     } catch (e: Exception) {
-        binding.root.context.getString(R.string.population_not_available)
+        view.root.context.getString(R.string.population_not_available)
     }
 
     override fun render(state: PlanetViewState) {
-        binding.run {
+        view.run {
             planetView.isVisible = state.showPlanet
             planetTitle.isVisible = state.showTitle
             if (state.planet != null) {

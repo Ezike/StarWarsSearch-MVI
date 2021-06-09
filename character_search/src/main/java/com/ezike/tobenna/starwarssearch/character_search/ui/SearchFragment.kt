@@ -9,6 +9,7 @@ import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.FragmentSearchBinding
 import com.ezike.tobenna.starwarssearch.character_search.navigation.Navigator
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchComponentManager
+import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenState
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStateMachine
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchBarView
 import com.ezike.tobenna.starwarssearch.character_search.views.search.SearchHistoryView
@@ -41,20 +42,27 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         handleBackPress(binding.searchBar)
 
         componentManager.run {
-            subscribe(SearchBarView(binding.searchBar, viewScope))
             subscribe(
-                SearchHistoryView(
-                    binding.recentSearch,
-                    navigator::openCharacterDetail
+                component = SearchBarView(
+                    searchBar = binding.searchBar,
+                    coroutineScope = viewScope
                 )
-            ) { screenState -> screenState.searchHistoryState }
+            )
             subscribe(
-                SearchResultView(
-                    binding.searchResult,
-                    binding.searchBar.lazyText,
-                    navigator::openCharacterDetail
-                )
-            ) { screenState -> screenState.searchResultState }
+                component = SearchHistoryView(
+                    view = binding.recentSearch,
+                    navigationAction = navigator::openCharacterDetail
+                ),
+                stateTransform = SearchScreenState::searchHistoryState
+            )
+            subscribe(
+                component = SearchResultView(
+                    view = binding.searchResult,
+                    query = binding.searchBar.lazyText,
+                    navigationAction = navigator::openCharacterDetail
+                ),
+                stateTransform = SearchScreenState::searchResultState
+            )
 
             disposeAll(viewLifecycleOwner)
         }

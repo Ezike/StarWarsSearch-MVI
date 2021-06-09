@@ -19,9 +19,9 @@ abstract class ComponentManager<S : ScreenState, out R : ViewResult>(
 
     override fun <VS : ViewState> subscribe(
         component: Subscriber<VS>,
-        transform: StateTransform<S, VS>
+        stateTransform: StateTransform<S, VS>
     ) {
-        stateMachine.subscribe(component, transform)
+        stateMachine.subscribe(component, stateTransform)
     }
 
     override fun <VS : ViewState> subscribe(component: Subscriber<VS>) {

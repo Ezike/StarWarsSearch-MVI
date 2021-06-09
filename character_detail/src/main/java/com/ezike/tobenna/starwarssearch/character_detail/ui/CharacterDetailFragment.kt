@@ -8,6 +8,7 @@ import androidx.navigation.fragment.navArgs
 import com.ezike.tobenna.starwarssearch.character_detail.R
 import com.ezike.tobenna.starwarssearch.character_detail.databinding.FragmentCharacterDetailBinding
 import com.ezike.tobenna.starwarssearch.character_detail.model.CharacterDetailModel
+import com.ezike.tobenna.starwarssearch.character_detail.presentation.CharacterDetailViewState
 import com.ezike.tobenna.starwarssearch.character_detail.presentation.CharacterDetailViewStateMachine
 import com.ezike.tobenna.starwarssearch.character_detail.presentation.DetailComponentManager
 import com.ezike.tobenna.starwarssearch.character_detail.views.DetailErrorView
@@ -59,20 +60,40 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
 
         componentManager.run {
             subscribe(
-                PlanetView(binding.planetView, args.character.url)
-            ) { screenState -> screenState.planetViewState }
+                component = PlanetView(
+                    view = binding.planetView,
+                    characterUrl = args.character.url
+                ),
+                stateTransform = CharacterDetailViewState::planetViewState
+            )
             subscribe(
-                FilmView(binding.filmView, args.character.url)
-            ) { screenState -> screenState.filmViewState }
+                component = FilmView(
+                    view = binding.filmView,
+                    characterUrl = args.character.url
+                ),
+                stateTransform = CharacterDetailViewState::filmViewState
+            )
             subscribe(
-                SpecieView(binding.specieView, args.character.url)
-            ) { screenState -> screenState.specieViewState }
+                component = SpecieView(
+                    view = binding.specieView,
+                    characterUrl = args.character.url
+                ),
+                stateTransform = CharacterDetailViewState::specieViewState
+            )
             subscribe(
-                DetailErrorView(binding.detailErrorState, args.character)
-            ) { screenState -> screenState.errorViewState }
+                component = DetailErrorView(
+                    view = binding.detailErrorState,
+                    character = args.character
+                ),
+                stateTransform = CharacterDetailViewState::errorViewState
+            )
             subscribe(
-                ProfileView(binding.profileView, goBack)
-            ) { screenState -> ProfileViewState(screenState.character) }
+                component = ProfileView(
+                    view = binding.profileView,
+                    navigateUp = goBack
+                ),
+                stateTransform = { ProfileViewState(it.character) }
+            )
 
             disposeAll(viewLifecycleOwner)
         }

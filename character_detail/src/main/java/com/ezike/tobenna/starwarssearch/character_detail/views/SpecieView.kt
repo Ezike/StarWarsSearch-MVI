@@ -12,20 +12,20 @@ import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
 data class RetryFetchSpecieIntent(val url: String) : ViewIntent
 
 class SpecieView(
-    private val binding: SpecieViewLayoutBinding,
+    private val view: SpecieViewLayoutBinding,
     characterUrl: String
 ) : UIComponent<SpecieViewState>() {
 
     private val specieAdapter: SpecieAdapter by init { SpecieAdapter() }
 
     init {
-        binding.specieList.adapter = specieAdapter
-        binding.specieErrorState.onRetry { sendIntent(RetryFetchSpecieIntent(characterUrl)) }
+        view.specieList.adapter = specieAdapter
+        view.specieErrorState.onRetry { sendIntent(RetryFetchSpecieIntent(characterUrl)) }
     }
 
     override fun render(state: SpecieViewState) {
         specieAdapter.submitList(state.species)
-        binding.run {
+        view.run {
             specieTitle.isVisible = state.showTitle
             specieList.isVisible = state.showSpecies
             emptyView.isVisible = state.showEmpty

@@ -12,7 +12,7 @@ import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
 
 class SearchHistoryView(
-    private val binding: LayoutSearchHistoryBinding,
+    private val view: LayoutSearchHistoryBinding,
     navigationAction: (CharacterModel) -> Unit
 ) : UIComponent<SearchHistoryViewState>() {
 
@@ -24,13 +24,13 @@ class SearchHistoryView(
     }
 
     init {
-        binding.clearHistory.setOnClickListener { sendIntent(ClearSearchHistoryIntent) }
-        binding.searchHistoryRv.adapter = searchHistoryAdapter
+        view.clearHistory.setOnClickListener { sendIntent(ClearSearchHistoryIntent) }
+        view.searchHistoryRv.adapter = searchHistoryAdapter
     }
 
     override fun render(state: SearchHistoryViewState) {
         searchHistoryAdapter.submitList(state.history)
-        binding.run {
+        view.run {
             recentSearchGroup.isVisible = state.showRecentSearchGroup
             searchHistoryRv.show = state.showHistory
             searchHistoryPrompt.isVisible = state.showHistoryPrompt

@@ -12,20 +12,20 @@ import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
 data class RetryFetchFilmIntent(val url: String) : ViewIntent
 
 class FilmView(
-    private val binding: FilmViewLayoutBinding,
+    private val view: FilmViewLayoutBinding,
     characterUrl: String
 ) : UIComponent<FilmViewState>() {
 
     private val filmAdapter: FilmAdapter by init { FilmAdapter() }
 
     init {
-        binding.filmList.adapter = filmAdapter
-        binding.filmErrorState.onRetry { sendIntent(RetryFetchFilmIntent(characterUrl)) }
+        view.filmList.adapter = filmAdapter
+        view.filmErrorState.onRetry { sendIntent(RetryFetchFilmIntent(characterUrl)) }
     }
 
     override fun render(state: FilmViewState) {
         filmAdapter.submitList(state.films)
-        binding.run {
+        view.run {
             filmTitle.isVisible = state.showTitle
             emptyView.isVisible = state.showEmpty
             filmLoadingView.root.isVisible = state.isLoading
