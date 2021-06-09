@@ -1,6 +1,7 @@
-package com.ezike.tobenna.starwarssearch.character_search.mapper
+package com.ezike.tobenna.starwarssearch.character_detail.mapper
 
-import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
+import com.ezike.tobenna.starwarssearch.character_detail.data.DummyData
+import com.ezike.tobenna.starwarssearch.character_search.model.FilmModel
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Film
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test

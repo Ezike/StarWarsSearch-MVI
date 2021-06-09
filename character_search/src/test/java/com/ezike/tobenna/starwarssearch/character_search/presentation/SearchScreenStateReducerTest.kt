@@ -1,11 +1,8 @@
-package com.ezike.tobenna.starwarssearch.character_search.presentation.search
+package com.ezike.tobenna.starwarssearch.character_search.presentation
 
 import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenResult
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenResult.SearchCharacterResult
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenState
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenStateReducer
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
 import com.ezike.tobenna.starwarssearch.testutils.ERROR_MSG
 import com.google.common.truth.Truth.assertThat

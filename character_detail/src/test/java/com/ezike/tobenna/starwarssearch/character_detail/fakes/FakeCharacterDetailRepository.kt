@@ -1,6 +1,6 @@
-package com.ezike.tobenna.starwarssearch.character_search.fakes
+package com.ezike.tobenna.starwarssearch.character_detail.fakes
 
-import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
+import com.ezike.tobenna.starwarssearch.character_detail.data.DummyData
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.CharacterDetail
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Film
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Planet

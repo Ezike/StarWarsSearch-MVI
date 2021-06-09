@@ -1,18 +1,11 @@
-package com.ezike.tobenna.starwarssearch.character_search.presentation.search
+package com.ezike.tobenna.starwarssearch.character_search.presentation
 
 import com.ezike.tobenna.starwarssearch.character_search.TestPostExecutionThread
 import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchHistoryRepository
 import com.ezike.tobenna.starwarssearch.character_search.fakes.FakeSearchRepository
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
-import com.ezike.tobenna.starwarssearch.character_search.presentation.ClearSearchHistoryIntent
-import com.ezike.tobenna.starwarssearch.character_search.presentation.LoadSearchHistory
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SaveSearchIntent
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchIntent
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenIntentProcessor
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenResult
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenResult.SearchCharacterResult
-import com.ezike.tobenna.starwarssearch.character_search.presentation.UpdateHistoryIntent
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.search.SearchCharacters
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.searchhistory.ClearSearchHistory

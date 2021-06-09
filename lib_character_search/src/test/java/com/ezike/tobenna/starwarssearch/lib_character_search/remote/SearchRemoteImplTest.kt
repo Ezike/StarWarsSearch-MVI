@@ -41,7 +41,7 @@ class SearchRemoteImplTest {
     fun `check that searchCharacters returns character list of same size`() = runBlocking {
         val characters: List<CharacterEntity> = searchRemote.searchCharacters(SEARCH_QUERY)
         val responseSize: Int =
-            getResponseList(SEARCH_RESPONSE_PATH, SEARCH_RESPONSE_PATH_2).sumBy {
+            getResponseList(SEARCH_RESPONSE_PATH, SEARCH_RESPONSE_PATH_2).sumOf {
                 it.results.size
             }
         assertThat(characters).isNotEmpty()
