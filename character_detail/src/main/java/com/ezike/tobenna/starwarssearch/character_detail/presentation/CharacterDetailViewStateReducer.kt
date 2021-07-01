@@ -6,6 +6,8 @@ import com.ezike.tobenna.starwarssearch.character_detail.mapper.PlanetModelMappe
 import com.ezike.tobenna.starwarssearch.character_detail.mapper.SpecieModelMapper
 import com.ezike.tobenna.starwarssearch.character_detail.presentation.CharacterDetailViewResult.CharacterDetail
 import com.ezike.tobenna.starwarssearch.character_detail.presentation.CharacterDetailViewResult.FetchCharacterDetailError
+import com.ezike.tobenna.starwarssearch.character_detail.presentation.viewstate.CharacterDetailViewState
+import com.ezike.tobenna.starwarssearch.character_detail.presentation.viewstate.translateTo
 import com.ezike.tobenna.starwarssearch.core.ext.errorMessage
 import javax.inject.Inject
 
@@ -25,7 +27,10 @@ class CharacterDetailViewStateReducer @Inject constructor(
                 initialState(characterModelMapper.mapToModel(result.character))
             }
             is FetchCharacterDetailError -> oldState.translateTo {
-                errorState(result.characterName, result.error.errorMessage)
+                errorState(
+                    characterName = result.characterName,
+                    error = result.error.errorMessage
+                )
             }
             CharacterDetailViewResult.Retrying -> oldState.translateTo { retryState }
             is PlanetDetailViewResult -> makePlanetState(result, oldState)

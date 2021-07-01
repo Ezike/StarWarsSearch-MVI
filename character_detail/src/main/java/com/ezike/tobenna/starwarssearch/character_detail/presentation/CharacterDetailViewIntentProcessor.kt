@@ -3,10 +3,10 @@ package com.ezike.tobenna.starwarssearch.character_detail.presentation
 import com.ezike.tobenna.starwarssearch.character_detail.mapper.CharacterDetailModelMapper
 import com.ezike.tobenna.starwarssearch.character_detail.model.CharacterDetailModel
 import com.ezike.tobenna.starwarssearch.character_detail.ui.LoadCharacterDetailIntent
-import com.ezike.tobenna.starwarssearch.character_detail.views.RetryFetchCharacterDetailsIntent
-import com.ezike.tobenna.starwarssearch.character_detail.views.RetryFetchFilmIntent
-import com.ezike.tobenna.starwarssearch.character_detail.views.RetryFetchPlanetIntent
-import com.ezike.tobenna.starwarssearch.character_detail.views.RetryFetchSpecieIntent
+import com.ezike.tobenna.starwarssearch.character_detail.ui.views.error.RetryFetchCharacterDetailsIntent
+import com.ezike.tobenna.starwarssearch.character_detail.ui.views.film.RetryFetchFilmIntent
+import com.ezike.tobenna.starwarssearch.character_detail.ui.views.planet.RetryFetchPlanetIntent
+import com.ezike.tobenna.starwarssearch.character_detail.ui.views.specie.RetryFetchSpecieIntent
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Film
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Planet
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Specie

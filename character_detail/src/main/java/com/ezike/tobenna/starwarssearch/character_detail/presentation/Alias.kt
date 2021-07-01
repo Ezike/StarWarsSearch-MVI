@@ -1,5 +1,6 @@
 package com.ezike.tobenna.starwarssearch.character_detail.presentation
 
+import com.ezike.tobenna.starwarssearch.character_detail.presentation.viewstate.CharacterDetailViewState
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.IntentProcessor
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewStateReducer
 import com.ezike.tobenna.starwarssearch.presentation.mvi.stateMachine.StateMachine

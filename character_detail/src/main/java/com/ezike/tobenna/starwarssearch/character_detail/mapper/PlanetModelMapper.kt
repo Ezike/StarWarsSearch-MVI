@@ -1,6 +1,6 @@
 package com.ezike.tobenna.starwarssearch.character_detail.mapper
 
-import com.ezike.tobenna.starwarssearch.character_search.model.PlanetModel
+import com.ezike.tobenna.starwarssearch.character_detail.model.PlanetModel
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Planet
 import com.ezike.tobenna.starwarssearch.presentation.mapper.ModelMapper
 import javax.inject.Inject

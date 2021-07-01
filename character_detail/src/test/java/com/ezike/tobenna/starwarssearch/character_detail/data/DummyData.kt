@@ -1,8 +1,8 @@
 package com.ezike.tobenna.starwarssearch.character_detail.data
 
 import com.ezike.tobenna.starwarssearch.character_detail.model.CharacterDetailModel
+import com.ezike.tobenna.starwarssearch.character_detail.model.PlanetModel
 import com.ezike.tobenna.starwarssearch.character_search.model.FilmModel
-import com.ezike.tobenna.starwarssearch.character_search.model.PlanetModel
 import com.ezike.tobenna.starwarssearch.character_search.model.SpecieModel
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.CharacterDetail

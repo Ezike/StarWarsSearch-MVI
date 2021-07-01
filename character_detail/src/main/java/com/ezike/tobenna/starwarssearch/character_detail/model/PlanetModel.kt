@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.character_search.model
+package com.ezike.tobenna.starwarssearch.character_detail.model
 
 data class PlanetModel(
     val name: String,

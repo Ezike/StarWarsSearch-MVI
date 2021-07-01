@@ -1,5 +1,6 @@
 package com.ezike.tobenna.starwarssearch.character_search.presentation
 
+import com.ezike.tobenna.starwarssearch.character_search.presentation.viewstate.SearchScreenStateFactory
 import com.ezike.tobenna.starwarssearch.presentation.mvi.stateMachine.Latest
 import javax.inject.Inject
 
@@ -9,7 +10,7 @@ class SearchScreenStateMachine @Inject constructor(
 ) : SearchStateMachine(
     intentProcessor,
     reducer,
-    SearchScreenState.Initial,
+    SearchScreenStateFactory.initialState,
     LoadSearchHistory,
     Latest
 )

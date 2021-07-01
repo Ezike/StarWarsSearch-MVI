@@ -1,6 +1,7 @@
 package com.ezike.tobenna.starwarssearch.character_detail.presentation
 
 import com.ezike.tobenna.starwarssearch.character_detail.model.CharacterDetailModel
+import com.ezike.tobenna.starwarssearch.character_detail.presentation.viewstate.CharacterDetailViewStateFactory
 import com.ezike.tobenna.starwarssearch.character_detail.ui.LoadCharacterDetailIntent
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -13,7 +14,7 @@ class CharacterDetailViewStateMachine @AssistedInject constructor(
 ) : CharacterDetailStateMachine(
     intentProcessor,
     reducer,
-    CharacterDetailViewState.init,
+    CharacterDetailViewStateFactory.initialState,
     LoadCharacterDetailIntent(character)
 ) {
 

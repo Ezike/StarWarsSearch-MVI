@@ -3,6 +3,9 @@ package com.ezike.tobenna.starwarssearch.character_search.presentation
 import com.ezike.tobenna.starwarssearch.character_search.data.DummyData
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenResult.SearchCharacterResult
+import com.ezike.tobenna.starwarssearch.character_search.presentation.viewstate.SearchScreenState
+import com.ezike.tobenna.starwarssearch.character_search.presentation.viewstate.SearchScreenStateFactory
+import com.ezike.tobenna.starwarssearch.character_search.presentation.viewstate.translateTo
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
 import com.ezike.tobenna.starwarssearch.testutils.ERROR_MSG
 import com.google.common.truth.Truth.assertThat
@@ -17,7 +20,7 @@ class SearchScreenStateReducerTest {
     @Test
     fun `check that emptySearchHistoryState is emitted when SearchHistoryResult is Empty`() {
         runBlockingTest {
-            val initialState: SearchScreenState = SearchScreenState.Initial
+            val initialState: SearchScreenState = SearchScreenStateFactory.initialState
             val viewState: SearchScreenState = reducer.reduce(
                 initialState,
                 SearchScreenResult.LoadedHistory(emptyList())
@@ -33,10 +36,12 @@ class SearchScreenStateReducerTest {
     @Test
     fun `check that SearchHistoryLoadedState is emitted when SearchHistoryResult is Success`() {
         runBlockingTest {
-            val initialState: SearchScreenState = SearchScreenState.Initial
+            val initialState: SearchScreenState = SearchScreenStateFactory.initialState
             val list: List<Character> = DummyData.characterList
-            val viewState: SearchScreenState =
-                reducer.reduce(initialState, SearchScreenResult.LoadedHistory(list))
+            val viewState: SearchScreenState = reducer.reduce(
+                initialState,
+                SearchScreenResult.LoadedHistory(list)
+            )
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {
                     searchHistoryState { DataLoaded(mapper.mapToModelList(list)) }
@@ -48,9 +53,11 @@ class SearchScreenStateReducerTest {
     @Test
     fun `check that SearchingState is emitted when SearchCharacterResult is Searching`() {
         runBlockingTest {
-            val initialState: SearchScreenState = SearchScreenState.Initial
-            val viewState: SearchScreenState =
-                reducer.reduce(initialState, SearchCharacterResult.Searching)
+            val initialState: SearchScreenState = SearchScreenStateFactory.initialState
+            val viewState: SearchScreenState = reducer.reduce(
+                initialState,
+                SearchCharacterResult.Searching
+            )
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {
                     searchResultState { Searching }
@@ -62,10 +69,12 @@ class SearchScreenStateReducerTest {
     @Test
     fun `check that SearchResultLoadedState is emitted when SearchCharacterResult is Success`() {
         runBlockingTest {
-            val initialState: SearchScreenState = SearchScreenState.Initial
+            val initialState: SearchScreenState = SearchScreenStateFactory.initialState
             val list: List<Character> = DummyData.characterList
-            val viewState: SearchScreenState =
-                reducer.reduce(initialState, SearchCharacterResult.Success(list))
+            val viewState: SearchScreenState = reducer.reduce(
+                initialState,
+                SearchCharacterResult.Success(list)
+            )
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {
                     searchResultState { ResultLoaded(mapper.mapToModelList(list)) }
@@ -77,9 +86,11 @@ class SearchScreenStateReducerTest {
     @Test
     fun `check that SearchResultErrorState is emitted when SearchCharacterResult is Error`() {
         runBlockingTest {
-            val initialState: SearchScreenState = SearchScreenState.Initial
-            val viewState: SearchScreenState =
-                reducer.reduce(initialState, SearchCharacterResult.Error(Throwable(ERROR_MSG)))
+            val initialState: SearchScreenState = SearchScreenStateFactory.initialState
+            val viewState: SearchScreenState = reducer.reduce(
+                initialState,
+                SearchCharacterResult.Error(Throwable(ERROR_MSG))
+            )
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {
                     searchResultState { Error(ERROR_MSG) }
@@ -91,9 +102,11 @@ class SearchScreenStateReducerTest {
     @Test
     fun `check that fall back error message is returned when SearchCharacterResult is Error`() {
         runBlockingTest {
-            val initialState: SearchScreenState = SearchScreenState.Initial
-            val viewState: SearchScreenState =
-                reducer.reduce(initialState, SearchCharacterResult.Error(Throwable()))
+            val initialState: SearchScreenState = SearchScreenStateFactory.initialState
+            val viewState: SearchScreenState = reducer.reduce(
+                initialState,
+                SearchCharacterResult.Error(Throwable())
+            )
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {
                     searchResultState { Error("An error occurred") }
