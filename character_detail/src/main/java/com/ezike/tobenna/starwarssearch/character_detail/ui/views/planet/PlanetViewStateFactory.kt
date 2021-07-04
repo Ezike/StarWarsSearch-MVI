@@ -1,6 +1,10 @@
 package com.ezike.tobenna.starwarssearch.character_detail.ui.views.planet
 
+import com.ezike.tobenna.starwarssearch.character_detail.R
 import com.ezike.tobenna.starwarssearch.character_detail.model.PlanetModel
+import com.ezike.tobenna.starwarssearch.core.AppString
+import com.ezike.tobenna.starwarssearch.core.ParamString
+import com.ezike.tobenna.starwarssearch.core.StringResource
 
 inline fun PlanetViewState.state(
     transform: PlanetViewStateFactory.() -> PlanetViewState
@@ -10,17 +14,31 @@ object PlanetViewStateFactory {
 
     private lateinit var state: PlanetViewState
 
-    operator fun invoke(viewState: PlanetViewState): PlanetViewStateFactory {
+    operator fun invoke(
+        viewState: PlanetViewState
+    ): PlanetViewStateFactory {
         state = viewState
         return this
     }
 
+    private val emptyPlanetData: PlanetViewData
+        get() = PlanetViewData(
+            name = StringResource(
+                res = R.string.empty
+            ),
+            population = StringResource(
+                res = R.string.empty
+            )
+        )
+
     val initialState: PlanetViewState
-        get() = PlanetViewState()
+        get() = PlanetViewState(
+            data = emptyPlanetData
+        )
 
     val Loading: PlanetViewState
         get() = state.copy(
-            planet = null,
+            data = emptyPlanetData,
             errorMessage = null,
             isLoading = true,
             showError = false,
@@ -29,11 +47,13 @@ object PlanetViewStateFactory {
         )
 
     val Hide: PlanetViewState
-        get() = PlanetViewState()
+        get() = PlanetViewState(
+            data = emptyPlanetData
+        )
 
     fun Error(message: String): PlanetViewState =
         state.copy(
-            planet = null,
+            data = emptyPlanetData,
             errorMessage = message,
             isLoading = false,
             showError = true,
@@ -43,11 +63,22 @@ object PlanetViewStateFactory {
 
     fun Success(planet: PlanetModel): PlanetViewState =
         state.copy(
-            planet = planet,
+            data = PlanetViewData(
+                ParamString(R.string.planet_name, planet.name),
+                population = getPopulation(planet.population)
+            ),
             errorMessage = null,
             isLoading = false,
             showError = false,
             showPlanet = true,
             showTitle = true
         )
+
+    private fun getPopulation(
+        population: String
+    ): AppString = try {
+        ParamString(R.string.population, population.toLong())
+    } catch (e: Exception) {
+        StringResource(R.string.population_not_available)
+    }
 }
