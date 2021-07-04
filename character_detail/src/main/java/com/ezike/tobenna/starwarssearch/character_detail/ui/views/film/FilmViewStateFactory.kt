@@ -18,7 +18,7 @@ object FilmViewStateFactory {
     val initialState: FilmViewState
         get() = FilmViewState()
 
-    val loading: FilmViewState
+    val Loading: FilmViewState
         get() = state.copy(
             films = emptyList(),
             errorMessage = null,
@@ -29,10 +29,10 @@ object FilmViewStateFactory {
             showTitle = true
         )
 
-    val hide: FilmViewState
+    val Hide: FilmViewState
         get() = FilmViewState()
 
-    fun error(message: String): FilmViewState =
+    fun Error(message: String): FilmViewState =
         state.copy(
             films = emptyList(),
             errorMessage = message,
@@ -43,7 +43,7 @@ object FilmViewStateFactory {
             showTitle = true
         )
 
-    fun success(films: List<FilmModel>): FilmViewState =
+    fun Success(films: List<FilmModel>): FilmViewState =
         state.copy(
             films = films,
             errorMessage = null,

@@ -1,12 +1,13 @@
 package com.ezike.tobenna.starwarssearch.character_detail.presentation
 
 import com.ezike.tobenna.starwarssearch.character_detail.mapper.CharacterDetailModelMapper
-import com.ezike.tobenna.starwarssearch.character_detail.model.CharacterDetailModel
+import com.ezike.tobenna.starwarssearch.character_detail.presentation.CharacterDetailViewResult.CharacterDetail
 import com.ezike.tobenna.starwarssearch.character_detail.ui.LoadCharacterDetailIntent
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.error.RetryFetchCharacterDetailsIntent
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.film.RetryFetchFilmIntent
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.planet.RetryFetchPlanetIntent
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.specie.RetryFetchSpecieIntent
+import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Film
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Planet
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Specie
@@ -29,33 +30,41 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
     private val fetchSpecies: FetchSpecies,
     private val fetchFilms: FetchFilms,
     private val getCharacterDetail: GetCharacterDetail,
-    private val characterModelMapper: CharacterDetailModelMapper
+    private val characterMapper: CharacterDetailModelMapper
 ) : CharacterDetailIntentProcessor {
 
     override fun intentToResult(viewIntent: ViewIntent): Flow<CharacterDetailViewResult> {
         return when (viewIntent) {
             is LoadCharacterDetailIntent -> {
+                val character = characterMapper.mapToDomain(
+                    viewIntent.character
+                )
                 getCharacterInfo(
-                    viewIntent.character,
-                    CharacterDetailViewResult.CharacterDetail(
-                        characterModelMapper.mapToDomain(viewIntent.character)
+                    model = character,
+                    initialResult = CharacterDetail(
+                        character = character
                     )
                 )
             }
             is RetryFetchPlanetIntent -> retryFetchPlanet(viewIntent.url)
             is RetryFetchSpecieIntent -> retryFetchSpecie(viewIntent.url)
             is RetryFetchFilmIntent -> retryFetchFilm(viewIntent.url)
-            is RetryFetchCharacterDetailsIntent -> getCharacterInfo(
-                viewIntent.character,
-                CharacterDetailViewResult.Retrying
-            )
+            is RetryFetchCharacterDetailsIntent -> {
+                val character = characterMapper.mapToDomain(
+                    viewIntent.character
+                )
+                getCharacterInfo(
+                    model = character,
+                    initialResult = CharacterDetailViewResult.Retrying
+                )
+            }
             else -> throw InvalidViewIntentException(viewIntent)
         }
     }
 
     private fun getCharacterInfo(
-        model: CharacterDetailModel,
-        start: CharacterDetailViewResult
+        model: Character,
+        initialResult: CharacterDetailViewResult
     ): Flow<CharacterDetailViewResult> {
         return getCharacterDetail(model.url)
             .flatMapLatest { character ->
@@ -65,7 +74,7 @@ class CharacterDetailViewIntentProcessor @Inject constructor(
                     getSpecies(character.speciesUrls)
                 )
             }
-            .onStart { emit(start) }
+            .onStart { emit(initialResult) }
             .catch { error ->
                 emit(
                     CharacterDetailViewResult.FetchCharacterDetailError(

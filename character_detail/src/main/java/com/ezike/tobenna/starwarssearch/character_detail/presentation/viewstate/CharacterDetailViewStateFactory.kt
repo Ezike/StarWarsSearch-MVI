@@ -1,6 +1,5 @@
 package com.ezike.tobenna.starwarssearch.character_detail.presentation.viewstate
 
-import com.ezike.tobenna.starwarssearch.character_detail.model.CharacterDetailModel
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.error.state
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.film.FilmViewState
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.film.FilmViewStateFactory
@@ -8,6 +7,7 @@ import com.ezike.tobenna.starwarssearch.character_detail.ui.views.film.state
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.planet.PlanetViewState
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.planet.PlanetViewStateFactory
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.planet.state
+import com.ezike.tobenna.starwarssearch.character_detail.ui.views.profile.ProfileViewState
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.specie.SpecieViewState
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.specie.SpecieViewStateFactory
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.specie.state
@@ -32,12 +32,12 @@ object CharacterDetailViewStateFactory {
     val initialState: CharacterDetailViewState
         get() = CharacterDetailViewState()
 
-    fun initialState(
-        character: CharacterDetailModel?
+    fun profileState(
+        profileViewState: ProfileViewState
     ): CharacterDetailViewState = state.copy(
-        character = character,
+        profileViewState = profileViewState,
         planetViewState = state.planetViewState.state { Loading },
-        filmViewState = state.filmViewState.state { loading },
+        filmViewState = state.filmViewState.state { Loading },
         specieViewState = state.specieViewState.state { Loading }
     )
 
@@ -68,7 +68,7 @@ object CharacterDetailViewStateFactory {
     ): CharacterDetailViewState = state.copy(
         errorViewState = state.errorViewState.state { DisplayError(characterName, error) },
         planetViewState = state.planetViewState.state { Hide },
-        filmViewState = state.filmViewState.state { hide },
+        filmViewState = state.filmViewState.state { Hide },
         specieViewState = state.specieViewState.state { Hide }
     )
 
@@ -76,7 +76,7 @@ object CharacterDetailViewStateFactory {
         get() = state.copy(
             errorViewState = state.errorViewState.state { Hide },
             planetViewState = state.planetViewState.state { Loading },
-            filmViewState = state.filmViewState.state { loading },
+            filmViewState = state.filmViewState.state { Loading },
             specieViewState = state.specieViewState.state { Loading }
         )
 }

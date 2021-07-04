@@ -15,7 +15,6 @@ import com.ezike.tobenna.starwarssearch.character_detail.ui.views.error.DetailEr
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.film.FilmView
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.planet.PlanetView
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.profile.ProfileView
-import com.ezike.tobenna.starwarssearch.character_detail.ui.views.profile.ProfileViewState
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.specie.SpecieView
 import com.ezike.tobenna.starwarssearch.core.ext.NavigateBack
 import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
@@ -59,24 +58,25 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
         val binding = FragmentCharacterDetailBinding.bind(view)
 
         componentManager.run {
+            val characterUrl = args.character.url
             subscribe(
                 component = PlanetView(
                     view = binding.planetView,
-                    characterUrl = args.character.url
+                    characterUrl = characterUrl
                 ),
                 stateTransform = CharacterDetailViewState::planetViewState
             )
             subscribe(
                 component = FilmView(
                     view = binding.filmView,
-                    characterUrl = args.character.url
+                    characterUrl = characterUrl
                 ),
                 stateTransform = CharacterDetailViewState::filmViewState
             )
             subscribe(
                 component = SpecieView(
                     view = binding.specieView,
-                    characterUrl = args.character.url
+                    characterUrl = characterUrl
                 ),
                 stateTransform = CharacterDetailViewState::specieViewState
             )
@@ -92,7 +92,7 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
                     view = binding.profileView,
                     navigateUp = goBack
                 ),
-                stateTransform = { ProfileViewState(it.character) }
+                stateTransform = CharacterDetailViewState::profileViewState
             )
 
             disposeAll(viewLifecycleOwner)

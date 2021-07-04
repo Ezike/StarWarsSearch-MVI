@@ -8,6 +8,7 @@ import com.ezike.tobenna.starwarssearch.character_detail.mapper.SpecieModelMappe
 import com.ezike.tobenna.starwarssearch.character_detail.presentation.viewstate.CharacterDetailViewState
 import com.ezike.tobenna.starwarssearch.character_detail.presentation.viewstate.CharacterDetailViewStateFactory
 import com.ezike.tobenna.starwarssearch.character_detail.presentation.viewstate.translateTo
+import com.ezike.tobenna.starwarssearch.character_detail.ui.views.profile.ProfileViewStateFactory
 import com.ezike.tobenna.starwarssearch.core.ext.errorMessage
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Character
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Film
@@ -43,8 +44,14 @@ class CharacterDetailViewStateReducerTest {
             val viewState: CharacterDetailViewState =
                 reducer.reduce(initialState, CharacterDetailViewResult.CharacterDetail(character))
 
+            val characterModel = characterModelMapper.mapToModel(character)
+
             assertThat(viewState).isEqualTo(
-                initialState.translateTo { initialState(characterModelMapper.mapToModel(character)) }
+                initialState.translateTo {
+                    profileState(
+                        profileViewState = ProfileViewStateFactory.create(characterModel)
+                    )
+                }
             )
         }
     }
@@ -142,7 +149,7 @@ class CharacterDetailViewStateReducerTest {
 
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {
-                    filmState { success(filmModelMapper.mapToModelList(films)) }
+                    filmState { Success(filmModelMapper.mapToModelList(films)) }
                 }
             )
         }
@@ -157,7 +164,7 @@ class CharacterDetailViewStateReducerTest {
             val viewState: CharacterDetailViewState =
                 reducer.reduce(initialState, FilmDetailViewResult.Loading)
 
-            assertThat(viewState).isEqualTo(initialState.translateTo { filmState { loading } })
+            assertThat(viewState).isEqualTo(initialState.translateTo { filmState { Loading } })
         }
     }
 
@@ -173,7 +180,7 @@ class CharacterDetailViewStateReducerTest {
 
             assertThat(viewState).isEqualTo(
                 initialState.translateTo {
-                    filmState { error(error.errorMessage) }
+                    filmState { Error(error.errorMessage) }
                 }
             )
         }

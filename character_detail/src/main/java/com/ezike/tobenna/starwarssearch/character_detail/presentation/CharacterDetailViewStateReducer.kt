@@ -8,6 +8,7 @@ import com.ezike.tobenna.starwarssearch.character_detail.presentation.CharacterD
 import com.ezike.tobenna.starwarssearch.character_detail.presentation.CharacterDetailViewResult.FetchCharacterDetailError
 import com.ezike.tobenna.starwarssearch.character_detail.presentation.viewstate.CharacterDetailViewState
 import com.ezike.tobenna.starwarssearch.character_detail.presentation.viewstate.translateTo
+import com.ezike.tobenna.starwarssearch.character_detail.ui.views.profile.ProfileViewStateFactory
 import com.ezike.tobenna.starwarssearch.core.ext.errorMessage
 import javax.inject.Inject
 
@@ -24,7 +25,10 @@ class CharacterDetailViewStateReducer @Inject constructor(
     ): CharacterDetailViewState {
         return when (result) {
             is CharacterDetail -> oldState.translateTo {
-                initialState(characterModelMapper.mapToModel(result.character))
+                val character = characterModelMapper.mapToModel(result.character)
+                profileState(
+                    profileViewState = ProfileViewStateFactory.create(model = character)
+                )
             }
             is FetchCharacterDetailError -> oldState.translateTo {
                 errorState(
@@ -46,11 +50,11 @@ class CharacterDetailViewStateReducer @Inject constructor(
         return when (result) {
             is FilmDetailViewResult.Success ->
                 previous.translateTo {
-                    filmState { success(filmModelMapper.mapToModelList(result.film)) }
+                    filmState { Success(filmModelMapper.mapToModelList(result.film)) }
                 }
             is FilmDetailViewResult.Error ->
-                previous.translateTo { filmState { error(result.error.errorMessage) } }
-            FilmDetailViewResult.Loading -> previous.translateTo { filmState { loading } }
+                previous.translateTo { filmState { Error(result.error.errorMessage) } }
+            FilmDetailViewResult.Loading -> previous.translateTo { filmState { Loading } }
         }
     }
 

@@ -22,4 +22,5 @@
     <string name="film_error_occurred">Unable to fetch film information</string>
     <string name="height_unavailable">Height: N/A</string>
     <string name="back">back</string>
+    <string name="empty"> </string>
 </resources>
