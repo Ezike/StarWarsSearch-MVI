@@ -63,16 +63,20 @@ object PlanetViewStateFactory {
 
     fun Success(planet: PlanetModel): PlanetViewState =
         state.copy(
-            data = PlanetViewData(
-                ParamString(R.string.planet_name, planet.name),
-                population = getPopulation(planet.population)
-            ),
+            data = createPlanetData(planet),
             errorMessage = null,
             isLoading = false,
             showError = false,
             showPlanet = true,
             showTitle = true
         )
+
+    private fun createPlanetData(
+        planet: PlanetModel
+    ) = PlanetViewData(
+        name = ParamString(R.string.planet_name, planet.name),
+        population = getPopulation(planet.population)
+    )
 
     private fun getPopulation(
         population: String

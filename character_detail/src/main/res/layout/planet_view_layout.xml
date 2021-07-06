@@ -24,7 +24,7 @@
         android:layout_marginHorizontal="8dp" />
 
     <com.ezike.tobenna.starwarssearch.core.EmptyStateView
-        android:id="@+id/planet_error_state"
+        android:id="@+id/planet_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:isButtonVisible="true"

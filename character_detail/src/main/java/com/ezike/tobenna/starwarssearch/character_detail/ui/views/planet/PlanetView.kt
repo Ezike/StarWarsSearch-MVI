@@ -11,7 +11,7 @@ class PlanetView(
 ) : UIComponent<PlanetViewState>() {
 
     init {
-        view.planetErrorState.onRetry {
+        view.planetError.onRetry {
             sendIntent(RetryFetchPlanetIntent(characterUrl))
         }
     }
@@ -23,8 +23,8 @@ class PlanetView(
             planetName.string = state.data.name
             planetPopulation.string = state.data.population
             planetLoadingView.root.isVisible = state.isLoading
-            planetErrorState.isVisible = state.showError
-            planetErrorState.setCaption(state.errorMessage)
+            planetError.isVisible = state.showError
+            planetError.setCaption(state.errorMessage)
         }
     }
 }
