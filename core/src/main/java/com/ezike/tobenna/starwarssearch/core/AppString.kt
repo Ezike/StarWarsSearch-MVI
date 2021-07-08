@@ -3,9 +3,8 @@ package com.ezike.tobenna.starwarssearch.core
 import android.content.Context
 import android.widget.TextView
 import androidx.annotation.StringRes
-import java.io.Serializable
 
-sealed interface AppString : Serializable
+sealed interface AppString
 
 @JvmInline
 value class StringLiteral(
