@@ -5,7 +5,7 @@
     <string name="films">Films</string>
     <string name="character_name">Name: %s</string>
     <string name="character_birth_year">Birth year: %s</string>
-    <string name="height">Height: %s cm, %s inches</string>
+    <string name="height">Height: %1$s cm, %2$s inches</string>
     <string name="profile_title">%s\'s profile</string>
     <string name="error_fetching_details">Error fetching %s\'s detail</string>
     <string name="planet_name">Name: %s</string>
