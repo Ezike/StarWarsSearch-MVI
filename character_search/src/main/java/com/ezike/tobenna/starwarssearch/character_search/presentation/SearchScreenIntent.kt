@@ -1,7 +1,7 @@
 package com.ezike.tobenna.starwarssearch.character_search.presentation
 
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
+import com.ezike.tobenna.starwarssearch.presentation.base.ViewIntent
 
 sealed interface SearchScreenIntent : ViewIntent
 data class RetrySearchIntent(val query: String) : SearchScreenIntent

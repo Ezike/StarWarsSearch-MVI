@@ -1,14 +1,14 @@
-package com.ezike.tobenna.starwarssearch.presentation.mvi.stateMachine
+package com.ezike.tobenna.starwarssearch.presentation.stateMachine
 
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.IntentProcessor
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.NoOpIntent
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ScreenState
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.StateTransform
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.Subscriber
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewResult
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewStateReducer
+import com.ezike.tobenna.starwarssearch.presentation.base.IntentProcessor
+import com.ezike.tobenna.starwarssearch.presentation.base.NoOpIntent
+import com.ezike.tobenna.starwarssearch.presentation.base.ScreenState
+import com.ezike.tobenna.starwarssearch.presentation.base.StateReducer
+import com.ezike.tobenna.starwarssearch.presentation.base.StateTransform
+import com.ezike.tobenna.starwarssearch.presentation.base.Subscriber
+import com.ezike.tobenna.starwarssearch.presentation.base.ViewIntent
+import com.ezike.tobenna.starwarssearch.presentation.base.ViewResult
+import com.ezike.tobenna.starwarssearch.presentation.base.ViewState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -24,10 +24,10 @@ import kotlinx.coroutines.flow.scan
 
 public abstract class StateMachine<S : ScreenState, R : ViewResult>(
     private val intentProcessor: IntentProcessor<R>,
-    private val reducer: ViewStateReducer<S, R>,
+    private val reducer: StateReducer<S, R>,
     initialState: S,
     initialIntent: ViewIntent = NoOpIntent,
-    config: Config = NoOpConfig
+    strategy: RenderStrategy = RenderStrategy.Intermediate
 ) {
 
     private val mainScope = CoroutineScope(
@@ -43,7 +43,7 @@ public abstract class StateMachine<S : ScreenState, R : ViewResult>(
     init {
         intents.receiveAsFlow()
             .filter { it !is NoOpIntent }
-            .mapConfig(config, intentProcessor::intentToResult)
+            .renderWith(strategy, intentProcessor::intentToResult)
             .scan(initialState, reducer::reduce)
             .distinctUntilChanged()
             .onEach(subscriptionManager::updateState)
@@ -60,9 +60,9 @@ public abstract class StateMachine<S : ScreenState, R : ViewResult>(
         transform: StateTransform<S, V>
     ) {
         subscriptionManager.subscribe(
-            subscriber as Subscriber<ViewState>,
-            transform as StateTransform<ScreenState, ViewState>,
-            intents::offer
+            subscriber = subscriber as Subscriber<ViewState>,
+            transform = transform as StateTransform<ScreenState, ViewState>,
+            dispatchIntent = intents::trySend
         )
     }
 

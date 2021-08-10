@@ -1,7 +1,7 @@
 package com.ezike.tobenna.starwarssearch.character_detail.ui.views.specie
 
 import com.ezike.tobenna.starwarssearch.character_search.model.SpecieModel
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
+import com.ezike.tobenna.starwarssearch.presentation.base.ViewState
 
 data class SpecieViewState(
     val species: List<SpecieModel> = emptyList(),

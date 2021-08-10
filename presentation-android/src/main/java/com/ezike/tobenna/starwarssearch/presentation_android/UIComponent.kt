@@ -1,10 +1,10 @@
 package com.ezike.tobenna.starwarssearch.presentation_android
 
 import androidx.annotation.UiThread
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.DispatchIntent
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.Subscriber
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
+import com.ezike.tobenna.starwarssearch.presentation.base.DispatchIntent
+import com.ezike.tobenna.starwarssearch.presentation.base.Subscriber
+import com.ezike.tobenna.starwarssearch.presentation.base.ViewIntent
+import com.ezike.tobenna.starwarssearch.presentation.base.ViewState
 
 /**
  * Represents a basic UI component that can be part of a screen

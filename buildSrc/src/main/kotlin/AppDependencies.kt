@@ -33,7 +33,7 @@ object Dependencies {
             const val coreKtx: String = "1.5.0"
             const val navigation: String = "2.3.5"
             const val multidex: String = "2.0.1"
-            const val lifeCycle: String = "2.4.0-alpha01"
+            const val lifeCycle: String = "2.3.1"
             const val activity: String = "1.3.0-alpha08"
         }
 

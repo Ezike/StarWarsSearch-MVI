@@ -1,7 +1,7 @@
 package com.ezike.tobenna.starwarssearch.character_detail.ui.views.film
 
 import com.ezike.tobenna.starwarssearch.character_search.model.FilmModel
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
+import com.ezike.tobenna.starwarssearch.presentation.base.ViewState
 
 data class FilmViewState(
     val films: List<FilmModel> = emptyList(),

@@ -4,7 +4,7 @@ import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Charac
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Film
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Planet
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.model.Specie
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewResult
+import com.ezike.tobenna.starwarssearch.presentation.base.ViewResult
 
 sealed class CharacterDetailViewResult : ViewResult {
     data class CharacterDetail(val character: Character) : CharacterDetailViewResult()

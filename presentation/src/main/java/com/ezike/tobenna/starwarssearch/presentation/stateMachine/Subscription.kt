@@ -1,11 +1,11 @@
-package com.ezike.tobenna.starwarssearch.presentation.mvi.stateMachine
+package com.ezike.tobenna.starwarssearch.presentation.stateMachine
 
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.DispatchIntent
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.NoOpIntentDispatcher
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ScreenState
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.StateTransform
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.Subscriber
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
+import com.ezike.tobenna.starwarssearch.presentation.base.DispatchIntent
+import com.ezike.tobenna.starwarssearch.presentation.base.NoOpIntentDispatcher
+import com.ezike.tobenna.starwarssearch.presentation.base.ScreenState
+import com.ezike.tobenna.starwarssearch.presentation.base.StateTransform
+import com.ezike.tobenna.starwarssearch.presentation.base.Subscriber
+import com.ezike.tobenna.starwarssearch.presentation.base.ViewState
 
 internal class Subscription<S : ScreenState, V : ViewState>(
     private var subscriber: Subscriber<V>?,

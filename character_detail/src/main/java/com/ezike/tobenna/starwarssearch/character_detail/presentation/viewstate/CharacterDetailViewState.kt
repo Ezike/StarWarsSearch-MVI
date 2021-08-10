@@ -10,7 +10,7 @@ import com.ezike.tobenna.starwarssearch.character_detail.ui.views.profile.Profil
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.profile.ProfileViewStateFactory
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.specie.SpecieViewState
 import com.ezike.tobenna.starwarssearch.character_detail.ui.views.specie.SpecieViewStateFactory
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ScreenState
+import com.ezike.tobenna.starwarssearch.presentation.base.ScreenState
 
 data class CharacterDetailViewState(
     val profileViewState: ProfileViewState = ProfileViewStateFactory.initialState,

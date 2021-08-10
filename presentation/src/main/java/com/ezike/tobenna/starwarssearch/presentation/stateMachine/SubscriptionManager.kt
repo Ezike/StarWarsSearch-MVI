@@ -1,10 +1,10 @@
-package com.ezike.tobenna.starwarssearch.presentation.mvi.stateMachine
+package com.ezike.tobenna.starwarssearch.presentation.stateMachine
 
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.DispatchIntent
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ScreenState
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.StateTransform
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.Subscriber
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewState
+import com.ezike.tobenna.starwarssearch.presentation.base.DispatchIntent
+import com.ezike.tobenna.starwarssearch.presentation.base.ScreenState
+import com.ezike.tobenna.starwarssearch.presentation.base.StateTransform
+import com.ezike.tobenna.starwarssearch.presentation.base.Subscriber
+import com.ezike.tobenna.starwarssearch.presentation.base.ViewState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.actor
 import kotlinx.coroutines.launch
@@ -71,14 +71,14 @@ internal class SubscriptionManager(
         }
     }
 
-    private sealed class SubscriberAction {
+    private sealed interface SubscriberAction {
         data class Subscribe(
             val subscriber: Subscriber<ViewState>,
             val transform: StateTransform<ScreenState, ViewState>,
             val onIntent: DispatchIntent
-        ) : SubscriberAction()
+        ) : SubscriberAction
 
-        data class UpdateState(val state: ScreenState) : SubscriberAction()
-        object Dispose : SubscriberAction()
+        data class UpdateState(val state: ScreenState) : SubscriberAction
+        object Dispose : SubscriberAction
     }
 }

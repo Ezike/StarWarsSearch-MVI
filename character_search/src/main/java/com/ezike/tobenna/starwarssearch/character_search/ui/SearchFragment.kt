@@ -8,8 +8,6 @@ import androidx.fragment.app.viewModels
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.FragmentSearchBinding
 import com.ezike.tobenna.starwarssearch.character_search.navigation.Navigator
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchComponentManager
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchStateMachine
 import com.ezike.tobenna.starwarssearch.character_search.presentation.viewstate.SearchScreenState
 import com.ezike.tobenna.starwarssearch.character_search.ui.views.history.SearchHistoryView
 import com.ezike.tobenna.starwarssearch.character_search.ui.views.result.SearchResultView
@@ -18,13 +16,7 @@ import com.ezike.tobenna.starwarssearch.core.ext.lazyText
 import com.ezike.tobenna.starwarssearch.core.ext.onBackPress
 import com.ezike.tobenna.starwarssearch.core.ext.viewScope
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
-@HiltViewModel
-class CharacterSearchComponentManager @Inject constructor(
-    searchStateMachine: SearchStateMachine
-) : SearchComponentManager(searchStateMachine)
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search) {
@@ -35,13 +27,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val componentManager: CharacterSearchComponentManager by viewModels()
+        val viewModel: CharacterSearchViewModel by viewModels()
 
         val binding = FragmentSearchBinding.bind(view)
 
         handleBackPress(binding.searchBar)
 
-        componentManager.run {
+        viewModel.run {
             subscribe(
                 component = SearchBarView(
                     searchBar = binding.searchBar,

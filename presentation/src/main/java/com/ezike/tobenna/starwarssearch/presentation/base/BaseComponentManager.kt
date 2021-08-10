@@ -1,6 +1,6 @@
-package com.ezike.tobenna.starwarssearch.presentation.mvi.base
+package com.ezike.tobenna.starwarssearch.presentation.base
 
-public interface MVIPresenter<SC : ScreenState> {
+public interface BaseComponentManager<SC : ScreenState> {
     public fun <VS : ViewState> subscribe(
         component: Subscriber<VS>,
         stateTransform: StateTransform<SC, VS>

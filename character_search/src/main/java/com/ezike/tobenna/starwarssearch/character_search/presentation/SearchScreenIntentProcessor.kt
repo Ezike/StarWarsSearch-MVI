@@ -8,8 +8,8 @@ import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.sear
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.searchhistory.ClearSearchHistory
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.searchhistory.GetSearchHistory
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.searchhistory.SaveSearch
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.InvalidViewIntentException
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
+import com.ezike.tobenna.starwarssearch.presentation.base.InvalidViewIntentException
+import com.ezike.tobenna.starwarssearch.presentation.base.ViewIntent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.emitAll

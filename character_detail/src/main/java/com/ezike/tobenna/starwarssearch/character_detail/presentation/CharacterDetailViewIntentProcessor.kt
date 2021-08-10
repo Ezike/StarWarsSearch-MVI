@@ -15,8 +15,8 @@ import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.deta
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.detail.FetchPlanet
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.detail.FetchSpecies
 import com.ezike.tobenna.starwarssearch.lib_character_search.domain.usecase.detail.GetCharacterDetail
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.InvalidViewIntentException
-import com.ezike.tobenna.starwarssearch.presentation.mvi.base.ViewIntent
+import com.ezike.tobenna.starwarssearch.presentation.base.InvalidViewIntentException
+import com.ezike.tobenna.starwarssearch.presentation.base.ViewIntent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapLatest

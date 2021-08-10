@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter
+package com.ezike.tobenna.starwarssearch.character_search.ui.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

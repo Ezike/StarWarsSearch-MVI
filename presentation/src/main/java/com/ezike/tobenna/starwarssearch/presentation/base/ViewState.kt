@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.presentation.mvi.base
+package com.ezike.tobenna.starwarssearch.presentation.base
 
 /**
  * Represents the state of a screen that may comprise of several [UIComponent]
