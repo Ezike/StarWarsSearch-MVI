@@ -124,7 +124,7 @@ object Dependencies {
 
     object DI {
         object Version {
-            const val daggerHilt: String = "2.37"
+            const val daggerHilt: String = "2.38.1"
             const val androidxHilt: String = "1.0.0-alpha02"
         }
 
@@ -146,7 +146,7 @@ object Dependencies {
 
     object Coroutines : Libraries {
         object Version {
-            const val coroutines: String = "1.5.0"
+            const val coroutines: String = "1.5.2"
         }
 
         const val core: String =
