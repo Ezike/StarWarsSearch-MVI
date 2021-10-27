@@ -7,6 +7,3 @@ public interface Subscriber<State> {
     public fun onNewState(state: State)
     public var dispatchIntent: DispatchIntent
 }
-
-internal val NoOpIntentDispatcher: DispatchIntent
-    get() = {}

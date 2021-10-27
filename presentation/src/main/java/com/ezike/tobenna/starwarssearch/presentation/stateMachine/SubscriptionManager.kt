@@ -29,10 +29,10 @@ internal class SubscriptionManager(
                     subscription.updateState(cachedState)
                     subscription.onIntentDispatch(action.onIntent)
                 }
-                is SubscriberAction.UpdateState -> {
+                is SubscriberAction.UpdateState -> if (cachedState != action.state) {
                     cachedState = action.state
                     subscribers.forEach { subscriber ->
-                        subscriber.updateState(action.state)
+                        subscriber.updateState(cachedState)
                     }
                 }
                 SubscriberAction.Dispose -> {

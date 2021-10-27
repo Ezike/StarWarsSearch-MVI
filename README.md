@@ -16,9 +16,10 @@ Resources: [blog](https://netflixtechblog.com/making-our-android-studio-apps-rea
 
 ## Prerequisite
 To build this project, you require:
-- Android Studio Bumble bee
+- Android Studio Chipmunk Canary 2
 - Gradle 7.1
 - Kotlin 1.5
+- Android Gradle Plugin 7.2.0-alpha02
 
 Run the following command in the root of the project to setup your Android Studio:
 ```

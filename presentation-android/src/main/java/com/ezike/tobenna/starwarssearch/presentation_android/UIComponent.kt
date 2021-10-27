@@ -12,7 +12,7 @@ import com.ezike.tobenna.starwarssearch.presentation.base.ViewState
 abstract class UIComponent<ComponentState : ViewState> : Subscriber<ComponentState> {
 
     @UiThread
-    abstract fun render(state: ComponentState)
+    protected abstract fun render(state: ComponentState)
 
     @UiThread
     protected fun sendIntent(intent: ViewIntent) {

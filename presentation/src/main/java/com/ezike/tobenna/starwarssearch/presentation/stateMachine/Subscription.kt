@@ -1,7 +1,6 @@
 package com.ezike.tobenna.starwarssearch.presentation.stateMachine
 
 import com.ezike.tobenna.starwarssearch.presentation.base.DispatchIntent
-import com.ezike.tobenna.starwarssearch.presentation.base.NoOpIntentDispatcher
 import com.ezike.tobenna.starwarssearch.presentation.base.ScreenState
 import com.ezike.tobenna.starwarssearch.presentation.base.StateTransform
 import com.ezike.tobenna.starwarssearch.presentation.base.Subscriber
@@ -17,8 +16,8 @@ internal class Subscription<S : ScreenState, V : ViewState>(
     fun updateState(state: S) {
         val newState: V = transform(state)
         if (oldState == null || oldState != newState) {
-            subscriber?.onNewState(newState)
             oldState = newState
+            subscriber?.onNewState(newState)
         }
     }
 
@@ -27,7 +26,6 @@ internal class Subscription<S : ScreenState, V : ViewState>(
     }
 
     fun dispose() {
-        subscriber?.dispatchIntent = NoOpIntentDispatcher
         subscriber = null
     }
 }
