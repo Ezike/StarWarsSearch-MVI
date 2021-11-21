@@ -13,7 +13,6 @@ spotless {
                 )
             )
         )
-        ktlint(ktLintVersion)
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()

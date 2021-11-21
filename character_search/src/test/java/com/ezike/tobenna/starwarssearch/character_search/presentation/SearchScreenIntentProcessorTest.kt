@@ -88,7 +88,7 @@ class SearchScreenIntentProcessorTest {
         assertThat(resultRecorder.takeAll())
             .containsElements(
                 SearchCharacterResult.Searching,
-                SearchCharacterResult.Success(DummyData.characterList)
+                SearchCharacterResult.LoadedSearchResult(DummyData.characterList)
             )
     }
 
@@ -119,9 +119,9 @@ class SearchScreenIntentProcessorTest {
         assertThat(results.map { it.javaClass })
             .containsElements(
                 SearchCharacterResult.Searching::class.java,
-                SearchCharacterResult.Error::class.java
+                SearchCharacterResult.SearchError::class.java
             )
-        val errorResult: SearchCharacterResult.Error = results.last() as SearchCharacterResult.Error
+        val errorResult: SearchCharacterResult.SearchError = results.last() as SearchCharacterResult.SearchError
         assertThat(errorResult.throwable).isInstanceOf(SocketTimeoutException::class.java)
         assertThat(errorResult.throwable.message).isEqualTo(ERROR_MSG)
     }

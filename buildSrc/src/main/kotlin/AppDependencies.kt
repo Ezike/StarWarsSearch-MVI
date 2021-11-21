@@ -2,14 +2,14 @@ import Dependencies.View.Version.fragment
 
 const val kotlinAndroid: String = "android"
 const val kotlinKapt: String = "kapt"
-const val ktLintVersion: String = "0.41.0"
-const val kotlinVersion = "1.5.21"
+const val ktLintVersion: String = "0.43.0"
+const val kotlinVersion = "1.6.0"
 
 object Config {
     object Version {
         const val minSdkVersion: Int = 21
-        const val compileSdkVersion: Int = 30
-        const val targetSdkVersion: Int = 30
+        const val compileSdkVersion: Int = 31
+        const val targetSdkVersion: Int = 31
         const val versionName: String = "1.0"
         const val versionCode: Int = 1
     }
@@ -30,11 +30,11 @@ interface Libraries {
 object Dependencies {
     object AndroidX : Libraries {
         object Version {
-            const val coreKtx: String = "1.5.0"
+            const val coreKtx: String = "1.7.0"
             const val navigation: String = "2.3.5"
             const val multidex: String = "2.0.1"
-            const val lifeCycle: String = "2.3.1"
-            const val activity: String = "1.3.0-alpha08"
+            const val lifeCycle: String = "2.4.0"
+            const val activity: String = "1.4.0"
         }
 
         const val coreKtx: String = "androidx.core:core-ktx:${Version.coreKtx}"
@@ -63,13 +63,13 @@ object Dependencies {
 
     object View : Libraries {
         object Version {
-            const val materialComponent: String = "1.2.0-alpha04"
+            const val materialComponent: String = "1.4.0"
             const val shimmerLayout: String = "0.5.0"
-            const val appCompat: String = "1.4.0-alpha01"
+            const val appCompat: String = "1.4.0"
             const val constraintLayout: String = "2.0.0"
-            const val fragment: String = "1.4.0-alpha01"
+            const val fragment: String = "1.4.0"
             const val cardView: String = "1.0.0"
-            const val recyclerView: String = "1.2.0"
+            const val recyclerView: String = "1.2.1"
         }
 
         const val appCompat: String = "androidx.appcompat:appcompat:${Version.appCompat}"
@@ -124,7 +124,7 @@ object Dependencies {
 
     object DI {
         object Version {
-            const val daggerHilt: String = "2.38.1"
+            const val daggerHilt: String = "2.40.1"
             const val androidxHilt: String = "1.0.0-alpha02"
         }
 
@@ -171,7 +171,7 @@ object Dependencies {
 
     object Performance {
         object Version {
-            const val leakCanary: String = "2.5"
+            const val leakCanary: String = "2.7"
         }
 
         const val leakCanary: String =

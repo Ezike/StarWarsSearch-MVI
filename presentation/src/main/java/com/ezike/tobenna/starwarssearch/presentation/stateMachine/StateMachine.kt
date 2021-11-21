@@ -27,7 +27,7 @@ public abstract class StateMachine<S : ScreenState, R : ViewResult>(
     private val reducer: StateReducer<S, R>,
     initialState: S,
     initialIntent: ViewIntent = NoOpIntent,
-    strategy: RenderStrategy = RenderStrategy.Intermediate
+    renderStrategy: RenderStrategy = RenderStrategy.Intermediate
 ) {
 
     private val mainScope = CoroutineScope(
@@ -43,7 +43,7 @@ public abstract class StateMachine<S : ScreenState, R : ViewResult>(
     init {
         intents.receiveAsFlow()
             .filter { it !is NoOpIntent }
-            .renderWith(strategy, intentProcessor::intentToResult)
+            .renderWith(renderStrategy, intentProcessor::intentToResult)
             .scan(initialState, reducer::reduce)
             .distinctUntilChanged()
             .onEach(subscriptionManager::updateState)

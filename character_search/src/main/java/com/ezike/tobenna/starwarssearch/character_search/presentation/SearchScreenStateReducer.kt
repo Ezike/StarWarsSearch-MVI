@@ -1,13 +1,13 @@
 package com.ezike.tobenna.starwarssearch.character_search.presentation
 
 import com.ezike.tobenna.starwarssearch.character_search.mapper.CharacterModelMapper
-import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenResult.LoadedHistory
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenResult.SearchCharacterResult.Error
+import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenResult.SearchCharacterResult.LoadedSearchResult
+import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenResult.SearchCharacterResult.SearchError
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenResult.SearchCharacterResult.Searching
-import com.ezike.tobenna.starwarssearch.character_search.presentation.SearchScreenResult.SearchCharacterResult.Success
 import com.ezike.tobenna.starwarssearch.character_search.presentation.viewstate.SearchScreenState
-import com.ezike.tobenna.starwarssearch.character_search.presentation.viewstate.translateTo
+import com.ezike.tobenna.starwarssearch.character_search.ui.views.history.SearchHistoryViewState
+import com.ezike.tobenna.starwarssearch.character_search.ui.views.result.SearchResultViewState
 import com.ezike.tobenna.starwarssearch.core.ext.errorMessage
 import javax.inject.Inject
 
@@ -18,24 +18,30 @@ class SearchScreenStateReducer @Inject constructor(
     override fun reduce(
         oldState: SearchScreenState,
         result: SearchScreenResult
-    ): SearchScreenState {
-        return when (result) {
-            is LoadedHistory -> oldState.translateTo {
-                searchHistoryState {
-                    DataLoaded(characterModelMapper.mapToModelList(result.searchHistory))
-                }
-            }
-            Searching -> oldState.translateTo {
-                searchResultState { Searching }
-            }
-            is Error -> oldState.translateTo {
-                searchResultState { Error(result.throwable.errorMessage) }
-            }
-            is Success -> oldState.translateTo {
-                val characters: List<CharacterModel> =
-                    characterModelMapper.mapToModelList(result.characters)
-                searchResultState { ResultLoaded(characters) }
-            }
+    ): SearchScreenState = when (result) {
+        is LoadedHistory -> {
+            val data =
+                characterModelMapper.mapToModelList(result.searchHistory)
+            val state = SearchHistoryViewState.DataLoaded(data = data)
+            SearchScreenState.HistoryView(state)
+        }
+        Searching -> {
+            val state = SearchResultViewState.Searching(
+                data = oldState.searchResultState.resultState.data
+            )
+            SearchScreenState.ResultView(state = state)
+        }
+        is SearchError -> {
+            val state = SearchResultViewState.Error(
+                message = result.throwable.errorMessage
+            )
+            SearchScreenState.ResultView(state = state)
+        }
+        is LoadedSearchResult -> {
+            val data =
+                characterModelMapper.mapToModelList(result.characters)
+            val state = SearchResultViewState.DataLoaded(data = data)
+            SearchScreenState.ResultView(state = state)
         }
     }
 }

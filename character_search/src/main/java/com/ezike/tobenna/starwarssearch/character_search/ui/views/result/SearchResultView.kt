@@ -5,7 +5,7 @@ import com.ezike.tobenna.starwarssearch.character_search.databinding.LayoutSearc
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
 import com.ezike.tobenna.starwarssearch.character_search.presentation.RetrySearchIntent
 import com.ezike.tobenna.starwarssearch.character_search.presentation.SaveSearchIntent
-import com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter.SearchResultAdapter
+import com.ezike.tobenna.starwarssearch.character_search.ui.adapter.SearchResultAdapter
 import com.ezike.tobenna.starwarssearch.core.ext.init
 import com.ezike.tobenna.starwarssearch.core.ext.show
 import com.ezike.tobenna.starwarssearch.presentation_android.UIComponent
@@ -29,13 +29,13 @@ class SearchResultView(
     }
 
     override fun render(state: SearchResultViewState) {
-        searchResultAdapter.submitList(state.searchResult)
+        searchResultAdapter.submitList(state.resultState.data)
         view.run {
-            charactersRv.show = state.showResult
+            charactersRv.show = state.resultState.showResult
             progressBar.isVisible = state.showProgress
             emptyState.isVisible = state.showEmpty
-            errorState.isVisible = state.showError
-            errorState.setCaption(state.error)
+            errorState.isVisible = state.errorState.showError
+            errorState.setCaption(state.errorState.error)
         }
     }
 }

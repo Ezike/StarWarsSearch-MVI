@@ -28,10 +28,10 @@ class SearchHistoryView(
     }
 
     override fun render(state: SearchHistoryViewState) {
-        searchHistoryAdapter.submitList(state.history)
+        searchHistoryAdapter.submitList(state.historyState.data)
         view.run {
             recentSearchGroup.isVisible = state.showRecentSearchGroup
-            searchHistoryRv.show = state.showHistory
+            searchHistoryRv.show = state.historyState.showHistory
             searchHistoryPrompt.isVisible = state.showHistoryPrompt
         }
     }

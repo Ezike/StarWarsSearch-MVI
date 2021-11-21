@@ -7,7 +7,7 @@ sealed class SearchScreenResult : ViewResult {
     data class LoadedHistory(val searchHistory: List<Character>) : SearchScreenResult()
     sealed class SearchCharacterResult : SearchScreenResult() {
         object Searching : SearchCharacterResult()
-        data class Error(val throwable: Throwable) : SearchCharacterResult()
-        data class Success(val characters: List<Character>) : SearchCharacterResult()
+        data class SearchError(val throwable: Throwable) : SearchCharacterResult()
+        data class LoadedSearchResult(val characters: List<Character>) : SearchCharacterResult()
     }
 }

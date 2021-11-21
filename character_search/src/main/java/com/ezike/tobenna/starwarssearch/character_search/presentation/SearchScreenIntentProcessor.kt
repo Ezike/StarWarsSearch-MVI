@@ -79,11 +79,11 @@ class SearchScreenIntentProcessor @Inject constructor(
         }
         return searchCharacters(query.trim())
             .map<List<Character>, SearchCharacterResult> { characters ->
-                SearchCharacterResult.Success(characters)
+                SearchCharacterResult.LoadedSearchResult(characters)
             }.onStart {
                 emit(SearchCharacterResult.Searching)
             }.catch { throwable ->
-                emit(SearchCharacterResult.Error(throwable))
+                emit(SearchCharacterResult.SearchError(throwable))
             }
     }
 }

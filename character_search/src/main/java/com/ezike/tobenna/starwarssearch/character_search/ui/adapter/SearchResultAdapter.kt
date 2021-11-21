@@ -1,4 +1,4 @@
-package com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter
+package com.ezike.tobenna.starwarssearch.character_search.ui.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ezike.tobenna.starwarssearch.character_search.R
 import com.ezike.tobenna.starwarssearch.character_search.databinding.SearchResultBinding
 import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
-import com.ezike.tobenna.starwarssearch.character_search.ui.search.adapter.SearchResultAdapter.SearchResultViewHolder
+import com.ezike.tobenna.starwarssearch.character_search.ui.adapter.SearchResultAdapter.SearchResultViewHolder
 import com.ezike.tobenna.starwarssearch.core.ext.inflate
 
 typealias SearchResultClickListener = (CharacterModel) -> Unit

@@ -29,7 +29,10 @@ abstract class ComponentManager<S : ScreenState, out R : ViewResult>(
     }
 
     fun disposeAll(owner: LifecycleOwner) {
-        dispose(owner) { stateMachine.unSubscribeComponents() }
+        dispose(
+            lifecycleOwner = owner,
+            action = stateMachine::unSubscribeComponents
+        )
     }
 
     override fun onCleared() {
