@@ -31,9 +31,9 @@ object Dependencies {
     object AndroidX : Libraries {
         object Version {
             const val coreKtx: String = "1.7.0"
-            const val navigation: String = "2.3.5"
+            const val navigation: String = "2.4.2"
             const val multidex: String = "2.0.1"
-            const val lifeCycle: String = "2.4.0"
+            const val lifeCycle: String = "2.4.1"
             const val activity: String = "1.4.0"
         }
 
@@ -67,7 +67,7 @@ object Dependencies {
             const val shimmerLayout: String = "0.5.0"
             const val appCompat: String = "1.4.0"
             const val constraintLayout: String = "2.0.0"
-            const val fragment: String = "1.4.0"
+            const val fragment: String = "1.4.1"
             const val cardView: String = "1.0.0"
             const val recyclerView: String = "1.2.1"
         }
@@ -124,21 +124,16 @@ object Dependencies {
 
     object DI {
         object Version {
-            const val daggerHilt: String = "2.40.1"
-            const val androidxHilt: String = "1.0.0-alpha02"
+            const val daggerHilt: String = "2.42"
         }
 
         object AnnotationProcessor {
             const val daggerHilt: String =
                 "com.google.dagger:hilt-compiler:${Version.daggerHilt}"
-            const val androidxHiltCompiler: String =
-                "androidx.hilt:hilt-compiler:${Version.androidxHilt}"
         }
 
         const val daggerHiltAndroid: String =
             "com.google.dagger:hilt-android:${Version.daggerHilt}"
-        const val hiltViewModel: String =
-            "androidx.hilt:hilt-lifecycle-viewmodel:${Version.androidxHilt}"
         const val hiltTesting: String =
             "com.google.dagger:hilt-android-testing:${Version.daggerHilt}"
         const val hiltCore: String = "com.google.dagger:hilt-core:${Version.daggerHilt}"
@@ -146,7 +141,7 @@ object Dependencies {
 
     object Coroutines : Libraries {
         object Version {
-            const val coroutines: String = "1.5.2"
+            const val coroutines: String = "1.6.1"
         }
 
         const val core: String =
@@ -159,7 +154,7 @@ object Dependencies {
 
     object Cache {
         object Version {
-            const val room: String = "2.3.0"
+            const val room: String = "2.5.0-alpha01"
         }
 
         object AnnotationProcessor {

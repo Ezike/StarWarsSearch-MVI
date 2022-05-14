@@ -70,7 +70,6 @@ dependencies {
     implementAll(View.components)
     implementation(Network.moshi)
     implementation(DI.daggerHiltAndroid)
-    implementation(DI.hiltViewModel)
     implementation(View.fragment)
 
     AndroidX.run {
@@ -82,5 +81,4 @@ dependencies {
     }
 
     kapt(DI.AnnotationProcessor.daggerHilt)
-    kapt(DI.AnnotationProcessor.androidxHiltCompiler)
 }

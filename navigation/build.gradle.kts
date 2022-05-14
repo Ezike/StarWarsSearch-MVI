@@ -54,10 +54,8 @@ dependencies {
     implementation(project(characterDetail))
 
     implementation(DI.daggerHiltAndroid)
-    implementation(DI.hiltViewModel)
     implementation(View.fragment)
     implementation(AndroidX.navigationFragmentKtx)
 
     kapt(DI.AnnotationProcessor.daggerHilt)
-    kapt(DI.AnnotationProcessor.androidxHiltCompiler)
 }
