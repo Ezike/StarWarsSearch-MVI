@@ -2,8 +2,8 @@ import Dependencies.View.Version.fragment
 
 const val kotlinAndroid: String = "android"
 const val kotlinKapt: String = "kapt"
-const val ktLintVersion: String = "0.43.0"
-const val kotlinVersion = "1.6.0"
+const val ktLintVersion: String = "0.46.1"
+const val kotlinVersion = "1.7.0"
 
 object Config {
     object Version {
@@ -31,10 +31,10 @@ object Dependencies {
     object AndroidX : Libraries {
         object Version {
             const val coreKtx: String = "1.7.0"
-            const val navigation: String = "2.4.2"
+            const val navigation: String = "2.5.0"
             const val multidex: String = "2.0.1"
-            const val lifeCycle: String = "2.4.1"
-            const val activity: String = "1.4.0"
+            const val lifeCycle: String = "2.5.0"
+            const val activity: String = "1.5.0"
         }
 
         const val coreKtx: String = "androidx.core:core-ktx:${Version.coreKtx}"
@@ -65,9 +65,9 @@ object Dependencies {
         object Version {
             const val materialComponent: String = "1.4.0"
             const val shimmerLayout: String = "0.5.0"
-            const val appCompat: String = "1.4.0"
+            const val appCompat: String = "1.4.2"
             const val constraintLayout: String = "2.0.0"
-            const val fragment: String = "1.4.1"
+            const val fragment: String = "1.5.0"
             const val cardView: String = "1.0.0"
             const val recyclerView: String = "1.2.1"
         }
@@ -141,7 +141,7 @@ object Dependencies {
 
     object Coroutines : Libraries {
         object Version {
-            const val coroutines: String = "1.6.1"
+            const val coroutines: String = "1.6.3"
         }
 
         const val core: String =

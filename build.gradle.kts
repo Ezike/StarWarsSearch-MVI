@@ -19,9 +19,7 @@ subprojects {
     applySpotless
     tasks.withType<KotlinCompile>().configureEach {
         with(kotlinOptions) {
-            jvmTarget = JavaVersion.VERSION_1_8.toString()
-            languageVersion = "1.5"
-            apiVersion = "1.5"
+            jvmTarget = JavaVersion.VERSION_11.toString()
             freeCompilerArgs += "-Xuse-experimental=" +
                 "kotlin.Experimental," +
                 "kotlinx.coroutines.ExperimentalCoroutinesApi," +
