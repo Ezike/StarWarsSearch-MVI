@@ -16,10 +16,10 @@ Resources: [blog](https://netflixtechblog.com/making-our-android-studio-apps-rea
 
 ## Prerequisite
 To build this project, you require:
-- Android Studio Electric Eel
+- Android Studio Flamingo
 - Gradle 7.5
-- Kotlin 1.7
-- Android Gradle Plugin 7.4.0-alpha10
+- Kotlin 1.7.20
+- Android Gradle Plugin 8.0.0-alpha02
 
 Run the following command in the root of the project to setup your Android Studio:
 ```
