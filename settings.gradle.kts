@@ -9,6 +9,6 @@ include(
     ":libraries:testUtils",
     ":presentation-android",
     ":lib_character_search",
-    ":character_detail",
+    ":character-detail",
     ":navigation"
 )

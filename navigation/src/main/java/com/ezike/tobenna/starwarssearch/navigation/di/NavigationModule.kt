@@ -1,7 +1,7 @@
 package com.ezike.tobenna.starwarssearch.navigation.di
 
 import androidx.navigation.NavController
-import com.ezike.tobenna.starwarssearch.character_search.navigation.Navigator
+import com.ezike.tobenna.starwarssearch.charactersearch.navigation.Navigator
 import com.ezike.tobenna.starwarssearch.core.ext.NavigateBack
 import com.ezike.tobenna.starwarssearch.navigation.SearchScreenNavigator
 import dagger.Binds

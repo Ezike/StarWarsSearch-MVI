@@ -2,14 +2,14 @@ import Dependencies.View.Version.fragment
 
 const val kotlinAndroid: String = "android"
 const val kotlinKapt: String = "kapt"
-const val ktLintVersion: String = "0.46.1"
-const val kotlinVersion = "1.7.0"
+const val ktLintVersion: String = "0.47.1"
+const val kotlinVersion = "1.7.20"
 
 object Config {
     object Version {
         const val minSdkVersion: Int = 21
-        const val compileSdkVersion: Int = 31
-        const val targetSdkVersion: Int = 31
+        const val compileSdkVersion: Int = 33
+        const val targetSdkVersion: Int = 33
         const val versionName: String = "1.0"
         const val versionCode: Int = 1
     }
@@ -31,10 +31,10 @@ object Dependencies {
     object AndroidX : Libraries {
         object Version {
             const val coreKtx: String = "1.7.0"
-            const val navigation: String = "2.5.0"
+            const val navigation: String = "2.6.0-alpha01"
             const val multidex: String = "2.0.1"
-            const val lifeCycle: String = "2.5.0"
-            const val activity: String = "1.5.0"
+            const val lifeCycle: String = "2.6.0-alpha02"
+            const val activity: String = "1.6.0"
         }
 
         const val coreKtx: String = "androidx.core:core-ktx:${Version.coreKtx}"
@@ -65,9 +65,9 @@ object Dependencies {
         object Version {
             const val materialComponent: String = "1.4.0"
             const val shimmerLayout: String = "0.5.0"
-            const val appCompat: String = "1.4.2"
+            const val appCompat: String = "1.6.0-rc01"
             const val constraintLayout: String = "2.0.0"
-            const val fragment: String = "1.5.0"
+            const val fragment: String = "1.6.0-alpha02"
             const val cardView: String = "1.0.0"
             const val recyclerView: String = "1.2.1"
         }
@@ -124,7 +124,7 @@ object Dependencies {
 
     object DI {
         object Version {
-            const val daggerHilt: String = "2.42"
+            const val daggerHilt: String = "2.44"
         }
 
         object AnnotationProcessor {
@@ -141,7 +141,7 @@ object Dependencies {
 
     object Coroutines : Libraries {
         object Version {
-            const val coroutines: String = "1.6.3"
+            const val coroutines: String = "1.6.4"
         }
 
         const val core: String =
@@ -154,7 +154,7 @@ object Dependencies {
 
     object Cache {
         object Version {
-            const val room: String = "2.5.0-alpha01"
+            const val room: String = "2.5.0-alpha03"
         }
 
         object AnnotationProcessor {
@@ -207,7 +207,7 @@ object Dependencies {
 object ProjectLib {
     const val app: String = ":app"
     const val core: String = ":core"
-    const val characterDetail: String = ":character_detail"
+    const val characterDetail: String = ":character-detail"
     const val navigation: String = ":navigation"
     const val presentation: String = ":presentation"
     const val presentationAndroid: String = ":presentation-android"

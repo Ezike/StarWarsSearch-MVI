@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.ezike.tobenna.starwarssearch.character_search.ui.SearchFragment"
+        android:name="com.ezike.tobenna.starwarssearch.charactersearch.ui.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search" />
 

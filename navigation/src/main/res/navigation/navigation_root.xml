@@ -10,7 +10,7 @@
 
         <argument
             android:name="character"
-            app:argType="com.ezike.tobenna.starwarssearch.character_detail.model.CharacterDetailModel" />
+            app:argType="com.ezike.tobenna.starwarssearch.characterdetail.model.CharacterDetailModel" />
     </action>
 
     <include app:graph="@navigation/search_nav_graph" />

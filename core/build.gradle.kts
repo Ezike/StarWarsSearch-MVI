@@ -13,6 +13,7 @@ plugins {
 }
 
 android {
+    namespace = "com.ezike.tobenna.starwarssearch.core"
     compileSdkVersion(Config.Version.compileSdkVersion)
     defaultConfig {
         minSdkVersion(Config.Version.minSdkVersion)

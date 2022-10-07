@@ -1,7 +1,7 @@
 package com.ezike.tobenna.starwarssearch.core.di
 
 import com.ezike.tobenna.starwarssearch.core.executor.PostExecutionThreadImpl
-import com.ezike.tobenna.starwarssearch.lib_character_search.domain.executor.PostExecutionThread
+import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.executor.PostExecutionThread
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

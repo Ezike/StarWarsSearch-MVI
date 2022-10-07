@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.ezike.tobenna.starwarssearch.character_search"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
     <application>
         <activity
             android:name="com.ezike.tobenna.starwarssearch.MainActivity"
-            android:theme="@style/Theme.StarWarsSearch"/>
+            android:theme="@style/Theme.StarWarsSearch" />
     </application>
 
 </manifest>

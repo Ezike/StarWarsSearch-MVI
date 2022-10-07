@@ -23,6 +23,7 @@ plugins {
 }
 
 android {
+    namespace = "com.ezike.tobenna.starwarssearch"
     defaultConfig {
         applicationId = Config.Android.applicationId
         minSdk = Config.Version.minSdkVersion

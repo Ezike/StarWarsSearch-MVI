@@ -1,9 +1,9 @@
 package com.ezike.tobenna.starwarssearch.navigation
 
 import androidx.navigation.NavController
-import com.ezike.tobenna.starwarssearch.character_detail.model.CharacterDetailModel
-import com.ezike.tobenna.starwarssearch.character_search.model.CharacterModel
-import com.ezike.tobenna.starwarssearch.character_search.navigation.Navigator
+import com.ezike.tobenna.starwarssearch.characterdetail.model.CharacterDetailModel
+import com.ezike.tobenna.starwarssearch.charactersearch.model.CharacterModel
+import com.ezike.tobenna.starwarssearch.charactersearch.navigation.Navigator
 import javax.inject.Inject
 
 internal class SearchScreenNavigator @Inject constructor(
