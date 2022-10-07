@@ -1,7 +1,7 @@
-package com.ezike.tobenna.starwarssearch.lib_character_search.remote.utils
+package com.ezike.tobenna.starwarssearch.libcharactersearch.remote.utils
 
-import com.ezike.tobenna.starwarssearch.lib_character_search.remote.ApiService
-import com.ezike.tobenna.starwarssearch.lib_character_search.remote.model.response.CharacterSearchResponse
+import com.ezike.tobenna.starwarssearch.libcharactersearch.remote.ApiService
+import com.ezike.tobenna.starwarssearch.libcharactersearch.remote.model.response.CharacterSearchResponse
 import com.google.common.io.Resources
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
