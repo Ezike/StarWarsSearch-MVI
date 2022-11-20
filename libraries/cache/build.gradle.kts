@@ -22,6 +22,7 @@ android {
                 arguments += Pair("room.incremental", "true")
             }
         }
+        buildFeatures.buildConfig = true
         buildConfigField("int", "databaseVersion", 1.toString())
     }
 

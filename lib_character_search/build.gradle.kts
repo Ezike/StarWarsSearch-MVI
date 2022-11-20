@@ -16,17 +16,15 @@ plugins {
 
 android {
     namespace = "com.ezike.tobenna.starwarssearch.libcharactersearch"
-    compileSdkVersion(Config.Version.compileSdkVersion)
+    compileSdk = Config.Version.compileSdkVersion
     defaultConfig {
-        minSdkVersion(Config.Version.minSdkVersion)
-        targetSdkVersion(Config.Version.targetSdkVersion)
+        buildFeatures.buildConfig = true
         buildConfigField("String", "BASE_URL", "\"https://swapi.dev/api/\"")
     }
 
     buildTypes {
         named(BuildType.DEBUG) {
             isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
-//            versionNameSuffix = BuildTypeDebug.versionNameSuffix
         }
     }
 }
