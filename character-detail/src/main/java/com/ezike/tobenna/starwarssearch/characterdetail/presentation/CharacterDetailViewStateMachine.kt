@@ -7,7 +7,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 
-class CharacterDetailViewStateMachine @AssistedInject constructor(
+internal class CharacterDetailViewStateMachine @AssistedInject constructor(
     intentProcessor: CharacterDetailIntentProcessor,
     reducer: CharacterDetailStateReducer,
     @Assisted character: CharacterDetailModel

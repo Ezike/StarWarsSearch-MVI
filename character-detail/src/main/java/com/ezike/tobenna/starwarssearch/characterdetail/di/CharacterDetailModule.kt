@@ -11,7 +11,7 @@ import dagger.hilt.android.components.ActivityRetainedComponent
 
 @InstallIn(ActivityRetainedComponent::class)
 @Module
-interface CharacterDetailModule {
+internal interface CharacterDetailModule {
 
     @get:Binds
     val CharacterDetailViewIntentProcessor.intentProcessor: CharacterDetailIntentProcessor

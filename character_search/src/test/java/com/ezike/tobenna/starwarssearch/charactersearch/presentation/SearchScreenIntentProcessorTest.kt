@@ -6,8 +6,6 @@ import com.ezike.tobenna.starwarssearch.charactersearch.fakes.FakeSearchHistoryR
 import com.ezike.tobenna.starwarssearch.charactersearch.fakes.FakeSearchRepository
 import com.ezike.tobenna.starwarssearch.charactersearch.mapper.CharacterModelMapper
 import com.ezike.tobenna.starwarssearch.charactersearch.presentation.SearchScreenResult.SearchCharacterResult
-import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.model.Character
-import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.usecase.search.SearchCharacters
 import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.usecase.searchhistory.ClearSearchHistory
 import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.usecase.searchhistory.GetSearchHistory
 import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.usecase.searchhistory.SaveSearch

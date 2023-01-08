@@ -6,14 +6,14 @@ import com.ezike.tobenna.starwarssearch.presentation.base.StateReducer
 import com.ezike.tobenna.starwarssearch.presentation.stateMachine.StateMachine
 import com.ezike.tobenna.starwarssearch.presentation_android.ComponentManager
 
-typealias CharacterDetailIntentProcessor =
-    @JvmSuppressWildcards IntentProcessor<CharacterDetailViewResult>
+internal typealias CharacterDetailIntentProcessor =
+        @JvmSuppressWildcards IntentProcessor<CharacterDetailViewResult>
 
-typealias CharacterDetailStateReducer =
-    @JvmSuppressWildcards StateReducer<CharacterDetailViewState, CharacterDetailViewResult>
+internal typealias CharacterDetailStateReducer =
+        @JvmSuppressWildcards StateReducer<CharacterDetailViewState, CharacterDetailViewResult>
 
-typealias CharacterDetailStateMachine =
-    @JvmSuppressWildcards StateMachine<CharacterDetailViewState, CharacterDetailViewResult>
+internal typealias CharacterDetailStateMachine =
+        @JvmSuppressWildcards StateMachine<CharacterDetailViewState, CharacterDetailViewResult>
 
-typealias DetailComponentManager =
-    @JvmSuppressWildcards ComponentManager<CharacterDetailViewState, CharacterDetailViewResult>
+internal typealias DetailComponentManager =
+        @JvmSuppressWildcards ComponentManager<CharacterDetailViewState, CharacterDetailViewResult>

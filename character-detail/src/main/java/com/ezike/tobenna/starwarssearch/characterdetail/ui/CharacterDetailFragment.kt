@@ -25,7 +25,7 @@ class CharacterDetailFragment : Fragment(R.layout.fragment_character_detail) {
     lateinit var goBack: NavigateBack
 
     @Inject
-    lateinit var creator: CharacterDetailViewModel.Creator
+    internal lateinit var creator: CharacterDetailViewModel.Creator
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

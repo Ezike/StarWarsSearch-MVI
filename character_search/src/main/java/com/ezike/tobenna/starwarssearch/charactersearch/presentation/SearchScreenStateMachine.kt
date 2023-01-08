@@ -4,7 +4,7 @@ import com.ezike.tobenna.starwarssearch.charactersearch.presentation.viewstate.S
 import com.ezike.tobenna.starwarssearch.presentation.stateMachine.RenderStrategy
 import javax.inject.Inject
 
-class SearchScreenStateMachine @Inject constructor(
+internal class SearchScreenStateMachine @Inject constructor(
     intentProcessor: SearchIntentProcessor,
     reducer: SearchStateReducer
 ) : SearchStateMachine(

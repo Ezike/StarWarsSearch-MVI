@@ -13,7 +13,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @InstallIn(ViewModelComponent::class)
 @Module
-interface SearchCharacterModule {
+internal interface SearchCharacterModule {
 
     @get:Binds
     val SearchScreenIntentProcessor.intentProcessor: SearchIntentProcessor

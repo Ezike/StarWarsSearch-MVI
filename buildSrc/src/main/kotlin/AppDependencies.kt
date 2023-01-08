@@ -215,5 +215,4 @@ object ProjectLib {
     const val cache: String = ":libraries:cache"
     const val testUtils: String = ":libraries:testUtils"
     const val characterSearch: String = ":character_search"
-    const val libCharacterSearch: String = ":lib_character_search"
 }

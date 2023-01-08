@@ -1,7 +1,5 @@
 package com.ezike.tobenna.starwarssearch.charactersearch.fakes
 
-import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.model.Character
-import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.repository.SearchHistoryRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 

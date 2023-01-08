@@ -6,8 +6,6 @@ import com.ezike.tobenna.starwarssearch.charactersearch.di.fakes.FakeSearchHisto
 import com.ezike.tobenna.starwarssearch.charactersearch.di.fakes.FakeSearchRepository
 import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.executor.PostExecutionThread
 import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.repository.CharacterDetailRepository
-import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.repository.SearchHistoryRepository
-import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.repository.SearchRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

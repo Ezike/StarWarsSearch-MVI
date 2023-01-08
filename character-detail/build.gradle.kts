@@ -1,11 +1,13 @@
 import Dependencies.AndroidX
 import Dependencies.Coroutines
 import Dependencies.DI
+import Dependencies.Network
 import Dependencies.View
+import ProjectLib.cache
 import ProjectLib.core
-import ProjectLib.libCharacterSearch
 import ProjectLib.presentation
 import ProjectLib.presentationAndroid
+import ProjectLib.remote
 import ProjectLib.testUtils
 
 plugins {
@@ -55,7 +57,11 @@ dependencies {
     implementation(project(core))
     implementation(project(presentation))
     implementation(project(presentationAndroid))
-    implementation(project(libCharacterSearch))
+
+    implementation(project(remote))
+    implementation(project(cache))
+    implementation(Coroutines.core)
+    implementation(Network.retrofit)
 
     testImplementation(project(testUtils))
     androidTestImplementation(project(testUtils))

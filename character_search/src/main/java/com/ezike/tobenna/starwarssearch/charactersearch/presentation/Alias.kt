@@ -6,14 +6,14 @@ import com.ezike.tobenna.starwarssearch.presentation.base.StateReducer
 import com.ezike.tobenna.starwarssearch.presentation.stateMachine.StateMachine
 import com.ezike.tobenna.starwarssearch.presentation_android.ComponentManager
 
-typealias SearchIntentProcessor =
+internal typealias SearchIntentProcessor =
     @JvmSuppressWildcards IntentProcessor<SearchScreenResult>
 
-typealias SearchStateReducer =
+internal typealias SearchStateReducer =
     @JvmSuppressWildcards StateReducer<SearchScreenState, SearchScreenResult>
 
-typealias SearchStateMachine =
+internal typealias SearchStateMachine =
     @JvmSuppressWildcards StateMachine<SearchScreenState, SearchScreenResult>
 
-typealias SearchComponentManager =
+internal typealias SearchComponentManager =
     @JvmSuppressWildcards ComponentManager<SearchScreenState, SearchScreenResult>

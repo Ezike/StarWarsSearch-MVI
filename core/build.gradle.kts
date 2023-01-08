@@ -3,7 +3,6 @@ import Dependencies.Coroutines
 import Dependencies.DI
 import Dependencies.Network
 import Dependencies.View
-import ProjectLib.libCharacterSearch
 
 plugins {
     androidLibrary
@@ -34,9 +33,6 @@ android {
 }
 
 dependencies {
-
-    implementation(project(libCharacterSearch))
-
     implementation(AndroidX.lifeCycleCommon)
     implementation(View.appCompat)
     implementation(View.materialComponent)

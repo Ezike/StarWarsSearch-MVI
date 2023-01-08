@@ -11,7 +11,7 @@ import com.ezike.tobenna.starwarssearch.charactersearch.ui.views.result.SearchRe
 import com.ezike.tobenna.starwarssearch.core.ext.errorMessage
 import javax.inject.Inject
 
-class SearchScreenStateReducer @Inject constructor(
+internal class SearchScreenStateReducer @Inject constructor(
     private val characterModelMapper: CharacterModelMapper
 ) : SearchStateReducer {
 

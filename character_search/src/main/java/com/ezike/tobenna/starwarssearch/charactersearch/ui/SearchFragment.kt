@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.ezike.tobenna.starwarssearch.charactersearch.R
 import com.ezike.tobenna.starwarssearch.charactersearch.databinding.FragmentSearchBinding
 import com.ezike.tobenna.starwarssearch.charactersearch.navigation.Navigator
@@ -14,7 +15,6 @@ import com.ezike.tobenna.starwarssearch.charactersearch.ui.views.result.SearchRe
 import com.ezike.tobenna.starwarssearch.charactersearch.ui.views.search.SearchBarView
 import com.ezike.tobenna.starwarssearch.core.ext.lazyText
 import com.ezike.tobenna.starwarssearch.core.ext.onBackPress
-import com.ezike.tobenna.starwarssearch.core.ext.viewScope
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -37,7 +37,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             subscribe(
                 component = SearchBarView(
                     searchBar = binding.searchBar,
-                    coroutineScope = viewScope
+                    coroutineScope = viewLifecycleOwner.lifecycleScope
                 )
             )
             subscribe(

@@ -8,7 +8,6 @@ import ProjectLib.cache
 import ProjectLib.characterDetail
 import ProjectLib.characterSearch
 import ProjectLib.core
-import ProjectLib.libCharacterSearch
 import ProjectLib.navigation
 import ProjectLib.presentation
 import ProjectLib.presentationAndroid
@@ -63,7 +62,6 @@ dependencies {
     implementation(project(presentationAndroid))
     implementation(project(remote))
     implementation(project(core))
-    implementation(project(libCharacterSearch))
     implementation(project(navigation))
 
     debugImplementation(Performance.leakCanary)

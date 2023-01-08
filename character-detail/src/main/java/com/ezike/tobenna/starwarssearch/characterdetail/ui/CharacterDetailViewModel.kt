@@ -8,7 +8,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 
-class CharacterDetailViewModel @AssistedInject constructor(
+internal class CharacterDetailViewModel @AssistedInject constructor(
     stateMachine: CharacterDetailViewStateMachine.Factory,
     @Assisted character: CharacterDetailModel
 ) : DetailComponentManager(stateMachine.create(character)) {

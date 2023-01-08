@@ -6,6 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CharacterSearchViewModel @Inject constructor(
+internal class CharacterSearchViewModel @Inject constructor(
     searchStateMachine: SearchStateMachine
 ) : SearchComponentManager(searchStateMachine)

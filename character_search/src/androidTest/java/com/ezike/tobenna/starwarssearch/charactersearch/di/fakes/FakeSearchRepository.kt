@@ -1,8 +1,6 @@
 package com.ezike.tobenna.starwarssearch.charactersearch.di.fakes
 
 import com.ezike.tobenna.starwarssearch.charactersearch.ui.DummyData
-import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.model.Character
-import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.repository.SearchRepository
 import com.ezike.tobenna.starwarssearch.testutils.ERROR_MSG
 import com.ezike.tobenna.starwarssearch.testutils.ResponseType
 import kotlinx.coroutines.flow.Flow

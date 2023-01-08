@@ -1,17 +1,15 @@
 package com.ezike.tobenna.starwarssearch.characterdetail.mapper
 
+import com.ezike.tobenna.starwarssearch.characterdetail.data.PlanetEntity
 import com.ezike.tobenna.starwarssearch.characterdetail.model.PlanetModel
-import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.model.Planet
 import com.ezike.tobenna.starwarssearch.presentation.mapper.ModelMapper
 import javax.inject.Inject
 
-class PlanetModelMapper @Inject constructor() : ModelMapper<PlanetModel, Planet> {
+internal class PlanetModelMapper @Inject constructor() : ModelMapper<PlanetModel, PlanetEntity> {
 
-    override fun mapToModel(domain: Planet): PlanetModel {
-        return PlanetModel(domain.name, domain.population)
-    }
+    override fun mapToModel(domain: PlanetEntity): PlanetModel =
+        PlanetModel(domain.name, domain.population)
 
-    override fun mapToDomain(model: PlanetModel): Planet {
-        return Planet(model.name, model.population)
-    }
+    override fun mapToDomain(model: PlanetModel): PlanetEntity =
+        PlanetEntity(model.name, model.population)
 }

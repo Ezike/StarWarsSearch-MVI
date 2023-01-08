@@ -2,10 +2,11 @@ import Dependencies.AndroidX
 import Dependencies.Coroutines
 import Dependencies.DI
 import Dependencies.FlowBinding
+import Dependencies.Network
 import Dependencies.Test
 import Dependencies.View
+import ProjectLib.cache
 import ProjectLib.core
-import ProjectLib.libCharacterSearch
 import ProjectLib.presentation
 import ProjectLib.presentationAndroid
 import ProjectLib.remote
@@ -37,7 +38,6 @@ android {
     buildTypes {
         named(BuildType.DEBUG) {
             isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
-//            versionNameSuffix(BuildTypeDebug.versionNameSuffix)
         }
     }
 
@@ -63,10 +63,12 @@ android {
 }
 
 dependencies {
+    implementation(project(remote))
+    implementation(project(cache))
+    implementation(Network.retrofit)
     implementation(project(core))
     implementation(project(presentation))
     implementation(project(presentationAndroid))
-    implementation(project(libCharacterSearch))
 
     testImplementation(project(testUtils))
     androidTestImplementation(project(testUtils))

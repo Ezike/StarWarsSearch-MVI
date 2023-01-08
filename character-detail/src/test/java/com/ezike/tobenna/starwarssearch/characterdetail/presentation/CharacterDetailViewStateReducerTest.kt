@@ -1,7 +1,6 @@
 package com.ezike.tobenna.starwarssearch.characterdetail.presentation
 
 import com.ezike.tobenna.starwarssearch.characterdetail.data.DummyData
-import com.ezike.tobenna.starwarssearch.characterdetail.mapper.CharacterDetailModelMapper
 import com.ezike.tobenna.starwarssearch.characterdetail.mapper.FilmModelMapper
 import com.ezike.tobenna.starwarssearch.characterdetail.mapper.PlanetModelMapper
 import com.ezike.tobenna.starwarssearch.characterdetail.mapper.SpecieModelMapper
@@ -10,7 +9,6 @@ import com.ezike.tobenna.starwarssearch.characterdetail.presentation.viewstate.C
 import com.ezike.tobenna.starwarssearch.characterdetail.presentation.viewstate.translateTo
 import com.ezike.tobenna.starwarssearch.characterdetail.ui.views.profile.ProfileViewStateFactory
 import com.ezike.tobenna.starwarssearch.core.ext.errorMessage
-import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.model.Character
 import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.model.Film
 import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.model.Planet
 import com.ezike.tobenna.starwarssearch.libcharactersearch.domain.model.Specie

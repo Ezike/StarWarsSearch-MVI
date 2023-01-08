@@ -3,7 +3,6 @@ package com.ezike.tobenna.starwarssearch.characterdetail.presentation
 import com.ezike.tobenna.starwarssearch.characterdetail.data.DummyData
 import com.ezike.tobenna.starwarssearch.characterdetail.fakes.FakeCharacterDetailRepository
 import com.ezike.tobenna.starwarssearch.characterdetail.fakes.TestPostExecutionThread
-import com.ezike.tobenna.starwarssearch.characterdetail.mapper.CharacterDetailModelMapper
 import com.ezike.tobenna.starwarssearch.characterdetail.model.CharacterDetailModel
 import com.ezike.tobenna.starwarssearch.characterdetail.ui.LoadCharacterDetailIntent
 import com.ezike.tobenna.starwarssearch.characterdetail.ui.views.error.RetryFetchCharacterDetailsIntent

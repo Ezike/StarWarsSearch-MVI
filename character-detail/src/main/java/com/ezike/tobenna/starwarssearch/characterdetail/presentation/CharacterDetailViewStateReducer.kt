@@ -1,6 +1,5 @@
 package com.ezike.tobenna.starwarssearch.characterdetail.presentation
 
-import com.ezike.tobenna.starwarssearch.characterdetail.mapper.CharacterDetailModelMapper
 import com.ezike.tobenna.starwarssearch.characterdetail.mapper.FilmModelMapper
 import com.ezike.tobenna.starwarssearch.characterdetail.mapper.PlanetModelMapper
 import com.ezike.tobenna.starwarssearch.characterdetail.mapper.SpecieModelMapper
@@ -12,11 +11,10 @@ import com.ezike.tobenna.starwarssearch.characterdetail.ui.views.profile.Profile
 import com.ezike.tobenna.starwarssearch.core.ext.errorMessage
 import javax.inject.Inject
 
-class CharacterDetailViewStateReducer @Inject constructor(
+internal class CharacterDetailViewStateReducer @Inject constructor(
     private val planetModelMapper: PlanetModelMapper,
     private val specieModelMapper: SpecieModelMapper,
     private val filmModelMapper: FilmModelMapper,
-    private val characterModelMapper: CharacterDetailModelMapper
 ) : CharacterDetailStateReducer {
 
     override fun reduce(
@@ -25,9 +23,8 @@ class CharacterDetailViewStateReducer @Inject constructor(
     ): CharacterDetailViewState {
         return when (result) {
             is CharacterDetail -> oldState.translateTo {
-                val character = characterModelMapper.mapToModel(result.character)
                 profileState(
-                    profileViewState = ProfileViewStateFactory.create(model = character)
+                    profileViewState = ProfileViewStateFactory.create(model = result.character)
                 )
             }
             is FetchCharacterDetailError -> oldState.translateTo {
