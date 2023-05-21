@@ -57,7 +57,7 @@ object Dependencies {
                 multiDex,
                 activity,
                 lifeCycleCommon,
-                viewModel
+                viewModel,
             )
     }
 
@@ -118,7 +118,7 @@ object Dependencies {
             loggingInterceptor,
             retrofit,
             retrofitMoshi,
-            moshi
+            moshi,
         )
     }
 
@@ -141,7 +141,7 @@ object Dependencies {
 
     object Coroutines : Libraries {
         object Version {
-            const val coroutines: String = "1.6.4"
+            const val coroutines: String = "1.7.1"
         }
 
         const val core: String =
