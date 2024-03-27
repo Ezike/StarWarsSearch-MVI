@@ -13,10 +13,10 @@ repositories {
 object Plugin {
     object Version {
         const val spotless: String = "6.11.0"
-        const val kotlin: String = "2.0.0-Beta2"
+        const val kotlin: String = "1.9.23"
         const val androidGradle: String = "8.2.0"
-        const val navigation: String = "2.6.0-alpha01"
-        const val daggerHiltAndroid: String = "2.44"
+        const val navigation: String = "2.7.7"
+        const val daggerHiltAndroid: String = "2.51"
     }
 
     const val spotless: String = "com.diffplug.spotless:spotless-plugin-gradle:${Version.spotless}"
